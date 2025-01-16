@@ -3,8 +3,8 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: '이다예',
+  tagline: '조이 언어발달센',
   favicon: 'img/favicon.ico',
 
   // GitHub Pages URL 설정
