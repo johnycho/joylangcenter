@@ -9,9 +9,9 @@ const config: Config = {
 
   // GitHub Pages URL 설정
   url: 'https://johnycho.github.io', // GitHub Pages URL
-  baseUrl: '/johny-blog/', // 리포지토리 이름
+  baseUrl: '/joylangcenter/', // 리포지토리 이름
   organizationName: 'johnycho', // GitHub 사용자명
-  projectName: 'johny-blog', // GitHub 리포지토리 이름
+  projectName: 'joylangcenter', // GitHub 리포지토리 이름
   deploymentBranch: 'gh-pages', // 배포 브랜치
   trailingSlash: false,
 
@@ -29,11 +29,11 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/johnycho/johny-blog/edit/main/',
+          editUrl: 'https://github.com/johnycho/joylangcenter/edit/main/',
         },
         blog: {
           showReadingTime: true,
-          editUrl: 'https://github.com/johnycho/johny-blog/edit/main/',
+          editUrl: 'https://github.com/johnycho/joylangcenter/edit/main/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -44,7 +44,7 @@ const config: Config = {
 
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: '조이 언어발달센터',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
@@ -58,7 +58,7 @@ const config: Config = {
         },
         { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/johnycho/johny-blog',
+          href: 'https://github.com/johnycho/joylangcenter',
           label: 'GitHub',
           position: 'right',
         },
@@ -102,7 +102,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/johnycho/johny-blog',
+              href: 'https://github.com/johnycho/joylangcenter',
             },
           ],
         },
