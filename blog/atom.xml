@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://johnycho.github.io/joylangcenter/blog</id>
-    <title>이다예 Blog</title>
+    <title>이다예22 Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://johnycho.github.io/joylangcenter/blog"/>
-    <subtitle>이다예 Blog</subtitle>
+    <subtitle>이다예22 Blog</subtitle>
     <icon>https://johnycho.github.io/joylangcenter/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
