@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: '이다예',
-  tagline: '조이 언어발달센터2',
+  tagline: '조이 언어발달센터',
   favicon: 'img/favicon.ico',
 
   // GitHub Pages URL 설정
