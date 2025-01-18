@@ -3,8 +3,8 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: '이다예123',
-  tagline: '조이 언어발달센터123',
+  title: '이다예12345',
+  tagline: '조이 언어발달센터12345',
   favicon: 'img/favicon.ico',
 
   // GitHub Pages URL 설정
@@ -12,7 +12,7 @@ const config: Config = {
   baseUrl: '/joylangcenter/', // 리포지토리 이름
   organizationName: 'johnycho', // GitHub 사용자명
   projectName: 'joylangcenter', // GitHub 리포지토리 이름
-  deploymentBranch: 'main', // 배포 브랜치
+  deploymentBranch: 'gh-pages', // 배포 브랜치
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
