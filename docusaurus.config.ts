@@ -12,7 +12,7 @@ const config: Config = {
   baseUrl: '/joylangcenter/', // 리포지토리 이름
   organizationName: 'johnycho', // GitHub 사용자명
   projectName: 'joylangcenter', // GitHub 리포지토리 이름
-  deploymentBranch: 'gh-pages', // 배포 브랜치
+  deploymentBranch: 'main', // 배포 브랜치
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
