@@ -44,10 +44,10 @@ const config: Config = {
 
   themeConfig: {
     navbar: {
-      title: '조이 언어발달센터',
+      // title: '조이 언어발달센터',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo_joylangcenter.png',
       },
       items: [
         {
