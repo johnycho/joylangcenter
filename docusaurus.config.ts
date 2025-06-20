@@ -117,22 +117,15 @@ const config: Config = {
           ],
         },
         {
-          href: 'https://pf.kakao.com/_sxjPXn',
+          type: 'html',
           position: 'right',
-          className: 'navbar-kakao-channel-logo',
-          'aria-label': 'Kakao Channel',
-        },
-        {
-          href: 'https://blog.naver.com/joylangcenter',
-          position: 'right',
-          className: 'navbar-naver-blog-logo',
-          'aria-label': 'Naver Blog',
-        },
-        {
-          href: 'https://www.instagram.com/joylangcenter',
-          position: 'right',
-          className: 'navbar-instagram-logo',
-          'aria-label': 'Instagram',
+          value: `
+            <div class="social-icons">
+              <a href="https://instagram.com/joylangcenter" class="navbar-instagram-logo" aria-label="Instagram"></a>
+              <a href="https://pf.kakao.com/your-channel" class="navbar-kakao-channel-logo" aria-label="Kakao Channel"></a>
+              <a href="https://blog.naver.com/your-blog" class="navbar-naver-blog-logo" aria-label="Naver Blog"></a>
+            </div>
+          `
         },
       ],
     },

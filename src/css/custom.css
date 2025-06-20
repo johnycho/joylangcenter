@@ -80,6 +80,16 @@ pre.editor-line-text span.cursor {
   opacity: 0.5; /* 마우스를 올리면 흐려짐 */
 }
 
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 아이콘 사이 여백 */
+}
+
+.social-icons a {
+  display: inline-block;
+}
+
 /* footer 조정 */
 .footer {
   min-height: 10px; /* 최소 높이 설정 */
