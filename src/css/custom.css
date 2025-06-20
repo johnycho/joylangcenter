@@ -54,11 +54,23 @@ pre.editor-line-text span.cursor {
   height: 24px;
 }
 
+/* GNB instagram */
+.navbar-instagram-logo {
+  background-image: url('/img/instagram.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
 html[data-theme='dark'] .navbar-github-logo {
   background-image: url("/img/github-mark-white.svg");
 }
 
-.navbar-github-logo:hover {
+.navbar-github-logo:hover,
+.navbar-instagram-logo:hover{
   opacity: 0.5; /* ✅ 마우스를 올리면 흐려짐 */
 }
 
