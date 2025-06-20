@@ -10,10 +10,10 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://johnycho.github.io', // GitHub Pages URL
+  url: 'https://joylangcenter.com', // GitHub Pages URL
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/joylangcenter', // 리포지토리 이름
+  baseUrl: '/', // 리포지토리 이름
   deploymentBranch: 'gh-pages', // 배포 브랜치
   trailingSlash: false,
 
