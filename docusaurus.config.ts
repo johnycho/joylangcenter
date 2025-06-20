@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: '조니의 개발 블로그',
+  title: '조이 언어발달센터',
   tagline: 'Developer Archive',
   favicon: 'img/favicon.ico',
 
@@ -20,7 +20,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'johnycho', // GitHub 사용자명
-  projectName: 'joylangcenter234', // GitHub 리포지토리 이름
+  projectName: 'joylangcenter', // GitHub 리포지토리 이름
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
