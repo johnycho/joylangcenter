@@ -57,12 +57,11 @@ pre.editor-line-text span.cursor {
 /* GNB instagram */
 .navbar-instagram-logo {
   background-image: url('/img/instagram.svg');
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 24px;
+  width: 48px;
   height: 24px;
-  display: inline-block;
-  margin-top: 0.5rem;
 }
 
 html[data-theme='dark'] .navbar-github-logo {
