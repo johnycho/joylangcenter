@@ -121,9 +121,9 @@ const config: Config = {
           position: 'right',
           value: `
             <div class="social-icons">
+              <a href="https://blog.naver.com/joylangcenter" class="navbar-naver-blog-logo" aria-label="Naver Blog"></a>
               <a href="https://instagram.com/joylangcenter" class="navbar-instagram-logo" aria-label="Instagram"></a>
-              <a href="https://pf.kakao.com/your-channel" class="navbar-kakao-channel-logo" aria-label="Kakao Channel"></a>
-              <a href="https://blog.naver.com/your-blog" class="navbar-naver-blog-logo" aria-label="Naver Blog"></a>
+              <a href="https://pf.kakao.com/_sxjPXn" class="navbar-kakao-channel-logo" aria-label="Kakao Channel"></a>
             </div>
           `
         },
@@ -131,43 +131,43 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      // links: [
-      //   {
-      //     title: 'Posts',
-      //     items: [
-      //       {
-      //         label: 'Hello',
-      //         to: '/blog/johny-dev-blog-launched',
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     title: 'Community',
-      //     items: [
-      //       {
-      //         label: 'Stack Overflow',
-      //         href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-      //       },
-      //       {
-      //         label: 'Discord',
-      //         href: 'https://discordapp.com/invite/docusaurus',
-      //       },
-      //       {
-      //         label: 'X',
-      //         href: 'https://x.com/docusaurus',
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     title: 'More',
-      //     items: [
-      //       {
-      //         label: 'GitHub',
-      //         href: 'https://github.com/johnycho',
-      //       },
-      //     ],
-      //   },
-      // ],
+      links: [
+        // {
+        //   title: 'Posts',
+        //   items: [
+        //     {
+        //       label: 'Hello',
+        //       to: '/blog/johny-dev-blog-launched',
+        //     },
+        //   ],
+        // },
+        {
+          title: 'Community',
+          items: [
+            {
+              className: 'navbar-naver-blog-logo',
+              href: 'https://blog.naver.com/joylangcenter',
+            },
+            {
+              className: 'navbar-instagram-logo',
+              href: 'https://instagram.com/joylangcenter',
+            },
+            {
+              className: 'navbar-kakao-channel-logo',
+              href: 'https://pf.kakao.com/_sxjPXn',
+            },
+          ],
+        },
+        // {
+        //   title: 'More',
+        //   items: [
+        //     {
+        //       label: 'GitHub',
+        //       href: 'https://github.com/johnycho',
+        //     },
+        //   ],
+        // },
+      ],
       copyright: `Copyright © ${new Date().getFullYear()} Joy Language Development Center. All rights reserved.`,
     },
     prism: {
