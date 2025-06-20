@@ -145,14 +145,17 @@ const config: Config = {
           title: 'Community',
           items: [
             {
+              label: 'Naver Blog',
               className: 'navbar-naver-blog-logo',
               href: 'https://blog.naver.com/joylangcenter',
             },
             {
+              label: 'Instagram',
               className: 'navbar-instagram-logo',
               href: 'https://instagram.com/joylangcenter',
             },
             {
+              label: 'Kakao Channel',
               className: 'navbar-kakao-channel-logo',
               href: 'https://pf.kakao.com/_sxjPXn',
             },
