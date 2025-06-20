@@ -79,6 +79,7 @@ html[data-theme='dark'] .navbar-github-logo {
 }
 
 .navbar-github-logo:hover,
+.navbar-naver-blog-logo:hover,
 .navbar-instagram-logo:hover{
   opacity: 0.5; /* ✅ 마우스를 올리면 흐려짐 */
 }
