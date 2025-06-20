@@ -117,10 +117,10 @@ const config: Config = {
           ],
         },
         {
-          href: 'https://github.com/johnycho',
+          href: 'https://www.instagram.com/joylangcenter',
           // label: 'GitHub',
           position: 'right',
-          className: 'navbar-github-logo',
+          label: 'Instagram',
         },
       ],
     },
