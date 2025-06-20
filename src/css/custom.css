@@ -44,14 +44,14 @@ pre.editor-line-text span.cursor {
   line-height: 24px;
 }
 
-/* GNB github */
-.navbar-github-logo {
-  background-image: url("/img/github-mark.svg");
+/* GNB Kakao Channel */
+.navbar-kakao-channel-logo {
+  background-image: url("/img/kakao-channel.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 48px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 
 /* GNB Naver Blog */
@@ -74,14 +74,10 @@ pre.editor-line-text span.cursor {
   height: 32px;
 }
 
-html[data-theme='dark'] .navbar-github-logo {
-  background-image: url("/img/github-mark-white.svg");
-}
-
-.navbar-github-logo:hover,
+.navbar-kakao-channel-logo:hover,
 .navbar-naver-blog-logo:hover,
 .navbar-instagram-logo:hover{
-  opacity: 0.5; /* ✅ 마우스를 올리면 흐려짐 */
+  opacity: 0.5; /* 마우스를 올리면 흐려짐 */
 }
 
 /* footer 조정 */

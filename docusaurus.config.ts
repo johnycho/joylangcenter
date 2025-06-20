@@ -117,6 +117,12 @@ const config: Config = {
           ],
         },
         {
+          href: 'https://pf.kakao.com/_sxjPXn',
+          position: 'right',
+          className: 'navbar-kakao-channel-logo',
+          'aria-label': 'Kakao Channel',
+        },
+        {
           href: 'https://blog.naver.com/joylangcenter',
           position: 'right',
           className: 'navbar-naver-blog-logo',
