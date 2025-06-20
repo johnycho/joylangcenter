@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnycho_dev=self.webpackChunkjohnycho_dev||[]).push([[239],{5840:a=>{a.exports=JSON.parse('{"tags":[{"label":"Java","permalink":"/joylangcenter/docs/tags/java","description":"Java tag description","count":1}]}')}}]);
