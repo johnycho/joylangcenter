@@ -163,7 +163,7 @@ const config: Config = {
       //     ],
       //   },
       // ],
-      copyright: `Copyright © ${new Date().getFullYear()} Johny Cho. All rights reserved.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Joy Language Development Center. All rights reserved.`,
     },
     prism: {
       theme: prismThemes.github,
