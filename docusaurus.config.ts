@@ -90,10 +90,10 @@ const config: Config = {
       },
     },
     navbar: {
-      title: '조이 언어발달센터',
+      // title: '조이 언어발달센터',
       logo: {
-        alt: 'Johny Dev Logo',
-        src: 'https://github.com/johnycho.png',
+        alt: 'Joy Logo',
+        src: 'img/logo-joy.png',
         className: 'custom-navbar-logo' /* 로고 이미지 원형으로 만들기 */
       },
       items: [
