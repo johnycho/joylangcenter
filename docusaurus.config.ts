@@ -118,9 +118,8 @@ const config: Config = {
         },
         {
           href: 'https://www.instagram.com/joylangcenter',
-          // label: 'GitHub',
-          position: 'right',
           label: 'Instagram',
+          position: 'right',
         },
       ],
     },
