@@ -54,6 +54,16 @@ pre.editor-line-text span.cursor {
   height: 24px;
 }
 
+/* GNB Naver Blog */
+.navbar-naver-blog-logo {
+  background-image: url('/img/naver-blog.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 32px;
+  height: 32px;
+}
+
 /* GNB instagram */
 .navbar-instagram-logo {
   background-image: url('/img/instagram.svg');

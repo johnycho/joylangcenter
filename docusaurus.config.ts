@@ -117,8 +117,13 @@ const config: Config = {
           ],
         },
         {
+          href: 'https://blog.naver.com/joylangcenter',
+          position: 'right',
+          className: 'navbar-naver-blog-logo',
+          'aria-label': 'Naver Blog',
+        },
+        {
           href: 'https://www.instagram.com/joylangcenter',
-          // label: 'Instagram',
           position: 'right',
           className: 'navbar-instagram-logo',
           'aria-label': 'Instagram',
