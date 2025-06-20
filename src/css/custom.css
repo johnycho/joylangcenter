@@ -60,8 +60,8 @@ pre.editor-line-text span.cursor {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 48px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 
 html[data-theme='dark'] .navbar-github-logo {
