@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://johnycho.github.io/joylangcenter/blog</id>
-    <title>조니의 개발 블로그 Blog</title>
+    <title>조이 언어발달센터 Blog</title>
     <updated>2025-02-03T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://johnycho.github.io/joylangcenter/blog"/>
-    <subtitle>조니의 개발 블로그 Blog</subtitle>
+    <subtitle>조이 언어발달센터 Blog</subtitle>
     <icon>https://johnycho.github.io/joylangcenter/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[🎉 개발 블로그 오픈 🎉]]></title>
