@@ -20,7 +20,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'johnycho', // GitHub 사용자명
-  projectName: 'johny-dev', // GitHub 리포지토리 이름
+  projectName: 'joylangcenter234', // GitHub 리포지토리 이름
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
