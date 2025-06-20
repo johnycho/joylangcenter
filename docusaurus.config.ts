@@ -120,7 +120,7 @@ const config: Config = {
           href: 'https://www.instagram.com/joylangcenter',
           // label: 'Instagram',
           position: 'right',
-          className: 'navbar-instagram-icon',
+          className: 'navbar-instagram-logo',
           'aria-label': 'Instagram',
         },
       ],
