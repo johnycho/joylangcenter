@@ -3,15 +3,22 @@
  * and scoped locally.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
 .heroBanner {
+  background: url("/img/index-banner.jpg") center/cover no-repeat; /* 배경 이미지 적용 */
+  min-height: 50vh;
+  display: flex;
   padding: 4rem 0;
-  text-align: center;
+  text-align: left;
   position: relative;
   overflow: hidden;
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
+    min-height: 25vh;
     padding: 2rem;
   }
 }

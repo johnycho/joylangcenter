@@ -13,8 +13,13 @@
   --ifm-color-primary-light: #33925d;
   --ifm-color-primary-lighter: #359962;
   --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
+  /*--ifm-code-font-size: 95%;*/
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /** 기본 폰트 변경 */
+  --ifm-font-family-base: 'SDMiSaeng', sans-serif;
+  --ifm-font-size-base: 140%;
+  --ifm-code-font-size: 60%;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,4 +32,50 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Glorious Terminal */
+pre.editor-line-text {
+  background-color: #282c34;
+  padding: 0 0 0 50px;
+}
+
+pre.editor-line-text span.cursor {
+  line-height: 24px;
+}
+
+/* GNB github */
+.navbar-github-logo {
+  background-image: url("/img/github-mark.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 48px;
+  height: 24px;
+}
+
+html[data-theme='dark'] .navbar-github-logo {
+  background-image: url("/img/github-mark-white.svg");
+}
+
+.navbar-github-logo:hover {
+  opacity: 0.5; /* ✅ 마우스를 올리면 흐려짐 */
+}
+
+/* footer 조정 */
+.footer {
+  min-height: 10px; /* 최소 높이 설정 */
+  padding: 10px 0; /* 위아래 여백 조절 */
+}
+
+.custom-navbar-logo {
+  border-radius: 50%; /* 원형으로 만들기 */
+  object-fit: cover;
+}
+
+@font-face {
+  font-family: 'SDMiSaeng';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SDMiSaeng.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
