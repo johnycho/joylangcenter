@@ -72,8 +72,8 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
-      defaultMode: 'dark',
-      disableSwitch: false, // 다크/라이트 모드 전환 허용 (true로 설정하면 버튼이 사라짐)
+      defaultMode: 'light',
+      disableSwitch: true, // 다크/라이트 모드 전환 허용 (true로 설정하면 버튼이 사라짐)
       respectPrefersColorScheme: false, // OS 설정과 관계없이 다크 모드 강제 적용
     },
     algolia: {
