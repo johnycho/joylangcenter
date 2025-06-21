@@ -131,46 +131,43 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      links: [
-        // {
-        //   title: 'Posts',
-        //   items: [
-        //     {
-        //       label: 'Hello',
-        //       to: '/blog/johny-dev-blog-launched',
-        //     },
-        //   ],
-        // },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Naver Blog',
-              className: 'navbar-naver-blog-logo',
-              href: 'https://blog.naver.com/joylangcenter',
-            },
-            {
-              label: 'Instagram',
-              className: 'navbar-instagram-logo',
-              href: 'https://instagram.com/joylangcenter',
-            },
-            {
-              label: 'Kakao Channel',
-              className: 'navbar-kakao-channel-logo',
-              href: 'https://pf.kakao.com/_sxjPXn',
-            },
-          ],
-        },
-        // {
-        //   title: 'More',
-        //   items: [
-        //     {
-        //       label: 'GitHub',
-        //       href: 'https://github.com/johnycho',
-        //     },
-        //   ],
-        // },
-      ],
+      // links: [
+      //   {
+      //     title: 'Posts',
+      //     items: [
+      //       {
+      //         label: 'Hello',
+      //         to: '/blog/johny-dev-blog-launched',
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     title: 'Community',
+      //     items: [
+      //       {
+      //         className: 'navbar-naver-blog-logo',
+      //         href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+      //       },
+      //       {
+      //         label: 'Discord',
+      //         href: 'https://discordapp.com/invite/docusaurus',
+      //       },
+      //       {
+      //         label: 'X',
+      //         href: 'https://x.com/docusaurus',
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     title: 'More',
+      //     items: [
+      //       {
+      //         label: 'GitHub',
+      //         href: 'https://github.com/johnycho',
+      //       },
+      //     ],
+      //   },
+      // ],
       copyright: `Copyright © ${new Date().getFullYear()} Joy Language Development Center. All rights reserved.`,
     },
     prism: {
