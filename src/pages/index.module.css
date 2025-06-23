@@ -8,7 +8,7 @@
 
 .heroBanner {
   background: url("/img/index-banner.jpg") center/cover no-repeat; /* 배경 이미지 적용 */
-  min-height: 70vh;
+  min-height: 100vh;
   display: flex;
   padding: 4rem 0;
   text-align: left;
