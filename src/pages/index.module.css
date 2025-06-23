@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
 .heroBanner {
-  background: url("/img/index-banner.jpg") center/cover no-repeat; /* 배경 이미지 적용 */
+  background: url("/img/joy-banner.jpeg") center/cover no-repeat; /* 배경 이미지 적용 */
   min-height: 50vh;
   display: flex;
   padding: 4rem 0;
