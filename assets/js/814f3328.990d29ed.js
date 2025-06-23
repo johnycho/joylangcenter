@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnycho_dev=self.webpackChunkjohnycho_dev||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"\ud83c\udf89 \uac1c\ubc1c \ube14\ub85c\uadf8 \uc624\ud508 \ud83c\udf89","permalink":"/blog/johny-dev-blog-launched","unlisted":false,"date":"2025-02-03T00:00:00.000Z"}]}')}}]);
