@@ -30,3 +30,16 @@ jobs:
           github_token: ${{ secrets.GH_ACTIONS_TOKEN }}
           publish_dir: ./build
           cname: joylangcenter.com
+
+      - name: Wait for 30 seconds
+        run: sleep 30
+
+      # API Reference
+      # https://www.algolia.com/doc/rest-api/crawler/#tag/actions/operation/startReindex
+      # DOCSEARCH_CRAWLER_CREDENTIALS is a base64-encoded string <Crawler User Id>:<Crawler API Key>
+      # Crawler ID는 크롤러 체크후 'Manage Crawlers' 버튼 클릭하거나, 크롤러 페이지 url로 알 수 있음
+      - name: Trigger Algolia DocSearch Crawler
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+               -H "Authorization: Basic ${{ secrets.DOCSEARCH_CRAWLER_CREDENTIALS }}" \
+               "https://crawler.algolia.com/api/1/crawlers/1da9b3e7-6397-4ae4-a07f-864dca332c60/reindex"
