@@ -2,8 +2,3 @@ hello:
   label: Hello
   permalink: /hello
   description: Hello tag description
-
-jpa:
-  label: JPA
-  permalink: /jpa
-  description: JPA tag description
