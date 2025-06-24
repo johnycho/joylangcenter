@@ -6,7 +6,7 @@
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://joylangcenter.com/blog"/>
     <subtitle>조이 언어발달센터 Blog</subtitle>
-    <icon>https://joylangcenter.com/img/favicon.ico</icon>
+    <icon>https://joylangcenter.com/img/favicon.png</icon>
     <entry>
         <title type="html"><![CDATA[🎉 조이 언어발달센터 블로그 오픈 🎉]]></title>
         <id>https://joylangcenter.com/blog/joy-langcenter-blog-launched</id>
