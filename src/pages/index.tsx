@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import Head from '@docusaurus/Head';
 
 import styles from './index.module.css';
 import Heading from "@theme/Heading";
@@ -34,7 +35,15 @@ export default function Home(): ReactNode {
   return (
     <Layout
       // title={`${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="조이 언어발달센터 - 즐거운 의사소통이 있는 곳">
+      <Head>
+        <meta property="og:title" content="조이 언어발달센터" />
+        <meta property="og:description" content="즐거운 의사소통이 있는 곳, 조이 언어발달센터입니다." />
+        <meta property="og:image" content="/img/joy-preview.png" />
+        <meta property="og:url" content="https://joylangcenter.com/" />
+        <meta property="og:type" content="website" />
+      </Head>
+
       <HomepageHeader />
       <main>
         <HomepageFeatures />
