@@ -121,9 +121,9 @@ const config: Config = {
           position: 'right',
           value: `
             <div class="social-icons">
-              <a href="https://blog.naver.com/joylangcenter" class="navbar-naver-blog-logo" aria-label="Naver Blog"></a>
-              <a href="https://instagram.com/joylangcenter" class="navbar-instagram-logo" aria-label="Instagram"></a>
-              <a href="https://pf.kakao.com/_sxjPXn" class="navbar-kakao-channel-logo" aria-label="Kakao Channel"></a>
+              <a href="https://blog.naver.com/joylangcenter" class="navbar-naver-blog-logo" aria-label="Naver Blog" target="_blank" rel="noopener noreferrer"></a>
+              <a href="https://instagram.com/joylangcenter" class="navbar-instagram-logo" aria-label="Instagram" target="_blank" rel="noopener noreferrer"></a>
+              <a href="https://pf.kakao.com/_sxjPXn" class="navbar-kakao-channel-logo" aria-label="Kakao Channel" target="_blank" rel="noopener noreferrer"></a>
             </div>
           `
         },
