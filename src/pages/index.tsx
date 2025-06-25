@@ -11,26 +11,21 @@ import styles from './index.module.css';
 
 function HomepageHeader({ onVisible }: { onVisible: () => void }) {
   // const {siteConfig} = useDocusaurusContext();
-  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const mountTimer = setTimeout(() => {
-      setMounted(true);
-
-      const animTimer = setTimeout(() => {
+    const trigger = () => {
+      requestAnimationFrame(() => {
         setVisible(true);
         // 배너 애니메이션 끝나는 시점 이후 피쳐 애니메이션 트리거
-        setTimeout(onVisible, 1200);
-      }, 150);
+        setTimeout(onVisible, 1200); // 애니메이션 시간 후 피처 보여줌
+      });
+    };
 
-      return () => clearTimeout(animTimer);
-    }, 50);
-
-    return () => clearTimeout(mountTimer);
+    // 약간의 mount 지연 후 애니메이션 시작
+    const delay = setTimeout(trigger, 100);
+    return () => clearTimeout(delay);
   }, [onVisible]);
-
-  if (!mounted) return null; // 아예 렌더링하지 않음
 
   return (
     <header className={clsx(
