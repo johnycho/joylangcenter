@@ -1,7 +1,7 @@
 import type {ReactNode} from 'react';
 import {useEffect, useState} from 'react';
 import clsx from 'clsx';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+// import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Head from '@docusaurus/Head';
@@ -10,7 +10,7 @@ import styles from './index.module.css';
 import Heading from "@theme/Heading";
 
 function HomepageHeader({ onVisible }: { onVisible: () => void }) {
-  const {siteConfig} = useDocusaurusContext();
+  // const {siteConfig} = useDocusaurusContext();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ function HomepageHeader({ onVisible }: { onVisible: () => void }) {
 }
 
 export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
+  // const {siteConfig} = useDocusaurusContext();
   const [showFeatures, setShowFeatures] = useState(false); // 상태 추가
 
   return (
