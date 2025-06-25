@@ -15,19 +15,17 @@ function HomepageHeader({ onVisible }: { onVisible: () => void }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // 50ms 후에 실제로 DOM에 등장시키기
     const mountTimer = setTimeout(() => {
       setMounted(true);
 
-      // 그리고 나서 100ms 후에 애니메이션 시작
       const animTimer = setTimeout(() => {
         setVisible(true);
         // 배너 애니메이션 끝나는 시점 이후 피쳐 애니메이션 트리거
         setTimeout(onVisible, 1200);
-      }, 150);
+      }, 500);
 
       return () => clearTimeout(animTimer);
-    }, 300);
+    }, 50);
 
     return () => clearTimeout(mountTimer);
   }, [onVisible]);
