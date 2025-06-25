@@ -39,9 +39,12 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description, delay = 0 }: FeatureItem & { delay?: number }) {
   return (
-    <div className={clsx('col col--4', styles.featureAnimated)}>
+    <div className={clsx('col col--4', styles.featureAnimated)}
+         style={{
+           animationDelay: `${delay}s`,
+         }}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>
@@ -59,7 +62,7 @@ export default function HomepageFeatures(): ReactNode {
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+            <Feature key={idx} delay={idx * 0.2} {...props} />
           ))}
         </div>
       </div>

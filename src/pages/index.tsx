@@ -9,14 +9,18 @@ import Head from '@docusaurus/Head';
 import styles from './index.module.css';
 import Heading from "@theme/Heading";
 
-function HomepageHeader() {
+function HomepageHeader({ onVisible }: { onVisible: () => void }) {
   const {siteConfig} = useDocusaurusContext();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 100); // 짧은 지연 후 등장
+    const timer = setTimeout(() => {
+      setVisible(true);
+      // 배너 애니메이션 끝나는 시점 이후 피쳐 애니메이션 트리거
+      setTimeout(onVisible, 1200); // 애니메이션이 1.2s 이므로
+    }, 100);
     return () => clearTimeout(timer);
-  }, []);
+  }, [onVisible]);
 
   return (
     <header className={clsx(
@@ -43,6 +47,8 @@ function HomepageHeader() {
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
+  const [showFeatures, setShowFeatures] = useState(false); // 상태 추가
+
   return (
     <Layout
       // title={`${siteConfig.title}`}
@@ -55,9 +61,10 @@ export default function Home(): ReactNode {
         <meta property="og:type" content="website" />
       </Head>
 
-      <HomepageHeader />
+      <HomepageHeader onVisible={() => setShowFeatures(true)} />
       <main>
-        <HomepageFeatures />
+        {/* 배너 애니메이션 후에만 등장 */}
+        {showFeatures && <HomepageFeatures />}
       </main>
     </Layout>
   );

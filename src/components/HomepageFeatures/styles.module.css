@@ -24,5 +24,4 @@
 .featureAnimated {
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
-  animation-delay: 1.2s; /* 배너 등장 이후에 시작 */
 }
