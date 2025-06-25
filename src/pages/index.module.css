@@ -29,8 +29,12 @@
 
   /* fade-in 애니메이션 적용 */
   opacity: 0;
+  transform: translateY(20px);
+}
+
+/* JS로 추가되는 클래스 → 등장 애니메이션 실행 */
+.heroBannerVisible {
   animation: fadeInBanner 1.2s ease-out forwards;
-  animation-delay: 0.2s;
 }
 
 @media screen and (max-width: 996px) {

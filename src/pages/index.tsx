@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react';
+import {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -10,8 +11,18 @@ import Heading from "@theme/Heading";
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(true), 100); // 짧은 지연 후 등장
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx(
+        'hero hero--primary',
+        styles.heroBanner,
+        visible && styles.heroBannerVisible)}>
       <div className="container" style={{fontFamily: "'Nanum Pen Script', cursive", color: "#fff"}}>
         {/*<Heading as="h1" className="hero__title"*/}
         {/*         style={{fontFamily: "'Nanum Pen Script', cursive", color: "#fff"}}>*/}
