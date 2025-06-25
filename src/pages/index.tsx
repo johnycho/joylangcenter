@@ -22,7 +22,7 @@ function HomepageHeader({ onVisible }: { onVisible: () => void }) {
         setVisible(true);
         // 배너 애니메이션 끝나는 시점 이후 피쳐 애니메이션 트리거
         setTimeout(onVisible, 1200);
-      }, 500);
+      }, 150);
 
       return () => clearTimeout(animTimer);
     }, 50);
