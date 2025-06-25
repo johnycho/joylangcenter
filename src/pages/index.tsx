@@ -11,35 +11,34 @@ import styles from './index.module.css';
 
 function HomepageHeader({ onVisible }: { onVisible: () => void }) {
   // const {siteConfig} = useDocusaurusContext();
+  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    if (imageLoaded) {
-      // 이미지 로딩 완료 후 짧은 딜레이 후 애니메이션 시작
-      const showTimer = setTimeout(() => {
+    // 50ms 후에 실제로 DOM에 등장시키기
+    const mountTimer = setTimeout(() => {
+      setMounted(true);
+
+      // 그리고 나서 100ms 후에 애니메이션 시작
+      const animTimer = setTimeout(() => {
         setVisible(true);
         // 배너 애니메이션 끝나는 시점 이후 피쳐 애니메이션 트리거
         setTimeout(onVisible, 1200);
-      }, 100);
-      return () => clearTimeout(showTimer);
-    }
-  }, [imageLoaded, onVisible]);
+      }, 150);
+
+      return () => clearTimeout(animTimer);
+    }, 300);
+
+    return () => clearTimeout(mountTimer);
+  }, [onVisible]);
+
+  if (!mounted) return null; // 아예 렌더링하지 않음
 
   return (
     <header className={clsx(
         'hero hero--primary',
         styles.heroBanner,
         visible && styles.heroBannerVisible)}>
-
-      {/* 숨겨진 이미지 태그로 로딩 감지 */}
-      <img
-          src="/img/index-banner.jpg"
-          alt="hero background preload"
-          style={{ display: 'none' }}
-          onLoad={() => setImageLoaded(true)}
-      />
-
       <div className="container" style={{fontFamily: "'Nanum Pen Script', cursive", color: "#fff"}}>
         {/*<Heading as="h1" className="hero__title"*/}
         {/*         style={{fontFamily: "'Nanum Pen Script', cursive", color: "#fff"}}>*/}
