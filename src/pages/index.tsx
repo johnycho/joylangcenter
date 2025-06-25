@@ -11,27 +11,22 @@ import styles from './index.module.css';
 
 function HomepageHeader({ onVisible }: { onVisible: () => void }) {
   // const {siteConfig} = useDocusaurusContext();
-  const [visible, setVisible] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const trigger = () => {
-      requestAnimationFrame(() => {
-        setVisible(true);
-        // 배너 애니메이션 끝나는 시점 이후 피쳐 애니메이션 트리거
-        setTimeout(onVisible, 1200); // 애니메이션 시간 후 피처 보여줌
-      });
+    const img = new Image();
+    img.src = '/img/index-banner.jpg';
+    img.onload = () => {
+      requestAnimationFrame(() => setLoaded(true));
+      setTimeout(onVisible, 1200); // 배너 animation 후 features 보여주기
     };
-
-    // 약간의 mount 지연 후 애니메이션 시작
-    const delay = setTimeout(trigger, 100);
-    return () => clearTimeout(delay);
-  }, [onVisible]);
+  }, []);
 
   return (
     <header className={clsx(
         'hero hero--primary',
         styles.heroBanner,
-        visible && styles.heroBannerVisible)}>
+        loaded && styles.heroBannerVisible)}>
       <div className="container" style={{fontFamily: "'Nanum Pen Script', cursive", color: "#fff"}}>
         {/*<Heading as="h1" className="hero__title"*/}
         {/*         style={{fontFamily: "'Nanum Pen Script', cursive", color: "#fff"}}>*/}
