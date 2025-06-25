@@ -7,7 +7,7 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Head from '@docusaurus/Head';
 
 import styles from './index.module.css';
-import Heading from "@theme/Heading";
+// import Heading from "@theme/Heading";
 
 function HomepageHeader({ onVisible }: { onVisible: () => void }) {
   // const {siteConfig} = useDocusaurusContext();
