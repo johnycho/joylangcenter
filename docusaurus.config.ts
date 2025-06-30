@@ -70,7 +70,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/joy-thumbnail.png',
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true, // 다크/라이트 모드 전환 허용 (true로 설정하면 버튼이 사라짐)
