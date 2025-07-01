@@ -69,6 +69,13 @@ const config: Config = {
   ],
 
   themeConfig: {
+    // 네이버 SEO 설정
+    metadata: [
+      {
+        name: 'naver-site-verification',
+        content: '6b8a11e554c091a99cfa5b16841bb7492467edc4',
+      }
+    ],
     // Replace with your project's social card
     image: 'img/joy-thumbnail.png',
     colorMode: {
