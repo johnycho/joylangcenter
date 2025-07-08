@@ -17,7 +17,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
   /** 기본 폰트 변경 */
-  --ifm-font-family-base: 'SDMiSaeng', sans-serif;
+  --ifm-font-family-base: 'NanumSquareRound', 'SDMiSaeng', sans-serif;
   --ifm-font-size-base: 140%;
   --ifm-code-font-size: 60%;
 }
@@ -106,4 +106,11 @@ pre.editor-line-text span.cursor {
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SDMiSaeng.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRound';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/NanumSquareRound.woff') format('woff');
 }
