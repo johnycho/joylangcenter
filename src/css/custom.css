@@ -48,8 +48,15 @@ pre.editor-line-text span.cursor {
   min-height: 80px;
 }
 
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+
 .navbar__logo img {
-  height: 140%;
+  height: 40px;
+  object-fit: contain;
+  vertical-align: middle;
 }
 
 /* GNB Kakao Channel */
