@@ -110,7 +110,7 @@ pre.editor-line-text span.cursor {
 
 @font-face {
   font-family: 'NanumSquareRound';
-  font-style: normal;
-  font-weight: normal;
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
