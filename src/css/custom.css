@@ -18,8 +18,8 @@
 
   /** 기본 폰트 변경 */
   --ifm-font-family-base: 'NanumSquareRound', 'SDMiSaeng', sans-serif;
-  --ifm-font-size-base: 140%;
-  --ifm-code-font-size: 60%;
+  --ifm-font-size-base: 100%;
+  --ifm-code-font-size: 100%;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -111,6 +111,6 @@ pre.editor-line-text span.cursor {
 @font-face {
   font-family: 'NanumSquareRound';
   font-style: normal;
-  font-weight: 400;
+  font-weight: normal;
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/NanumSquareRound.woff') format('woff');
 }
