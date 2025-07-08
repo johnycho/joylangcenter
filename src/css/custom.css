@@ -44,8 +44,8 @@ pre.editor-line-text span.cursor {
   line-height: 24px;
 }
 
-.navbar {
-  min-height: 80px;
+.navbar__logo img {
+  height: 140%;
 }
 
 /* GNB Kakao Channel */
