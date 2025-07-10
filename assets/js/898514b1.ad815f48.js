@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnycho_dev=self.webpackChunkjohnycho_dev||[]).push([[67],{9187:e=>{e.exports=JSON.parse('{"tags":[{"label":"Hello","permalink":"/docs/tags/hello","description":"Hello tag description","count":1}]}')}}]);

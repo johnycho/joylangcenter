@@ -99,7 +99,7 @@
             <name>이다예 센터장</name>
             <uri>https://joylangcenter.notion.site</uri>
         </author>
-        <category label="Hello" term="Hello"/>
+        <category label="소식" term="소식"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[[공지] [모집] ✨초등 1학년~4학년을 위한 여름 방학 3주 사회성 그룹 프로그램 안내드립니다~!☀️🍉]]></title>
@@ -170,6 +170,6 @@
             <name>이다예 센터장</name>
             <uri>https://joylangcenter.notion.site</uri>
         </author>
-        <category label="Hello" term="Hello"/>
+        <category label="공지사항" term="공지사항"/>
     </entry>
 </feed>
