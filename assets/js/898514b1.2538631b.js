@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnycho_dev=self.webpackChunkjohnycho_dev||[]).push([[67],{9187:e=>{e.exports=JSON.parse('{"tags":[{"label":"\uc120\uc0dd\ub2d8 \uc18c\uac1c","permalink":"/docs/tags/therapist","description":"\uc120\uc0dd\ub2d8 \uc18c\uac1c \ubd84\ub958 \ud0dc\uadf8","count":1}]}')}}]);
