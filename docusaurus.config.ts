@@ -105,22 +105,21 @@ const config: Config = {
       items: [
         {
           to: '/docs/intro',
-          label: 'Docs',
+          label: '센터소개',
           position: 'left',
           type: 'dropdown',
           items: [
-            {type: "docSidebar", sidebarId: "johnyDocsSidebar", label: "All Docs"},
-            {label: "Tags", to: "/docs/tags"},
+            {type: "docSidebar", sidebarId: "johnyDocsSidebar", label: "인사말"},
+            {label: "선생님 소개", to: "/docs/category/therapist"},
           ],
         },
         {
           to: "/blog",
-          label: "Blog",
+          label: "커뮤니티",
           position: "left",
           items: [
-            {label: "All Posts", to: "/blog"},
-            {label: "Archive", to: "/blog/archive"},
-            {label: "Tags", to: "/blog/tags"},
+            {label: "공지사항", to: "/blog/tags/notice"},
+            {label: "센터소식", to: "/blog/tags/news"},
           ],
         },
         {

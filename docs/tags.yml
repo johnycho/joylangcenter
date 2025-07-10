@@ -1,4 +1,4 @@
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+therapist:
+  label: 선생님 소개
+  permalink: /therapist
+  description: 선생님 소개 분류 태그

@@ -1,4 +1,9 @@
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+notice:
+  label: 공지사항
+  permalink: /notice
+  description: 센터 공지 사항을 위한 분류 태그
+
+news:
+  label: 소식
+  permalink: /news
+  description: 센터 소식을 위한 분류 태그
