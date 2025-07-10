@@ -1,6 +1,6 @@
 ---
 slug: slp-dayealee
-title: 이다예 선생님 소개
+title: 이다예 언어치료사
 tags: [ therapist ]
 ---
 
