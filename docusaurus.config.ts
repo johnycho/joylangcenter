@@ -110,7 +110,7 @@ const config: Config = {
           type: 'dropdown',
           items: [
             {type: "docSidebar", sidebarId: "johnyDocsSidebar", label: "인사말"},
-            {label: "선생님 소개", to: "/docs/category/therapist"},
+            {label: "선생님 소개", to: "/docs/category/선생님-소개"},
           ],
         },
         {
