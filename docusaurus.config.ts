@@ -114,7 +114,7 @@ const config: Config = {
           ],
         },
         {
-          to: "/blog",
+          to: "/blog/archive",
           label: "커뮤니티",
           position: "left",
           items: [
