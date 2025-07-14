@@ -8,6 +8,7 @@ import Head from '@docusaurus/Head';
 
 import styles from './index.module.css';
 // import Heading from "@theme/Heading";
+import BlogCards from '@site/src/components/BlogCards';
 
 function HomepageHeader({ onVisible }: { onVisible: () => void }) {
   // const {siteConfig} = useDocusaurusContext();
@@ -66,6 +67,7 @@ export default function Home(): ReactNode {
       <main>
         {/* 배너 애니메이션 후에만 등장 */}
         {showFeatures && <HomepageFeatures />}
+        <BlogCards />
       </main>
     </Layout>
   );
