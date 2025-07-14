@@ -17,7 +17,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
   /** 기본 폰트 변경 */
-  --ifm-font-family-base: 'NanumSquareRound', 'SDMiSaeng', sans-serif;
+  --ifm-font-family-base: 'NanumSquareRound', 'SDMiSaeng', 'Noto Sans CJK KR', 'Apple SD Gothic Neo', sans-serif;
   --ifm-font-size-base: 100%;
   --ifm-code-font-size: 100%;
 }
