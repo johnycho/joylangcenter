@@ -23,13 +23,13 @@ tags: [ therapist ]
 * 이다예, 이영미, & 이유진. (2023). 인공와우이식 영유아 부모의 양적 및 질적 언어입력 변화에 관한 종단연구. Communication Sciences & Disorders, 28(3), 669-688.
 
 ## 📌 학회 발표 및 수상이력
-### [제 14회 아시아 태평양 인공와우 심포지엄]
+#### [제 14회 아시아 태평양 인공와우 심포지엄]
 * 발표 제목:  Parents language does matter for young children with CI: focus on quantity and quality of parental linguistic input. 14th Asia Pacific Symposium on Cochlear Implant and Related Sciences (APSCI), Seoul, Korea.
 
-### [제 97회 이비인후과 학술대회]
+#### [제 97회 이비인후과 학술대회]
 * 발표 제목: Quantity of parental linguistic input and its relation to young children with cochlear implants: A comparison between children with cochlear implants and children with typical hearing. Internationnal Congress of ORL-HNS 2023, Ilsan, Korea.
 
-### [2022년 보완대체 의사소통 (AAC) 공모전]
+#### [2022년 보완대체 의사소통 (AAC) 공모전]
 * '말이 통하는 세상' 동상 수상
 
 ## 📌 교육 및 수료증
