@@ -1,55 +1,19 @@
 import type {ReactNode} from 'react';
-import {useEffect, useState} from 'react';
-import clsx from 'clsx';
-// import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Head from '@docusaurus/Head';
-
 import styles from './index.module.css';
-// import Heading from "@theme/Heading";
 import BlogCards from '@site/src/components/BlogCards';
+import BannerSlider from '@site/src/components/BannerSlider';
 
-function HomepageHeader({ onVisible }: { onVisible: () => void }) {
-  // const {siteConfig} = useDocusaurusContext();
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const img = new Image();
-    img.src = '/img/index-banner.jpg';
-    img.onload = () => {
-      requestAnimationFrame(() => setLoaded(true));
-      setTimeout(onVisible, 1200); // 배너 animation 후 features 보여주기
-    };
-  }, []);
-
+function HomepageHeader() {
   return (
-    <header className={clsx(
-        'hero hero--primary',
-        styles.heroBanner,
-        loaded && styles.heroBannerVisible)}>
-      <div className="container" style={{fontFamily: "'Nanum Pen Script', cursive", color: "#fff"}}>
-        {/*<Heading as="h1" className="hero__title"*/}
-        {/*         style={{fontFamily: "'Nanum Pen Script', cursive", color: "#fff"}}>*/}
-        {/*  {siteConfig.title}*/}
-        {/*</Heading>*/}
-        {/*<p className="hero__subtitle">{siteConfig.tagline}</p>*/}
-        {/*<div className={styles.buttons}>*/}
-        {/*  <Link*/}
-        {/*    className="button button--secondary button--lg"*/}
-        {/*    to="/docs/intro">*/}
-        {/*    Docusaurus Tutorial - 5min ⏱️*/}
-        {/*  </Link>*/}
-        {/*</div>*/}
-      </div>
-    </header>
+      <header className={styles.heroBanner}>
+        <BannerSlider />
+      </header>
   );
 }
 
 export default function Home(): ReactNode {
-  // const {siteConfig} = useDocusaurusContext();
-  const [showFeatures, setShowFeatures] = useState(false); // 상태 추가
-
   return (
     <Layout
       // title={`${siteConfig.title}`}
@@ -63,7 +27,7 @@ export default function Home(): ReactNode {
         <meta property="og:type" content="website" />
       </Head>
 
-      <HomepageHeader onVisible={() => setShowFeatures(true)} />
+      <HomepageHeader />
       <main>
         {/* BlogCards Section */}
         <section className={styles.sectionDark}>

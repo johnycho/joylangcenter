@@ -1,0 +1,35 @@
+.bannerWrapper {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+/* 모바일(폭 996px 이하)에서 높이를 50vh로 줄이기 */
+@media (max-width: 1270px) {
+  .bannerWrapper {
+    height: 70vh;
+  }
+}
+
+@media (max-width: 910px) {
+  .bannerWrapper {
+    height: 50vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .bannerWrapper {
+    height: 30vh;
+  }
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.slideImage {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
