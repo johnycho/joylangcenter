@@ -17,7 +17,7 @@ export default function DocItem(props: Props): ReactNode {
           <DocItemMetadata />
           <DocItemLayout>
             <MDXComponent />
-            <DisqusComments /> {/* Disqus 댓글 위젯 */}
+            {/*<DisqusComments /> /!* Disqus 댓글 위젯 *!/*/}
           </DocItemLayout>
         </HtmlClassNameProvider>
       </DocProvider>
