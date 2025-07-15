@@ -67,10 +67,10 @@ export default function Home(): ReactNode {
       <main>
         {/* BlogCards Section */}
         <section className={styles.sectionDark}>
-          <BlogCards tag="notice" title="공지사항" />
+          <BlogCards tag="notice" title="📣 공지사항" />
         </section>
         <section className={styles.sectionLight}>
-          <BlogCards tag="news" title="센터 소식" />
+          <BlogCards tag="news" title="💌 센터 소식" />
         </section>
 
         {/* Features Section */}
