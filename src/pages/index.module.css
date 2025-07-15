@@ -50,3 +50,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.sectionLight {
+  background-color: #ffffff;
+  padding: 4rem 0;
+}
+
+.sectionDark {
+  background-color: #f5f6f7;
+  padding: 4rem 0;
+}

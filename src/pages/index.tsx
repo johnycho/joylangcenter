@@ -65,9 +65,20 @@ export default function Home(): ReactNode {
 
       <HomepageHeader onVisible={() => setShowFeatures(true)} />
       <main>
-        {/* 배너 애니메이션 후에만 등장 */}
-        {showFeatures && <HomepageFeatures />}
-        <BlogCards />
+        {/* BlogCards Section */}
+        <section className={styles.sectionDark}>
+          <BlogCards tag="notice" title="공지사항" />
+        </section>
+        <section className={styles.sectionLight}>
+          <BlogCards tag="news" title="센터 소식" />
+        </section>
+
+        {/* Features Section */}
+        {/*{showFeatures && (*/}
+        {/*    <section className={styles.sectionDark}>*/}
+        {/*      <HomepageFeatures />*/}
+        {/*    </section>*/}
+        {/*)}*/}
       </main>
     </Layout>
   );

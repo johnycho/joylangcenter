@@ -45,6 +45,10 @@ const config: Config = {
           //     'https://github.com/johnycho/johny-dev/edit/main/',
         },
         blog: {
+          path: 'blog',
+          routeBasePath: 'blog',
+          blogTitle: '커뮤니티',
+          blogDescription: '공지사항과 센터 소식을 전달합니다.',
           postsPerPage: 10, // 한 페이지당 표시할 게시글 개수 (기본값: 10)
           blogSidebarCount: "ALL", // 사이드바에 모든 게시글 표시
           showReadingTime: true,
