@@ -50,6 +50,8 @@ const config: Config = {
           blogTitle: '커뮤니티',
           blogDescription: '공지사항과 센터 소식을 전달합니다.',
           postsPerPage: 10, // 한 페이지당 표시할 게시글 개수 (기본값: 10)
+          blogSidebarTitle: '전체 목록',
+          // blogSidebarCount: 0,     // 사이드바 숨김
           blogSidebarCount: "ALL", // 사이드바에 모든 게시글 표시
           showReadingTime: false,
           feedOptions: {
