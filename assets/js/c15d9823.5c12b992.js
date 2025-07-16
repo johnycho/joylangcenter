@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnycho_dev=self.webpackChunkjohnycho_dev||[]).push([[8146],{9328:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"\uacf5\uc9c0\uc0ac\ud56d\uacfc \uc13c\ud130 \uc18c\uc2dd\uc744 \uc804\ub2ec\ud569\ub2c8\ub2e4.","blogTitle":"\ucee4\ubba4\ub2c8\ud2f0"}}')}}]);
