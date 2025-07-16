@@ -28,9 +28,9 @@ export default function BannerSlider() {
             modules={[Autoplay, Pagination, Navigation, EffectFade]}
             effect="fade"
             fadeEffect={{ crossFade: true }}
-            speed={2000}                     // 전환 속도를 1.2초로 늘림
+            speed={2000}
             autoplay={{
-              delay: 5000,
+              delay: 3000,
               disableOnInteraction: false,
             }}
             loop
