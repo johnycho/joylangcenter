@@ -75,11 +75,15 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // 네이버 SEO 설정
+    // SEO 설정
     metadata: [
       {
         name: 'naver-site-verification',
         content: '6b8a11e554c091a99cfa5b16841bb7492467edc4',
+      },
+      {
+        name: 'google-site-verification',
+        content: '4QSKEBZPsrA58oIGTu6eAvprx7JPbWqIWzQ7ZoSrcPM',
       }
     ],
     // Replace with your project's social card
