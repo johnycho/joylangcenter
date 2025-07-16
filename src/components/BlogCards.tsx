@@ -9,7 +9,7 @@ type Props = {
   max?: number;
 };
 
-export default function BlogCardsByTag({ tag, title, max = 3 }: Props) {
+export default function BlogCardsByTag({ tag, title, max = 10 }: Props) {
   const filteredPosts = blogPosts.archive.blogPosts
   .filter(post =>
       post.metadata.tags?.some(t => t.permalink.includes(tag))
