@@ -4,6 +4,7 @@ import Head from '@docusaurus/Head';
 import styles from './index.module.css';
 import BlogCards from '@site/src/components/BlogCards';
 import BannerSlider from '@site/src/components/BannerSlider';
+import NaverMap from "@site/src/components/NaverMap";
 
 function HomepageHeader() {
   return (
@@ -39,7 +40,7 @@ export default function Home(): ReactNode {
 
         <section className={styles.sectionDark} style={{ paddingBottom: '0px' }}>
           <h3 className={styles.sectionTitle}>📍 오시는 길</h3>
-          <img src="https://maps.apigw.ntruss.com/map-static/v2/raster-cors?w=600&h=400&center=127.930725,37.3304185&level=16&markers=type:t|size:mid|pos:127.930725 37.3304185&X-NCP-APIGW-API-KEY-ID=0dphxly4jw" alt="조이 언어발달센터 위치"/>
+          <NaverMap />
         </section>
 
         {/* Features Section */}
