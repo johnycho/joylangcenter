@@ -23,7 +23,7 @@ export default function Home(): ReactNode {
         <meta name="keywords" content="원주 언어발달센터, 원주 기업도시 언어발달센터, 원주 지정면 언어발달센터, 원주 언어치료, 원주 기업도시 언어치료, 원주 지정면 언어치료" />
         <meta property="og:title" content="조이 언어발달센터" />
         <meta property="og:description" content="즐거운 의사소통이 있는 곳, 조이 언어발달센터입니다." />
-        <meta property="og:image" content="https://joylangcenter.com/img/joy-thumbnail.png" />
+        <meta property="og:image" content="/img/joy-thumbnail.png" />
         <meta property="og:url" content="https://joylangcenter.com/" />
         <meta property="og:type" content="website" />
       </Head>
