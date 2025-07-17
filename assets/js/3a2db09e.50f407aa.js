@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnycho_dev=self.webpackChunkjohnycho_dev||[]).push([[8121],{8070:e=>{e.exports=JSON.parse('{"tags":[{"label":"\uacf5\uc9c0\uc0ac\ud56d","permalink":"/blog/tags/notice","count":3},{"label":"\uc13c\ud130\uc18c\uc2dd","permalink":"/blog/tags/news","count":2}]}')}}]);
