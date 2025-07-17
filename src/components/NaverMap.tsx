@@ -10,6 +10,14 @@ const NaverMap = () => {
       const map = new window.naver.maps.Map('map', {
         center: new window.naver.maps.LatLng(37.3304185, 127.930725), // 조이 언어발달센터
         zoom: 16,
+        zoomControl: true,
+        zoomControlOptions: {
+          position: window.naver.maps.Position.RIGHT_BOTTOM,
+        },
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+          position: window.naver.maps.Position.TOP_RIGHT,
+        },
       });
 
       new window.naver.maps.Marker({
