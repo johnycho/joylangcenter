@@ -8,7 +8,7 @@ const NaverMap = () => {
     script.async = true;
     script.onload = () => {
       const map = new window.naver.maps.Map('map', {
-        center: new window.naver.maps.LatLng(37.3304185, 127.930725), // 조이 언어발달센터
+        center: new window.naver.maps.LatLng(37.375124, 127.874845), // 조이 언어발달센터
         zoom: 16,
         zoomControl: true,
         zoomControlOptions: {
