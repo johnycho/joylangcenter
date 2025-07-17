@@ -40,7 +40,7 @@ const NaverMap = () => {
         content: `
           <a href="https://naver.me/5Vm9WYYy" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
             <div style="padding:10px;font-size:14px;">
-              <strong>조이 언어발달센터</strong><br/>
+              <strong>📍 조이 언어발달센터</strong><br/>
               강원특별자치도 원주시 지정면 무릉로 15<br/>
               JD스퀘어 6층 (토이아울렛 건물)
             </div>
