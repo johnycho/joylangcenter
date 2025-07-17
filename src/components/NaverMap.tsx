@@ -4,7 +4,7 @@ const NaverMap = () => {
   useEffect(() => {
     const script = document.createElement('script');
     script.src =
-        'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=0dphxly4jw';
+        'https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=0dphxly4jw';
     script.async = true;
     script.onload = () => {
       const map = new window.naver.maps.Map('map', {
