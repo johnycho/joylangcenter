@@ -30,14 +30,21 @@ const NaverMap = () => {
         title: '조이 언어발달센터',
       });
 
+      // 마커 클릭 시 네이버 지도 링크로 이동
+      window.naver.maps.Event.addListener(marker, 'click', () => {
+        window.open('https://naver.me/5Vm9WYYy', '_blank');
+      });
+
       // 인포 윈도우 생성
       const infoWindow = new window.naver.maps.InfoWindow({
         content: `
-          <div style="padding:10px;font-size:14px;">
-            <strong>조이 언어발달센터</strong><br/>
-            강원특별자치도 원주시 지정면 무릉로 15<br/>
-            JD스퀘어 6층 (토이아울렛 건물)
-          </div>`,
+          <a href="https://naver.me/5Vm9WYYy" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+            <div style="padding:10px;font-size:14px;">
+              <strong>조이 언어발달센터</strong><br/>
+              강원특별자치도 원주시 지정면 무릉로 15<br/>
+              JD스퀘어 6층 (토이아울렛 건물)
+            </div>
+          </a>`,
       });
 
       // 마커 위에 인포 윈도우 열기
