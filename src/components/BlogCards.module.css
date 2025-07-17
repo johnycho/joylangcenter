@@ -18,8 +18,8 @@
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  flex: 1 1 calc(50% - 20px); /* ✅ 가로 2개씩 */
-  max-width: 500px;
+  flex: 1 1 33.3%; /* 가로 2개씩 */
+  max-width: 33.3%;
   padding: 1rem;
   text-align: left;
   text-decoration: none;
