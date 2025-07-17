@@ -37,6 +37,17 @@ export default function Home(): ReactNode {
           <BlogCards tag="news" title="💌 센터 소식 💌" />
         </section>
 
+        <section className={styles.sectionDark} style={{ paddingBottom: '0px' }}>
+          <h3 className={styles.sectionTitle}>📍 오시는 길</h3>
+          <iframe
+              src="https://naver.me/5Vm9WYYy"
+              width="100%"
+              height="500px"
+              allowFullScreen
+              title="조이 언어발달센터 위치"
+          ></iframe>
+        </section>
+
         {/* Features Section */}
         {/*{showFeatures && (*/}
         {/*    <section className={styles.sectionDark}>*/}

@@ -119,7 +119,8 @@ const config: Config = {
           position: 'left',
           type: 'dropdown',
           items: [
-            {type: "docSidebar", sidebarId: "johnyDocsSidebar", label: "인사말"},
+            {label: "인사말", type: "docSidebar", sidebarId: "joyDocsSidebar"},
+            {label: "오시는 길", to: "docs/location"},
             {label: "선생님 소개", to: "/docs/category/선생님-소개"},
           ],
         },
