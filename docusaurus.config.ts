@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: '조이 언어발달센터',
   tagline: 'Joy Language Development Center',
-  favicon: 'img/favicon.ico',
+  favicon: '/img/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://joylangcenter.com', // GitHub Pages URL
@@ -87,7 +87,7 @@ const config: Config = {
       }
     ],
     // Replace with your project's social card
-    image: 'img/joy-thumbnail.png',
+    image: '/img/joy-thumbnail.png',
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true, // 다크/라이트 모드 전환 허용 (true로 설정하면 버튼이 사라짐)
@@ -110,7 +110,7 @@ const config: Config = {
       // title: '조이 언어발달센터',
       logo: {
         alt: 'Joy Logo',
-        src: 'img/logo-joy.png',
+        src: '/img/logo-joy.png',
       },
       items: [
         {
