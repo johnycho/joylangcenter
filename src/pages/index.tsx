@@ -39,13 +39,7 @@ export default function Home(): ReactNode {
 
         <section className={styles.sectionDark} style={{ paddingBottom: '0px' }}>
           <h3 className={styles.sectionTitle}>📍 오시는 길</h3>
-          <iframe
-              src="https://naver.me/5Vm9WYYy"
-              width="100%"
-              height="500px"
-              allowFullScreen
-              title="조이 언어발달센터 위치"
-          ></iframe>
+          <img src="https://maps.apigw.ntruss.com/map-static/v2/raster-cors?w=600&h=400&center=127.930725,37.3304185&level=16&markers=type:t|size:mid|pos:127.930725 37.3304185&X-NCP-APIGW-API-KEY-ID=0dphxly4jw" alt="조이 언어발달센터 위치"/>
         </section>
 
         {/* Features Section */}
