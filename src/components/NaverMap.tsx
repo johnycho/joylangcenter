@@ -59,7 +59,7 @@ const NaverMap = () => {
           id="map"
           style={{
             width: '100%',
-            height: '400px',
+            height: '500px',
             borderRadius: '12px',
           }}
       />
