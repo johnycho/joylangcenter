@@ -84,6 +84,18 @@ const config: Config = {
       {
         name: 'google-site-verification',
         content: '4QSKEBZPsrA58oIGTu6eAvprx7JPbWqIWzQ7ZoSrcPM',
+      },
+      {
+        name: 'subject',
+        content: '조이 언어발달센터'
+      },
+      {
+        name: 'author',
+        content: '조이 언어발달센터'
+      },
+      {
+        name: 'keywords',
+        content: '언어치료, 언어재활, 아동발달, 원주 언어발달센터, 원주 기업도시 언어발달센터, 원주 지정면 언어발달센터, 원주 언어치료, 원주 기업도시 언어치료, 원주 지정면 언어치료'
       }
     ],
     // Replace with your project's social card
