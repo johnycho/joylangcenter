@@ -197,7 +197,7 @@ const config: Config = {
       //     ],
       //   },
       // ],
-      copyright: `Copyright © ${new Date().getFullYear()} Joy Language Development Center. All rights reserved.`,
+      copyright: `Copyright © ${new Date().getFullYear()} 조이 언어발달센터. All rights reserved.`,
     },
     prism: {
       theme: prismThemes.github,
