@@ -86,6 +86,10 @@ const config: Config = {
         content: '4QSKEBZPsrA58oIGTu6eAvprx7JPbWqIWzQ7ZoSrcPM',
       },
       {
+        name: 'robots',
+        content: 'index,follow'
+      },
+      {
         name: 'subject',
         content: '조이 언어발달센터'
       },
