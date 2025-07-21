@@ -4,6 +4,7 @@
   <ShortName>조이 언어발달센터</ShortName>
   <Description>Search 조이 언어발달센터</Description>
   <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/x-icon">https://joylangcenter.com/favicon.ico</Image>
   <Url type="text/html" method="get" template="https://joylangcenter.com/search?q={searchTerms}"/>
   <Url type="application/opensearchdescription+xml" rel="self" template="https://joylangcenter.com/opensearch.xml" />
   <moz:SearchForm>https://joylangcenter.com/</moz:SearchForm>
