@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: '조이 언어발달센터',
   tagline: 'Joy Language Development Center',
-  // favicon: 'favicon.ico', // 지정 안해도 static/ 하위에 favicon.ico 파일이 있다면 자동 인식 하는듯..?
+  // favicon: 'favicon-48x48.ico', // 지정 안해도 static/ 하위에 favicon-48x48.ico 파일이 있다면 자동 인식 하는듯..?
 
   // Set the production url of your site here
   url: 'https://joylangcenter.com', // GitHub Pages URL
