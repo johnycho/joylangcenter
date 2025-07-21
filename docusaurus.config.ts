@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: '조이 언어발달센터',
   tagline: 'Joy Language Development Center',
-  favicon: 'img/favicon.ico',
+  favicon: '/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://joylangcenter.com', // GitHub Pages URL
