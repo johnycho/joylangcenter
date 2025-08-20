@@ -2,7 +2,7 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import blogPosts from '@generated/docusaurus-plugin-content-blog/default/p/blog-archive-f05.json';
 import styles from './BlogCards.module.css';
-import NewBadge from '@site/static/img/new-badge.png';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
 
@@ -37,7 +37,15 @@ export default function BlogCardsByTag({ tag, title, max = 10 }: Props) {
                 <Link key={idx} to={post.metadata.permalink} className={styles.card}>
                   <h4>
                     {post.metadata.title}
-                    {isNew && <NewBadge className={styles.newBadge} />}
+                    {isNew && (
+                        <img
+                            src={useBaseUrl('/img/new-badge.gif')}
+                            alt="NEW"
+                            className={styles.newBadge}
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    )}
                   </h4>
                   <span className={styles.date}>{formattedDate}</span>
                 </Link>
