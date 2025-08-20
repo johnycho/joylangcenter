@@ -49,3 +49,9 @@
     max-width: 100%;
   }
 }
+
+.newBadge {
+  width: 24px;
+  height: 24px;
+  margin-left: .4rem;
+}

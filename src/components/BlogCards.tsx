@@ -2,6 +2,9 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import blogPosts from '@generated/docusaurus-plugin-content-blog/default/p/blog-archive-f05.json';
 import styles from './BlogCards.module.css';
+import NewBadge from '@site/static/img/new-badge.png';
+
+const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
 
 type Props = {
   tag: string; // ex) 'news' or 'notice'
@@ -21,7 +24,10 @@ export default function BlogCardsByTag({ tag, title, max = 10 }: Props) {
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.cardRow}>
           {filteredPosts.map((post, idx) => {
-            const formattedDate = new Date(post.metadata.date).toLocaleDateString('ko-KR', {
+            const published = new Date(post.metadata.date);
+            const isNew = Date.now() - published.getTime() <= TWO_WEEKS_MS;
+
+            const formattedDate = published.toLocaleDateString('ko-KR', {
               year: 'numeric',
               month: '2-digit',
               day: '2-digit',
@@ -29,7 +35,10 @@ export default function BlogCardsByTag({ tag, title, max = 10 }: Props) {
 
             return (
                 <Link key={idx} to={post.metadata.permalink} className={styles.card}>
-                  <h4>{post.metadata.title}</h4>
+                  <h4>
+                    {post.metadata.title}
+                    {isNew && <NewBadge className={styles.newBadge} />}
+                  </h4>
                   <span className={styles.date}>{formattedDate}</span>
                 </Link>
             );
