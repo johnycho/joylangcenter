@@ -151,6 +151,7 @@ const config: Config = {
           items: [
             {label: "공지사항", to: "/blog/tags/notice"},
             {label: "센터소식", to: "/blog/tags/news"},
+            {label: "교육자료", to: "/blog/tags/library"},
           ],
         },
         {
