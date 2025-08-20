@@ -9,3 +9,7 @@ news:
 library:
   label: 교육자료
   permalink: /library
+
+articulation:
+  label: 말소리(발음) 자료
+  permalink: /articulation
