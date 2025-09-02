@@ -129,7 +129,7 @@ const config: Config = {
     navbar: {
       // title: '조이 언어발달센터',
       logo: {
-        alt: 'Joy Logo',
+        alt: '조이 언어발달센터, 원주 언어치료센터, 원주 언어재활센터, 원주 언어발달센터',
         src: 'img/logo-joy.png',
       },
       items: [

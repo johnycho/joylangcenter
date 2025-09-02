@@ -40,7 +40,7 @@ export default function BannerSlider() {
         >
           {slides.map((src, idx) => (
               <SwiperSlide key={idx}>
-                <img src={src} alt={`배너 ${idx + 1}`} className={styles.slideImage}/>
+                <img src={src} alt={`조이 언어발달센터, 원주 언어치료센터, 원주 언어재활센터, 원주 언어발달센터`} className={styles.slideImage}/>
               </SwiperSlide>
           ))}
         </Swiper>
