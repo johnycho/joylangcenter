@@ -12,7 +12,10 @@
 </head>
 <body>
 <div class="wrap">
-  <a class="crumb" href="../">← 앱 센터</a>
+  <div class="toprow">
+    <a class="crumb" href="../">← 앱 센터</a>
+    <a class="btn ghost homebtn" href="/">🏠 홈으로</a>
+  </div>
   <div class="topbar">
     <span class="brand"><span class="dot">🔳</span><span>QR 생성<small>주소를 넣으면 QR을 만들어요</small></span></span>
   </div>
@@ -38,6 +41,8 @@
   </div>
 
   <div class="foot">팁: 소리 재생 페이지에서 “이 페이지의 QR 만들기”를 누르면 주소가 자동으로 채워져요</div>
+
+  <footer class="sitefoot">Copyright © <span class="year"></span> 조이 언어발달센터. All rights reserved.</footer>
 </div>
 
 <script>
@@ -74,6 +79,8 @@ document.getElementById("download").addEventListener("click", ()=>{
 const fromParam = new URLSearchParams(location.search).get("url");
 input.value = fromParam || homeUrl();
 render();
+
+document.querySelectorAll(".year").forEach(e => e.textContent = new Date().getFullYear());
 </script>
 </body>
 </html>

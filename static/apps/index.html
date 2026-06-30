@@ -70,9 +70,11 @@
 
   .syscards .empty,.note{color:var(--joy-muted);}
 
-  /* 푸터 */
-  .foot{color:var(--joy-muted); opacity:.9; margin-top:44px;}
-  .foot .heart{color:var(--joy-orange);}
+  /* 상단/푸터 (라이트 테마용 색 보정) */
+  .topbar{justify-content:space-between;}
+  .homebtn{color:var(--joy-ink); background:#fff; border:1px solid var(--joy-line);}
+  .homebtn:hover{filter:none; background:#fff8ef;}
+  .sitefoot{border-color:var(--joy-line); color:var(--joy-muted);}
 
   @media (max-width:520px){ .hero h1{font-size:30px;} }
 </style>
@@ -80,7 +82,8 @@
 <body>
 <div class="wrap">
   <div class="topbar">
-    <img class="joy-logo" src="shared/assets/joy-logo.png" alt="조이언어발달센터 · Joy Language Development Center" />
+    <a href="/" aria-label="홈으로"><img class="joy-logo" src="shared/assets/joy-logo.png" alt="조이언어발달센터 · Joy Language Development Center" /></a>
+    <a class="btn ghost homebtn" href="/">🏠 홈으로</a>
   </div>
 
   <div class="hero">
@@ -90,6 +93,8 @@
 
   <div class="seclbl">사용할 수 있는 앱</div>
   <div class="syscards" id="cards"><div class="empty">불러오는 중…</div></div>
+
+  <footer class="sitefoot">Copyright © <span class="year"></span> 조이 언어발달센터. All rights reserved.</footer>
 </div>
 
 <script src="shared/discover.js"></script>
@@ -128,6 +133,7 @@ async function loadSystems(){
   });
 }
 loadSystems();
+document.querySelectorAll(".year").forEach(e => e.textContent = new Date().getFullYear());
 </script>
 </body>
 </html>

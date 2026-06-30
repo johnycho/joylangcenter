@@ -100,5 +100,14 @@ a{color:inherit;}
 
 .foot{margin-top:36px; color:var(--muted); font-size:12px; text-align:center; opacity:.75;}
 
+/* 상단 유틸 줄(브레드크럼 + 홈 버튼) */
+.toprow{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px;}
+.toprow .crumb{margin-bottom:0;}
+.homebtn{display:inline-flex; align-items:center; gap:6px; padding:8px 14px; font-size:13px;}
+
+/* 사이트 하단 푸터(저작권) */
+.sitefoot{margin-top:48px; padding:22px 16px; border-top:1px solid var(--line);
+  color:var(--muted); text-align:center; font-size:12.5px;}
+
 @media (prefers-reduced-motion: reduce){ .cat,.orb .ring,.syscard{transition:none;} }
 @media (max-width:520px){ .qrtool{flex-direction:column;} .qrpane{align-self:center;} }
