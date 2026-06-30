@@ -26,10 +26,11 @@ export default function BannerSlider() {
             modules={[Autoplay, Pagination, Navigation, EffectFade]}
             effect="fade"
             fadeEffect={{ crossFade: true }}
-            speed={2000}
+            speed={700}
             autoplay={{
-              delay: 3000,
+              delay: 4500,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
             loop
             pagination={{ clickable: true }}
