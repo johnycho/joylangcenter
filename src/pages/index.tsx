@@ -4,13 +4,19 @@ import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
 import styles from './index.module.css';
 import BlogCards from '@site/src/components/BlogCards';
-import BannerSlider from '@site/src/components/BannerSlider';
 import NaverMap from '@site/src/components/NaverMap';
 
 const KAKAO_URL = 'https://pf.kakao.com/_sxjPXn';
 const NAVER_URL = 'https://blog.naver.com/joylangcenter';
 const INSTA_URL = 'https://instagram.com/joylangcenter';
-const ADDRESS = '강원특별자치도 원주시 지정면 무릉로 15 JD스퀘어 6층 (토이아울렛 건물)';
+const MAP_URL = 'https://naver.me/5Vm9WYYy';
+const ADDRESS = '강원특별자치도 원주시 지정면 무릉로 15 JD스퀘어 6층';
+
+const QUICK = [
+  {icon: '📍', label: '위치', value: '원주시 지정면 무릉로 15 JD스퀘어 6층', href: MAP_URL, external: true},
+  {icon: '💬', label: '상담 문의', value: '카카오톡으로 편하게 문의하세요', href: KAKAO_URL, external: true},
+  {icon: '🎯', label: '전문 영역', value: '조음·언어발달·유창성·자폐·지적', href: '#therapy', external: false},
+];
 
 const PILLARS = [
   {icon: '🧡', title: '따뜻한 마음', desc: '아이의 마음을 먼저 헤아리는 안전한 공간이에요.'},
@@ -27,24 +33,46 @@ const AREAS = [
   {icon: '💡', title: '지적장애', desc: '생활 속 기능적 의사소통을 도와요.'},
 ];
 
-function HomepageHeader() {
+function HomepageHero() {
   return (
-    <header className={styles.hero}>
-      <BannerSlider />
-      <div className={styles.heroOverlay}>
-        <div className={styles.heroContent}>
+    <header className={styles.heroLite}>
+      <div className={styles.container}>
+        <div className={styles.heroInner}>
           <p className={styles.heroEyebrow}>원주 조이언어발달센터</p>
           <h1 className={styles.heroTitle}>
-            즐거운 의사소통이<br />있는 곳
+            즐거운 의사소통이 있는 곳
             <span className={styles.srOnly}> — 원주 언어치료 · 언어발달센터 (조이언어발달센터)</span>
           </h1>
           <p className={styles.heroSubtitle}>
             아이 한 명 한 명의 속도에 맞춘 기능적이고 즐거운 언어치료를 만들어갑니다.
           </p>
           <div className={styles.heroActions}>
-            <Link className={styles.heroBtnPrimary} to="/docs/intro">센터 소개</Link>
-            <a className={styles.heroBtnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오 상담</a>
+            <Link className={styles.btnPrimary} to="/docs/intro">센터 소개</Link>
+            <a className={styles.btnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오 상담</a>
+            <Link className={styles.btnGhost} to="/docs/location">오시는 길</Link>
           </div>
+        </div>
+
+        <div className={styles.quickInfo}>
+          {QUICK.map((q) =>
+            q.external ? (
+              <a key={q.label} className={styles.quickCard} href={q.href} target="_blank" rel="noopener noreferrer">
+                <span className={styles.quickIcon}>{q.icon}</span>
+                <span className={styles.quickText}>
+                  <span className={styles.quickLabel}>{q.label}</span>
+                  <span className={styles.quickValue}>{q.value}</span>
+                </span>
+              </a>
+            ) : (
+              <a key={q.label} className={styles.quickCard} href={q.href}>
+                <span className={styles.quickIcon}>{q.icon}</span>
+                <span className={styles.quickText}>
+                  <span className={styles.quickLabel}>{q.label}</span>
+                  <span className={styles.quickValue}>{q.value}</span>
+                </span>
+              </a>
+            ),
+          )}
         </div>
       </div>
     </header>
@@ -87,7 +115,7 @@ export default function Home(): ReactNode {
             logo: 'https://joylangcenter.com/img/logo-joy.png',
             address: {
               '@type': 'PostalAddress',
-              streetAddress: '지정면 무릉로 15 JD스퀘어 6층 (토이아울렛 건물)',
+              streetAddress: '지정면 무릉로 15 JD스퀘어 6층',
               addressLocality: '원주시',
               addressRegion: '강원특별자치도',
               addressCountry: 'KR',
@@ -106,7 +134,7 @@ export default function Home(): ReactNode {
         </script>
       </Head>
 
-      <HomepageHeader />
+      <HomepageHero />
 
       <main>
         {/* 가치 / 강점 */}
@@ -126,7 +154,7 @@ export default function Home(): ReactNode {
         </section>
 
         {/* 전문 영역 */}
-        <section className={`${styles.section} ${styles.sectionTint}`}>
+        <section id="therapy" className={`${styles.section} ${styles.sectionTint}`}>
           <div className={styles.container}>
             <SectionHead eyebrow="THERAPY" title="이런 어려움을 함께 도와요" sub="전문 평가를 바탕으로 아이에게 꼭 맞는 치료를 제안합니다." />
             <div className={styles.areaGrid}>
@@ -143,8 +171,8 @@ export default function Home(): ReactNode {
           </div>
         </section>
 
-        {/* 소식 & 공지 (게시판형) */}
-        <section className={`${styles.section} ${styles.sectionTint}`}>
+        {/* 소식 & 공지 (게시판형) — 흰 배경으로 위 섹션과 구분 */}
+        <section className={styles.section}>
           <div className={styles.container}>
             <SectionHead eyebrow="NEWS" title="소식 & 공지" sub="공지사항과 센터 소식을 한눈에 확인하세요." />
             <div className={styles.boardGrid}>
@@ -155,7 +183,7 @@ export default function Home(): ReactNode {
         </section>
 
         {/* 오시는 길 */}
-        <section className={styles.section}>
+        <section className={`${styles.section} ${styles.sectionTint}`}>
           <div className={styles.container}>
             <SectionHead eyebrow="LOCATION" title="오시는 길" />
             <div className={styles.locationCard}>

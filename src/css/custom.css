@@ -155,20 +155,28 @@ pre.editor-line-text span.cursor {
   height: 32px;
 }
 
-.navbar-kakao-channel-logo:hover,
-.navbar-naver-blog-logo:hover,
-.navbar-instagram-logo:hover{
-  opacity: 0.5; /* 마우스를 올리면 흐려짐 */
-}
-
 .social-icons {
   display: flex;
   align-items: center;
-  gap: 8px; /* 아이콘 사이 여백 */
+  gap: 6px;
+  margin-left: 4px;
 }
 
+/* 블로그·인스타·카톡을 균일한 원형 칩 버튼으로 */
 .social-icons a {
   display: inline-block;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #f4ece0;
+  background-size: 19px;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.social-icons a:hover {
+  transform: translateY(-2px);
+  background-color: #fbe4c4;
+  opacity: 1;
 }
 
 /* footer 조정 */
