@@ -4,6 +4,7 @@ import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
 import styles from './index.module.css';
 import BlogCards from '@site/src/components/BlogCards';
+import BannerSlider from '@site/src/components/BannerSlider';
 import NaverMap from '@site/src/components/NaverMap';
 
 const KAKAO_URL = 'https://pf.kakao.com/_sxjPXn';
@@ -35,47 +36,51 @@ const AREAS = [
 
 function HomepageHero() {
   return (
-    <header className={styles.heroLite}>
-      <div className={styles.container}>
-        <div className={styles.heroInner}>
+    <header className={styles.hero}>
+      <BannerSlider />
+      <div className={styles.heroOverlay}>
+        <div className={styles.heroContent}>
           <p className={styles.heroEyebrow}>원주 조이언어발달센터</p>
           <h1 className={styles.heroTitle}>
-            즐거운 의사소통이 있는 곳
+            즐거운 의사소통이<br />있는 곳
             <span className={styles.srOnly}> — 원주 언어치료 · 언어발달센터 (조이언어발달센터)</span>
           </h1>
           <p className={styles.heroSubtitle}>
             아이 한 명 한 명의 속도에 맞춘 기능적이고 즐거운 언어치료를 만들어갑니다.
           </p>
           <div className={styles.heroActions}>
-            <Link className={styles.btnPrimary} to="/docs/intro">센터 소개</Link>
-            <a className={styles.btnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오 상담</a>
-            <Link className={styles.btnGhost} to="/docs/location">오시는 길</Link>
+            <Link className={styles.heroBtnPrimary} to="/docs/intro">센터 소개</Link>
+            <a className={styles.heroBtnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오 상담</a>
+            <Link className={styles.heroBtnGhost} to="/docs/location">오시는 길</Link>
           </div>
-        </div>
-
-        <div className={styles.quickInfo}>
-          {QUICK.map((q) =>
-            q.external ? (
-              <a key={q.label} className={styles.quickCard} href={q.href} target="_blank" rel="noopener noreferrer">
-                <span className={styles.quickIcon}>{q.icon}</span>
-                <span className={styles.quickText}>
-                  <span className={styles.quickLabel}>{q.label}</span>
-                  <span className={styles.quickValue}>{q.value}</span>
-                </span>
-              </a>
-            ) : (
-              <a key={q.label} className={styles.quickCard} href={q.href}>
-                <span className={styles.quickIcon}>{q.icon}</span>
-                <span className={styles.quickText}>
-                  <span className={styles.quickLabel}>{q.label}</span>
-                  <span className={styles.quickValue}>{q.value}</span>
-                </span>
-              </a>
-            ),
-          )}
         </div>
       </div>
     </header>
+  );
+}
+
+function QuickInfo() {
+  return (
+    <section className={styles.quickStrip}>
+      <div className={styles.container}>
+        <div className={styles.quickInfo}>
+          {QUICK.map((q) => (
+            <a
+              key={q.label}
+              className={styles.quickCard}
+              href={q.href}
+              {...(q.external ? {target: '_blank', rel: 'noopener noreferrer'} : {})}
+            >
+              <span className={styles.quickIcon}>{q.icon}</span>
+              <span className={styles.quickText}>
+                <span className={styles.quickLabel}>{q.label}</span>
+                <span className={styles.quickValue}>{q.value}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -137,8 +142,10 @@ export default function Home(): ReactNode {
       <HomepageHero />
 
       <main>
+        <QuickInfo />
+
         {/* 가치 / 강점 */}
-        <section className={styles.section}>
+        <section className={`${styles.section} ${styles.sectionTint}`}>
           <div className={styles.container}>
             <SectionHead eyebrow="WHY JOY" title="조이가 약속하는 것" sub="아이와 가족이 믿고 찾을 수 있도록, 이런 마음으로 함께합니다." />
             <div className={styles.pillarGrid}>
@@ -154,7 +161,7 @@ export default function Home(): ReactNode {
         </section>
 
         {/* 전문 영역 */}
-        <section id="therapy" className={`${styles.section} ${styles.sectionTint}`}>
+        <section id="therapy" className={styles.section}>
           <div className={styles.container}>
             <SectionHead eyebrow="THERAPY" title="이런 어려움을 함께 도와요" sub="전문 평가를 바탕으로 아이에게 꼭 맞는 치료를 제안합니다." />
             <div className={styles.areaGrid}>
@@ -171,8 +178,8 @@ export default function Home(): ReactNode {
           </div>
         </section>
 
-        {/* 소식 & 공지 (게시판형) — 흰 배경으로 위 섹션과 구분 */}
-        <section className={styles.section}>
+        {/* 소식 & 공지 (게시판형) */}
+        <section className={`${styles.section} ${styles.sectionTint}`}>
           <div className={styles.container}>
             <SectionHead eyebrow="NEWS" title="소식 & 공지" sub="공지사항과 센터 소식을 한눈에 확인하세요." />
             <div className={styles.boardGrid}>
@@ -183,7 +190,7 @@ export default function Home(): ReactNode {
         </section>
 
         {/* 오시는 길 */}
-        <section className={`${styles.section} ${styles.sectionTint}`}>
+        <section className={styles.section}>
           <div className={styles.container}>
             <SectionHead eyebrow="LOCATION" title="오시는 길" />
             <div className={styles.locationCard}>
