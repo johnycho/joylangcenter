@@ -73,7 +73,7 @@
   color: var(--ifm-color-primary);
 }
 
-.fbtnOn .fbtnCount {
+.fbtn.fbtnOn .fbtnCount {
   color: #fff;
 }
 
@@ -82,13 +82,15 @@
   color: var(--ifm-color-primary);
 }
 
-.fbtnOn {
+/* 복합 선택자(.fbtn.fbtnOn)로 specificity를 높여, 프로덕션 CSS 병합/재정렬과
+   무관하게 선택 상태가 항상 우선 적용되도록 함 */
+.fbtn.fbtnOn {
   background: var(--ifm-color-primary);
   color: #fff;
   border-color: transparent;
 }
 
-.fbtnOn:hover {
+.fbtn.fbtnOn:hover {
   color: #fff;
 }
 
@@ -388,8 +390,10 @@
   cursor: default;
 }
 
-.pageBtnOn,
-.pageBtnOn:hover {
+/* 복합 선택자(.pageBtn.pageBtnOn)로 specificity를 높여, 프로덕션 CSS 병합/재정렬과
+   무관하게 선택된 페이지가 항상 강조되도록 함 */
+.pageBtn.pageBtnOn,
+.pageBtn.pageBtnOn:hover {
   background: var(--ifm-color-primary);
   border-color: transparent;
   color: #fff;
