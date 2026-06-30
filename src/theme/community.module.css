@@ -40,59 +40,8 @@
   line-height: 1.6;
 }
 
-/* 분류 칩 묶음 (전체 분류 목록 페이지) */
-.tagRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.55rem;
-  max-width: 1040px;
-  margin: 0 auto clamp(1.4rem, 3vw, 2rem);
-}
-
-.tagPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  border: 1px solid #ecdfc9;
-  background: #fff;
-  color: #8a7659;
-  padding: 0.42rem 0.95rem;
-  border-radius: 999px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
-}
-
-.tagPill:hover {
-  border-color: var(--ifm-color-primary);
-  color: var(--ifm-color-primary);
-  background: #fff8ef;
-  text-decoration: none;
-}
-
-.tagPillOn,
-.tagPillOn:hover {
-  background: var(--ifm-color-primary);
-  border-color: transparent;
-  color: #fff;
-}
-
-.tagCount {
-  font-size: 0.76rem;
-  font-weight: 800;
-  color: var(--ifm-color-primary);
-}
-
-.tagPillOn .tagCount {
-  color: #fff;
-}
-
 [data-theme='dark'] .page { background: #1f1812; }
 [data-theme='dark'] .sub { color: #b8ab9b; }
-[data-theme='dark'] .tagPill { background: #2a2219; border-color: #3a2f22; color: #b8ab9b; }
 
 @media (max-width: 600px) {
   .head { margin-bottom: 1.3rem; }

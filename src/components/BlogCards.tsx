@@ -73,7 +73,7 @@ export default function NewsBoard({
   const curPage = Math.min(page, totalPages);
   const startIdx = paginate ? (curPage - 1) * PAGE : 0;
   const shown = paginate ? matched.slice(startIdx, startIdx + PAGE) : matched.slice(0, PAGE);
-  const moreUrl = filter === 'all' ? '/blog/archive' : `/blog/tags/${filter}`;
+  const moreUrl = filter === 'all' ? '/blog' : `/blog/tags/${filter}`;
 
   return (
     <div className={`${styles.board} ${wide ? styles.boardWide : ''}`}>
