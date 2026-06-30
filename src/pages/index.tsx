@@ -40,13 +40,12 @@ function HomepageHero() {
       <BannerSlider />
       <div className={styles.heroOverlay}>
         <div className={styles.heroContent}>
-          <p className={styles.heroEyebrow}>원주 조이언어발달센터</p>
           <h1 className={styles.heroTitle}>
             즐거운 의사소통이<br />있는 곳
             <span className={styles.srOnly}> — 원주 언어치료 · 언어발달센터 (조이언어발달센터)</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            아이 한 명 한 명의 속도에 맞춘 기능적이고 즐거운 언어치료를 만들어갑니다.
+            아이 한 명 한 명의 속도에 맞춘<br />기능적이고 즐거운 언어치료를 만들어갑니다.
           </p>
           <div className={styles.heroActions}>
             <Link className={styles.heroBtnPrimary} to="/docs/intro">센터 소개</Link>
@@ -181,11 +180,8 @@ export default function Home(): ReactNode {
         {/* 소식 & 공지 (게시판형) */}
         <section className={`${styles.section} ${styles.sectionTint}`}>
           <div className={styles.container}>
-            <SectionHead eyebrow="NEWS" title="소식 & 공지" sub="공지사항과 센터 소식을 한눈에 확인하세요." />
-            <div className={styles.boardGrid}>
-              <BlogCards tag="notice" title="공지사항" moreHref="/blog/tags/notice" max={6} />
-              <BlogCards tag="news" title="센터 소식" moreHref="/blog/tags/news" max={6} />
-            </div>
+            <SectionHead eyebrow="COMMUNITY" title="커뮤니티" sub="공지사항·센터 소식·교육자료를 한곳에서 확인하세요." />
+            <BlogCards />
           </div>
         </section>
 

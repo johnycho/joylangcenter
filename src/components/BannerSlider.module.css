@@ -1,25 +1,31 @@
 .bannerWrapper {
   width: 100%;
-  height: 95vh;
+  height: 84vh;
   position: relative;
 }
 
-/* 모바일(폭 996px 이하)에서 높이를 50vh로 줄이기 */
 @media (max-width: 1270px) {
   .bannerWrapper {
-    height: 70vh;
+    height: 72vh;
   }
 }
 
 @media (max-width: 910px) {
   .bannerWrapper {
-    height: 50vh;
+    height: 66vh;
   }
 }
 
+/* 모바일: 하단 오버레이 텍스트가 들어갈 공간을 위해 충분한 높이 유지 */
 @media (max-width: 768px) {
   .bannerWrapper {
-    height: 40vh;
+    height: 70vh;
+  }
+}
+
+@media (max-width: 520px) {
+  .bannerWrapper {
+    height: 72vh;
   }
 }
 
