@@ -1,18 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+const CENTER_LAT = 37.375124;
+const CENTER_LNG = 127.874845;
+const DEFAULT_ZOOM = 16;
+const GAP_ABOVE_ZOOM = 8; // 줌 컨트롤 위 간격(px)
+const FALLBACK_BOTTOM = 240; // 측정 실패 시 기본 위치(px)
 
 const NaverMap = () => {
+  const mapRef = useRef<any>(null);
+  // 줌 컨트롤 실제 위치를 측정해 그 바로 위에 버튼을 배치(상대 위치)
+  const [btnBottom, setBtnBottom] = useState<number>(FALLBACK_BOTTOM);
+
+  // 지도 우측 하단 줌 컨트롤의 상단 위치를 측정해 버튼을 그 위로 올린다
+  const positionResetButton = () => {
+    const mapEl = document.getElementById('map');
+    if (!mapEl) return;
+    const mr = mapEl.getBoundingClientRect();
+    if (!mr.height) return;
+    let minTop = Infinity;
+    mapEl.querySelectorAll('a, img').forEach((el) => {
+      const r = (el as HTMLElement).getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      const rightInset = mr.right - r.right;
+      const topFromMapTop = r.top - mr.top;
+      // 우측(rightInset<55)이며 지도 하단부(상단 30% 제외)에 있는 요소 = 줌 컨트롤
+      if (rightInset >= -2 && rightInset < 55 && topFromMapTop > mr.height * 0.3) {
+        minTop = Math.min(minTop, topFromMapTop);
+      }
+    });
+    if (minTop !== Infinity) {
+      setBtnBottom(Math.round(mr.height - minTop + GAP_ABOVE_ZOOM));
+    }
+  };
+
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=0dphxly4jw';
     script.async = true;
 
     script.onload = () => {
-      const centerLat = 37.375124;
-      const centerLng = 127.874845;
-
       const map = new window.naver.maps.Map('map', {
-        center: new window.naver.maps.LatLng(centerLat, centerLng),
-        zoom: 16,
+        center: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
+        zoom: DEFAULT_ZOOM,
         // 스크롤(휠)·핀치·더블클릭 줌은 끄고, 줌 버튼으로만 확대/축소
         scrollWheel: false,
         pinchZoom: false,
@@ -28,29 +57,11 @@ const NaverMap = () => {
           position: window.naver.maps.Position.TOP_RIGHT,
         },
       });
-
-      // 원위치(처음 위치로 되돌리기) 버튼
-      const resetControlHtml = `
-        <button type="button" aria-label="원래 위치로 이동"
-          style="display:flex;align-items:center;gap:4px;margin:10px;padding:7px 11px;
-                 background:#fff;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;
-                 font-size:13px;font-weight:700;color:#444;
-                 box-shadow:0 2px 6px rgba(0,0,0,0.15);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="#f2921d"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
-          원위치
-        </button>`;
-      const resetControl = new window.naver.maps.CustomControl(resetControlHtml, {
-        position: window.naver.maps.Position.TOP_LEFT,
-      });
-      resetControl.setMap(map);
-      window.naver.maps.Event.addDOMListener(resetControl.getElement(), 'click', () => {
-        map.setCenter(new window.naver.maps.LatLng(centerLat, centerLng));
-        map.setZoom(16);
-      });
+      mapRef.current = map;
 
       // 마커 생성
       const marker = new window.naver.maps.Marker({
-        position: new window.naver.maps.LatLng(centerLat, centerLng),
+        position: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
         map,
         title: '조이 언어발달센터',
       });
@@ -74,20 +85,74 @@ const NaverMap = () => {
 
       // 마커 위에 인포 윈도우 열기
       infoWindow.open(map, marker);
+
+      // 줌 컨트롤이 렌더된 뒤 버튼 위치 측정(상대 배치)
+      window.naver.maps.Event.once(map, 'init', positionResetButton);
+      setTimeout(positionResetButton, 700);
     };
 
     document.head.appendChild(script);
   }, []);
 
+  const handleReset = () => {
+    const map = mapRef.current;
+    if (map && window.naver) {
+      map.setCenter(new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG));
+      map.setZoom(DEFAULT_ZOOM);
+    }
+  };
+
   return (
+    <div style={{ position: 'relative', width: '100%', height: '500px' }}>
       <div
-          id="map"
-          style={{
-            width: '100%',
-            height: '500px',
-            borderRadius: '12px',
-          }}
+        id="map"
+        style={{
+          width: '100%',
+          height: '100%',
+          borderRadius: '12px',
+        }}
       />
+      <button
+        type="button"
+        onClick={handleReset}
+        aria-label="원래 위치로 이동"
+        title="원래 위치로"
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = '#fff4e2';
+          e.currentTarget.style.borderColor = '#f2921d';
+          e.currentTarget.style.transform = 'scale(1.08)';
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.28)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = '#fff';
+          e.currentTarget.style.borderColor = '#e0e0e0';
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.2)';
+        }}
+        style={{
+          position: 'absolute',
+          right: '9px',
+          bottom: `${btnBottom}px`,
+          zIndex: 10,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '40px',
+          height: '40px',
+          padding: 0,
+          background: '#fff',
+          border: '1px solid #e0e0e0',
+          borderRadius: '50%',
+          cursor: 'pointer',
+          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+          transition: 'transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease',
+        }}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#f2921d" aria-hidden="true">
+          <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
+        </svg>
+      </button>
+    </div>
   );
 };
 
