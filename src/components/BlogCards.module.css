@@ -377,7 +377,7 @@
   transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
 }
 
-.pageBtn:hover:not(:disabled) {
+.pageBtn:not(.pageBtnOn):hover:not(:disabled) {
   border-color: var(--ifm-color-primary);
   color: var(--ifm-color-primary);
   background: #fff8ef;
