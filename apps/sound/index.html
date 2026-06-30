@@ -16,6 +16,20 @@
     .hero{ flex-direction:column; align-items:flex-start; }
     .hero .pecs-logo{ align-self:center; }
   }
+  /* 재생 컨트롤 버튼 */
+  .controls{ display:flex; gap:14px; justify-content:center; margin-top:20px; }
+  .pbtn{
+    width:56px; height:56px; border-radius:50%; cursor:pointer;
+    border:1px solid var(--line); background:var(--ink-3); color:var(--paper);
+    font-size:20px; line-height:1; display:grid; place-items:center;
+    transition:transform .12s ease, border-color .15s ease, background .15s ease, opacity .15s ease;
+  }
+  .pbtn:hover{ border-color:var(--glow); transform:translateY(-2px); }
+  .pbtn:active{ transform:scale(.94); }
+  .pbtn:focus-visible{ outline:2px solid var(--glow); outline-offset:2px; }
+  .pbtn:disabled{ opacity:.4; cursor:default; transform:none; }
+  #btnPlay{ background:linear-gradient(140deg,var(--glow),#5B8DEF); border-color:transparent; font-size:18px; }
+  #btnPlay:disabled{ background:var(--ink-3); }
 </style>
 </head>
 <body>
@@ -46,6 +60,10 @@
       <div class="nlbl">지금 재생 중</div>
       <div class="nval" id="nowName">카테고리를 골라주세요</div>
       <div class="ncat" id="nowCat"></div>
+    </div>
+    <div class="controls" id="controls">
+      <button class="pbtn" id="btnPlay" type="button" title="재생/일시정지" aria-label="재생/일시정지" disabled>▶</button>
+      <button class="pbtn" id="btnStop" type="button" title="정지" aria-label="정지" disabled>■</button>
     </div>
   </div>
 
@@ -108,6 +126,12 @@ const barEls=[...eqEl.children];
 function drawEq(){
   requestAnimationFrame(drawEq);
   if(!ANALYSER) return;
+  // 재생 중이 아니면(정지/일시정지/완료) 시각화를 멈추고 평평하게
+  if(audioEl.paused || audioEl.ended){
+    for(let i=0;i<BARS;i++) barEls[i].style.height="8px";
+    ringEl.style.transform="scale(0.6)";
+    return;
+  }
   ANALYSER.getByteFrequencyData(FREQ);
   let peak=0;
   for(let i=0;i<BARS;i++){
@@ -148,10 +172,38 @@ function playCategory(cat, btn){
   audioEl.currentTime = 0; audioEl.play().catch(()=>{});
   document.getElementById("eyebrow").textContent = "재생 중";
   document.getElementById("nowName").textContent = labelOf(pick);
+  syncControls();
 }
+
+/* 재생 컨트롤 (재생/일시정지 · 정지) */
+const btnPlay = document.getElementById("btnPlay");
+const btnStop = document.getElementById("btnStop");
+const eyebrowEl = document.getElementById("eyebrow");
+function syncControls(){
+  const hasSrc = !!audioEl.src;
+  btnPlay.disabled = !hasSrc;
+  btnStop.disabled = !hasSrc;
+  btnPlay.textContent = (!audioEl.paused && hasSrc) ? "⏸" : "▶";
+}
+btnPlay.addEventListener("click", () => {
+  if (!audioEl.src) return;
+  audio(); // AudioContext resume
+  if (audioEl.paused) audioEl.play().catch(()=>{});
+  else audioEl.pause();
+});
+btnStop.addEventListener("click", () => {
+  if (!audioEl.src) return;
+  audioEl.pause();
+  audioEl.currentTime = 0;
+  eyebrowEl.textContent = "정지";
+});
+audioEl.addEventListener("play", () => { eyebrowEl.textContent = "재생 중"; syncControls(); });
+audioEl.addEventListener("pause", () => { if (eyebrowEl.textContent !== "정지") eyebrowEl.textContent = "일시정지"; syncControls(); });
+audioEl.addEventListener("ended", () => { eyebrowEl.textContent = "재생 완료"; syncControls(); });
 
 document.getElementById("qrLink").href = "../qr/?url=" + encodeURIComponent(location.href);
 loadSounds();
+syncControls();
 document.querySelectorAll(".year").forEach(e => e.textContent = new Date().getFullYear());
 </script>
 </body>

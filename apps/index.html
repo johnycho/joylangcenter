@@ -44,33 +44,64 @@
   }
   .seclbl::before{content:"☀"; font-size:13px;}
 
-  /* 앱 — iOS 뮤직 앨범 스타일 그리드 */
-  .albums{display:grid; grid-template-columns:repeat(auto-fill,minmax(176px,1fr)); gap:26px 22px; margin-top:6px;}
-  .album{text-decoration:none; color:inherit; display:flex; flex-direction:column;}
+  /* 앱 — 화살표 슬라이더 (가운데 선택, 양옆은 블러) */
+  .carousel{ position:relative; margin-top:8px; }
+  .viewport{ overflow:hidden; padding:16px 0 22px; cursor:grab; touch-action:pan-y; }
+  .carousel.dragging .viewport{ cursor:grabbing; }
+  .carousel.dragging .album{ transition:opacity .4s ease, filter .4s ease; } /* 드래그 중 스케일 전환 끔 */
+  .track{
+    position:relative;
+    display:flex; align-items:center; gap:28px;
+    transition:transform .4s cubic-bezier(.22,.61,.36,1);
+    will-change:transform;
+  }
+  .album{
+    flex:0 0 auto;
+    width:clamp(168px,56vw,206px);
+    display:flex; flex-direction:column;
+    text-decoration:none; color:inherit;
+    -webkit-user-drag:none; user-select:none;
+    transition:transform .4s ease, opacity .4s ease, filter .4s ease;
+  }
+  .album img, .album *{ -webkit-user-drag:none; }
+  .album:not(.is-active){ opacity:.45; filter:blur(2.5px); transform:scale(.84); cursor:pointer; }
+  .album.is-active{ opacity:1; filter:none; transform:scale(1); }
   .album .cover{
-    aspect-ratio:1/1; border-radius:22px; display:grid; place-items:center;
-    box-shadow:0 18px 34px -18px rgba(120,80,0,.55);
-    transition:transform .18s ease, box-shadow .18s ease;
+    width:100%; aspect-ratio:1/1; border-radius:22px; display:grid; place-items:center;
+    box-shadow:0 18px 30px -14px rgba(120,80,0,.5);
+    transition:transform .16s ease, box-shadow .16s ease;
   }
-  .album:nth-child(4n+1) .cover{background:linear-gradient(150deg,#FFB454,#F2911B);}
-  .album:nth-child(4n+2) .cover{background:linear-gradient(150deg,#FFD36B,#FBB13C);}
-  .album:nth-child(4n+3) .cover{background:linear-gradient(150deg,#FFC68A,#F4A65B);}
-  .album:nth-child(4n+4) .cover{background:linear-gradient(150deg,#FFE38F,#FDC830);}
-  .album:hover .cover{transform:translateY(-6px) scale(1.015); box-shadow:0 28px 48px -18px rgba(120,80,0,.62);}
-  .album:active .cover{transform:translateY(-2px) scale(.99);}
-  .album .cico{font-size:62px; line-height:1; filter:drop-shadow(0 6px 10px rgba(120,60,0,.30));}
-  .album .atitle{margin-top:13px; font-family:var(--font-display); font-size:19px; color:var(--joy-ink);}
-  .album .asub{margin-top:2px; font-size:12.5px; line-height:1.45; color:var(--joy-muted);}
+  .album.is-active:hover .cover{ transform:translateY(-5px); box-shadow:0 26px 42px -16px rgba(120,80,0,.6); }
+  .track .album:nth-child(4n+1) .cover{background:linear-gradient(150deg,#FFB454,#F2911B);}
+  .track .album:nth-child(4n+2) .cover{background:linear-gradient(150deg,#FFD36B,#FBB13C);}
+  .track .album:nth-child(4n+3) .cover{background:linear-gradient(150deg,#FFC68A,#F4A65B);}
+  .track .album:nth-child(4n+4) .cover{background:linear-gradient(150deg,#FFE38F,#FDC830);}
+  .album .cico{font-size:clamp(50px,13vw,66px); line-height:1; filter:drop-shadow(0 6px 10px rgba(120,60,0,.3));}
+  .album .atitle{margin-top:13px; text-align:center; font-family:var(--font-display); font-size:18px; color:var(--joy-ink);}
+  .album .asub{margin-top:2px; text-align:center; font-size:12.5px; line-height:1.4; color:var(--joy-muted); padding:0 4px;}
 
-  .albums .empty,.note{color:var(--joy-muted);}
-  @media (max-width:520px){
-    .albums{grid-template-columns:1fr 1fr; gap:20px 16px;}
-    .album .cico{font-size:48px;}
-    .album .atitle{font-size:17px;}
+  /* 좌우 화살표 버튼 */
+  .navbtn{
+    position:absolute; top:calc(50% - 18px); transform:translateY(-50%);
+    width:48px; height:48px; border-radius:50%;
+    border:1px solid var(--joy-line); background:rgba(255,255,255,.92);
+    color:var(--joy-orange); font-size:26px; font-weight:700; line-height:1;
+    display:grid; place-items:center; cursor:pointer; z-index:6;
+    box-shadow:0 10px 24px -10px rgba(120,80,0,.45);
+    transition:transform .14s ease, background .14s ease, opacity .14s ease;
   }
+  .navbtn:hover{ background:#fff; transform:translateY(-50%) scale(1.07); }
+  .navbtn:active{ transform:translateY(-50%) scale(.93); }
+  .navbtn:disabled{ opacity:.3; cursor:default; box-shadow:none; }
+  .navbtn.prev{ left:max(2px,1vw); }
+  .navbtn.next{ right:max(2px,1vw); }
+
+  .albums{ margin-top:8px; }
+  .albums .empty,.note{color:var(--joy-muted); text-align:center;}
 
   /* 상단/푸터 (라이트 테마용 색 보정) */
-  .topbar{justify-content:space-between;}
+  .topbar{justify-content:space-between; margin-bottom:30px;}
+  .hero{margin-top:6px; margin-bottom:18px;}
   .btn.ghost.homebtn{color:var(--joy-ink); background:#fff; border:1px solid var(--joy-line);}
   .btn.ghost.homebtn:hover{filter:none; background:#fff8ef;}
   .sitefoot{border-color:var(--joy-line); color:var(--joy-muted);}
@@ -86,12 +117,18 @@
   </div>
 
   <div class="hero">
-    <h1><span class="hl">조이</span>와 함께<br>원하는 앱을 골라보세요</h1>
+    <h1>원하는 <span class="hl">앱</span>을 골라보세요</h1>
     <p>아이들의 즐거운 배움을 돕는 작은 도구 모음이에요. 카드를 눌러 바로 시작할 수 있어요.</p>
   </div>
 
-  <div class="seclbl">사용할 수 있는 앱</div>
-  <div class="albums" id="cards"><div class="empty">불러오는 중…</div></div>
+  <div class="albums">
+    <div class="empty" id="loading">불러오는 중…</div>
+    <div class="carousel" id="carousel" hidden>
+      <button class="navbtn prev" id="prevBtn" type="button" aria-label="이전 앱">‹</button>
+      <div class="viewport"><div class="track" id="cards"></div></div>
+      <button class="navbtn next" id="nextBtn" type="button" aria-label="다음 앱">›</button>
+    </div>
+  </div>
 
   <footer class="sitefoot">Copyright © <span class="year"></span> 조이 언어발달센터. All rights reserved.</footer>
 </div>
@@ -116,18 +153,84 @@ async function loadSystems(){
   ));
 
   const list = metas.filter(Boolean).sort((a,b)=>(a.order||99)-(b.order||99) || a.title.localeCompare(b.title,"ko"));
-  const box = document.getElementById("cards");
-  if (!list.length){ box.innerHTML = '<div class="empty">아직 등록된 앱이 없어요. apps 폴더에 추가해 주세요.</div>'; return; }
-  box.innerHTML = "";
-  list.forEach(s => {
-    const a = document.createElement("a");
-    a.className = "album"; a.href = s.id + "/";
-    a.innerHTML =
+  const track = document.getElementById("cards");
+  const loading = document.getElementById("loading");
+  const carousel = document.getElementById("carousel");
+  const viewport = carousel.querySelector(".viewport");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  if (loading) loading.remove();
+  if (!list.length){ carousel.outerHTML = '<div class="empty">아직 등록된 앱이 없어요. apps 폴더에 추가해 주세요.</div>'; return; }
+
+  // 앨범 카드 생성
+  track.innerHTML = "";
+  const albums = list.map((s) => {
+    const link = document.createElement("a");
+    link.className = "album"; link.href = s.id + "/"; link.draggable = false;
+    link.addEventListener("dragstart", (e) => e.preventDefault());
+    link.innerHTML =
       '<span class="cover"><span class="cico">' + (s.icon || "📦") + '</span></span>' +
       '<span class="atitle">' + (s.title || s.id) + '</span>' +
       '<span class="asub">' + (s.desc || "") + '</span>';
-    box.appendChild(a);
+    track.appendChild(link);
+    return link;
   });
+  carousel.hidden = false;
+
+  let active = 0;
+  function offsetFor(i){ const el = albums[i]; return viewport.clientWidth / 2 - (el.offsetLeft + el.offsetWidth / 2); }
+  function render(){
+    albums.forEach((el, i) => el.classList.toggle("is-active", i === active));
+    track.style.transform = "translateX(" + offsetFor(active) + "px)";
+    prevBtn.disabled = active <= 0;
+    nextBtn.disabled = active >= albums.length - 1;
+    if (albums.length <= 1){ prevBtn.style.display = nextBtn.style.display = "none"; }
+  }
+  function go(i){ active = Math.max(0, Math.min(albums.length - 1, i)); render(); }
+  requestAnimationFrame(render);
+  window.addEventListener("resize", render);
+
+  prevBtn.addEventListener("click", () => go(active - 1));
+  nextBtn.addEventListener("click", () => go(active + 1));
+
+  // 클릭: 드래그였으면 무시 / 비활성 앨범 → 가운데로 / 활성 앨범 → 열기
+  let moved = 0;
+  albums.forEach((el, i) => el.addEventListener("click", (e) => {
+    if (moved > 6) { e.preventDefault(); return; }   // 드래그 직후 클릭 무시
+    if (i !== active) { e.preventDefault(); go(i); }  // 비활성 클릭 → 가운데로
+  }));
+
+  // 앨범을 잡고 끌면 따라 돌고, 놓으면 가까운 앨범으로 스냅
+  let dragging = false, sx = 0, base = 0, dxNow = 0;
+  function unit(){ return albums.length > 1 ? (albums[1].offsetLeft - albums[0].offsetLeft) : (albums[0].offsetWidth + 28); }
+  viewport.addEventListener("pointerdown", (e) => {
+    dragging = true; sx = e.clientX; dxNow = 0; moved = 0;
+    base = offsetFor(active);
+    track.style.transition = "none";
+    carousel.classList.add("dragging");
+  });
+  window.addEventListener("pointermove", (e) => {
+    if (!dragging) return;
+    dxNow = e.clientX - sx;
+    moved = Math.max(moved, Math.abs(dxNow));
+    track.style.transform = "translateX(" + (base + dxNow) + "px)";
+  });
+  window.addEventListener("pointerup", () => {
+    if (!dragging) return;
+    dragging = false;
+    carousel.classList.remove("dragging");
+    track.style.transition = "";
+    go(active + Math.round(-dxNow / unit()));   // 끈 거리만큼 이동 후 스냅
+  });
+  // 휠(트랙패드 좌우 포함)로 이전·다음
+  let wheelLock = false;
+  viewport.addEventListener("wheel", (e) => {
+    const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (Math.abs(d) < 8 || wheelLock) return;
+    e.preventDefault(); wheelLock = true;
+    go(active + (d > 0 ? 1 : -1));
+    setTimeout(() => { wheelLock = false; }, 420);
+  }, { passive: false });
 }
 loadSystems();
 document.querySelectorAll(".year").forEach(e => e.textContent = new Date().getFullYear());
