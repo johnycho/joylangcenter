@@ -162,9 +162,10 @@ pre.editor-line-text span.cursor {
   margin-left: 4px;
 }
 
-/* 블로그·인스타·카톡을 균일한 원형 칩 버튼으로 */
+/* 전화·블로그·인스타·카톡을 균일한 원형 칩 버튼으로 */
 .social-icons a {
-  display: inline-block;
+  display: grid;
+  place-items: center;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -172,6 +173,8 @@ pre.editor-line-text span.cursor {
   background-size: 19px;
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
+
+.navbar-phone svg { display: block; }
 
 .social-icons a:hover {
   transform: translateY(-2px);

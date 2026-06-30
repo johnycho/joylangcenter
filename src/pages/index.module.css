@@ -386,25 +386,31 @@
 
 .channelRow {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.55rem;
   flex-wrap: wrap;
 }
 
-.channelBtn {
-  padding: 0.6rem 1.1rem;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.92rem;
-  text-decoration: none;
-  transition: transform 0.14s ease, filter 0.14s ease;
-  white-space: nowrap;
+/* 상단 네비 소셜 아이콘과 동일한 원형 아이콘 버튼 */
+.channelIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #f4ece0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
+  transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
-.channelBtn:hover { transform: translateY(-2px); filter: brightness(0.97); }
+.channelIcon svg { display: block; }
 
-.chKakao { background: #fee500; color: #3c1e1e; }
-.chNaver { background: #03c75a; color: #fff; }
-.chInsta { background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af); color: #fff; }
+.channelIcon:hover { transform: translateY(-2px); background-color: #fbe4c4; }
+
+.ciKakao { background-image: url('/img/kakao-channel.svg'); }
+.ciNaver { background-image: url('/img/naver-blog.png'); }
+.ciInsta { background-image: url('/img/instagram.svg'); }
 
 .mapWrap {
   border-radius: 18px;
@@ -434,23 +440,48 @@
   opacity: 0.96;
 }
 
-.ctaBtn {
+.ctaActions {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaBtn,
+.ctaBtnGhost {
   display: inline-block;
-  padding: 0.95rem 2.2rem;
+  padding: 0.9rem 2rem;
   border-radius: 999px;
   font-weight: 800;
   font-size: 1.05rem;
   text-decoration: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+/* 전화 (주 버튼) */
+.ctaBtn {
   color: #c0560a;
   background: #fff;
   box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.35);
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
 }
 
 .ctaBtn:hover {
   color: #c0560a;
   transform: translateY(-2px);
   box-shadow: 0 20px 38px -12px rgba(0, 0, 0, 0.45);
+}
+
+/* 카카오 (보조 버튼) */
+.ctaBtnGhost {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+
+.ctaBtnGhost:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.28);
 }
 
 /* ── 반응형 ───────────────────────────────────────────── */
@@ -502,9 +533,9 @@
 
   .locationCard { padding: 1.2rem 1.2rem; }
   .address { font-size: 0.88rem; }
-  .channelBtn { font-size: 0.82rem; padding: 0.48rem 0.9rem; }
+  .channelIcon { width: 40px; height: 40px; background-size: 20px; }
 
   .ctaTitle { font-size: 1.28rem; }
   .ctaSub { font-size: 0.88rem; }
-  .ctaBtn { font-size: 0.92rem; padding: 0.72rem 1.5rem; }
+  .ctaBtn, .ctaBtnGhost { font-size: 0.92rem; padding: 0.72rem 1.5rem; }
 }

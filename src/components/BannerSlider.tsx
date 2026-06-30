@@ -16,10 +16,8 @@ import styles from './BannerSlider.module.css';
 
 export default function BannerSlider() {
   const [slides] = useState([
-    '/img/index-banner.jpg',
     '/img/index-banner-2.jpg',
     '/img/index-banner-3.jpg',
-    '/img/index-banner-4.jpg',
   ]);
 
   return (

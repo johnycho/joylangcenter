@@ -10,14 +10,8 @@ import NaverMap from '@site/src/components/NaverMap';
 const KAKAO_URL = 'https://pf.kakao.com/_sxjPXn';
 const NAVER_URL = 'https://blog.naver.com/joylangcenter';
 const INSTA_URL = 'https://instagram.com/joylangcenter';
-const MAP_URL = 'https://naver.me/5Vm9WYYy';
+const PHONE = '033-745-1030';
 const ADDRESS = '강원특별자치도 원주시 지정면 무릉로 15 JD스퀘어 6층';
-
-const QUICK = [
-  {icon: '📍', label: '위치', value: '원주시 지정면 무릉로 15 JD스퀘어 6층', href: MAP_URL, external: true},
-  {icon: '💬', label: '상담 문의', value: '카카오톡으로 편하게 문의하세요', href: KAKAO_URL, external: true},
-  {icon: '🎯', label: '전문 영역', value: '조음·언어발달·유창성·자폐·지적', href: '#therapy', external: false},
-];
 
 const PILLARS = [
   {icon: '🧡', title: '따뜻한 마음', desc: '아이의 마음을 먼저 헤아리는 안전한 공간이에요.'},
@@ -58,31 +52,6 @@ function HomepageHero() {
   );
 }
 
-function QuickInfo() {
-  return (
-    <section className={styles.quickStrip}>
-      <div className={styles.container}>
-        <div className={styles.quickInfo}>
-          {QUICK.map((q) => (
-            <a
-              key={q.label}
-              className={styles.quickCard}
-              href={q.href}
-              {...(q.external ? {target: '_blank', rel: 'noopener noreferrer'} : {})}
-            >
-              <span className={styles.quickIcon}>{q.icon}</span>
-              <span className={styles.quickText}>
-                <span className={styles.quickLabel}>{q.label}</span>
-                <span className={styles.quickValue}>{q.value}</span>
-              </span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function SectionHead({eyebrow, title, sub}: {eyebrow: string; title: string; sub?: string}) {
   return (
     <div className={styles.sectionHead}>
@@ -100,7 +69,7 @@ export default function Home(): ReactNode {
       <Head>
         <title>조이 언어발달센터</title>
         {/* 첫 배너를 우선 로딩해 첫 화면 지연 최소화 */}
-        <link rel="preload" as="image" href="/img/index-banner.jpg" fetchpriority="high" />
+        <link rel="preload" as="image" href="/img/index-banner-2.jpg" fetchpriority="high" />
         <meta property="og:title" content="조이 언어발달센터" />
         <meta property="og:description" content="즐거운 의사소통이 있는 곳, 조이 언어발달센터입니다. 원주 언어치료·언어발달센터." />
         <meta property="og:image" content="/img/joy-thumbnail.png" />
@@ -143,8 +112,6 @@ export default function Home(): ReactNode {
       <HomepageHero />
 
       <main>
-        <QuickInfo />
-
         {/* 가치 / 강점 */}
         <section className={`${styles.section} ${styles.sectionTint}`}>
           <div className={styles.container}>
@@ -194,9 +161,12 @@ export default function Home(): ReactNode {
             <div className={styles.locationCard}>
               <p className={styles.address}>📍 {ADDRESS}</p>
               <div className={styles.channelRow}>
-                <a className={`${styles.channelBtn} ${styles.chKakao}`} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
-                <a className={`${styles.channelBtn} ${styles.chNaver}`} href={NAVER_URL} target="_blank" rel="noopener noreferrer">네이버 블로그</a>
-                <a className={`${styles.channelBtn} ${styles.chInsta}`} href={INSTA_URL} target="_blank" rel="noopener noreferrer">인스타그램</a>
+                <a className={styles.channelIcon} href={`tel:${PHONE}`} aria-label="전화 상담">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#f2921d"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                </a>
+                <a className={`${styles.channelIcon} ${styles.ciKakao}`} href={KAKAO_URL} target="_blank" rel="noopener noreferrer" aria-label="카카오톡 상담"></a>
+                <a className={`${styles.channelIcon} ${styles.ciNaver}`} href={NAVER_URL} target="_blank" rel="noopener noreferrer" aria-label="네이버 블로그"></a>
+                <a className={`${styles.channelIcon} ${styles.ciInsta}`} href={INSTA_URL} target="_blank" rel="noopener noreferrer" aria-label="인스타그램"></a>
               </div>
             </div>
             <div className={styles.mapWrap}>
@@ -206,11 +176,14 @@ export default function Home(): ReactNode {
         </section>
 
         {/* 상담 CTA */}
-        <section className={styles.ctaBand}>
+        <section id="contact" className={styles.ctaBand}>
           <div className={styles.container}>
             <h2 className={styles.ctaTitle}>궁금한 점이 있으신가요?</h2>
-            <p className={styles.ctaSub}>상담 시간·수업 안내 등 무엇이든 카카오톡으로 편하게 문의해 주세요.</p>
-            <a className={styles.ctaBtn} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오톡으로 상담하기</a>
+            <p className={styles.ctaSub}>상담 시간·수업 안내 등 무엇이든 전화나 카카오톡으로 편하게 문의해 주세요.</p>
+            <div className={styles.ctaActions}>
+              <a className={styles.ctaBtn} href={`tel:${PHONE}`}>전화 상담</a>
+              <a className={styles.ctaBtnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
+            </div>
           </div>
         </section>
       </main>
