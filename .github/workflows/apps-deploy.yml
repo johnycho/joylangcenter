@@ -1,0 +1,39 @@
+name: Deploy /apps to GitHub Pages
+
+# static/apps (앱 센터)만 바뀌었을 때, Docusaurus 전체 재빌드 없이
+# gh-pages 의 /apps 디렉터리만 갱신한다. (사이트 나머지는 keep_files 로 보존)
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'static/apps/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Docusaurus deploy.yml 과 같은 그룹 → gh-pages 발행을 직렬화
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy-apps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate registry / manifest
+        run: python3 static/apps/tools/build.py
+
+      - name: Publish static/apps to gh-pages/apps
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_ACTIONS_TOKEN }}
+          publish_dir: ./static/apps
+          destination_dir: apps
+          keep_files: true # gh-pages 의 Docusaurus 사이트(루트 CNAME 등)를 지우지 않음

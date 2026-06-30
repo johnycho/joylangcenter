@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main # main 브랜치에 푸시될 때 배포
+    paths-ignore:
+      - 'static/apps/**' # /apps 전용 변경은 apps-deploy.yml 이 처리 (Docusaurus 재빌드 생략)
+
+# gh-pages 발행을 apps-deploy.yml 과 직렬화 (동시 푸시 충돌 방지)
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
 
 jobs:
   deploy:
