@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>조이언어발달센터 · 시스템 허브</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/theme.css" />
+<style>
+  /* ── 조이언어발달센터 따뜻한 테마 (허브 화면 전용) ───────────────── */
+  :root{
+    --joy-orange:#F79325; --joy-amber:#FBB13C; --joy-yellow:#FDD05A;
+    --joy-ink:#5A4633; --joy-muted:#A38B6C; --joy-cream:#FFFBF3;
+    --joy-line:rgba(247,147,37,.18);
+  }
+  body{
+    background:
+      radial-gradient(900px 520px at 88% -8%, rgba(253,208,90,.40), transparent 60%),
+      radial-gradient(820px 480px at -8% 8%, rgba(247,147,37,.20), transparent 55%),
+      radial-gradient(900px 600px at 50% 120%, rgba(251,177,60,.16), transparent 60%),
+      var(--joy-cream);
+    color:var(--joy-ink);
+  }
+
+  /* 헤더 */
+  .topbar{margin-bottom:8px;}
+  .joy-logo{height:clamp(46px,9vw,64px); width:auto; display:block;}
+
+  /* 히어로 */
+  .hero h1{color:var(--joy-ink);}
+  .hero h1 .hl{
+    background:linear-gradient(100deg,var(--joy-orange),var(--joy-amber));
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+  }
+  .hero p{color:var(--joy-muted); font-size:15.5px;}
+
+  /* 섹션 라벨 */
+  .seclbl{
+    color:var(--joy-orange); display:inline-flex; align-items:center; gap:8px;
+    background:rgba(247,147,37,.10); padding:7px 14px; border-radius:999px;
+    border:1px solid var(--joy-line); margin-left:0;
+  }
+  .seclbl::before{content:"☀"; font-size:13px;}
+
+  /* 시스템 카드 — 따뜻한 조이 색상으로 순환 */
+  .syscards{gap:18px;}
+  .syscard{
+    --hc:var(--joy-amber);
+    background:#fff;
+    border:1px solid rgba(247,147,37,.14);
+    border-top:6px solid var(--hc);
+    border-radius:26px; padding:24px 24px 22px;
+    color:var(--joy-ink);
+    box-shadow:0 16px 36px -22px rgba(247,147,37,.55);
+  }
+  .syscard:nth-child(4n+1){--hc:#F79325;}   /* 주황 */
+  .syscard:nth-child(4n+2){--hc:#FBB13C;}   /* 호박 */
+  .syscard:nth-child(4n+3){--hc:#F4A65B;}   /* 살구 */
+  .syscard:nth-child(4n+4){--hc:#FDC830;}   /* 노랑 */
+  .syscard:hover{transform:translateY(-4px); border-color:rgba(247,147,37,.14); box-shadow:0 22px 44px -20px rgba(247,147,37,.6);}
+  .syscard .sico{
+    width:58px; height:58px; border-radius:18px; display:grid; place-items:center; font-size:30px;
+    background:linear-gradient(140deg, color-mix(in srgb, var(--hc) 45%, #fff), color-mix(in srgb, var(--hc) 18%, #fff));
+  }
+  .syscard .stitle{color:var(--joy-ink); font-size:25px;}
+  .syscard .sdesc{color:var(--joy-muted); font-size:13.5px; line-height:1.5;}
+  .syscard .sgo{color:var(--hc); margin-top:10px; filter:saturate(1.1) brightness(.92);}
+
+  .syscards .empty,.note{color:var(--joy-muted);}
+
+  /* 푸터 */
+  .foot{color:var(--joy-muted); opacity:.9; margin-top:44px;}
+  .foot .heart{color:var(--joy-orange);}
+
+  @media (max-width:520px){ .hero h1{font-size:30px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <img class="joy-logo" src="shared/assets/joy-logo.png" alt="조이언어발달센터 · Joy Language Development Center" />
+  </div>
+
+  <div class="hero">
+    <h1><span class="hl">조이</span>와 함께<br>원하는 시스템을 골라보세요</h1>
+    <p>아이들의 즐거운 배움을 돕는 작은 도구 모음이에요. 카드를 눌러 바로 시작할 수 있어요.</p>
+  </div>
+
+  <div class="seclbl">사용할 수 있는 시스템</div>
+  <div class="syscards" id="cards"><div class="empty">불러오는 중…</div></div>
+
+  <div class="foot">새 시스템 추가: apps/&lt;이름&gt;/ 폴더에 index.html 과 system.json 을 넣으면 끝 <span class="heart">♥</span></div>
+</div>
+
+<script src="shared/discover.js"></script>
+<script>
+async function loadSystems(){
+  let ids = [];
+  const files = await Discover.listFiles("");   // ["sound/system.json", ...] 또는 null
+  if (files) {
+    const set = new Set();
+    files.forEach(p => { const m = p.match(/^([^/]+)\/system\.json$/); if (m) set.add(m[1]); });
+    ids = [...set];
+  } else {
+    // 폴백: 액션이 만들어 둔 목록 (apps/registry.json)
+    ids = await fetch("registry.json", {cache:"no-store"}).then(r=>r.ok?r.json():[]).catch(()=>[]);
+  }
+
+  const metas = await Promise.all(ids.map(id =>
+    fetch(id + "/system.json").then(r => r.ok ? r.json() : null)
+      .then(j => j ? Object.assign({id}, j) : null).catch(() => null)
+  ));
+
+  const list = metas.filter(Boolean).sort((a,b)=>(a.order||99)-(b.order||99) || a.title.localeCompare(b.title,"ko"));
+  const box = document.getElementById("cards");
+  if (!list.length){ box.innerHTML = '<div class="empty">아직 등록된 시스템이 없어요. apps 폴더에 추가해 주세요.</div>'; return; }
+  box.innerHTML = "";
+  list.forEach(s => {
+    const a = document.createElement("a");
+    a.className = "syscard"; a.href = s.id + "/";
+    if (s.color) a.style.setProperty("--cc", s.color);
+    a.innerHTML =
+      '<span class="sico">' + (s.icon || "📦") + '</span>' +
+      '<span class="stitle">' + (s.title || s.id) + '</span>' +
+      '<span class="sdesc">' + (s.desc || "") + '</span>' +
+      '<span class="sgo">열기 →</span>';
+    box.appendChild(a);
+  });
+}
+loadSystems();
+</script>
+</body>
+</html>
