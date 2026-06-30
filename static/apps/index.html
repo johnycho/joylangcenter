@@ -222,14 +222,28 @@ async function loadSystems(){
     track.style.transition = "";
     go(active + Math.round(-dxNow / unit()));   // 끈 거리만큼 이동 후 스냅
   });
-  // 휠(트랙패드 좌우 포함)로 이전·다음
-  let wheelLock = false;
+  // 휠/트랙패드 스크롤: 드래그처럼 연속으로 따라가다 멈추면 스냅
+  let wheelAccum = 0, wheelTimer = null, wheeling = false;
   viewport.addEventListener("wheel", (e) => {
     const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (Math.abs(d) < 8 || wheelLock) return;
-    e.preventDefault(); wheelLock = true;
-    go(active + (d > 0 ? 1 : -1));
-    setTimeout(() => { wheelLock = false; }, 420);
+    if (Math.abs(d) < 1) return;
+    e.preventDefault();
+    if (!wheeling) { wheeling = true; track.style.transition = "none"; }
+    const u = unit();
+    wheelAccum += d;
+    // 양 끝을 살짝만 넘도록 제한
+    const max = (albums.length - 1 - active) * u + u * 0.5;
+    const min = -(active * u + u * 0.5);
+    wheelAccum = Math.max(min, Math.min(max, wheelAccum));
+    track.style.transform = "translateX(" + (offsetFor(active) - wheelAccum) + "px)";
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => {
+      wheeling = false;
+      track.style.transition = "";
+      const steps = Math.round(wheelAccum / u);
+      wheelAccum = 0;
+      go(active + steps);
+    }, 90);
   }, { passive: false });
 }
 loadSystems();
