@@ -32,3 +32,8 @@ push 하면 `.github/workflows/apps-build.yml` 이 `registry.json`/`manifest.jso
 (로컬에서 직접 갱신하려면: `python3 static/apps/tools/build.py`)
 
 소리 재생용 사운드는 `sound/sounds/<카테고리>/` 폴더에 `.mp3` 를 넣으면 그 폴더명이 카테고리가 됩니다.
+
+## 배포
+
+`static/apps/**` 만 바뀌면 `apps-deploy.yml` 이 Docusaurus 전체 재빌드 없이 gh-pages 의 `/apps` 만 갱신합니다.
+홈페이지(blog/docs/src 등)가 바뀌면 `deploy.yml` 이 전체 사이트를 배포합니다.
