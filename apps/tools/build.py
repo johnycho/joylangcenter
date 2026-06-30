@@ -3,8 +3,8 @@
 #   python3 static/apps/tools/build.py
 # (push 시 .github/workflows/apps-build.yml 이 같은 일을 자동으로 한다.)
 #
-# 플랫 구조: 개별 시스템 폴더가 apps/ 바로 아래에 위치한다. (apps/sound, apps/qr ...)
-# - system.json 또는 index.html 이 있는 폴더만 시스템으로 등록 (shared/tools 는 자동 제외)
+# 플랫 구조: 개별 앱 폴더가 apps/ 바로 아래에 위치한다. (apps/sound, apps/qr ...)
+# - system.json 또는 index.html 이 있는 폴더만 앱으로 등록 (shared/tools 는 자동 제외)
 # - sounds/ 하위 폴더가 있으면 그 안의 mp3 로 manifest.json 생성
 import os, json, unicodedata
 
