@@ -270,6 +270,17 @@
 [data-theme='dark'] .areaCard { background: #2a2219; border-color: #3a2f22; }
 [data-theme='dark'] .areaDesc { color: #b8ab9b; }
 
+/* ── 소식 & 공지 (게시판) ─────────────────────────────── */
+.boardGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 860px) {
+  .boardGrid { grid-template-columns: 1fr; }
+}
+
 /* ── 오시는 길 ────────────────────────────────────────── */
 .locationCard {
   background: #fff;

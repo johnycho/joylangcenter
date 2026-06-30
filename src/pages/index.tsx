@@ -109,12 +109,15 @@ export default function Home(): ReactNode {
           </div>
         </section>
 
-        {/* 소식 */}
-        <section className={styles.section}>
-          <BlogCards tag="notice" title="공지사항" />
-        </section>
+        {/* 소식 & 공지 (게시판형) */}
         <section className={`${styles.section} ${styles.sectionTint}`}>
-          <BlogCards tag="news" title="센터 소식" />
+          <div className={styles.container}>
+            <SectionHead eyebrow="NEWS" title="소식 & 공지" sub="공지사항과 센터 소식을 한눈에 확인하세요." />
+            <div className={styles.boardGrid}>
+              <BlogCards tag="notice" title="공지사항" moreHref="/blog/tags/notice" max={6} />
+              <BlogCards tag="news" title="센터 소식" moreHref="/blog/tags/news" max={6} />
+            </div>
+          </div>
         </section>
 
         {/* 오시는 길 */}
