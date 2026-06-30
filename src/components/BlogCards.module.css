@@ -1,58 +1,95 @@
 .section {
   text-align: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 .title {
-  font-size: 2rem;
-  margin-bottom: 3rem;
+  font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+  font-weight: 800;
+  margin-bottom: 2.5rem;
 }
 
 .cardRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
 }
 
 .card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
   background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  flex: 1 1 33.3%; /* 가로 2개씩 */
-  max-width: 33.3%;
-  padding: 1rem;
+  border: 1px solid #f0e6d6;
+  border-radius: 16px;
+  padding: 1.5rem 1.6rem;
   text-align: left;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 10px 24px -16px rgba(120, 80, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  overflow: hidden;
+}
+
+/* 왼쪽 브랜드 색 액센트 바 */
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #f7a32e, #fdc830);
+  opacity: 0;
+  transition: opacity 0.18s ease;
 }
 
 .card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+  border-color: #f7c98a;
+  box-shadow: 0 18px 36px -18px rgba(120, 80, 0, 0.45);
 }
 
-.card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+.card:hover::before {
+  opacity: 1;
 }
 
-.card p {
-  color: #555;
-  font-size: 0.95rem;
+.card h4 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 0;
+  color: #2b2b2b;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
 }
 
-/* ✅ 태블릿/모바일 대응: 한 줄에 1개 */
-@media (max-width: 996px) {
-  .card {
-    flex: 1 1 100%;
-    max-width: 100%;
+.date {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary-darker);
+  background: #fff3e0;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+}
+
+/* 태블릿/모바일: 한 줄에 1개 */
+@media (max-width: 768px) {
+  .cardRow {
+    grid-template-columns: 1fr;
   }
 }
 
 .newBadge {
-  width: 30px;
-  height: 30px;
-  margin-left: .4rem;
+  width: 28px;
+  height: 28px;
+  margin-left: 0.3rem;
   vertical-align: middle;
+  flex-shrink: 0;
 }

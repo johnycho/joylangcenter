@@ -155,6 +155,14 @@ const config: Config = {
           ],
         },
         {
+          // /apps 는 Docusaurus 라우트가 아닌 정적 페이지 → pathname:// 으로 전체 이동
+          // (broken-link 검사 제외) + target _self 로 같은 탭에서 열기
+          to: 'pathname:///apps/',
+          target: '_self',
+          label: '앱 센터',
+          position: 'left',
+        },
+        {
           type: 'html',
           position: 'right',
           value: `

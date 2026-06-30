@@ -6,14 +6,18 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  /*--ifm-code-font-size: 95%;*/
+  /* 조이 브랜드 컬러 (로고의 따뜻한 주황) */
+  --ifm-color-primary: #f2921d;
+  --ifm-color-primary-dark: #e7820a;
+  --ifm-color-primary-darker: #da7b0a;
+  --ifm-color-primary-darkest: #b46508;
+  --ifm-color-primary-light: #f4a23c;
+  --ifm-color-primary-lighter: #f5aa4d;
+  --ifm-color-primary-lightest: #f8c078;
+  /* 보조 컬러 (노랑) */
+  --joy-yellow: #fdc830;
+  --joy-amber: #fbb13c;
+  --ifm-code-font-size: 100%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
   /** 기본 폰트 변경 */
@@ -24,13 +28,13 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #fbb13c;
+  --ifm-color-primary-dark: #fa9f17;
+  --ifm-color-primary-darker: #f5960a;
+  --ifm-color-primary-darkest: #cb7c08;
+  --ifm-color-primary-light: #fcc361;
+  --ifm-color-primary-lighter: #fdcc74;
+  --ifm-color-primary-lightest: #fee0a8;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
