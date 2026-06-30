@@ -51,11 +51,11 @@ pre.editor-line-text span.cursor {
 .navbar {
   min-height: 72px;
   padding: 0 1rem;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: saturate(1.4) blur(12px);
-  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  /* 주의: backdrop-filter 를 .navbar 에 주면 position:fixed 인 모바일 사이드바가
+     깨지므로(컨테이닝 블록 변경) 불투명 배경만 사용한다. */
+  background: #ffffff;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.2s ease, background 0.2s ease;
+  transition: box-shadow 0.2s ease;
 }
 
 /* 스크롤 시 살짝 떠 있는 느낌 */
@@ -177,6 +177,18 @@ pre.editor-line-text span.cursor {
   transform: translateY(-2px);
   background-color: #fbe4c4;
   opacity: 1;
+}
+
+/* 푸터 저작권: 모바일에서 글씨가 커서 줄바꿈되던 문제 → 크기 축소 */
+.footer__copyright {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .footer__copyright {
+    font-size: 0.72rem;
+  }
 }
 
 /* footer 조정 */

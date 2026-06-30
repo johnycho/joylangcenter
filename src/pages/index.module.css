@@ -35,7 +35,9 @@
   border: 0;
 }
 
-/* ── Hero (배너 슬라이더 + 글래스 오버레이) ──────────── */
+/* ── Hero (배너 슬라이더 + 하단 그라데이션 오버레이) ───── */
+/* PC: 이미지를 가리지 않게 하단에 그라데이션 + 좌하단 텍스트
+   모바일: 텍스트를 슬라이더 아래로 내려(스택) 이미지를 가리지 않음 */
 .hero {
   position: relative;
 }
@@ -43,74 +45,74 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  z-index: 10;
+  z-index: 5;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1.5rem;
-  pointer-events: none; /* 슬라이더 조작은 그대로, 콘텐츠만 클릭 가능 */
-  background: linear-gradient(to bottom, rgba(18, 11, 2, 0.28), rgba(18, 11, 2, 0.40));
+  align-items: flex-end;
+  justify-content: flex-start;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(12, 8, 2, 0.66) 0%,
+    rgba(12, 8, 2, 0.28) 30%,
+    rgba(12, 8, 2, 0) 58%
+  );
 }
 
-/* 콘텐츠는 반투명 글래스(블러) 패널 위에 → 이미지 위에서도 또렷하게 */
 .heroContent {
   pointer-events: auto;
-  max-width: 680px;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  text-align: left;
   color: #fff;
-  padding: clamp(2rem, 4.5vw, 3.2rem) clamp(1.6rem, 5vw, 3.4rem);
-  border-radius: 28px;
-  background: rgba(20, 13, 4, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(12px) saturate(1.1);
-  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  padding: 0 clamp(1.5rem, 5vw, 3rem) clamp(1.8rem, 5vw, 3.4rem);
 }
 
 .heroEyebrow {
   display: inline-block;
-  margin: 0 0 1rem;
+  margin: 0 0 0.9rem;
   padding: 0.4rem 1rem;
   font-size: 0.85rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #fff;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 999px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .heroTitle {
-  margin: 0 0 1rem;
-  font-size: clamp(2.2rem, 5.2vw, 3.7rem);
+  margin: 0 0 0.9rem;
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
   font-weight: 800;
-  line-height: 1.18;
+  line-height: 1.16;
   letter-spacing: -0.01em;
   color: #fff;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 
 .heroSubtitle {
-  margin: 0 auto;
-  max-width: 30ch;
+  margin: 0;
+  max-width: 32ch;
   font-size: clamp(1rem, 2vw, 1.22rem);
   line-height: 1.6;
   color: #fff;
-  opacity: 0.96;
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
 }
 
 .heroActions {
-  margin-top: 1.9rem;
+  margin-top: 1.6rem;
   display: flex;
-  gap: 0.8rem;
-  justify-content: center;
+  gap: 0.7rem;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
 .heroBtnPrimary,
 .heroBtnGhost {
-  padding: 0.8rem 1.7rem;
+  padding: 0.78rem 1.6rem;
   border-radius: 999px;
   font-weight: 800;
   font-size: 1rem;
@@ -132,14 +134,52 @@
 
 .heroBtnGhost {
   color: #fff;
-  background: rgba(255, 255, 255, 0.16);
-  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .heroBtnGhost:hover {
   color: #fff;
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 모바일: 오버레이를 해제하고 텍스트를 슬라이더 아래 크림 블록으로 */
+@media (max-width: 768px) {
+  .heroOverlay {
+    position: static;
+    display: block;
+    background: linear-gradient(180deg, #fff7ec 0%, #ffffff 100%);
+  }
+  .heroContent {
+    text-align: center;
+    color: #2b2113;
+    padding: clamp(1.8rem, 7vw, 2.4rem) 1.3rem;
+  }
+  .heroEyebrow {
+    color: var(--ifm-color-primary);
+    background: rgba(242, 146, 29, 0.1);
+    border-color: rgba(242, 146, 29, 0.28);
+  }
+  .heroTitle {
+    color: #2b2113;
+    text-shadow: none;
+  }
+  .heroSubtitle {
+    margin: 0 auto;
+    color: #6f6256;
+    text-shadow: none;
+  }
+  .heroActions {
+    justify-content: center;
+  }
+  .heroBtnGhost {
+    color: #b5630a;
+    background: #fff;
+    border: 1.5px solid #f3d3a6;
+  }
 }
 
 /* ── 유용한 정보 카드 (히어로 아래 스트립) ────────────── */
