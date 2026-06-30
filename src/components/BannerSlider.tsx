@@ -40,7 +40,15 @@ export default function BannerSlider() {
         >
           {slides.map((src, idx) => (
               <SwiperSlide key={idx}>
-                <img src={src} alt={`조이 언어발달센터, 원주 언어치료센터, 원주 언어재활센터, 원주 언어발달센터`} className={styles.slideImage}/>
+                <img
+                    src={src}
+                    alt={`조이 언어발달센터, 원주 언어치료센터, 원주 언어재활센터, 원주 언어발달센터`}
+                    className={styles.slideImage}
+                    decoding="async"
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    // @ts-ignore - fetchPriority 는 최신 브라우저 지원
+                    fetchpriority={idx === 0 ? 'high' : 'low'}
+                />
               </SwiperSlide>
           ))}
         </Swiper>
