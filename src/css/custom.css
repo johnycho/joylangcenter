@@ -65,25 +65,97 @@ pre.editor-line-text span.cursor {
 
 /* 메뉴 항목 */
 .navbar__items {
-  gap: 2px;
+  gap: 0.45rem;
 }
 
 .navbar__link {
   font-weight: 700;
   font-size: 0.98rem;
-  border-radius: 10px;
-  padding: 0.45rem 0.85rem;
-  transition: color 0.15s ease, background 0.15s ease;
+  color: #4a3f33;
+  border-radius: 999px;
+  padding: 0.5rem 0.8rem;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+/* PC 드롭다운 화살표(caret) 제거 */
+.navbar__link::after {
+  content: none !important;
 }
 
 .navbar__link:hover {
   color: var(--ifm-color-primary);
-  background: rgba(242, 146, 29, 0.08);
+  background-color: #fff4e2;
 }
 
-.navbar__link--active {
+/* 현재 페이지: 알약 강조 */
+.navbar__link--active,
+.navbar__link--active:hover {
   color: var(--ifm-color-primary);
+  background-color: #fbe6c6;
 }
+
+/* 드롭다운 메뉴 박스 */
+.dropdown__menu {
+  margin-top: 0.85rem;
+  padding: 0.4rem;
+  min-width: 12rem;
+  border: 1px solid #f0e6d6;
+  border-radius: 14px;
+  box-shadow: 0 16px 34px -16px rgba(120, 80, 0, 0.4);
+}
+
+/* 부모-메뉴 사이 여백에서도 hover가 끊기지 않도록 투명 브릿지.
+   항상 DOM에 있는 드롭다운 컨테이너에 붙이되, hover 시에만 영역이 생겨
+   닫혀 있을 때 아래 콘텐츠 클릭을 막지 않는다. */
+.navbar__item.dropdown {
+  position: relative;
+  /* 드롭다운 래퍼 기본 패딩 제거 → 링크 패딩만 적용해 일반 항목과 간격 통일 */
+  padding: 0;
+}
+
+.navbar__item.dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 0;
+}
+
+.navbar__item.dropdown:hover::after {
+  height: 1.1rem;
+}
+
+.dropdown__link {
+  border-radius: 9px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: #4a3f33;
+  transition: background-color 0.14s ease, color 0.14s ease, padding-left 0.14s ease;
+}
+
+.dropdown__link:hover {
+  background-color: #fff4e2;
+  color: var(--ifm-color-primary);
+  padding-left: 1rem;
+}
+
+.dropdown__link--active,
+.dropdown__link--active:hover {
+  background-color: #fbe6c6;
+  color: var(--ifm-color-primary-darkest);
+}
+
+[data-theme='dark'] .navbar__link { color: #d8cdbd; }
+[data-theme='dark'] .navbar__link:hover { background-color: #332a1e; }
+[data-theme='dark'] .navbar__link--active,
+[data-theme='dark'] .navbar__link--active:hover { background-color: #3c3120; color: #fbb13c; }
+[data-theme='dark'] .dropdown__menu { background: #2a2219; border-color: #3a2f22; }
+[data-theme='dark'] .dropdown__link { color: #d8cdbd; }
+[data-theme='dark'] .dropdown__link:hover { background-color: #332a1e; color: #fbb13c; }
+[data-theme='dark'] .dropdown__link--active,
+[data-theme='dark'] .dropdown__link--active:hover { background-color: #3c3120; color: #fbb13c; }
 
 /* 상담문의 CTA 버튼 */
 .navbar-cta,
@@ -223,3 +295,112 @@ pre.editor-line-text span.cursor {
 article > header h2 {
   font-size: 1.3rem !important;
 }
+
+/* ── 모바일 햄버거 사이드바 메뉴 디자인 ───────────────────── */
+.navbar-sidebar {
+  box-shadow: 10px 0 30px -18px rgba(120, 80, 0, 0.45);
+}
+
+.navbar-sidebar__items {
+  padding: 0.5rem 0.6rem 1rem;
+}
+
+/* 공통 메뉴 링크 */
+.navbar-sidebar .menu__link {
+  border-radius: 12px;
+  padding: 0.72rem 0.9rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #4a3f33;
+  transition: background-color 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+}
+
+/* hover / 탭(active) 피드백 */
+.navbar-sidebar .menu__link:hover {
+  background-color: #fff4e2;
+  color: var(--ifm-color-primary);
+  padding-left: 1.05rem;
+}
+
+.navbar-sidebar .menu__link:active {
+  background-color: #fde7c6;
+}
+
+/* 부모(접이식) 행: 이름 링크 + 화살표 버튼 */
+.navbar-sidebar .menu__list-item-collapsible {
+  border-radius: 12px;
+  transition: background-color 0.15s ease;
+}
+
+.navbar-sidebar .menu__list-item-collapsible:hover {
+  background-color: #fff4e2;
+}
+
+/* 부모 행 hover 시 안쪽 링크 배경 중복 제거 (행 전체만 강조) */
+.navbar-sidebar .menu__list-item-collapsible:hover .menu__link {
+  background-color: transparent;
+  padding-left: 0.9rem;
+}
+
+.navbar-sidebar .menu__list-item-collapsible:hover .menu__link,
+.navbar-sidebar .menu__list-item-collapsible:hover .menu__caret {
+  color: var(--ifm-color-primary);
+}
+
+/* 화살표(caret) 버튼 */
+.navbar-sidebar .menu__caret {
+  border-radius: 10px;
+  transition: background-color 0.15s ease;
+}
+
+.navbar-sidebar .menu__caret:hover {
+  background-color: #fde7c6;
+}
+
+/* 하위 메뉴: 들여쓰기 + 왼쪽 가이드 라인 + 작은 톤 */
+.navbar-sidebar .menu__list .menu__list {
+  margin: 0.1rem 0 0.3rem 0.7rem;
+  padding-left: 0.55rem;
+  border-left: 2px solid #f0e6d6;
+}
+
+.navbar-sidebar .menu__list .menu__list .menu__link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6f6256;
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
+}
+
+/* 현재 페이지 강조 */
+.navbar-sidebar .menu__link--active {
+  background-color: #fbe6c6;
+  color: var(--ifm-color-primary-darkest);
+}
+
+.navbar-sidebar .menu__link--active:hover {
+  background-color: #fbe6c6;
+}
+
+/* 항목 간 간격 */
+.navbar-sidebar .menu__list-item + .menu__list-item {
+  margin-top: 0.12rem;
+}
+
+/* 하단 CTA/소셜 영역과 메뉴 구분 */
+.navbar-sidebar .navbar-cta {
+  margin-top: 0.9rem;
+}
+
+.navbar-sidebar .social-icons {
+  margin: 0.9rem 0 0.2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid #f0e6d6;
+}
+
+[data-theme='dark'] .navbar-sidebar .menu__link { color: #d8cdbd; }
+[data-theme='dark'] .navbar-sidebar .menu__link:hover,
+[data-theme='dark'] .navbar-sidebar .menu__list-item-collapsible:hover { background-color: #332a1e; }
+[data-theme='dark'] .navbar-sidebar .menu__list .menu__list { border-left-color: #3a2f22; }
+[data-theme='dark'] .navbar-sidebar .menu__link--active { background-color: #3c3120; color: #fbb13c; }
+[data-theme='dark'] .navbar-sidebar .social-icons { border-top-color: #3a2f22; }

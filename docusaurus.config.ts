@@ -164,7 +164,7 @@ const config: Config = {
         },
         {
           to: '/#contact',
-          label: '상담하기',
+          label: '상담문의',
           position: 'right',
           className: 'navbar-cta',
         },
