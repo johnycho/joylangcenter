@@ -13,6 +13,12 @@ const NaverMap = () => {
       const map = new window.naver.maps.Map('map', {
         center: new window.naver.maps.LatLng(centerLat, centerLng),
         zoom: 16,
+        // 스크롤(휠)·핀치·더블클릭 줌은 끄고, 줌 버튼으로만 확대/축소
+        scrollWheel: false,
+        pinchZoom: false,
+        disableDoubleClickZoom: true,
+        disableDoubleTapZoom: true,
+        disableTwoFingerTapZoom: true,
         zoomControl: true,
         zoomControlOptions: {
           position: window.naver.maps.Position.RIGHT_BOTTOM,
@@ -21,6 +27,25 @@ const NaverMap = () => {
         mapTypeControlOptions: {
           position: window.naver.maps.Position.TOP_RIGHT,
         },
+      });
+
+      // 원위치(처음 위치로 되돌리기) 버튼
+      const resetControlHtml = `
+        <button type="button" aria-label="원래 위치로 이동"
+          style="display:flex;align-items:center;gap:4px;margin:10px;padding:7px 11px;
+                 background:#fff;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;
+                 font-size:13px;font-weight:700;color:#444;
+                 box-shadow:0 2px 6px rgba(0,0,0,0.15);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#f2921d"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+          원위치
+        </button>`;
+      const resetControl = new window.naver.maps.CustomControl(resetControlHtml, {
+        position: window.naver.maps.Position.TOP_LEFT,
+      });
+      resetControl.setMap(map);
+      window.naver.maps.Event.addDOMListener(resetControl.getElement(), 'click', () => {
+        map.setCenter(new window.naver.maps.LatLng(centerLat, centerLng));
+        map.setZoom(16);
       });
 
       // 마커 생성
