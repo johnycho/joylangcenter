@@ -163,6 +163,12 @@ const config: Config = {
           position: 'left',
         },
         {
+          href: 'https://pf.kakao.com/_sxjPXn',
+          label: '상담문의',
+          position: 'right',
+          className: 'navbar-cta',
+        },
+        {
           type: 'html',
           position: 'right',
           value: `
