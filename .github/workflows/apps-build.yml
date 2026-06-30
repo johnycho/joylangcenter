@@ -1,0 +1,44 @@
+name: Build /apps manifests
+
+# static/apps (시스템 허브) 폴더가 바뀌면 registry.json / manifest.json 을
+# 실제 폴더 구성에 맞게 자동 재생성해 커밋한다.
+# Docusaurus 배포(deploy.yml)와는 독립적이며 static/apps/ 폴더만 다룬다.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'static/apps/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apps-build-manifests
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate registry / manifest for /apps
+        run: python3 static/apps/tools/build.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add static/apps/registry.json
+          find static/apps -name manifest.json -exec git add {} +
+          if git diff --cached --quiet; then
+            echo "변경 없음 — 커밋 건너뜀"
+          else
+            git commit -m "chore(apps): registry/manifest 자동 갱신 [skip ci]"
+            git push
+          fi

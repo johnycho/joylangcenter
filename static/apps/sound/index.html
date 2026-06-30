@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>소리 재생 · 사운드 QR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/theme.css" />
+<style>
+  .hero{ display:flex; align-items:center; justify-content:space-between; gap:24px; }
+  .hero-text{ flex:1; }
+  .hero .pecs-logo{ width:clamp(140px,26vw,260px); height:auto; flex-shrink:0; }
+  @media (max-width:520px){
+    .hero{ flex-direction:column; align-items:flex-start; }
+    .hero .pecs-logo{ align-self:center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="crumb" href="../">← 시스템 허브</a>
+  <div class="topbar">
+    <span class="brand"><span class="dot">🔊</span><span>소리 재생<small>카테고리를 고르면 랜덤 사운드</small></span></span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-text">
+      <h1>버튼을 누르면<br><span class="hl">무작위 소리</span>가 나와요</h1>
+      <p>원하는 카테고리를 누르면 그 안의 여러 소리 중 하나가 랜덤으로 재생됩니다.</p>
+    </div>
+    <img class="pecs-logo" src="assets/pecs.png" alt="PECS" />
+  </div>
+
+  <div class="seclbl">카테고리 선택</div>
+  <div class="cats" id="cats"><div class="note">불러오는 중…</div></div>
+
+  <div class="stage">
+    <div class="eyebrow" id="eyebrow">탭하면 재생</div>
+    <div class="orb"><div class="ring" id="orbRing"></div><div class="eq" id="eq"></div></div>
+    <div class="now">
+      <div class="nlbl">지금 재생 중</div>
+      <div class="nval" id="nowName">카테고리를 골라주세요</div>
+      <div class="ncat" id="nowCat"></div>
+    </div>
+  </div>
+
+  <div class="seclbl">공유</div>
+  <a class="btn ghost" id="qrLink" href="../qr/">이 페이지의 QR 만들기 →</a>
+
+  <div class="foot">카테고리 추가: sounds 폴더 아래에 폴더를 만들면 그 폴더 이름이 카테고리가 돼요 · mp3를 넣으면 그 파일명이 화면에 표시됩니다</div>
+</div>
+
+<audio id="player" preload="auto"></audio>
+
+<script src="../shared/discover.js"></script>
+<script>
+/* 카테고리/소리 모두 sounds/ 폴더에서 자동으로 만들어집니다.
+   - sounds/<폴더이름>/        → "폴더이름" 카테고리
+   - sounds/<폴더이름>/*.mp3    → 그 카테고리의 소리들 (파일명이 표시 이름) */
+
+const PALETTE = ["#FF7A85","#FFC861","#4FD6B8","#69A6FF","#C58BFF","#FF9F68","#7ED957","#FF6FB5","#5BD1D7","#B0A0FF"];
+function colorFor(name){ let h=0; for(const ch of name) h=(h*31 + ch.charCodeAt(0)) >>> 0; return PALETTE[h % PALETTE.length]; }
+function labelOf(file){ return file.replace(/\.mp3$/i, ""); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+let SOUNDMAP = {};   // { 폴더이름: ["파일.mp3", ...] }
+let CATS = [];       // [{ id, name, color }]
+const last = {};
+
+async function loadSounds(){
+  let map = {};
+  const files = await Discover.listFiles("sounds");   // ["동물/cat.mp3", ...] 또는 null
+  if (files) {
+    files.forEach(p => { const m = p.match(/^([^/]+)\/(.+\.mp3)$/i); if (m) (map[m[1]] = map[m[1]] || []).push(m[2]); });
+  } else {
+    map = await fetch("sounds/manifest.json", {cache:"no-store"}).then(r=>r.ok?r.json():{}).catch(()=>({}));
+  }
+  SOUNDMAP = map || {};
+  CATS = Object.keys(SOUNDMAP)
+    .filter(k => Array.isArray(SOUNDMAP[k]) && SOUNDMAP[k].length)
+    .sort((a,b) => a.localeCompare(b, "ko"))
+    .map(name => ({ id:name, name, color:colorFor(name) }));
+  renderCats();
+}
+
+/* 오디오 + 비주얼라이저 */
+const audioEl = document.getElementById("player");
+let AC, ANALYSER, FREQ, SRC;
+function audio(){
+  if (!AC){
+    AC = new (window.AudioContext || window.webkitAudioContext)();
+    SRC = AC.createMediaElementSource(audioEl);
+    ANALYSER = AC.createAnalyser(); ANALYSER.fftSize = 128;
+    FREQ = new Uint8Array(ANALYSER.frequencyBinCount);
+    SRC.connect(ANALYSER); ANALYSER.connect(AC.destination);
+    requestAnimationFrame(drawEq);
+  }
+  if (AC.state === "suspended") AC.resume();
+}
+const eqEl=document.getElementById("eq"), ringEl=document.getElementById("orbRing");
+const BARS=24; for(let i=0;i<BARS;i++) eqEl.appendChild(document.createElement("span"));
+const barEls=[...eqEl.children];
+function drawEq(){
+  requestAnimationFrame(drawEq);
+  if(!ANALYSER) return;
+  ANALYSER.getByteFrequencyData(FREQ);
+  let peak=0;
+  for(let i=0;i<BARS;i++){
+    const v=FREQ[i+1]||0; peak=Math.max(peak,v);
+    const h = v<8 ? (9+Math.sin(Date.now()/420+i*0.5)*4) : (10+(v/255)*84);
+    barEls[i].style.height=h.toFixed(1)+"px";
+  }
+  ringEl.style.transform="scale("+(0.6+(peak/255)*0.7).toFixed(3)+")";
+}
+
+function renderCats(){
+  const wrap = document.getElementById("cats"); wrap.innerHTML = "";
+  if (!CATS.length){
+    wrap.innerHTML = '<div class="note">아직 카테고리가 없어요. sounds 폴더 아래에 폴더를 만들고 mp3를 넣어 주세요.</div>';
+    return;
+  }
+  CATS.forEach(c => {
+    const b = document.createElement("button");
+    b.className = "cat"; b.type = "button"; b.dataset.cat = c.id; b.style.setProperty("--cc", c.color);
+    b.innerHTML = '<span class="cdot"></span><span class="cname">' + esc(c.name) + '</span>' +
+                  '<span class="ccnt">' + SOUNDMAP[c.id].length + '가지 소리</span>';
+    b.addEventListener("click", () => playCategory(c, b));
+    wrap.appendChild(b);
+  });
+}
+function playCategory(cat, btn){
+  const list = SOUNDMAP[cat.id] || [];
+  document.querySelectorAll(".cat").forEach(x => x.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  document.getElementById("nowCat").textContent = cat.name;
+  document.getElementById("nowCat").style.color = cat.color;
+  document.documentElement.style.setProperty("--glow", cat.color);
+  if (!list.length) return;
+  audio();
+  let pick; do { pick = list[Math.floor(Math.random()*list.length)]; } while (list.length>1 && pick===last[cat.id]);
+  last[cat.id] = pick;
+  audioEl.src = encodeURI("sounds/" + cat.id + "/" + pick);
+  audioEl.currentTime = 0; audioEl.play().catch(()=>{});
+  document.getElementById("eyebrow").textContent = "재생 중";
+  document.getElementById("nowName").textContent = labelOf(pick);
+}
+
+document.getElementById("qrLink").href = "../qr/?url=" + encodeURIComponent(location.href);
+loadSounds();
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "title": "QR 생성",
+  "desc": "주소를 넣으면 QR 코드를 만들어 PNG로 내려받아요",
+  "icon": "🔳",
+  "color": "#69A6FF",
+  "order": 2
+}

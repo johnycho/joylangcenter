@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QR 생성 · 시스템 허브</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/theme.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <a class="crumb" href="../">← 시스템 허브</a>
+  <div class="topbar">
+    <span class="brand"><span class="dot">🔳</span><span>QR 생성<small>주소를 넣으면 QR을 만들어요</small></span></span>
+  </div>
+
+  <div class="hero">
+    <h1>어떤 주소든<br><span class="hl">QR로</span> 만들어요</h1>
+    <p>현장에 붙일 주소를 넣고 QR을 받으세요. PNG로 내려받아 인쇄하면 됩니다.</p>
+  </div>
+
+  <div class="qrtool">
+    <div class="qrpane" id="qrpane"><div class="ph">주소를 입력하면<br>여기에 QR이 생겨요</div></div>
+    <div class="qrform">
+      <div class="field">
+        <label for="url">QR에 담을 주소</label>
+        <input id="url" type="text" placeholder="https://..." spellcheck="false" />
+      </div>
+      <div class="row">
+        <button class="btn" id="download" type="button">PNG 다운로드</button>
+        <button class="btn ghost" id="useHome" type="button">이 사이트 홈 주소</button>
+        <button class="btn ghost" id="copy" type="button">주소 복사</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">팁: 소리 재생 페이지에서 “이 페이지의 QR 만들기”를 누르면 주소가 자동으로 채워져요</div>
+</div>
+
+<script>
+const input = document.getElementById("url");
+const pane = document.getElementById("qrpane");
+let qr = null;
+
+function homeUrl(){ return new URL("../", location.href).href; }
+
+function render(){
+  const text = input.value.trim();
+  pane.innerHTML = "";
+  if (!text){ pane.innerHTML = '<div class="ph">주소를 입력하면<br>여기에 QR이 생겨요</div>'; return; }
+  if (typeof QRCode === "undefined"){ pane.innerHTML = '<div class="ph">QR 라이브러리를<br>불러오지 못했어요</div>'; return; }
+  qr = new QRCode(pane, { text, width:256, height:256, colorDark:"#1B1330", colorLight:"#ffffff", correctLevel: QRCode.CorrectLevel.M });
+}
+
+let t; input.addEventListener("input", ()=>{ clearTimeout(t); t = setTimeout(render, 300); });
+
+document.getElementById("useHome").addEventListener("click", ()=>{ input.value = homeUrl(); render(); });
+document.getElementById("copy").addEventListener("click", async ()=>{
+  try { await navigator.clipboard.writeText(input.value.trim()); } catch(e){}
+});
+document.getElementById("download").addEventListener("click", ()=>{
+  const canvas = pane.querySelector("canvas");
+  const img = pane.querySelector("img");
+  const dataUrl = canvas ? canvas.toDataURL("image/png") : (img ? img.src : null);
+  if (!dataUrl) return;
+  const a = document.createElement("a");
+  a.href = dataUrl; a.download = "qr.png"; a.click();
+});
+
+// ?url= 로 들어오면 자동 채움, 아니면 홈 주소
+const fromParam = new URLSearchParams(location.search).get("url");
+input.value = fromParam || homeUrl();
+render();
+</script>
+</body>
+</html>
