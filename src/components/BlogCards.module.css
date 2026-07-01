@@ -38,7 +38,7 @@
 .colDate { width: var(--col-date); text-align: center; flex-shrink: 0; }
 .colAuthor { width: var(--col-author); text-align: center; flex-shrink: 0; }
 
-/* 커뮤니티 페이지용 넓은 게시판 */
+/* 넓은 게시판 (홈 커뮤니티 섹션 · 커뮤니티 페이지) */
 .boardWide {
   max-width: 1040px;
 }

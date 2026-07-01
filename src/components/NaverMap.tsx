@@ -10,6 +10,10 @@ const NaverMap = () => {
   const mapRef = useRef<any>(null);
   // 줌 컨트롤 실제 위치를 측정해 그 바로 위에 버튼을 배치(상대 위치)
   const [btnBottom, setBtnBottom] = useState<number>(FALLBACK_BOTTOM);
+  // 지도 렌더 성공 여부(원위치 버튼 노출 판단)
+  const [ready, setReady] = useState<boolean>(false);
+  // 인증 실패 여부(실패 시 격자 대신 주소 플레이스홀더 표시 — 예: 로컬 도메인 미허용)
+  const [failed, setFailed] = useState<boolean>(false);
 
   // 지도 우측 하단 줌 컨트롤의 상단 위치를 측정해 버튼을 그 위로 올린다
   const positionResetButton = () => {
@@ -36,6 +40,10 @@ const NaverMap = () => {
   useEffect(() => {
     const SCRIPT_SRC = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=0dphxly4jw';
 
+    // 네이버 지도 인증 실패(예: 로컬 도메인 미허용) 시 호출되는 전역 콜백.
+    // 타일이 격자로 깨지는 대신 주소 플레이스홀더를 보여준다.
+    (window as any).navermap_authFailure = () => setFailed(true);
+
     const initMap = () => {
       try {
         if (!window.naver || !window.naver.maps || !document.getElementById('map')) return;
@@ -58,6 +66,7 @@ const NaverMap = () => {
           },
         });
         mapRef.current = map;
+        setReady(true);
 
         const marker = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
@@ -127,6 +136,38 @@ const NaverMap = () => {
           borderRadius: '12px',
         }}
       />
+      {failed && (
+        <a
+          href="https://naver.me/5Vm9WYYy"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="네이버 지도에서 조이 언어발달센터 보기"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 5,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            padding: '1rem',
+            textAlign: 'center',
+            textDecoration: 'none',
+            color: '#5c5145',
+            background: '#f7efe2',
+            borderRadius: '12px',
+          }}
+        >
+          <span style={{ fontSize: '1.6rem' }}>📍</span>
+          <strong style={{ fontSize: '1rem', color: '#3a332b' }}>조이 언어발달센터</strong>
+          <span style={{ fontSize: '0.9rem' }}>강원특별자치도 원주시 지정면 무릉로 15 JD스퀘어 6층</span>
+          <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--ifm-color-primary)' }}>
+            네이버 지도에서 보기 →
+          </span>
+        </a>
+      )}
+      {ready && !failed && (
       <button
         type="button"
         onClick={handleReset}
@@ -167,6 +208,7 @@ const NaverMap = () => {
           <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
         </svg>
       </button>
+      )}
     </div>
   );
 };

@@ -507,6 +507,14 @@ article > header h2 {
   border-radius: 14px;
   box-shadow: 0 12px 32px -16px rgba(120, 80, 0, 0.45);
 }
+/* 네이버 지도 타일/마커 img 는 본문 이미지 스타일(라운드·그림자·여백)을 상속받지 않도록 리셋
+   (안 하면 타일마다 둥근 모서리·그림자가 생겨 지도가 격자처럼 보임) */
+.blog-post-page #map img {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  max-width: none !important;
+}
 .blog-post-page .markdown blockquote {
   margin: 1.2rem 0;
   padding: 0.85rem 1.15rem;
