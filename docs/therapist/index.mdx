@@ -1,0 +1,43 @@
+---
+slug: /therapist
+title: 선생님 소개
+sidebar_position: 0
+hide_title: true
+hide_table_of_contents: true
+---
+
+import { PageHeader, TeacherGrid, TeacherCard } from '@site/src/components/TherapistProfile';
+
+<PageHeader
+  banner
+  eyebrow="OUR TEACHERS"
+  title="선생님 소개"
+  subtitle="아이 한 명 한 명의 성장을 함께하는 조이 언어발달센터 선생님들을 소개합니다."
+/>
+
+<TeacherGrid field="언어재활 · Speech-Language">
+  <TeacherCard
+    photo="/img/therapist/dayea.png"
+    name="이다예"
+    role="센터장 · 언어재활사"
+    badges={['1급 언어재활사']}
+    to="/docs/therapist/slp-dayealee"
+  />
+  <TeacherCard
+    photo="/img/therapist/minjeong.png"
+    name="황민정"
+    role="언어재활사"
+    badges={['2급 언어재활사']}
+    to="/docs/therapist/slp-minjeong"
+  />
+</TeacherGrid>
+
+<TeacherGrid field="운영 · 시스템 지원">
+  <TeacherCard
+    photo="/img/therapist/hyeonjun.png"
+    name="조현준"
+    role="운영 · 시스템 지원"
+    badges={['운영 지원', '시스템 관리']}
+    to="/docs/therapist/staff-hyeonjun"
+  />
+</TeacherGrid>

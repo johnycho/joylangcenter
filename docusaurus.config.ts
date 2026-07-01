@@ -25,6 +25,9 @@ const config: Config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  // 전 페이지 공통 스크롤 진입 애니메이션
+  clientModules: [require.resolve('./src/clientModules/scrollReveal.ts')],
+
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
@@ -141,7 +144,7 @@ const config: Config = {
           items: [
             {label: "인사말", type: "docSidebar", sidebarId: "joyDocsSidebar"},
             {label: "오시는 길", to: "docs/location"},
-            {label: "선생님 소개", to: "/docs/category/선생님-소개"},
+            {label: "선생님 소개", to: "/docs/therapist"},
           ],
         },
         {

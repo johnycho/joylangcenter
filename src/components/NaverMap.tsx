@@ -8,6 +8,8 @@ const FALLBACK_BOTTOM = 240; // 측정 실패 시 기본 위치(px)
 
 const NaverMap = () => {
   const mapRef = useRef<any>(null);
+  const sizeAttempts = useRef<number>(0);
+  const roRef = useRef<any>(null);
   // 줌 컨트롤 실제 위치를 측정해 그 바로 위에 버튼을 배치(상대 위치)
   const [btnBottom, setBtnBottom] = useState<number>(FALLBACK_BOTTOM);
   // 지도 렌더 성공 여부(원위치 버튼 노출 판단)
@@ -40,13 +42,31 @@ const NaverMap = () => {
   useEffect(() => {
     const SCRIPT_SRC = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=0dphxly4jw';
 
+    // 한 번이라도 인증/로드에 실패한 적 있으면(다른 페이지에서 이미 실패) SPA 재진입 시
+    // 곧바로 폴백을 표시한다. authFailure 콜백은 최초 1회만 불리기 때문.
+    if ((window as any).__joyNavermapFailed) {
+      setFailed(true);
+      return;
+    }
+
     // 네이버 지도 인증 실패(예: 로컬 도메인 미허용) 시 호출되는 전역 콜백.
     // 타일이 격자로 깨지는 대신 주소 플레이스홀더를 보여준다.
-    (window as any).navermap_authFailure = () => setFailed(true);
+    (window as any).navermap_authFailure = () => {
+      (window as any).__joyNavermapFailed = true;
+      setFailed(true);
+    };
 
     const initMap = () => {
       try {
-        if (!window.naver || !window.naver.maps || !document.getElementById('map')) return;
+        const el = document.getElementById('map');
+        if (!window.naver || !window.naver.maps || !el) return;
+        if (mapRef.current) return; // 중복 생성 방지
+        // 컨테이너 크기가 아직 0이면(레이아웃 미확정/숨김/변형 상태) 다음 프레임에 재시도.
+        // 0px 상태로 생성하면 타일이 흰 화면으로 남기 때문.
+        if (el.offsetWidth === 0 || el.offsetHeight === 0) {
+          if (sizeAttempts.current++ < 120) requestAnimationFrame(initMap);
+          return;
+        }
         const map = new window.naver.maps.Map('map', {
           center: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
           zoom: DEFAULT_ZOOM,
@@ -67,6 +87,15 @@ const NaverMap = () => {
         });
         mapRef.current = map;
         setReady(true);
+
+        // SPA 네비게이션으로 진입 시 컨테이너 크기 확정 직후 리사이즈를 알려
+        // 타일이 흰 화면으로 남지 않게 강제 리렌더한다.
+        setTimeout(() => {
+          try {
+            window.naver?.maps?.Event?.trigger(map, 'resize');
+            map.setCenter(new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG));
+          } catch {}
+        }, 60);
 
         const marker = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
@@ -91,6 +120,20 @@ const NaverMap = () => {
 
         window.naver.maps.Event.once(map, 'init', positionResetButton);
         setTimeout(positionResetButton, 700);
+
+        // 컨테이너 크기/가시성이 나중에 바뀌어도(리빌·탭 전환 등) 타일이 흰 화면으로
+        // 남지 않도록 크기 변화 때마다 지도에 리사이즈를 알린다.
+        try {
+          if (typeof ResizeObserver !== 'undefined') {
+            const ro = new ResizeObserver(() => {
+              if (el.offsetWidth > 0 && el.offsetHeight > 0) {
+                window.naver?.maps?.Event?.trigger(map, 'resize');
+              }
+            });
+            ro.observe(el);
+            roRef.current = ro;
+          }
+        } catch {}
       } catch (e) {
         // 지도 로드 실패(도메인 인증 등)해도 페이지가 깨지지 않도록 무시
         // eslint-disable-next-line no-console
@@ -98,24 +141,59 @@ const NaverMap = () => {
       }
     };
 
-    // 이미 API가 로드돼 있으면 재주입하지 않고 바로 초기화 (SPA 네비게이션 대비)
+    // 렌더 검증: 일정 시간 뒤에도 지도 타일(canvas/img)이 그려지지 않았으면
+    // (스크립트 로드 실패·인증 실패 등 어떤 이유든) 흰 화면 대신 주소 폴백을 표시한다.
+    const verifyTimer = setTimeout(() => {
+      const el = document.getElementById('map');
+      if (el && !el.querySelector('canvas') && el.querySelectorAll('img').length === 0) {
+        (window as any).__joyNavermapFailed = true;
+        setFailed(true);
+      }
+    }, 2500);
+
+    // SPA 네비게이션으로 진입하면 window.naver가 이미 있어 initMap이 동기로 즉시 실행되는데,
+    // 이때 #map 컨테이너의 레이아웃(크기)이 아직 확정되지 않아 0px 크기로 맵이 생성되면
+    // 타일이 흰 화면으로 남는다. 레이아웃이 끝난 다음 프레임에 초기화하도록 지연한다.
+    let cancelled = false;
+    const deferInit = () =>
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          if (!cancelled) initMap();
+        }),
+      );
+
+    // 이미 API가 로드돼 있으면 재주입하지 않고 초기화만 (다음 프레임에)
     if (window.naver && window.naver.maps) {
-      initMap();
-      return;
+      deferInit();
+      return () => {
+        cancelled = true;
+        clearTimeout(verifyTimer);
+        roRef.current?.disconnect?.();
+      };
     }
     // 스크립트가 이미 주입돼 있으면 로드 완료를 기다림 (중복 주입 방지 → 인증 실패 방지)
+    const onLoad = () => deferInit();
     const existing = document.querySelector<HTMLScriptElement>(
       'script[src^="https://openapi.map.naver.com/openapi/v3/maps.js"]',
     );
     if (existing) {
-      existing.addEventListener('load', initMap);
-      return () => existing.removeEventListener('load', initMap);
+      existing.addEventListener('load', onLoad);
+      return () => {
+        cancelled = true;
+        clearTimeout(verifyTimer);
+        roRef.current?.disconnect?.();
+        existing.removeEventListener('load', onLoad);
+      };
     }
     const script = document.createElement('script');
     script.src = SCRIPT_SRC;
     script.async = true;
-    script.addEventListener('load', initMap);
+    script.addEventListener('load', onLoad);
     document.head.appendChild(script);
+    return () => {
+      cancelled = true;
+      script.removeEventListener('load', onLoad);
+    };
   }, []);
 
   const handleReset = () => {
