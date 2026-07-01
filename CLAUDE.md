@@ -81,6 +81,11 @@
 <NaverMap />
 ```
 
+## Git 계정
+- 이 저장소는 **johnycho** GitHub 계정으로 커밋·푸시한다. (머신 기본 gh 계정은 `johny-cho`라 혼동 주의)
+- 커밋 작성자(repo-local): `johnycho <johnycho.dev@gmail.com>`.
+- 푸시 전 `gh auth status`로 활성 계정이 johnycho인지 확인하고, 아니면 `gh auth switch --user johnycho`.
+
 ## 참고
 - 로컬에서 네이버 지도는 도메인 인증 제한으로 "API 인증 실패"가 뜬다(운영 사이트에선 정상). 지도 관련 확인은 운영 사이트 기준으로 판단한다.
 - 게시판 UI/공유 컴포넌트: `src/components/BlogCards.tsx`, 스타일 `BlogCards.module.css`. 커뮤니티 페이지 swizzle: `src/theme/Blog*`, 네비게이션 swizzle: `src/theme/NavbarItem/DropdownNavbarItem`.
