@@ -3,7 +3,6 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import blogPosts from '@generated/docusaurus-plugin-content-blog/default/p/blog-archive-f05.json';
 import styles from './BlogCards.module.css';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 
 const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
 const PAGE = 10;
@@ -39,7 +38,6 @@ export default function NewsBoard({
 }: Props = {}) {
   const [filter, setFilter] = useState<string>(initialFilter);
   const [page, setPage] = useState<number>(1);
-  const newBadgeUrl = useBaseUrl('/img/new-badge.gif');
   const {siteConfig} = useDocusaurusContext();
 
   // 같은 사이트의 절대 URL이면 상대경로로 변환해 클라이언트 라우팅되게 함
@@ -124,8 +122,10 @@ export default function NewsBoard({
                   <span className={styles.rowIndex}>{startIdx + idx + 1}</span>
                   <span className={`${styles.tagChip} ${styles['t_' + chipKey] || ''}`}>{chipLabel}</span>
                   <span className={styles.rowTitle}>
-                    <span className={styles.rowText}>{post.metadata.title}</span>
-                    {isNew && <img src={newBadgeUrl} alt="NEW" className={styles.newBadge} loading="lazy" decoding="async" />}
+                    <span className={styles.rowText}>
+                      {isNew && <span className={styles.newTag}>NEW</span>}
+                      {post.metadata.title}
+                    </span>
                   </span>
                   <span className={styles.rowDate}>{date}</span>
                 </Link>
