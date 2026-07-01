@@ -148,15 +148,29 @@ export default function NewsBoard({
   );
 
   function renderFooter() {
+    // 표시할 번호 윈도우 (최대 5개) — 페이지가 많아도 번호가 넘치지 않게
+    const WINDOW = 5;
+    let winStart = Math.max(1, curPage - Math.floor(WINDOW / 2));
+    const winEnd = Math.min(totalPages, winStart + WINDOW - 1);
+    winStart = Math.max(1, winEnd - WINDOW + 1);
+    const nums = Array.from({length: winEnd - winStart + 1}, (_, i) => winStart + i);
+
     const pagerNav = paginate && totalPages > 1 && (
       <nav className={styles.pagerGroup} aria-label="페이지 탐색">
+        <button
+          type="button"
+          className={styles.pageBtn}
+          onClick={() => setPage(1)}
+          disabled={curPage === 1}
+          aria-label="맨 앞 페이지">«</button>
         <button
           type="button"
           className={styles.pageBtn}
           onClick={() => setPage(curPage - 1)}
           disabled={curPage === 1}
           aria-label="이전 페이지">‹</button>
-        {Array.from({length: totalPages}, (_, i) => i + 1).map((n) => (
+        {winStart > 1 && <span className={styles.pageEllipsis}>…</span>}
+        {nums.map((n) => (
           <button
             key={n}
             type="button"
@@ -164,12 +178,19 @@ export default function NewsBoard({
             onClick={() => setPage(n)}
             aria-current={n === curPage ? 'page' : undefined}>{n}</button>
         ))}
+        {winEnd < totalPages && <span className={styles.pageEllipsis}>…</span>}
         <button
           type="button"
           className={styles.pageBtn}
           onClick={() => setPage(curPage + 1)}
           disabled={curPage === totalPages}
           aria-label="다음 페이지">›</button>
+        <button
+          type="button"
+          className={styles.pageBtn}
+          onClick={() => setPage(totalPages)}
+          disabled={curPage === totalPages}
+          aria-label="맨 뒤 페이지">»</button>
       </nav>
     );
 

@@ -401,6 +401,15 @@
   cursor: default;
 }
 
+.pageEllipsis {
+  display: inline-flex;
+  align-items: flex-end;
+  padding: 0 0.15rem;
+  color: #b6a890;
+  font-weight: 700;
+  user-select: none;
+}
+
 /* 복합 선택자(.pageBtn.pageBtnOn)로 specificity를 높여, 프로덕션 CSS 병합/재정렬과
    무관하게 선택된 페이지가 항상 강조되도록 함 */
 .pageBtn.pageBtnOn,
