@@ -51,11 +51,20 @@ pre.editor-line-text span.cursor {
 .navbar {
   min-height: 72px;
   padding: 0 1rem;
-  /* 주의: backdrop-filter 를 .navbar 에 주면 position:fixed 인 모바일 사이드바가
-     깨지므로(컨테이닝 블록 변경) 불투명 배경만 사용한다. */
+  /* 주의: backdrop-filter/transform 을 .navbar 에 (모바일에서) 주면 position:fixed 인
+     모바일 사이드바가 깨지므로(컨테이닝 블록 변경) 불투명 배경만 사용한다. */
   background: #ffffff;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   transition: box-shadow 0.2s ease;
+}
+
+/* 데스크톱(모바일 사이드바 미사용, ≥997px)에서 sticky 네비를 GPU 레이어로 승격 →
+   빠른 스크롤 시 네비 아래로 본문이 잠깐 비치는(리페인트 지연) 현상 방지 */
+@media (min-width: 997px) {
+  .navbar {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+  }
 }
 
 /* 스크롤 시 살짝 떠 있는 느낌 */

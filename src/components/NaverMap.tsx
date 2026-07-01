@@ -34,46 +34,42 @@ const NaverMap = () => {
   };
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=0dphxly4jw';
-    script.async = true;
+    const SCRIPT_SRC = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=0dphxly4jw';
 
-    script.onload = () => {
-      const map = new window.naver.maps.Map('map', {
-        center: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
-        zoom: DEFAULT_ZOOM,
-        // 스크롤(휠)·핀치·더블클릭 줌은 끄고, 줌 버튼으로만 확대/축소
-        scrollWheel: false,
-        pinchZoom: false,
-        disableDoubleClickZoom: true,
-        disableDoubleTapZoom: true,
-        disableTwoFingerTapZoom: true,
-        zoomControl: true,
-        zoomControlOptions: {
-          position: window.naver.maps.Position.RIGHT_BOTTOM,
-        },
-        mapTypeControl: true,
-        mapTypeControlOptions: {
-          position: window.naver.maps.Position.TOP_RIGHT,
-        },
-      });
-      mapRef.current = map;
+    const initMap = () => {
+      try {
+        if (!window.naver || !window.naver.maps || !document.getElementById('map')) return;
+        const map = new window.naver.maps.Map('map', {
+          center: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
+          zoom: DEFAULT_ZOOM,
+          // 스크롤(휠)·핀치·더블클릭 줌은 끄고, 줌 버튼으로만 확대/축소
+          scrollWheel: false,
+          pinchZoom: false,
+          disableDoubleClickZoom: true,
+          disableDoubleTapZoom: true,
+          disableTwoFingerTapZoom: true,
+          zoomControl: true,
+          zoomControlOptions: {
+            position: window.naver.maps.Position.RIGHT_BOTTOM,
+          },
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+            position: window.naver.maps.Position.TOP_RIGHT,
+          },
+        });
+        mapRef.current = map;
 
-      // 마커 생성
-      const marker = new window.naver.maps.Marker({
-        position: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
-        map,
-        title: '조이 언어발달센터',
-      });
+        const marker = new window.naver.maps.Marker({
+          position: new window.naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
+          map,
+          title: '조이 언어발달센터',
+        });
+        window.naver.maps.Event.addListener(marker, 'click', () => {
+          window.open('https://naver.me/5Vm9WYYy', '_blank');
+        });
 
-      // 마커 클릭 시 네이버 지도 링크로 이동
-      window.naver.maps.Event.addListener(marker, 'click', () => {
-        window.open('https://naver.me/5Vm9WYYy', '_blank');
-      });
-
-      // 인포 윈도우 생성
-      const infoWindow = new window.naver.maps.InfoWindow({
-        content: `
+        const infoWindow = new window.naver.maps.InfoWindow({
+          content: `
           <a href="https://naver.me/5Vm9WYYy" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
             <div style="padding:10px;font-size:14px;">
               <strong>📍 조이 언어발달센터</strong><br/>
@@ -81,16 +77,35 @@ const NaverMap = () => {
               JD스퀘어 6층
             </div>
           </a>`,
-      });
+        });
+        infoWindow.open(map, marker);
 
-      // 마커 위에 인포 윈도우 열기
-      infoWindow.open(map, marker);
-
-      // 줌 컨트롤이 렌더된 뒤 버튼 위치 측정(상대 배치)
-      window.naver.maps.Event.once(map, 'init', positionResetButton);
-      setTimeout(positionResetButton, 700);
+        window.naver.maps.Event.once(map, 'init', positionResetButton);
+        setTimeout(positionResetButton, 700);
+      } catch (e) {
+        // 지도 로드 실패(도메인 인증 등)해도 페이지가 깨지지 않도록 무시
+        // eslint-disable-next-line no-console
+        console.warn('NaverMap init skipped:', e);
+      }
     };
 
+    // 이미 API가 로드돼 있으면 재주입하지 않고 바로 초기화 (SPA 네비게이션 대비)
+    if (window.naver && window.naver.maps) {
+      initMap();
+      return;
+    }
+    // 스크립트가 이미 주입돼 있으면 로드 완료를 기다림 (중복 주입 방지 → 인증 실패 방지)
+    const existing = document.querySelector<HTMLScriptElement>(
+      'script[src^="https://openapi.map.naver.com/openapi/v3/maps.js"]',
+    );
+    if (existing) {
+      existing.addEventListener('load', initMap);
+      return () => existing.removeEventListener('load', initMap);
+    }
+    const script = document.createElement('script');
+    script.src = SCRIPT_SRC;
+    script.async = true;
+    script.addEventListener('load', initMap);
     document.head.appendChild(script);
   }, []);
 

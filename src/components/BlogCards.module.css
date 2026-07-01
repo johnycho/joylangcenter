@@ -489,9 +489,10 @@
   .newTag { font-size: 0.55rem; padding: 0.05rem 0.32rem; margin-right: 0.3rem; }
   .boardFoot { padding: 0.7rem 0.8rem 0.9rem; }
   .allLink { font-size: 0.78rem; }
-  .pager { padding: 0.8rem 0.6rem 1rem; }
-  .pagerGroup { gap: 0.28rem; }
-  .pageBtn { min-width: 30px; height: 30px; font-size: 0.78rem; padding: 0 0.4rem; }
+  .pager { padding: 0.8rem 0.4rem 1rem; }
+  .pagerGroup { gap: 0.2rem; flex-wrap: nowrap; }
+  .pageBtn { min-width: 26px; height: 28px; font-size: 0.72rem; padding: 0 0.22rem; border-radius: 7px; }
+  .pageEllipsis { padding: 0 0.02rem; }
 }
 
 /* 다크 모드 */
