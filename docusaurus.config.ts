@@ -142,7 +142,7 @@ const config: Config = {
           position: 'left',
           type: 'dropdown',
           items: [
-            {label: "인사말", type: "docSidebar", sidebarId: "joyDocsSidebar"},
+            {label: "인사말", to: "/docs/intro"},
             {label: "오시는 길", to: "docs/location"},
             {label: "선생님 소개", to: "/docs/therapist"},
           ],

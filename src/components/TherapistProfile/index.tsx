@@ -196,6 +196,28 @@ export function TeacherGrid({
   );
 }
 
+/** 준비 중(모집 예정) 자리표시 카드 */
+export function ComingSoonCard({
+  icon = '🎨',
+  title = '준비 중',
+  note = '선생님을 모시고 있어요',
+}: {
+  icon?: React.ReactNode;
+  title?: string;
+  note?: string;
+}) {
+  return (
+    <div className={styles.cardSoon}>
+      <div className={styles.cardSoonIcon} aria-hidden="true">
+        {icon}
+      </div>
+      <div className={styles.cardName}>{title}</div>
+      <div className={styles.cardRole}>{note}</div>
+      <span className={styles.soonBadge}>COMING SOON</span>
+    </div>
+  );
+}
+
 /** 선생님 카드 (사진 + 이름 + 직무 + 자격 뱃지 → 상세 페이지 링크) */
 export function TeacherCard({
   photo,

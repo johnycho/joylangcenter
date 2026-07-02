@@ -9,15 +9,13 @@ export function Greeting({children}: {children: React.ReactNode}) {
   return <div className={styles.greeting}>{children}</div>;
 }
 
-/** 큰 인용/철학 헤드라인 (스크롤 리빌) */
+/** 상단 철학 헤드라인 (박스 없이 담백하게, 아래 짧은 액센트 라인) */
 export function Lead({children}: {children: React.ReactNode}) {
   const {ref, visible} = useReveal<HTMLDivElement>();
   return (
     <div ref={ref} className={clsx(styles.lead, 'joy-reveal', visible && 'is-visible')}>
-      <span className={styles.quoteMark} aria-hidden="true">
-        “
-      </span>
       <p className={styles.leadText}>{children}</p>
+      <span className={styles.leadRule} aria-hidden="true" />
     </div>
   );
 }
@@ -32,8 +30,8 @@ export function Para({children}: {children: React.ReactNode}) {
   );
 }
 
-/** 핵심 가치 강조 박스 (스크롤 리빌) */
-export function ValueCallout({
+/** 핵심 가치 — 얇은 구분선 사이의 우아한 풀쿼트 (라벨 + 문구) */
+export function Quote({
   label,
   children,
 }: {
@@ -42,38 +40,9 @@ export function ValueCallout({
 }) {
   const {ref, visible} = useReveal<HTMLDivElement>();
   return (
-    <div ref={ref} className={clsx(styles.value, 'joy-reveal', visible && 'is-visible')}>
-      {label && <span className={styles.valueLabel}>{label}</span>}
-      <p className={styles.valueText}>{children}</p>
-    </div>
-  );
-}
-
-/** 가치 카드 묶음 (아이콘 + 제목 + 설명) */
-export function ValueCards({children}: {children: React.ReactNode}) {
-  const {ref, visible} = useReveal<HTMLDivElement>();
-  return (
-    <div ref={ref} className={clsx(styles.cards, 'joy-reveal', visible && 'is-visible')}>
-      {children}
-    </div>
-  );
-}
-export function ValueCard({
-  icon,
-  title,
-  children,
-}: {
-  icon?: React.ReactNode;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className={styles.vcard}>
-      <span className={styles.vcardIcon} aria-hidden="true">
-        {icon}
-      </span>
-      <h3 className={styles.vcardTitle}>{title}</h3>
-      <p className={styles.vcardDesc}>{children}</p>
+    <div ref={ref} className={clsx(styles.quote, 'joy-reveal', visible && 'is-visible')}>
+      {label && <span className={styles.quoteLabel}>{label}</span>}
+      <p className={styles.quoteText}>{children}</p>
     </div>
   );
 }

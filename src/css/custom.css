@@ -17,6 +17,8 @@
   /* 보조 컬러 (노랑) */
   --joy-yellow: #fdc830;
   --joy-amber: #fbb13c;
+  /* 실제 네비바 높이(.navbar min-height)와 일치시켜 sticky(사이드바/앵커) 어긋남 방지 */
+  --ifm-navbar-height: 72px;
   --ifm-code-font-size: 100%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
@@ -658,6 +660,11 @@ mark {
     transform: none !important;
     transition: none !important;
   }
+}
+
+/* 문서(센터소개) 본문과 하단 푸터가 붙지 않도록 여백 */
+.theme-doc-markdown {
+  padding-bottom: clamp(2.4rem, 5vw, 4rem);
 }
 
 /* ===== 센터소개(문서) 좌측 사이드바 메뉴 ===== */

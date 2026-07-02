@@ -462,6 +462,50 @@
   color: var(--ifm-color-primary);
 }
 
+/* 준비 중 카드 */
+.cardSoon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.6rem 1.1rem 1.3rem;
+  background: #fffaf3;
+  border: 1.5px dashed #e7d3ba;
+  border-radius: 18px;
+}
+.cardSoonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 104px;
+  height: 104px;
+  margin-bottom: 0.9rem;
+  border-radius: 50%;
+  background: #f6ecdd;
+  border: 3px solid #fff;
+  font-size: 2.4rem;
+  filter: grayscale(0.1);
+}
+.soonBadge {
+  margin-top: 1rem;
+  padding: 0.24rem 0.72rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #a85e08;
+  background: rgba(242, 146, 29, 0.13);
+  border: 1px solid rgba(242, 146, 29, 0.26);
+}
+[data-theme='dark'] .cardSoon {
+  background: #201a12;
+  border-color: #46372593;
+}
+[data-theme='dark'] .cardSoonIcon {
+  background: #2c2218;
+  border-color: #241c14;
+}
+
 [data-theme='dark'] .card {
   background: #241c14;
   border-color: #3a2c1e;
