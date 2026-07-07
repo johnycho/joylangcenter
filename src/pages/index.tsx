@@ -36,7 +36,7 @@ function HomepageHero() {
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
             즐거운 의사소통이<br />있는 곳
-            <span className={styles.srOnly}> — 원주 언어치료 · 언어발달센터 (조이언어발달센터)</span>
+            <span className={styles.srOnly}> — 원주 언어치료 · 언어재활 · 언어발달센터 (조이언어발달센터)</span>
           </h1>
           <p className={styles.heroSubtitle}>
             아이 한 명 한 명의 속도에 맞춘<br />기능적이고 즐거운 언어치료를 만들어갑니다.
@@ -82,12 +82,16 @@ export default function Home(): ReactNode {
             '@context': 'https://schema.org',
             '@type': ['LocalBusiness', 'MedicalBusiness'],
             name: '조이 언어발달센터',
-            alternateName: ['원주 조이언어발달센터', '조이언어발달센터', '원주 언어치료센터'],
+            alternateName: [
+              '원주 조이언어발달센터', '조이언어발달센터',
+              '원주 언어치료센터', '원주 언어재활센터', '원주 언어발달센터',
+            ],
             description:
               '원주 언어치료, 언어발달, 언어재활 전문 센터. 자폐스펙트럼장애·지적장애·유창성(말더듬)·언어발달지연·조음(발음) 장애 아동의 기능적이고 즐거운 언어치료.',
             url: 'https://joylangcenter.com/',
             image: 'https://joylangcenter.com/img/joy-thumbnail.png',
             logo: 'https://joylangcenter.com/img/logo-joy.png',
+            telephone: '+82-33-745-1030',
             address: {
               '@type': 'PostalAddress',
               streetAddress: '지정면 무릉로 15 JD스퀘어 6층',
@@ -95,6 +99,12 @@ export default function Home(): ReactNode {
               addressRegion: '강원특별자치도',
               addressCountry: 'KR',
             },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: 37.375124,
+              longitude: 127.874845,
+            },
+            hasMap: 'https://naver.me/5Vm9WYYy',
             areaServed: ['원주시', '원주 기업도시', '원주 지정면'],
             knowsAbout: [
               '언어치료', '언어재활', '언어발달', '조음치료', '유창성치료',
