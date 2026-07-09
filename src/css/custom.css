@@ -665,6 +665,14 @@ mark {
 /* 문서(센터소개) 본문과 하단 푸터가 붙지 않도록 여백 */
 .theme-doc-markdown {
   padding-bottom: clamp(2.4rem, 5vw, 4rem);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.theme-doc-markdown h1 { font-size: 1.6rem; }
+.theme-doc-markdown h2 { font-size: 1.2rem; }
+.theme-doc-markdown h3 { font-size: 1.02rem; }
+@media (max-width: 600px) {
+  .theme-doc-markdown { font-size: 0.86rem; }
 }
 
 /* ===== 센터소개(문서) 좌측 사이드바 메뉴 ===== */
