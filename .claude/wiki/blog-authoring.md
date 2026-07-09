@@ -17,7 +17,7 @@
 
 ## 3) 파일 / 프론트매터
 - 파일명 `blog/YYYY-MM-DD-joy-<type>-YYYYMMDD.mdx`, `slug: joy-<type>-YYYYMMDD`. 같은 날 같은 type 겹치면 slug 뒤 구분어(예: `-lecture`).
-- frontmatter: `slug`, `title`(따옴표), `authors`, `tags: [ notice | news | library ]`, `description`, `keywords`(표준 6개: 원주 / 원주 기업도시 / 원주 지정면 × 언어발달센터 · 언어치료).
+- frontmatter: `slug`, `title`(따옴표), `authors`, `tags: [ notice | news | library ]`, `description`, `keywords`(표준 그룹형 4개 — `원주 언어치료` / `원주 기업도시·지정면 언어치료` / `원주 언어발달센터` / `원주 기업도시·지정면 언어발달센터`. 언어치료 계열을 앞에 두고, 원주 반복은 그룹으로 묶는다).
 - **`authors`는 작성 전 반드시 사용자에게 물어본다** — 선택지는 `blog/authors.yml`에 등록된 저자(현재 `dayealee`=다예쌤, `minjeong`=민정쌤). 사용자가 지정한 저자로 `authors: [ <id> ]` 설정(공동 저자면 `[ dayealee, minjeong ]`). 답을 얻기 전에는 임의로 정하지 않는다.
 - 본문 시작: `import NaverMap from '@site/src/components/NaverMap';` → `<!-- truncate -->` → `<br /><br />` → 표준 인사말(`<mark>언어치료 전문기관</mark>`, `**조이 언어발달센터**입니다.`).
 
