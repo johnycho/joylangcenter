@@ -10,7 +10,8 @@
 ## 2) 이미지 처리 ⚠️ (성능 핵심)
 - **본문 실제 사진만**: 호스트가 `mblogthumb-phinf` / `postfiles` / `blogfiles`(.pstatic.net) 인 것만 다운로드.
 - **제외**: 지도(`staticmap`/`static.map`), 링크카드(`dthumb-phinf`), 카페·아이콘(`storep-phinf`), 프로필(`blogpfthumb`/`profile`).
-- **반드시 파일로 저장** — `static/img/blog/<slug>-<n>.<ext>` (ext: png/jpg/gif, 원본 mime에 맞춤), 본문에서 경로 참조: `![alt](/img/blog/<slug>-<n>.<ext>)`.
+- **반드시 파일로 저장** — `static/img/blog/<slug>-<n>.<ext>` (ext: png/jpg/gif, 원본 mime에 맞춤), 본문에서 경로 참조: `![<표준 alt>](/img/blog/<slug>-<n>.<ext>)`.
+- **이미지 alt는 공통 문구로 통일**: `원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터` (alt 안에는 `[` `]` 금지 — 마크다운 깨짐. 키워드는 `·`로 구분).
 - **base64 data URI 인라인 금지.** 이유: 글당 ~1MB↑ 증가 → 보드(`BlogCards`)가 import하는 블로그 아카이브 JSON이 통째로 비대(예: 33글 36MB)해져 **홈·커뮤니티 전 페이지 로딩/스크롤이 급락**. 파일로 빼면 아카이브 수백KB + 캐시·지연 로딩.
 - 다운로드 시 Referer(`https://m.blog.naver.com/joylangcenter`) 헤더 필요.
 - 원본에 **지도 이미지가 추가로 있으면 제거**(푸터 `<NaverMap />` 임베드로 대체, 임베드는 유지).
