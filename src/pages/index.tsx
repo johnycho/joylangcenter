@@ -14,18 +14,18 @@ const PHONE = '033-745-1030';
 const ADDRESS = '강원특별자치도 원주시 지정면 무릉로 15 JD스퀘어 6층';
 
 const PILLARS = [
-  {icon: '🧡', title: '따뜻한 마음', desc: '아이의 마음을 먼저 헤아리는 안전한 공간이에요.'},
-  {icon: '👩‍🏫', title: '전문 치료진', desc: '자격을 갖춘 언어재활사가 함께합니다.'},
-  {icon: '🎯', title: '1:1 맞춤 수업', desc: '아이의 속도에 맞춘 개별 치료 계획을 세워요.'},
-  {icon: '🎈', title: '즐거운 배움', desc: '놀이처럼 즐거운 의사소통을 경험해요.'},
+  {img: '/img/home/why-warm-heart.jpg', title: '따뜻한 마음', desc: '아이의 마음을 먼저 헤아리는 안전한 공간이에요.'},
+  {img: '/img/home/why-pro-team.jpg', title: '전문 치료진', desc: '자격을 갖춘 언어재활사가 함께합니다.'},
+  {img: '/img/home/why-one-on-one.jpg', title: '1:1 맞춤 수업', desc: '아이의 속도에 맞춘 개별 치료 계획을 세워요.'},
+  {img: '/img/home/why-joyful.jpg', title: '즐거운 배움', desc: '놀이처럼 즐거운 의사소통을 경험해요.'},
 ];
 
 const AREAS = [
-  {icon: '🗣️', title: '조음·음운 (발음)', desc: '정확한 발음과 또렷한 소리내기를 도와요.'},
-  {icon: '📚', title: '언어발달지연', desc: '또래보다 느린 말·언어 발달을 지원해요.'},
-  {icon: '🌀', title: '유창성 (말더듬)', desc: '편안하고 자연스러운 말하기를 연습해요.'},
-  {icon: '🧩', title: '자폐스펙트럼장애', desc: '상호작용과 의사소통 능력을 함께 키워요.'},
-  {icon: '💡', title: '지적장애', desc: '생활 속 기능적 의사소통을 도와요.'},
+  {img: '/img/home/area-articulation.jpg', title: '조음·음운 (발음)', desc: '정확한 발음과 또렷한 소리내기를 도와요.'},
+  {img: '/img/home/area-language-delay.jpg', title: '언어발달지연', desc: '또래보다 느린 말·언어 발달을 지원해요.'},
+  {img: '/img/home/area-fluency.jpg', title: '유창성 (말더듬)', desc: '편안하고 자연스러운 말하기를 연습해요.'},
+  {img: '/img/home/area-autism.jpg', title: '자폐스펙트럼장애', desc: '상호작용과 의사소통 능력을 함께 키워요.'},
+  {img: '/img/home/area-intellectual.jpg', title: '지적장애', desc: '생활 속 기능적 의사소통을 도와요.'},
 ];
 
 function HomepageHero() {
@@ -129,9 +129,11 @@ export default function Home(): ReactNode {
             <div className={styles.pillarGrid}>
               {PILLARS.map((p) => (
                 <div key={p.title} className={styles.pillar}>
-                  <span className={styles.pillarIcon}>{p.icon}</span>
-                  <h3 className={styles.pillarTitle}>{p.title}</h3>
-                  <p className={styles.pillarDesc}>{p.desc}</p>
+                  <img src={p.img} alt={p.title} className={styles.pillarImg} loading="lazy" />
+                  <div className={styles.pillarBody}>
+                    <h3 className={styles.pillarTitle}>{p.title}</h3>
+                    <p className={styles.pillarDesc}>{p.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -145,8 +147,8 @@ export default function Home(): ReactNode {
             <div className={styles.areaGrid}>
               {AREAS.map((a) => (
                 <div key={a.title} className={styles.areaCard}>
-                  <span className={styles.areaIcon}>{a.icon}</span>
-                  <div>
+                  <img src={a.img} alt={a.title} className={styles.areaImg} loading="lazy" />
+                  <div className={styles.areaBody}>
                     <h3 className={styles.areaTitle}>{a.title}</h3>
                     <p className={styles.areaDesc}>{a.desc}</p>
                   </div>
