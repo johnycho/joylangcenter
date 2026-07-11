@@ -171,9 +171,11 @@
 .closingSign { text-align: right; }
 [data-theme='dark'] .closingPhoto { border-color: #33291d; }
 @media (max-width: 600px) {
-  .closing { flex-direction: column-reverse; align-items: center; gap: 1.1rem; }
-  .closingPhoto { width: 200px; }
-  .closingSign { text-align: center; }
+  /* 모바일에서도 좌우로 나란히 (사진 축소) */
+  .closing { gap: 0.9rem; }
+  .closingPhoto { width: 42%; max-width: 150px; }
+  .closingSign { text-align: right; }
+  .closingSign .signImg { width: clamp(96px, 26vw, 130px); }
 }
 
 /* Dark */
