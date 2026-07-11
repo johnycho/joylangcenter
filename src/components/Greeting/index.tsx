@@ -82,19 +82,41 @@ export function Signature({
   name,
   image,
   tagline,
+  photo,
+  photoAlt,
 }: {
   role: string;
   name: string;
   image: string;
   tagline?: string;
+  photo?: string;
+  photoAlt?: string;
 }) {
   const img = useBaseUrl(image);
+  const photoUrl = useBaseUrl(photo || '');
   const {ref, visible} = useReveal<HTMLDivElement>();
-  return (
-    <div ref={ref} className={clsx(styles.signature, 'joy-reveal', visible && 'is-visible')}>
+  const sign = (
+    <>
       {tagline && <p className={styles.signTagline}>{tagline}</p>}
       <p className={styles.signRole}>{role}</p>
       <img className={styles.signImg} src={img} alt={`${name} 서명`} loading="lazy" />
+    </>
+  );
+  return (
+    <div ref={ref} className={clsx(styles.signature, 'joy-reveal', visible && 'is-visible')}>
+      {photo ? (
+        <div className={styles.closing}>
+          <img
+            className={styles.closingPhoto}
+            src={photoUrl}
+            alt={photoAlt || `${name} 센터장`}
+            loading="lazy"
+          />
+          <div className={styles.closingSign}>{sign}</div>
+        </div>
+      ) : (
+        sign
+      )}
     </div>
   );
 }

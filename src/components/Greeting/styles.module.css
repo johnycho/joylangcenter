@@ -153,6 +153,29 @@
   height: auto;
 }
 
+/* 마무리(서명 + 대표 사진 나란히) */
+.closing {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.8rem;
+  text-align: left;
+}
+.closingPhoto {
+  flex-shrink: 0;
+  width: 208px;
+  border-radius: 16px;
+  border: 1px solid #efe1cd;
+  box-shadow: 0 18px 40px -24px rgba(90, 55, 20, 0.5);
+}
+.closingSign { text-align: right; }
+[data-theme='dark'] .closingPhoto { border-color: #33291d; }
+@media (max-width: 600px) {
+  .closing { flex-direction: column-reverse; align-items: center; gap: 1.1rem; }
+  .closingPhoto { width: 200px; }
+  .closingSign { text-align: center; }
+}
+
 /* Dark */
 [data-theme='dark'] .leadText,
 [data-theme='dark'] .quoteText {
