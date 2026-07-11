@@ -9,6 +9,35 @@ export function Greeting({children}: {children: React.ReactNode}) {
   return <div className={styles.greeting}>{children}</div>;
 }
 
+/** 본문 안에 자연스럽게 흐르는 대표 인물 사진(우측 플로트) */
+export function GreetingPhoto({
+  src,
+  alt,
+  name,
+  role,
+}: {
+  src: string;
+  alt?: string;
+  name?: string;
+  role?: string;
+}) {
+  const img = useBaseUrl(src);
+  const {ref, visible} = useReveal<HTMLElement>();
+  return (
+    <figure
+      ref={ref}
+      className={clsx(styles.floatPhoto, 'joy-reveal', visible && 'is-visible')}>
+      <img src={img} alt={alt || `${name || ''} 센터장`} loading="lazy" />
+      {(name || role) && (
+        <figcaption className={styles.floatCaption}>
+          {name && <strong>{name}</strong>}
+          {role && <span> · {role}</span>}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 /** 상단 철학 헤드라인 (박스 없이 담백하게, 아래 짧은 액센트 라인) */
 export function Lead({children}: {children: React.ReactNode}) {
   const {ref, visible} = useReveal<HTMLDivElement>();
