@@ -738,3 +738,9 @@ mark {
 [data-theme='dark'] .theme-doc-sidebar-menu .menu__list-item-collapsible--active {
   background: #2c2218;
 }
+
+/* 선생님 소개 부제목: PC 한 줄, 모바일에서만 개행 */
+.subtitle-br-mobile { display: none; }
+@media (max-width: 600px) {
+  .subtitle-br-mobile { display: inline; }
+}

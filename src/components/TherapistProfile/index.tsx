@@ -67,7 +67,7 @@ export function PageHeader({
 }: {
   eyebrow?: string;
   title: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   banner?: boolean;
 }) {
   const {ref, visible} = useReveal<HTMLElement>();
