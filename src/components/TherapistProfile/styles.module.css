@@ -30,7 +30,7 @@
 }
 .heroName {
   margin: 0 0 0.6rem;
-  font-size: clamp(1.6rem, 4.4vw, 2.15rem);
+  font-size: clamp(1.4rem, 3.8vw, 1.85rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -45,8 +45,8 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.28rem 0.72rem;
-  font-size: 0.82rem;
+  padding: 0.26rem 0.68rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #a85e08;
   background: rgba(242, 146, 29, 0.14);
@@ -56,8 +56,8 @@
 .tagline {
   margin: 0;
   color: #6f5b46;
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 .socials {
   display: flex;
@@ -66,7 +66,7 @@
   flex-wrap: wrap;
 }
 .social {
-  font-size: 0.86rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
@@ -92,7 +92,7 @@
 }
 .sectionTitle {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.08rem;
   font-weight: 800;
   letter-spacing: -0.01em;
   color: #3d2c1c;
@@ -103,6 +103,7 @@
   border-radius: 16px;
   padding: clamp(1rem, 2.4vw, 1.45rem);
   box-shadow: 0 12px 32px -24px rgba(120, 80, 20, 0.55);
+  font-size: 0.88rem;
 }
 
 /* Credential list */
@@ -159,12 +160,12 @@
 .credOrg {
   font-weight: 700;
   color: #3d2c1c;
-  font-size: 1rem;
+  font-size: 0.92rem;
   line-height: 1.35;
 }
 .credDetail {
   color: #7a6a58;
-  font-size: 0.86rem;
+  font-size: 0.8rem;
   margin-top: 0.12rem;
 }
 .status {
