@@ -18,7 +18,7 @@ export default function BlogArchive(_props: Props): ReactNode {
               <h1 className={styles.heading}>전체 글</h1>
               <p className={styles.sub}>공지사항·센터소식·교육자료를 한곳에서 확인하세요.</p>
             </div>
-            <BlogCards showAllLink={false} wide paginate />
+            <BlogCards showAllLink={false} wide paginate showSearch />
           </div>
         </main>
       </Layout>

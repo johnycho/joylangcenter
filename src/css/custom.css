@@ -744,3 +744,8 @@ mark {
 @media (max-width: 600px) {
   .subtitle-br-mobile { display: inline; }
 }
+
+/* 모바일 햄버거: docs/blog 상세에서도 보조 사이드바 대신 항상 메인 메뉴 표시 */
+.navbar-sidebar__items { transform: none !important; }
+.navbar-sidebar__item.navbar-sidebar__item--secondary { display: none; }
+.navbar-sidebar__back { display: none !important; }

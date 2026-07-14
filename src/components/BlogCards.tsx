@@ -26,7 +26,23 @@ type Props = {
   hideFilters?: boolean;
   /** 페이지 번호 방식 사용 (커뮤니티 페이지용). 기본 false → 미리보기 10개 */
   paginate?: boolean;
+  /** 검색창 표시 (게시판 페이지용). 기본 false */
+  showSearch?: boolean;
 };
+
+/** 제목에서 검색어와 일치하는 부분을 하이라이트 */
+function highlight(text: string, q: string): React.ReactNode {
+  if (!q) return text;
+  const i = text.toLowerCase().indexOf(q);
+  if (i < 0) return text;
+  return (
+    <>
+      {text.slice(0, i)}
+      <mark className={styles.hl}>{text.slice(i, i + q.length)}</mark>
+      {text.slice(i + q.length)}
+    </>
+  );
+}
 
 export default function NewsBoard({
   initialFilter = 'all',
@@ -35,9 +51,11 @@ export default function NewsBoard({
   wide = false,
   hideFilters = false,
   paginate = false,
+  showSearch = false,
 }: Props = {}) {
   const [filter, setFilter] = useState<string>(initialFilter);
   const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>('');
   const {siteConfig} = useDocusaurusContext();
 
   // 같은 사이트의 절대 URL이면 상대경로로 변환해 클라이언트 라우팅되게 함
@@ -67,14 +85,40 @@ export default function NewsBoard({
     : filter === 'all'
       ? posts
       : posts.filter((x) => x.keys.includes(filter));
-  const totalPages = Math.max(1, Math.ceil(matched.length / PAGE));
+  // 검색어 필터 — 제목·분류(라벨)·작성자 부분일치
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? matched.filter(
+        ({post, keys}) =>
+          post.metadata.title.toLowerCase().includes(q) ||
+          keys.some((k) => (TAGS.find((t) => t.key === k)?.label || '').toLowerCase().includes(q)) ||
+          (post.metadata.authors?.[0]?.name || '').toLowerCase().includes(q),
+      )
+    : matched;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE));
   const curPage = Math.min(page, totalPages);
   const startIdx = paginate ? (curPage - 1) * PAGE : 0;
-  const shown = paginate ? matched.slice(startIdx, startIdx + PAGE) : matched.slice(0, PAGE);
+  const shown = paginate ? filtered.slice(startIdx, startIdx + PAGE) : filtered.slice(0, PAGE);
   const moreUrl = filter === 'all' ? '/blog' : `/blog/tags/${filter}`;
 
   return (
     <div className={`${styles.board} ${wide ? styles.boardWide : ''}`}>
+      {showSearch && (
+        <div className={styles.searchRow}>
+          <svg className={styles.searchIcon} width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+          <input
+            type="search"
+            className={styles.searchInput}
+            placeholder="제목·분류·작성자 검색…"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setPage(1);
+            }}
+            aria-label="게시판 검색"
+          />
+        </div>
+      )}
       {!lockTag && !hideFilters && (
         <div className={styles.filters}>
           <button type="button" className={`${styles.fbtn} ${filter === 'all' ? styles.fbtnOn : ''}`} onClick={() => select('all')}>전체<span className={styles.fbtnCount}>{countAll}</span></button>
@@ -124,7 +168,7 @@ export default function NewsBoard({
                   <span className={styles.rowTitle}>
                     <span className={styles.rowText}>
                       {isNew && <span className={styles.newTag}>NEW</span>}
-                      {post.metadata.title}
+                      {highlight(post.metadata.title, q)}
                     </span>
                   </span>
                   <span className={styles.rowDate}>{date}</span>
@@ -140,7 +184,11 @@ export default function NewsBoard({
             </li>
           );
         })}
-        {shown.length === 0 && <li className={styles.empty}>해당 분류의 글이 없어요.</li>}
+        {shown.length === 0 && (
+          <li className={styles.empty}>
+            {q ? `'${query.trim()}' 검색 결과가 없어요.` : '해당 분류의 글이 없어요.'}
+          </li>
+        )}
       </ul>
 
       {renderFooter()}

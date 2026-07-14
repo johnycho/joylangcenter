@@ -145,6 +145,7 @@ const config: Config = {
             {label: "인사말", to: "/docs/intro"},
             {label: "오시는 길", to: "docs/location"},
             {label: "치료 분야", to: "/docs/therapy-areas"},
+            {label: "평가 및 검사", to: "/docs/assessment"},
             {label: "선생님 소개", to: "/docs/therapist"},
           ],
         },

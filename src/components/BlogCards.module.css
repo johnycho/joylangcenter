@@ -94,6 +94,50 @@
   color: #fff;
 }
 
+/* 검색창 */
+.searchRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1.1rem 1.3rem 0;
+}
+.searchIcon {
+  position: absolute;
+  left: 2rem;
+  color: #b8a88f;
+  pointer-events: none;
+}
+.searchInput {
+  width: 100%;
+  padding: 0.62rem 1rem 0.62rem 2.6rem;
+  border: 1px solid #ecdfc9;
+  border-radius: 999px;
+  background: #fffdf9;
+  font-size: 0.9rem;
+  color: #4a3f33;
+  transition: border-color 0.14s ease, box-shadow 0.14s ease;
+}
+.searchInput::placeholder {
+  color: #b3a48c;
+}
+.searchInput:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(242, 146, 29, 0.15);
+}
+/* 제목 검색어 하이라이트 */
+.hl {
+  background: linear-gradient(transparent 55%, rgba(253, 200, 48, 0.55) 55%);
+  color: inherit;
+  padding: 0 0.05em;
+  border-radius: 2px;
+}
+[data-theme='dark'] .searchInput {
+  background: #2a2219;
+  border-color: #3a2f22;
+  color: #ddd3c5;
+}
+
 /* 목록 */
 .list {
   list-style: none;
