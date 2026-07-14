@@ -26,6 +26,7 @@ const AREAS = [
   {img: '/img/home/area-fluency.jpg', title: '유창성 (말더듬)', desc: '편안하고 자연스러운 말하기를 연습해요.'},
   {img: '/img/home/area-autism.jpg', title: '자폐스펙트럼장애', desc: '상호작용과 의사소통 능력을 함께 키워요.'},
   {img: '/img/home/area-intellectual.jpg', title: '지적장애', desc: '생활 속 기능적 의사소통을 도와요.'},
+  {img: '/img/home/area-social.jpg', title: '사회성', desc: '또래와 어울리며 상황에 맞는 상호작용을 연습해요.'},
 ];
 
 function HomepageHero() {
@@ -161,7 +162,7 @@ export default function Home(): ReactNode {
         {/* 소식 & 공지 (게시판형) */}
         <section className={`${styles.section} ${styles.sectionTint}`}>
           <div className={styles.container}>
-            <SectionHead eyebrow="COMMUNITY" title="커뮤니티" sub="공지사항·센터 소식·교육자료를 한곳에서 확인하세요." />
+            <SectionHead eyebrow="COMMUNITY" title="커뮤니티" sub="공지사항·센터소식·교육자료를 한곳에서 확인하세요." />
             <BlogCards paginate wide />
           </div>
         </section>

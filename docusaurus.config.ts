@@ -51,7 +51,7 @@ const config: Config = {
           path: 'blog',
           routeBasePath: 'blog',
           blogTitle: '커뮤니티',
-          blogDescription: '공지사항과 센터 소식을 전달합니다.',
+          blogDescription: '공지사항과 센터소식을 전달합니다.',
           postsPerPage: 10, // 한 페이지당 표시할 게시글 개수 (기본값: 10)
           blogSidebarTitle: '전체 목록',
           // blogSidebarCount: 0,     // 사이드바 숨김
@@ -144,6 +144,7 @@ const config: Config = {
           items: [
             {label: "인사말", to: "/docs/intro"},
             {label: "오시는 길", to: "docs/location"},
+            {label: "치료 분야", to: "/docs/therapy-areas"},
             {label: "선생님 소개", to: "/docs/therapist"},
           ],
         },

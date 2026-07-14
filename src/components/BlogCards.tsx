@@ -9,7 +9,7 @@ const PAGE = 10;
 
 const TAGS = [
   {key: 'notice', label: '공지사항'},
-  {key: 'news', label: '센터 소식'},
+  {key: 'news', label: '센터소식'},
   {key: 'library', label: '교육자료'},
 ];
 

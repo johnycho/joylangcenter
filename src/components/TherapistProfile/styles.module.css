@@ -191,14 +191,34 @@
 }
 
 /* Markdown rendered inside a section body */
+.sectionBody > :first-child { margin-top: 0; }
 .sectionBody :where(ul) {
-  margin: 0;
+  margin: 0.4rem 0 1.15rem;
   padding-left: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
 }
+.sectionBody :where(ul):last-child { margin-bottom: 0; }
+/* 번호 목록: 점 없이 숫자만 (브랜드 컬러) */
+.sectionBody :where(ol) {
+  margin: 0.4rem 0 1.25rem;
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+.sectionBody :where(ol) > li {
+  padding-left: 0.35rem;
+  line-height: 1.62;
+  color: #40342a;
+  margin-bottom: 0.6rem;
+}
+.sectionBody :where(ol) > li:last-child { margin-bottom: 0; }
+.sectionBody :where(ol) > li::before { content: none; }
+.sectionBody :where(ol) > li::marker { color: var(--ifm-color-primary); font-weight: 800; }
+.sectionBody :where(ol) > li strong { color: var(--ifm-color-primary-darkest); }
+.sectionBody :where(p) { margin: 0 0 0.6rem; }
+.sectionBody :where(p) strong { color: var(--ifm-color-primary-darkest); }
 .sectionBody :where(li) {
   position: relative;
   padding-left: 1.35rem;
