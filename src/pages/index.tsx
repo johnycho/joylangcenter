@@ -163,7 +163,7 @@ export default function Home(): ReactNode {
         <section className={`${styles.section} ${styles.sectionTint}`}>
           <div className={styles.container}>
             <SectionHead eyebrow="COMMUNITY" title="커뮤니티" sub="공지사항·센터소식·교육자료를 한곳에서 확인하세요." />
-            <BlogCards paginate wide />
+            <BlogCards paginate wide showSearch />
           </div>
         </section>
 

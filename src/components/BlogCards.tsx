@@ -30,7 +30,7 @@ type Props = {
   showSearch?: boolean;
 };
 
-/** 제목에서 검색어와 일치하는 부분을 하이라이트 */
+/** 텍스트에서 검색어와 일치하는 부분을 하이라이트 (제목·분류칩·작성자 공통) */
 function highlight(text: string, q: string): React.ReactNode {
   if (!q) return text;
   const i = text.toLowerCase().indexOf(q);
@@ -147,7 +147,7 @@ export default function NewsBoard({
           const author = post.metadata.authors?.[0];
           const authorInner = author && (
             <>
-              <span className={styles.authorName}>{author.name}</span>
+              <span className={styles.authorName}>{highlight(author.name, q)}</span>
               <span className={styles.authorCard} role="tooltip">
                 {author.imageURL && (
                   <img src={author.imageURL} alt="" className={styles.authorCardImg} loading="lazy" decoding="async" />
@@ -164,7 +164,7 @@ export default function NewsBoard({
               <div className={styles.row}>
                 <Link to={post.metadata.permalink} className={styles.rowMain}>
                   <span className={styles.rowIndex}>{startIdx + idx + 1}</span>
-                  <span className={`${styles.tagChip} ${styles['t_' + chipKey] || ''}`}>{chipLabel}</span>
+                  <span className={`${styles.tagChip} ${styles['t_' + chipKey] || ''}`}>{highlight(chipLabel, q)}</span>
                   <span className={styles.rowTitle}>
                     <span className={styles.rowText}>
                       {isNew && <span className={styles.newTag}>NEW</span>}
