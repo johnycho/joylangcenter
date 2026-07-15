@@ -232,7 +232,7 @@ function replyResultBlocks(text, {token, pageId, replyId, content}) {
           type: 'button',
           action_id: 'delete_reply',
           style: 'danger',
-          text: {type: 'plain_text', text: '🗑 답글 삭제'},
+          text: {type: 'plain_text', text: '🗑 삭제'},
           value: v,
           confirm: {
             title: {type: 'plain_text', text: '답글 삭제'},
