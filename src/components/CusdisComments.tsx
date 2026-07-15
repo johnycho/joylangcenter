@@ -83,6 +83,18 @@ const BRAND_CSS = `
     border-radius: 0 !important; display: inline-flex !important; align-items: center !important;
     font-size: .9rem !important; line-height: 1 !important;
   }
+  /* 답글 @작성자 태그 — 좌측 칩 컬럼 | 본문 = 표 컬럼처럼 구분 */
+  .cusdis-mention {
+    display: inline-block !important; background: #fdeccf !important; color: #b46508 !important;
+    font-weight: 800 !important; font-size: .78rem !important; line-height: 1.4 !important;
+    padding: .1rem .55rem !important; border-radius: 999px !important; white-space: nowrap !important;
+  }
+  .my-4 > .my-2.cusdis-reply-row { display: flex !important; align-items: flex-start !important; }
+  .cusdis-reply-row > .cusdis-mention { flex: 0 0 auto !important; margin: .1rem 0 0 !important; }
+  .cusdis-reply-row > p {
+    flex: 1 1 auto !important; margin: 0 0 0 .6rem !important;
+    padding-left: .6rem !important; border-left: 2px solid #f1e3cf !important;
+  }
   /* 본문 — 게시글 본문(.blog-post-page .markdown)과 동일한 크기/행간 */
   .my-4 > .my-2 { color: #4a4a4a !important; font-size: 0.9rem !important; line-height: 1.72 !important; margin: .5rem 0 !important; }
   .my-4 > .my-2 p { margin: 0 !important; font-size: 0.9rem !important; line-height: 1.72 !important; }
@@ -267,6 +279,34 @@ function CusdisThread() {
       } catch (_) {}
     };
 
+    // 답글 본문 첫 줄의 "@작성자" 태그를 좌측 칩 컬럼으로 분리(태그 | 본문 = 표 컬럼처럼).
+    const styleMentions = (iframe: HTMLIFrameElement) => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) return;
+        doc.querySelectorAll('.my-4 > .my-2').forEach((cell) => {
+          if ((cell as HTMLElement).getAttribute('data-mention') === '1') return;
+          const p = cell.querySelector(':scope > p');
+          if (!p) return;
+          const first = p.firstChild;
+          if (!first || first.nodeType !== 3) return; // 첫 노드가 텍스트가 아니면(=태그 아님) 건너뜀
+          const t = (first.textContent || '').trim();
+          if (!/^@\S/.test(t)) return;
+          // 태그 텍스트 + 뒤따르는 <br> 제거 → 본문(p)에서 태그 줄을 떼어낸다
+          const afterFirst = first.nextSibling;
+          p.removeChild(first);
+          if (afterFirst && afterFirst.nodeName === 'BR') p.removeChild(afterFirst);
+          // 좌측 칩 컬럼 삽입 + 셀을 flex 행으로
+          const chip = doc.createElement('span');
+          chip.className = 'cusdis-mention';
+          chip.textContent = t;
+          cell.insertBefore(chip, p);
+          (cell as HTMLElement).classList.add('cusdis-reply-row');
+          (cell as HTMLElement).setAttribute('data-mention', '1');
+        });
+      } catch (_) {}
+    };
+
     const injectStyle = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument;
@@ -388,7 +428,8 @@ function CusdisThread() {
                     if (loc && loc.node && loc.root && loc.node.id !== loc.root.id) {
                       const author = (loc.node.moderator && loc.node.moderator.displayName) || loc.node.by_nickname || '';
                       data.parentId = loc.root.id;
-                      data.content = (author ? `@${author} ` : '') + data.content;
+                      // 태그를 독립된 줄로(하드브레이크). data.content 는 이미 개행변환된 상태라 여기선 "  \n" 사용.
+                      data.content = (author ? `@${author}  \n` : '') + data.content;
                       changed = true;
                     }
                   } catch (_) {}
@@ -413,6 +454,7 @@ function CusdisThread() {
       updateHeading(boundIframe);
       showSeconds(boundIframe);
       orderReplies(boundIframe);
+      styleMentions(boundIframe);
       try {
         const doc = boundIframe.contentDocument;
         if (doc && doc.body) {
@@ -432,6 +474,7 @@ function CusdisThread() {
             replaceLoading(boundIframe);
             maybeReloadAfterSubmit();
             orderReplies(boundIframe);
+            styleMentions(boundIframe);
             syncHeight(boundIframe);
             updateHeading(boundIframe);
             // 초단위 날짜 갱신(잦은 변경이므로 디바운스)

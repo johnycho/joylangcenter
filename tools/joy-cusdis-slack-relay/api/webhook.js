@@ -173,13 +173,23 @@ export default async function handler(req, res) {
     }
   }
 
+  // 평탄화된 답글은 본문 첫 줄이 "@작성자" 태그 → 코드블럭 밖 별도 줄로 분리해 표시
+  let mention = '';
+  let rawBody = content || '(내용 없음)';
+  const mMatch = rawBody.match(/^@[^\n]+/);
+  if (mMatch) {
+    mention = mMatch[0].trim();
+    rawBody = rawBody.slice(mMatch[0].length).replace(/^[ \t]*\n/, '');
+  }
   // 본문은 코드블럭(개행 그대로 표시), 작성자/연락처/이메일은 인용(blockquote)
-  const bodyText = (content || '(내용 없음)').replace(/[ \t]+\n/g, '\n'); // 마크다운 하드브레이크 잔여 공백 제거
+  const bodyText = rawBody.replace(/[ \t]+\n/g, '\n').trim() || '(내용 없음)'; // 하드브레이크 잔여 공백 제거
   const codeBlock = '```\n' + bodyText + '\n```';
   const lines = [];
   // 게시글 제목을 맨 위에(라벨 없이). 대댓글은 루트 스레드에 이미 있으므로 생략.
   if (!isReply) lines.push(`📄 ${pageLine}`);
-  lines.push('↪︎ *댓글이 달렸어요*', codeBlock, `> 👤 ${nickname}`);
+  lines.push('↪︎ *댓글이 달렸어요*');
+  if (mention) lines.push(`*${mention}*`); // 태그는 코드블럭 밖 별도 줄
+  lines.push(codeBlock, `> 👤 ${nickname}`);
   if (phone) lines.push(`> 📞 ${phone}`);
   if (email) lines.push(`> ✉️ ${email}`);
   const summary = lines.join('\n');
@@ -219,9 +229,9 @@ export default async function handler(req, res) {
 
   const sent = await postSlack({text: summary, blocks, threadTs});
 
-  // 최상위 댓글은 슬랙 메시지 ts 를 KV 에 저장(대댓글 스레드 연결용, 90일)
+  // 최상위 댓글은 슬랙 메시지 ts + 승인 토큰을 KV 에 저장(대댓글 스레드 연결 + 슬랙 답글 평탄화용, 90일)
   if (!isReply && commentId && sent && sent.ts) {
-    await kvSet(`cusdis:ts:${commentId}`, {channel: sent.channel, ts: sent.ts}, 60 * 60 * 24 * 90);
+    await kvSet(`cusdis:ts:${commentId}`, {channel: sent.channel, ts: sent.ts, token}, 60 * 60 * 24 * 90);
   }
 
   return res.status(200).json({ok: true, threaded: !!threadTs});

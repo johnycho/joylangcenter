@@ -169,6 +169,46 @@ async function markThreadRepliesDeleted(botToken, channel, rootTs) {
   } catch (_) {}
 }
 
+// ── KV(Upstash Redis REST) — 루트 댓글의 승인 토큰 조회(슬랙 답글 평탄화용) ──
+function envBySuffix(...suffixes) {
+  for (const [k, v] of Object.entries(process.env)) {
+    if (v && suffixes.some((s) => k.endsWith(s))) return v;
+  }
+  return undefined;
+}
+const KV_URL = () => envBySuffix('KV_REST_API_URL', 'UPSTASH_REDIS_REST_URL');
+const KV_TOKEN = () => envBySuffix('KV_REST_API_TOKEN', 'UPSTASH_REDIS_REST_TOKEN');
+async function kvGet(key) {
+  if (!(KV_URL() && KV_TOKEN())) return null;
+  try {
+    const r = await fetch(`${KV_URL()}/get/${encodeURIComponent(key)}`, {headers: {Authorization: `Bearer ${KV_TOKEN()}`}});
+    const j = await r.json();
+    return j && j.result ? JSON.parse(j.result) : null;
+  } catch (_) {
+    return null;
+  }
+}
+const displayNameOf = (c) => (c && ((c.moderator && c.moderator.displayName) || c.by_nickname)) || '';
+// 대상 댓글이 답글이면 루트로 평탄화(루트 토큰 + @작성자 태그)해 깊이를 1단계로 맞춘다.
+// 반환: {token, content, parentId} — KV 미스/최상위면 원래 값 유지.
+async function flattenReplyTarget(appId, pageId, token, content) {
+  const targetId = commentIdFromToken(token);
+  if (!appId || !targetId) return {token, content, parentId: targetId};
+  const tree = await fetchTopComments(appId, pageId);
+  let rootId = targetId;
+  for (const top of tree) {
+    if (findDeep([top], targetId)) {
+      rootId = top.id;
+      break;
+    }
+  }
+  if (rootId === targetId) return {token, content, parentId: targetId}; // 최상위 → 그대로
+  const rootInfo = await kvGet(`cusdis:ts:${rootId}`);
+  if (!rootInfo || !rootInfo.token) return {token, content, parentId: targetId}; // 루트 토큰 없음 → 폴백
+  const author = displayNameOf(findDeep(tree, targetId));
+  return {token: rootInfo.token, content: (author ? `@${author}\n` : '') + content, parentId: rootId};
+}
+
 // ── 블록 구성 ──
 const sectionOf = (text) => ({type: 'section', text: {type: 'mrkdwn', text}});
 const contextOf = (text) => ({type: 'context', elements: [{type: 'mrkdwn', text}]});
@@ -329,12 +369,14 @@ export default async function handler(req, res) {
 
     // 새 답글 → 스레드에 결과 메시지(신규) 추가
     if (cb === 'reply_modal') {
-      const r = await postReply(meta.t, content);
+      // 대상이 답글이면 루트로 평탄화(깊이 1단계) + @작성자 태그 — 프론트와 동일
+      const f = await flattenReplyTarget(appId, meta.p, meta.t, content);
+      const r = await postReply(f.token, f.content);
       if (r.limited) return modalError(res, '⚠️ 무료 플랜 답글 한도를 초과했어요.');
       let replyId = null;
-      if (appId) replyId = latestModReplyId(findDeep(await fetchTopComments(appId, meta.p), commentIdFromToken(meta.t)));
-      const text = `↩︎ 답글을 등록했어요:\n${blockquote(content)}`;
-      await postThread(botToken, meta.ch, meta.root, text, replyResultBlocks(text, {token: meta.t, pageId: meta.p, replyId, content}));
+      if (appId) replyId = latestModReplyId(findDeep(await fetchTopComments(appId, meta.p), f.parentId));
+      const text = `↩︎ 답글을 등록했어요:\n${blockquote(f.content)}`;
+      await postThread(botToken, meta.ch, meta.root, text, replyResultBlocks(text, {token: f.token, pageId: meta.p, replyId, content: f.content}));
       return res.status(200).json({response_action: 'clear'});
     }
 
