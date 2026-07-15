@@ -12,13 +12,13 @@ const KO_LOCALE = {
   post_comment: '등록',
   loading: '로딩중...',
   email: '이메일 (선택)',
-  nickname: '닉네임',
+  nickname: '이름',
   reply_placeholder: '내용',
   reply_btn: '댓글',
   sending: '전송중...',
   mod_badge: '⭐',
   content_is_required: '내용이 필요합니다',
-  nickname_is_required: '닉네임이 필요합니다',
+  nickname_is_required: '이름이 필요합니다',
   comment_has_been_sent: '댓글이 등록되었습니다.',
 };
 
