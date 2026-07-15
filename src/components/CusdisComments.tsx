@@ -89,6 +89,12 @@ const BRAND_CSS = `
     font-weight: 800 !important; font-size: .78rem !important; line-height: 1.4 !important;
     padding: .1rem .55rem !important; border-radius: 999px !important; white-space: nowrap !important;
   }
+  /* 답글의 답글 폼 상단 @작성자 태그 */
+  .cusdis-form-tag {
+    display: inline-block !important; background: #fdeccf !important; color: #b46508 !important;
+    font-weight: 800 !important; font-size: .8rem !important;
+    padding: .15rem .6rem !important; border-radius: 999px !important; margin: 0 0 .5rem !important;
+  }
   .my-4 > .my-2.cusdis-reply-row { display: flex !important; align-items: flex-start !important; }
   .cusdis-reply-row > .cusdis-mention { flex: 0 0 auto !important; margin: .1rem 0 0 !important; }
   .cusdis-reply-row > p {
@@ -319,27 +325,52 @@ function CusdisThread() {
       } catch (_) {}
     };
 
-    // "연락처(전화)" 입력칸을 각 댓글/대댓글 폼에 주입(닉네임 옆, 이메일은 아래 전체폭으로 이동).
-    // 폼마다 한 번씩만 주입한다.
-    const injectContactField = (iframe: HTMLIFrameElement) => {
+    // 폼 구성:
+    //  - 최상위 댓글 작성 폼(.my-4 밖) → 원래대로 연락처 주입 + 이메일 유지
+    //  - 답글 폼(.my-4 안) → 닉네임 + 내용만 (이메일/연락처 숨김)
+    //  - 답글의 답글 폼(.my-4.pl-4 안) → 상단에 @작성자 태그
+    const setupForms = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument;
         if (!doc) return;
         doc.querySelectorAll('input[name="email"]').forEach((el) => {
           const emailInput = el as HTMLInputElement;
-          const emailCell = emailInput.closest('.px-1');
-          const row = emailCell && emailCell.parentElement; // grid-cols-2 (닉네임/이메일)
-          const form = row && row.parentElement;
-          if (!form || !row || !emailCell) return;
-          if (form.querySelector('input[name="__phone"]')) return; // 이 폼은 이미 주입됨
-          emailInput.type = 'text'; // 이메일|tel:전화 결합값 허용(형식검증 회피)
-          const cell = doc.createElement('div');
-          cell.className = 'px-1';
-          cell.innerHTML =
-            '<label class="mb-2 block">연락처 (선택)</label>' +
-            '<input name="__phone" type="tel" class="w-full p-2 border border-gray-200 bg-transparent" placeholder="010-0000-0000">';
-          row.insertBefore(cell, emailCell); // [닉네임, 연락처, 이메일]
-          form.insertBefore(emailCell, row.nextSibling); // 이메일 → 행 밖(아래) 전체폭
+          const emailCell = emailInput.closest('.px-1') as HTMLElement | null;
+          if (!emailCell) return;
+          if (emailInput.closest('.my-4')) {
+            // 답글 폼: 이메일 숨김 + 닉네임 전체폭
+            if (emailCell.style.display === 'none') return;
+            emailCell.style.display = 'none';
+            const row = emailCell.parentElement as HTMLElement | null;
+            if (row) row.style.gridTemplateColumns = '1fr';
+          } else {
+            // 최상위 댓글 폼: 연락처 주입 + 이메일 유지(원래대로)
+            const row = emailCell.parentElement as HTMLElement | null;
+            const form = row && (row.parentElement as HTMLElement | null);
+            if (!form || !row) return;
+            if (form.querySelector('input[name="__phone"]')) return; // 이미 주입됨
+            emailInput.type = 'text'; // 이메일|tel:전화 결합값 허용(형식검증 회피)
+            const cell = doc.createElement('div');
+            cell.className = 'px-1';
+            cell.innerHTML =
+              '<label class="mb-2 block">연락처 (선택)</label>' +
+              '<input name="__phone" type="tel" class="w-full p-2 border border-gray-200 bg-transparent" placeholder="010-0000-0000">';
+            row.insertBefore(cell, emailCell); // [닉네임, 연락처, 이메일]
+            form.insertBefore(emailCell, row.nextSibling); // 이메일 → 행 밖(아래) 전체폭
+          }
+        });
+        // 답글의 답글 폼(.pl-4 내부)에만 @작성자 태그 표시 (댓글·1단계 답글 폼엔 없음)
+        doc.querySelectorAll('textarea[name="reply_content"]').forEach((ta) => {
+          const pl4 = (ta as HTMLElement).closest('.my-4.pl-4');
+          const form = (ta as HTMLElement).closest('.grid') as HTMLElement | null;
+          if (!pl4 || !form || form.querySelector('.cusdis-form-tag')) return;
+          const nameEl = pl4.querySelector('.font-medium');
+          const author = nameEl ? (nameEl.textContent || '').trim() : '';
+          if (!author) return;
+          const tag = doc.createElement('div');
+          tag.className = 'cusdis-form-tag';
+          tag.textContent = `↪︎ @${author}`;
+          form.insertBefore(tag, form.firstChild);
         });
       } catch (_) {}
     };
@@ -448,7 +479,7 @@ function CusdisThread() {
       injectStyle(boundIframe);
       guardSubmit(boundIframe);
       interceptSubmit(boundIframe);
-      injectContactField(boundIframe);
+      setupForms(boundIframe);
       replaceLoading(boundIframe);
       syncHeight(boundIframe);
       updateHeading(boundIframe);
@@ -470,7 +501,7 @@ function CusdisThread() {
           mo = new MutationObserver(() => {
             if (!boundIframe) return;
             injectStyle(boundIframe);
-            injectContactField(boundIframe); // 대댓글 폼 등 새로 생긴 폼에도 연락처칸 주입
+            setupForms(boundIframe); // 새로 생긴 답글 폼도 간소화 + 태그 처리
             replaceLoading(boundIframe);
             maybeReloadAfterSubmit();
             orderReplies(boundIframe);

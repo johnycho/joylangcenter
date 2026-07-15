@@ -173,7 +173,7 @@ export default async function handler(req, res) {
     }
   }
 
-  // 평탄화된 답글은 본문 첫 줄이 "@작성자" 태그 → 코드블럭 밖 별도 줄로 분리해 표시
+  // 평탄화된 답글은 본문 첫 줄이 "@작성자" 태그 → 본문과 분리해 별도 줄로 표시
   let mention = '';
   let rawBody = content || '(내용 없음)';
   const mMatch = rawBody.match(/^@[^\n]+/);
@@ -181,15 +181,14 @@ export default async function handler(req, res) {
     mention = mMatch[0].trim();
     rawBody = rawBody.slice(mMatch[0].length).replace(/^[ \t]*\n/, '');
   }
-  // 본문은 코드블럭(개행 그대로 표시), 작성자/연락처/이메일은 인용(blockquote)
   const bodyText = rawBody.replace(/[ \t]+\n/g, '\n').trim() || '(내용 없음)'; // 하드브레이크 잔여 공백 제거
-  const codeBlock = '```\n' + bodyText + '\n```';
+  const quoted = bodyText.split('\n').map((l) => `> ${l}`).join('\n'); // 본문은 인용(blockquote)
   const lines = [];
   // 게시글 제목을 맨 위에(라벨 없이). 대댓글은 루트 스레드에 이미 있으므로 생략.
   if (!isReply) lines.push(`📄 ${pageLine}`);
-  lines.push('↪︎ *댓글이 달렸어요*');
-  if (mention) lines.push(`*${mention}*`); // 태그는 코드블럭 밖 별도 줄
-  lines.push(codeBlock, `> 👤 ${nickname}`);
+  lines.push(`↪︎ *${nickname}*님이 댓글을 달았습니다`); // 작성자 볼드
+  if (mention) lines.push(`*${mention}* 님에게`); // 답글의 답글이면 태그 표시
+  lines.push(quoted);
   if (phone) lines.push(`> 📞 ${phone}`);
   if (email) lines.push(`> ✉️ ${email}`);
   const summary = lines.join('\n');

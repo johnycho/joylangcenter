@@ -375,7 +375,17 @@ export default async function handler(req, res) {
       if (r.limited) return modalError(res, '⚠️ 무료 플랜 답글 한도를 초과했어요.');
       let replyId = null;
       if (appId) replyId = latestModReplyId(findDeep(await fetchTopComments(appId, meta.p), f.parentId));
-      const text = `↩︎ 답글을 등록했어요:\n${blockquote(f.content)}`;
+      // 결과 메시지: "관리자가 답글을 달았습니다" + (태그) + 본문 인용 — webhook 알림과 동일 스타일
+      let mention = '';
+      let rb = f.content;
+      const mm = rb.match(/^@[^\n]+/);
+      if (mm) {
+        mention = mm[0].trim();
+        rb = rb.slice(mm[0].length).replace(/^[ \t]*\n/, '');
+      }
+      let text = '↪︎ *관리자*가 답글을 달았습니다';
+      if (mention) text += `\n*${mention}* 님에게`;
+      text += `\n${blockquote(rb.trim())}`;
       await postThread(botToken, meta.ch, meta.root, text, replyResultBlocks(text, {token: f.token, pageId: meta.p, replyId, content: f.content}));
       return res.status(200).json({response_action: 'clear'});
     }
