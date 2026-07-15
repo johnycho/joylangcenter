@@ -260,8 +260,21 @@ function CusdisThread() {
       } catch (_) {}
     };
 
-    // 위젯의 fetch 를 가로채, 새 댓글/대댓글 전송 시 본문 개행 보존 + 연락처(pending)를 by_email 에 합침.
-    // (입력칸 값을 건드리지 않아 결합값이 화면에 노출되지 않음)
+    // 댓글 트리에서 id 를 찾아 {root(최상위 조상), node} 반환 (대댓글 평탄화용)
+    const repliesData = (c: any) => (c && c.replies && c.replies.data) || [];
+    const locate = (list: any[], id: string, root: any = null): any => {
+      for (const c of list || []) {
+        const curRoot = root || c;
+        if (c.id === id) return {root: curRoot, node: c};
+        const f = locate(repliesData(c), id, curRoot);
+        if (f) return f;
+      }
+      return null;
+    };
+
+    // 위젯의 fetch 를 가로채, 새 댓글/대댓글 전송 시:
+    //  - 본문 개행 보존 + 연락처(pending)를 by_email 에 합침 (입력칸 값은 건드리지 않음)
+    //  - 답글에 대한 답글이면 깊이를 더하지 않고 루트에 붙이고 @작성자 로 태그(1단계 평탄화)
     const interceptSubmit = (iframe: HTMLIFrameElement) => {
       try {
         const w = iframe.contentWindow as (Window & {fetch: typeof fetch; __submitIntercepted?: boolean; __pendingPhone?: string}) | null;
@@ -290,6 +303,25 @@ function CusdisThread() {
                   changed = true;
                 }
                 w.__pendingPhone = '';
+                // 대댓글 평탄화: 답글에 대한 답글이면 루트에 붙이고 @작성자 태그
+                if (data.parentId) {
+                  try {
+                    const appId = data.appId || CUSDIS_APP_ID;
+                    const pageId = data.pageId || data.page_id || '';
+                    const r = await orig(
+                      `${CUSDIS_HOST}/api/open/comments?appId=${encodeURIComponent(appId)}&pageId=${encodeURIComponent(pageId)}&page=1`,
+                    );
+                    const j = await r.json();
+                    const list = (j && j.data && j.data.data) || [];
+                    const loc = locate(list, data.parentId);
+                    if (loc && loc.node && loc.root && loc.node.id !== loc.root.id) {
+                      const author = (loc.node.moderator && loc.node.moderator.displayName) || loc.node.by_nickname || '';
+                      data.parentId = loc.root.id;
+                      data.content = (author ? `@${author} ` : '') + data.content;
+                      changed = true;
+                    }
+                  } catch (_) {}
+                }
                 if (changed) init = {...init, body: JSON.stringify(data)};
               }
             }

@@ -58,17 +58,6 @@ function findDeep(list, id) {
   }
   return null;
 }
-// id 댓글의 직속 부모 댓글 반환 (어떤 댓글의 답글인지 표시용)
-function findParent(list, id) {
-  for (const c of list || []) {
-    if (repliesOf(c).some((x) => x.id === id)) return c;
-    const deeper = findParent(repliesOf(c), id);
-    if (deeper) return deeper;
-  }
-  return null;
-}
-const displayNameOf = (c) => (c && ((c.moderator && c.moderator.displayName) || c.by_nickname)) || '';
-
 // ── KV(Upstash Redis REST) — 댓글ID→슬랙 메시지 매핑 (있으면 우선 사용) ──
 // Upstash 연결 시 환경변수에 접두어(예: JOY_)가 붙을 수 있어, 접미어로 자동 탐지한다.
 function envBySuffix(...suffixes) {
@@ -165,11 +154,10 @@ export default async function handler(req, res) {
   // 자동승인
   await autoApprove(token);
 
-  // 루트(최상위 조상)·직속 부모 찾기 — 대댓글 여부/스레드 대상/부모 표시용
+  // 루트(최상위 조상) 찾기 — 대댓글 여부/스레드 대상용
+  // (답글은 위젯에서 루트에 평탄화되어 붙고, 대댓글의 답글은 본문에 @작성자 태그가 들어온다)
   let rootId = commentId;
   let isReply = false;
-  let parentName = '';
-  let parentContent = '';
   if (appId && commentId) {
     let tree = await fetchTopComments(appId, pageId);
     if (!findDeep(tree, commentId)) {
@@ -183,19 +171,10 @@ export default async function handler(req, res) {
         break;
       }
     }
-    if (isReply) {
-      const p = findParent(tree, commentId);
-      parentName = displayNameOf(p);
-      parentContent = p ? String(p.content || '').replace(/\s+/g, ' ').trim() : '';
-    }
   }
 
   const quoted = content ? content.replace(/\n/g, '\n> ') : '(내용 없음)';
-  const lines = [isReply ? '↳ *대댓글이 달렸어요*' : '💬 *새 댓글이 달렸어요*'];
-  if (isReply && (parentName || parentContent)) {
-    const snip = parentContent.length > 80 ? parentContent.slice(0, 80) + '…' : parentContent;
-    lines.push(`↪︎ *${parentName || '댓글'}* 님 댓글에 답글${snip ? `: _${snip}_` : ''}`);
-  }
+  const lines = ['💬 *댓글이 달렸어요*'];
   lines.push(`> ${quoted}`, `👤 *작성자:* ${nickname}`);
   if (phone) lines.push(`📞 *연락처:* ${phone}`);
   if (email) lines.push(`✉️ *이메일:* ${email}`);
