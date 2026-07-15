@@ -271,7 +271,9 @@ export default async function handler(req, res) {
       const extra = n > 1 ? ` (답글 포함 ${n}개)` : '';
       await updateMessage(responseUrl, '🗑 삭제됨', [summarySection(payload), contextOf(`🗑 삭제됨${extra}`)]);
       // 스레드 루트(최상위 댓글) 삭제면, 그 스레드의 대댓글 알림들도 "삭제됨"으로 표시
-      const isRoot = !(payload.message && payload.message.thread_ts);
+      // (답글 달린 루트는 thread_ts 가 자기 ts 와 같음 → 이 경우도 루트로 취급)
+      const mts = payload.message || {};
+      const isRoot = !mts.thread_ts || mts.thread_ts === mts.ts;
       if (botToken && channel && msgTs && isRoot) {
         await markThreadRepliesDeleted(botToken, channel, msgTs);
       }
