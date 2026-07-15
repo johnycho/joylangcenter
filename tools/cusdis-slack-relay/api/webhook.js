@@ -52,7 +52,15 @@ export default async function handler(req, res) {
   const d = body.data || body;
   const nickname = d.by_nickname || '익명';
   const content = String(d.content || '').trim();
-  const email = String(d.by_email || d.email || '').trim();
+  // by_email 은 "이메일|tel:전화" 형태로 올 수 있다(위젯에서 이메일+연락처를 합쳐 보냄).
+  const rawContact = String(d.by_email || d.email || '').trim();
+  let email = rawContact;
+  let phone = '';
+  const ti = rawContact.indexOf('|tel:');
+  if (ti >= 0) {
+    phone = rawContact.slice(ti + 5).trim();
+    email = rawContact.slice(0, ti).trim();
+  }
   const pageId = d.page_id || d.pageId || '';
   const pageTitle = d.page_title || d.project_title || pageId || '게시글';
   const token = extractToken(d.approve_link || '');
@@ -71,8 +79,11 @@ export default async function handler(req, res) {
 
   const quoted = content ? content.replace(/\n/g, '\n> ') : '(내용 없음)';
 
-  const authorLine = email ? `*작성자:* ${nickname} (${email})` : `*작성자:* ${nickname}`;
-  const summary = `💬 *새 댓글이 달렸어요*\n> ${quoted}\n${authorLine}\n*글:* ${pageLine}`;
+  const lines = ['💬 *새 댓글이 달렸어요*', `> ${quoted}`, `👤 *작성자:* ${nickname}`];
+  if (phone) lines.push(`📞 *연락처:* ${phone}`);
+  if (email) lines.push(`✉️ *이메일:* ${email}`);
+  lines.push(`📄 *글:* ${pageLine}`);
+  const summary = lines.join('\n');
 
   // Block Kit: 요약 + [답글][삭제] 버튼. 버튼 value 에 승인 토큰을 실어 인터랙션에서 사용.
   const blocks = [

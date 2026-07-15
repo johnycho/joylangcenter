@@ -125,10 +125,13 @@ async function replyExists(appId, pageId, parentToken, replyId) {
 }
 async function postReply(token, content) {
   try {
+    // Cusdis 는 본문을 마크다운으로 렌더 → 단일 줄바꿈이 무시된다.
+    // 줄바꿈을 하드 브레이크(공백 2칸 + 개행)로 변환해 개행을 보존한다.
+    const md = String(content || '').replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
     const r = await fetch(`${CUSDIS_HOST}/api/open/approve?token=${encodeURIComponent(token)}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({replyContent: content}),
+      body: JSON.stringify({replyContent: md}),
     });
     return {limited: r.status === 402, ok: r.status !== 402};
   } catch (_) {

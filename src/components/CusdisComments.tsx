@@ -205,8 +205,30 @@ function CusdisThread() {
       } catch (_) {}
     };
 
-    // 전송 중(제출 버튼이 "전송중..." 상태)일 때 제출 버튼 재클릭을 막아 중복 등록 방지.
-    // 캡처 단계에서 위젯의 클릭 핸들러보다 먼저 가로채 차단한다.
+    // "연락처(전화)" 입력칸을 폼(닉네임/이메일 줄 다음)에 주입. 이메일칸은 type=text 로 바꿔
+    // 제출 시 이메일과 전화를 한 필드(by_email)에 합쳐 보낼 수 있게 한다.
+    const injectContactField = (iframe: HTMLIFrameElement) => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc || doc.querySelector('input[name="__phone"]')) return;
+        const emailInput = doc.querySelector('input[name="email"]') as HTMLInputElement | null;
+        if (!emailInput) return;
+        emailInput.type = 'text'; // 이메일|tel:전화 결합값 허용(형식검증 회피)
+        const emailCell = emailInput.closest('.px-1');
+        const row = emailCell && emailCell.parentElement; // grid-cols-2 (닉네임/이메일)
+        const form = row && row.parentElement; // grid-cols-1
+        if (!form || !row) return;
+        const cell = doc.createElement('div');
+        cell.className = 'px-1';
+        cell.innerHTML =
+          '<label class="mb-2 block" for="__phone">연락처 (전화, 선택)</label>' +
+          '<input name="__phone" id="__phone" type="tel" class="w-full p-2 border border-gray-200 bg-transparent" placeholder="010-0000-0000">';
+        form.insertBefore(cell, row.nextSibling);
+      } catch (_) {}
+    };
+
+    // 전송 중 재클릭 차단(중복 등록 방지) + 제출 직전 연락처를 이메일 필드에 합치기.
+    // 캡처 단계에서 위젯 핸들러보다 먼저 실행된다.
     const guardSubmit = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument as (Document & {__submitGuarded?: boolean}) | null;
@@ -221,6 +243,19 @@ function CusdisThread() {
             if ((btn.textContent || '').includes('전송중')) {
               e.preventDefault();
               e.stopImmediatePropagation();
+              return;
+            }
+            // 제출 직전: 같은 폼의 연락처(전화)를 이메일 필드에 합쳐 전송
+            const scope = btn.closest('.grid');
+            const phoneInput = scope?.querySelector('input[name="__phone"]') as HTMLInputElement | null;
+            const emailInput = scope?.querySelector('input[name="email"]') as HTMLInputElement | null;
+            if (phoneInput && emailInput) {
+              const phone = phoneInput.value.trim();
+              if (phone) {
+                const em = emailInput.value.trim().split('|tel:')[0].trim();
+                emailInput.value = em ? `${em}|tel:${phone}` : `|tel:${phone}`;
+                emailInput.dispatchEvent(new Event('input', {bubbles: true})); // Svelte 상태 반영
+              }
             }
           },
           true,
@@ -232,6 +267,7 @@ function CusdisThread() {
       if (!boundIframe) return;
       injectStyle(boundIframe);
       guardSubmit(boundIframe);
+      injectContactField(boundIframe);
       replaceLoading(boundIframe);
       syncHeight(boundIframe);
       updateHeading(boundIframe);
