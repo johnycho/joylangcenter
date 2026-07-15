@@ -161,7 +161,10 @@ async function markThreadRepliesDeleted(botToken, channel, rootTs) {
     if (!j.ok) return;
     for (const m of j.messages || []) {
       if (m.ts === rootTs) continue; // 루트(부모)는 이미 갱신됨
-      await chatUpdate(botToken, channel, m.ts, '🗑 삭제됨', [contextOf('🗑 상위 댓글 삭제로 함께 삭제됨')]);
+      // 내용(섹션)은 그대로 두고, 버튼(actions)만 제거하고 "삭제됨" 표시 추가
+      const kept = (m.blocks || []).filter((b) => b.type === 'section');
+      const blocks = [...kept, contextOf('🗑 상위 댓글 삭제로 함께 삭제됨')];
+      await chatUpdate(botToken, channel, m.ts, '🗑 삭제됨', blocks);
     }
   } catch (_) {}
 }
