@@ -761,3 +761,14 @@ mark {
   border-top-color: #f2921d;
   animation: cusdis-spin 0.8s linear infinite;
 }
+
+/* 댓글 새로고침 버튼 (댓글 카운트 옆) */
+.cusdis-refresh-btn {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  background: transparent; border: 1px solid #eadfce; color: #9a8f7d;
+  font-size: 0.78rem; font-weight: 600; line-height: 1;
+  padding: 0.3rem 0.65rem; border-radius: 999px; cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.cusdis-refresh-btn:hover { background: #f2921d; color: #fff; border-color: #f2921d; }
+.cusdis-refresh-btn span { font-size: 0.9rem; line-height: 1; }

@@ -14,9 +14,9 @@ const KO_LOCALE = {
   email: '이메일 (선택)',
   nickname: '이름',
   reply_placeholder: '내용',
-  reply_btn: '댓글',
+  reply_btn: '답글쓰기',
   sending: '전송중...',
-  mod_badge: '⭐',
+  mod_badge: 'Admin',
   content_is_required: '내용이 필요합니다',
   nickname_is_required: '이름이 필요합니다',
   comment_has_been_sent: '댓글이 등록되었습니다.',
@@ -35,7 +35,7 @@ const BRAND_CSS = `
   /* 입력창 */
   input, textarea {
     border: 1px solid #e5e2dc !important; border-radius: 10px !important;
-    padding: 0.6rem 0.75rem !important; font-size: 0.9rem !important;
+    padding: 0.5rem 0.65rem !important; font-size: 0.82rem !important;
     background: #fff !important; color: #333 !important;
     transition: border-color .15s, box-shadow .15s;
   }
@@ -43,7 +43,7 @@ const BRAND_CSS = `
     outline: none !important; border-color: #f2921d !important;
     box-shadow: 0 0 0 3px rgba(242,146,29,.15) !important;
   }
-  label { font-size: 0.9rem !important; color: #8a7f70 !important; font-weight: 700 !important; margin-bottom: .4rem !important; }
+  label { font-size: 0.8rem !important; color: #8a7f70 !important; font-weight: 700 !important; margin-bottom: .35rem !important; }
 
   /* 모바일: 닉네임/이메일을 한 줄(세로)로 */
   @media (max-width: 480px) { .grid-cols-2 { grid-template-columns: 1fr !important; } }
@@ -60,50 +60,66 @@ const BRAND_CSS = `
   /* 주요 제출 버튼(등록/대댓글 등록) — 주황 라운드 */
   button.bg-gray-200 {
     background: #f2921d !important; color: #fff !important;
-    padding: .55rem 1.5rem !important; border-radius: 999px !important; font-size: 0.9rem !important;
+    padding: .45rem 1.3rem !important; border-radius: 999px !important; font-size: 0.84rem !important;
   }
   button.bg-gray-200:hover { background: #e7820a !important; }
+  /* 제출 중: 버튼을 감추고 스피너만 표시 */
+  button.bg-gray-200.cusdis-sending {
+    background: transparent !important; color: transparent !important; box-shadow: none !important;
+    pointer-events: none !important; position: relative !important; min-width: 2.6rem !important;
+  }
+  button.bg-gray-200.cusdis-sending::after {
+    content: '' !important; position: absolute !important; top: 50% !important; left: 50% !important;
+    width: 1.15rem !important; height: 1.15rem !important; margin: -.575rem 0 0 -.575rem !important;
+    border: 2px solid #f1e3cf !important; border-top-color: #f2921d !important; border-radius: 50% !important;
+    animation: cusdis-spin .7s linear infinite !important;
+  }
 
   /* 최신 댓글이 아래로 오도록 최상위 목록을 역순 표시 (답글은 카드 내부라 영향 없음) */
   .mt-4 { display: flex !important; flex-direction: column-reverse !important; }
-  /* 댓글 카드 */
+  /* 댓글 카드 — 흰 배경 + 옅은 하단 구분선(네이버식 경량화) */
   .mt-4 > .my-4 {
-    background: #fbf7f0 !important; border: 1px solid #f1e9dc !important;
-    border-radius: 12px !important; padding: .85rem 1rem !important; margin: .6rem 0 !important;
+    background: #fff !important; border: 0 !important; border-bottom: 1px solid #efe7d8 !important;
+    border-radius: 0 !important; padding: .95rem .15rem !important; margin: 0 !important;
+  }
+  .mt-4 > .my-4:first-child { border-bottom: 0 !important; } /* column-reverse 라 시각상 맨 아래 */
+  /* 답글(대댓글) 카드 — 들여쓰기 + 옅은 배경 + 액센트 라인으로 depth 명확히(네이버식) */
+  .my-4 .my-4.pl-4 {
+    background: #f6f4ef !important; border: 0 !important; border-left: 3px solid #e6cfa4 !important;
+    border-radius: 0 8px 8px 0 !important;
+    padding: .55rem .7rem .45rem .75rem !important; margin: .4rem 0 .15rem 1.8rem !important;
   }
   /* 작성자 이름 + 관리자 별 배지 (한 줄) */
   .my-4 > .flex.items-center { align-items: center !important; }
-  .flex.items-center .font-medium { color: #b46508 !important; font-weight: 800 !important; font-size: 0.9rem !important; margin-right: .15rem !important; }
-  /* 날짜 — 작성자 이름 아래 줄 */
-  .my-4 > .text-sm { color: #a99e8d !important; font-size: 0.9rem !important; margin: .1rem 0 0 !important; }
-  /* 관리자 배지 — 별 아이콘, 이름 바로 옆 */
+  .flex.items-center .font-medium { color: #b46508 !important; font-weight: 800 !important; font-size: 0.84rem !important; margin-right: .15rem !important; }
+  /* 하단 메타 줄(날짜 · 답글) — 내용 아래로 이동, subtle */
+  .my-4 > .text-sm { color: #b8ad9b !important; font-size: 0.75rem !important; margin: .1rem 0 0 !important; }
+  .cusdis-meta { display: flex !important; align-items: center !important; gap: .8rem !important; margin-top: .05rem !important; }
+  .cusdis-meta > .text-sm { margin: 0 !important; color: #b8ad9b !important; font-size: 0.75rem !important; }
+  .cusdis-meta button:not(.bg-gray-200) {
+    background: transparent !important; border: 0 !important; color: #b8ad9b !important;
+    font-weight: 500 !important; font-size: 0.75rem !important; padding: 0 !important; border-radius: 0 !important;
+  }
+  .cusdis-meta button:not(.bg-gray-200):hover { background: transparent !important; color: #f2921d !important; }
+  /* 관리자 배지 — "Admin" 라벨(연한 배경+진한 글씨+각진 모서리, 버튼과 구분) */
   .flex.items-center .bg-gray-200 {
-    background: transparent !important; color: inherit !important; border: 0 !important;
-    width: auto !important; height: auto !important; padding: 0 !important; margin: 0 !important;
-    border-radius: 0 !important; display: inline-flex !important; align-items: center !important;
-    font-size: .9rem !important; line-height: 1 !important;
+    background: #fbe7c8 !important; color: #b46508 !important; border: 1px solid #f0d3a3 !important;
+    width: auto !important; height: auto !important;
+    padding: .02rem .34rem !important; margin: 0 0 0 .2rem !important;
+    border-radius: 4px !important; display: inline-flex !important; align-items: center !important;
+    font-size: .62rem !important; font-weight: 800 !important; line-height: 1.6 !important; letter-spacing: .02em !important;
   }
-  /* 답글 @작성자 태그 — 좌측 칩 컬럼 | 본문 = 표 컬럼처럼 구분 */
-  .cusdis-mention {
-    display: inline-block !important; background: #fdeccf !important; color: #b46508 !important;
-    font-weight: 800 !important; font-size: .78rem !important; line-height: 1.4 !important;
-    padding: .1rem .55rem !important; border-radius: 999px !important; white-space: nowrap !important;
-  }
+  /* 답글 @작성자 태그 — 내용 맨 앞 인라인 컬러 태그(네이버식) */
+  .cusdis-mention { color: #2f6fd6 !important; font-weight: 700 !important; }
   /* 답글의 답글 폼 상단 @작성자 태그 */
   .cusdis-form-tag {
-    display: inline-block !important; background: #fdeccf !important; color: #b46508 !important;
-    font-weight: 800 !important; font-size: .8rem !important;
+    display: inline-block !important; background: #eaf1fc !important; color: #2f6fd6 !important;
+    font-weight: 700 !important; font-size: .8rem !important;
     padding: .15rem .6rem !important; border-radius: 999px !important; margin: 0 0 .5rem !important;
   }
-  .my-4 > .my-2.cusdis-reply-row { display: flex !important; align-items: flex-start !important; }
-  .cusdis-reply-row > .cusdis-mention { flex: 0 0 auto !important; margin: .1rem 0 0 !important; }
-  .cusdis-reply-row > p {
-    flex: 1 1 auto !important; margin: 0 0 0 .6rem !important;
-    padding-left: .6rem !important; border-left: 2px solid #f1e3cf !important;
-  }
-  /* 본문 — 게시글 본문(.blog-post-page .markdown)과 동일한 크기/행간 */
-  .my-4 > .my-2 { color: #4a4a4a !important; font-size: 0.9rem !important; line-height: 1.72 !important; margin: .5rem 0 !important; }
-  .my-4 > .my-2 p { margin: 0 !important; font-size: 0.9rem !important; line-height: 1.72 !important; }
+  /* 본문 */
+  .my-4 > .my-2 { color: #4a4a4a !important; font-size: 0.84rem !important; line-height: 1.62 !important; margin: .4rem 0 .15rem !important; }
+  .my-4 > .my-2 p { margin: 0 !important; font-size: 0.84rem !important; line-height: 1.62 !important; }
 
   /* 구분 여백 축소 */
   .my-8 { margin: 1.2rem 0 !important; }
@@ -229,8 +245,9 @@ function CusdisThread() {
       try {
         const doc = iframe.contentDocument;
         if (!doc) return;
-        const dateEls = [...doc.querySelectorAll('.my-4 > .text-sm')].filter(
-          (el) => !/:\d\d:\d\d$/.test((el.textContent || '').trim()),
+        // 날짜 div (메타로 이동됐을 수 있어 자손까지 탐색, 분단위인 것만)
+        const dateEls = [...doc.querySelectorAll('.my-4 div.text-sm')].filter((el) =>
+          /^\d{4}-\d\d-\d\d \d\d:\d\d$/.test((el.textContent || '').trim()),
         );
         if (!dateEls.length) return; // 모두 이미 초 표시됨
         const res = await fetch(
@@ -266,7 +283,7 @@ function CusdisThread() {
         const doc = iframe.contentDocument;
         if (!doc) return;
         const tsOf = (el: Element) => {
-          const dEl = [...el.children].find((c) => c.classList && c.classList.contains('text-sm'));
+          const dEl = el.querySelector('div.text-sm'); // 메타로 이동됐을 수 있어 자손까지 탐색
           const t = dEl ? Date.parse((dEl.textContent || '').trim().replace(' ', 'T')) : NaN;
           return isNaN(t) ? 0 : t;
         };
@@ -285,30 +302,65 @@ function CusdisThread() {
       } catch (_) {}
     };
 
-    // 답글 본문 첫 줄의 "@작성자" 태그를 좌측 칩 컬럼으로 분리(태그 | 본문 = 표 컬럼처럼).
+    // 답글 본문 첫 줄의 "@작성자" 태그를 내용 맨 앞 인라인 컬러 태그로(네이버식).
     const styleMentions = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument;
         if (!doc) return;
-        doc.querySelectorAll('.my-4 > .my-2').forEach((cell) => {
-          if ((cell as HTMLElement).getAttribute('data-mention') === '1') return;
-          const p = cell.querySelector(':scope > p');
-          if (!p) return;
+        doc.querySelectorAll('.my-4 > .my-2 > p').forEach((p) => {
+          if ((p as HTMLElement).getAttribute('data-mention') === '1') return;
           const first = p.firstChild;
           if (!first || first.nodeType !== 3) return; // 첫 노드가 텍스트가 아니면(=태그 아님) 건너뜀
           const t = (first.textContent || '').trim();
           if (!/^@\S/.test(t)) return;
-          // 태그 텍스트 + 뒤따르는 <br> 제거 → 본문(p)에서 태그 줄을 떼어낸다
+          // 태그 텍스트 + 뒤따르는 <br> 제거 → 본문이 태그 뒤로 인라인 연결
           const afterFirst = first.nextSibling;
           p.removeChild(first);
           if (afterFirst && afterFirst.nodeName === 'BR') p.removeChild(afterFirst);
-          // 좌측 칩 컬럼 삽입 + 셀을 flex 행으로
           const chip = doc.createElement('span');
           chip.className = 'cusdis-mention';
           chip.textContent = t;
-          cell.insertBefore(chip, p);
-          (cell as HTMLElement).classList.add('cusdis-reply-row');
-          (cell as HTMLElement).setAttribute('data-mention', '1');
+          p.insertBefore(doc.createTextNode(' '), p.firstChild); // 태그와 본문 사이 공백
+          p.insertBefore(chip, p.firstChild);
+          (p as HTMLElement).setAttribute('data-mention', '1');
+        });
+      } catch (_) {}
+    };
+
+    // 날짜·답글 토글을 내용 아래 한 줄(메타)로 모은다(네이버식). 날짜는 원래 이름 아래에 있던 것을 이동.
+    const restructureMeta = (iframe: HTMLIFrameElement) => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) return;
+        doc.querySelectorAll('.my-4').forEach((card) => {
+          if ((card as HTMLElement).getAttribute('data-meta') === '1') return;
+          const kids = [...card.children];
+          const date = kids.find((c) => c.tagName === 'DIV' && c.classList.contains('text-sm'));
+          const content = kids.find((c) => c.tagName === 'DIV' && c.classList.contains('my-2'));
+          // 토글 버튼(댓글/취소)을 직속으로 가진 마지막 div
+          const metaDiv = [...kids].reverse().find(
+            (c) => c.tagName === 'DIV' && !!c.querySelector(':scope > button'),
+          );
+          if (!date || !metaDiv || date === metaDiv) return;
+          metaDiv.insertBefore(date, metaDiv.firstChild); // 날짜를 답글 버튼 앞으로
+          (metaDiv as HTMLElement).classList.add('cusdis-meta');
+          // 메타 줄을 내용 바로 아래(답글 앞)로 이동 — 답글이 있어도 날짜가 내용에서 멀어지지 않게
+          if (content && content.nextSibling && content.nextSibling !== metaDiv) {
+            card.insertBefore(metaDiv, content.nextSibling);
+          }
+          (card as HTMLElement).setAttribute('data-meta', '1');
+        });
+      } catch (_) {}
+    };
+
+    // 제출 중(버튼 텍스트 "전송중...")이면 버튼을 감추고 스피너만 표시, 끝나면 원복.
+    const spinnerOnSubmit = (iframe: HTMLIFrameElement) => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) return;
+        doc.querySelectorAll('button.bg-gray-200').forEach((btn) => {
+          const sending = (btn.textContent || '').includes('전송중');
+          (btn as HTMLElement).classList.toggle('cusdis-sending', sending);
         });
       } catch (_) {}
     };
@@ -339,38 +391,19 @@ function CusdisThread() {
     };
 
     // 폼 구성:
-    //  - 최상위 댓글 작성 폼(.my-4 밖) → 원래대로 연락처 주입 + 이메일 유지
-    //  - 답글 폼(.my-4 안) → 닉네임 + 내용만 (이메일/연락처 숨김)
+    //  - 모든 폼 → 이름 + 내용만 (이메일/연락처 미수집, 노출 오해 방지)
     //  - 답글의 답글 폼(.my-4.pl-4 안) → 상단에 @작성자 태그
     const setupForms = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument;
         if (!doc) return;
+        // 이메일·연락처는 받지 않는다(이름+내용만) — 노출 오해 방지. 모든 폼에서 이메일 칸 숨김.
         doc.querySelectorAll('input[name="email"]').forEach((el) => {
-          const emailInput = el as HTMLInputElement;
-          const emailCell = emailInput.closest('.px-1') as HTMLElement | null;
-          if (!emailCell) return;
-          if (emailInput.closest('.my-4')) {
-            // 답글 폼: 이메일 숨김 + 닉네임 전체폭
-            if (emailCell.style.display === 'none') return;
-            emailCell.style.display = 'none';
-            const row = emailCell.parentElement as HTMLElement | null;
-            if (row) row.style.gridTemplateColumns = '1fr';
-          } else {
-            // 최상위 댓글 폼: 연락처 주입 + 이메일 유지(원래대로)
-            const row = emailCell.parentElement as HTMLElement | null;
-            const form = row && (row.parentElement as HTMLElement | null);
-            if (!form || !row) return;
-            if (form.querySelector('input[name="__phone"]')) return; // 이미 주입됨
-            emailInput.type = 'text'; // 이메일|tel:전화 결합값 허용(형식검증 회피)
-            const cell = doc.createElement('div');
-            cell.className = 'px-1';
-            cell.innerHTML =
-              '<label class="mb-2 block">연락처 (선택)</label>' +
-              '<input name="__phone" type="tel" class="w-full p-2 border border-gray-200 bg-transparent" placeholder="010-0000-0000">';
-            row.insertBefore(cell, emailCell); // [닉네임, 연락처, 이메일]
-            form.insertBefore(emailCell, row.nextSibling); // 이메일 → 행 밖(아래) 전체폭
-          }
+          const emailCell = (el as HTMLElement).closest('.px-1') as HTMLElement | null;
+          if (!emailCell || emailCell.style.display === 'none') return;
+          emailCell.style.display = 'none';
+          const row = emailCell.parentElement as HTMLElement | null;
+          if (row) row.style.gridTemplateColumns = '1fr';
         });
         // 답글의 답글 폼(.pl-4 내부)에만 @작성자 태그 표시 (댓글·1단계 답글 폼엔 없음)
         doc.querySelectorAll('textarea[name="reply_content"]').forEach((ta) => {
@@ -388,13 +421,11 @@ function CusdisThread() {
       } catch (_) {}
     };
 
-    // 전송 중(제출 버튼 "전송중...") 재클릭 차단 + 제출하는 폼의 연락처를 pending 에 기록.
-    // (fetch 인터셉트가 어느 폼인지 알 수 없으므로, 클릭 시점에 해당 폼의 전화번호를 넘겨둔다)
+    // 전송 중(제출 버튼 "전송중...")일 때 재클릭(중복 제출) 차단.
     const guardSubmit = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument as (Document & {__submitGuarded?: boolean}) | null;
-        const w = iframe.contentWindow as (Window & {__pendingPhone?: string}) | null;
-        if (!doc || !w || doc.__submitGuarded) return;
+        if (!doc || doc.__submitGuarded) return;
         doc.__submitGuarded = true;
         doc.addEventListener(
           'click',
@@ -404,12 +435,7 @@ function CusdisThread() {
             if ((btn.textContent || '').includes('전송중')) {
               e.preventDefault();
               e.stopImmediatePropagation();
-              return;
             }
-            const scope = btn.closest('.grid'); // 이 버튼이 속한 폼
-            const phoneEl = scope?.querySelector('input[name="__phone"]') as HTMLInputElement | null;
-            w.__pendingPhone = phoneEl ? phoneEl.value.trim() : '';
-            if (phoneEl) phoneEl.value = ''; // 캡처 후 즉시 비워 화면에 남지 않게
           },
           true,
         );
@@ -429,11 +455,11 @@ function CusdisThread() {
     };
 
     // 위젯의 fetch 를 가로채, 새 댓글/대댓글 전송 시:
-    //  - 본문 개행 보존 + 연락처(pending)를 by_email 에 합침 (입력칸 값은 건드리지 않음)
+    //  - 이름에서 관리자 뱃지 문자 제거 + 본문 개행 보존(하드 브레이크)
     //  - 답글에 대한 답글이면 깊이를 더하지 않고 루트에 붙이고 @작성자 로 태그(1단계 평탄화)
     const interceptSubmit = (iframe: HTMLIFrameElement) => {
       try {
-        const w = iframe.contentWindow as (Window & {fetch: typeof fetch; __submitIntercepted?: boolean; __pendingPhone?: string}) | null;
+        const w = iframe.contentWindow as (Window & {fetch: typeof fetch; __submitIntercepted?: boolean}) | null;
         if (!w || w.__submitIntercepted) return;
         w.__submitIntercepted = true;
         const orig = w.fetch.bind(w);
@@ -458,14 +484,6 @@ function CusdisThread() {
                   data.content = md;
                   changed = true;
                 }
-                // 제출한 폼의 연락처(전화) 합침 (댓글·대댓글 공통)
-                const phone = (w.__pendingPhone || '').trim();
-                if (phone) {
-                  const em = String(data.email || '').split('|tel:')[0].trim();
-                  data.email = em ? `${em}|tel:${phone}` : `|tel:${phone}`;
-                  changed = true;
-                }
-                w.__pendingPhone = '';
                 // 대댓글 평탄화: 답글에 대한 답글이면 루트에 붙이고 @작성자 태그
                 if (data.parentId) {
                   try {
@@ -507,7 +525,9 @@ function CusdisThread() {
       showSeconds(boundIframe);
       orderReplies(boundIframe);
       styleMentions(boundIframe);
+      restructureMeta(boundIframe);
       stripFakeBadge(boundIframe);
+      spinnerOnSubmit(boundIframe);
       try {
         const doc = boundIframe.contentDocument;
         if (doc && doc.body) {
@@ -528,7 +548,9 @@ function CusdisThread() {
             maybeReloadAfterSubmit();
             orderReplies(boundIframe);
             styleMentions(boundIframe);
+            restructureMeta(boundIframe);
             stripFakeBadge(boundIframe);
+            spinnerOnSubmit(boundIframe);
             syncHeight(boundIframe);
             updateHeading(boundIframe);
             // 초단위 날짜 갱신(잦은 변경이므로 디바운스)
@@ -578,18 +600,27 @@ function CusdisThread() {
 
   return (
     <div style={{marginTop: '2.5rem'}}>
-      <h3
-        id="cusdis-heading"
+      <div
         style={{
-          fontSize: '1.1rem',
-          fontWeight: 800,
-          color: '#3a3a3a',
-          margin: '0 0 1rem',
-          paddingBottom: '0.6rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          margin: '0 0 0.8rem',
+          paddingBottom: '0.5rem',
           borderBottom: '2px solid #f1e9dc',
         }}>
-        댓글
-      </h3>
+        <h3 id="cusdis-heading" style={{fontSize: '0.95rem', fontWeight: 800, color: '#3a3a3a', margin: 0}}>
+          댓글
+        </h3>
+        <button
+          type="button"
+          onClick={() => setReloadKey((k) => k + 1)}
+          title="댓글 새로고침"
+          aria-label="댓글 새로고침"
+          className="cusdis-refresh-btn">
+          <span aria-hidden="true">↻</span> 새로고침
+        </button>
+      </div>
       <div
         key={reloadKey}
         id="cusdis_thread"

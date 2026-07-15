@@ -391,7 +391,7 @@ export default async function handler(req, res) {
       return res.status(200).json({response_action: 'clear'});
     }
 
-    // 답글 수정 = 재등록 성공 후 기존 삭제 → 기존 결과 메시지를 덮어쓰기(수정 전/후)
+    // 답글 수정 = 재등록 성공 후 기존 삭제 → 결과 메시지를 현재 내용 + "(수정됨)" 으로 갱신
     // (먼저 삭제하면 402 등으로 재등록 실패 시 답글이 사라지므로 순서 주의)
     if (cb === 'edit_modal') {
       const r = await postReply(meta.t, content);
@@ -403,7 +403,18 @@ export default async function handler(req, res) {
       } catch (_) {}
       let replyId = null;
       if (appId) replyId = latestModReplyId(findDeep(await fetchTopComments(appId, meta.p), commentIdFromToken(meta.t)));
-      const text = `✏️ 답글을 수정했어요\n*수정 전*\n${blockquote(meta.prev || '(없음)')}\n*수정 후*\n${blockquote(content)}`;
+      // 등록 메시지와 동일 형식 + "(수정됨)" (수정 전/후 대신)
+      let mention = '';
+      let rb = content;
+      const mm = rb.match(/^@[^\n]+/);
+      if (mm) {
+        mention = mm[0].trim();
+        rb = rb.slice(mm[0].length).replace(/^[ \t]*\n/, '');
+      }
+      let text = mention
+        ? `↪︎ *관리자* 권한으로 *${mention}* 님에게 댓글을 달았습니다 (수정됨)`
+        : '↪︎ *관리자* 권한으로 댓글을 달았습니다 (수정됨)';
+      text += `\n${blockquote(rb.trim())}`;
       await chatUpdate(botToken, meta.ch, meta.ts, text, replyResultBlocks(text, {token: meta.t, pageId: meta.p, replyId, content}));
       return res.status(200).json({response_action: 'clear'});
     }
