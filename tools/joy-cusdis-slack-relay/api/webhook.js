@@ -173,12 +173,15 @@ export default async function handler(req, res) {
     }
   }
 
-  const quoted = content ? content.replace(/\n/g, '\n> ') : '(내용 없음)';
-  const lines = ['💬 *댓글이 달렸어요*'];
-  lines.push(`> ${quoted}`, `👤 *작성자:* ${nickname}`);
-  if (phone) lines.push(`📞 *연락처:* ${phone}`);
-  if (email) lines.push(`✉️ *이메일:* ${email}`);
-  lines.push(`📄 *게시글:* ${pageLine}`);
+  // 본문은 코드블럭(개행 그대로 표시), 작성자/연락처/이메일은 인용(blockquote)
+  const bodyText = (content || '(내용 없음)').replace(/[ \t]+\n/g, '\n'); // 마크다운 하드브레이크 잔여 공백 제거
+  const codeBlock = '```\n' + bodyText + '\n```';
+  const lines = [];
+  // 게시글 제목을 맨 위에(라벨 없이). 대댓글은 루트 스레드에 이미 있으므로 생략.
+  if (!isReply) lines.push(`📄 ${pageLine}`);
+  lines.push('↪︎ *댓글이 달렸어요*', codeBlock, `> 👤 ${nickname}`);
+  if (phone) lines.push(`> 📞 ${phone}`);
+  if (email) lines.push(`> ✉️ ${email}`);
   const summary = lines.join('\n');
 
   const blocks = [{type: 'section', text: {type: 'mrkdwn', text: summary}}];

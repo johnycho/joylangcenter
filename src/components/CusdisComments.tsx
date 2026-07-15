@@ -48,14 +48,14 @@ const BRAND_CSS = `
   /* 모바일: 닉네임/이메일을 한 줄(세로)로 */
   @media (max-width: 480px) { .grid-cols-2 { grid-template-columns: 1fr !important; } }
 
-  /* 버튼 기본(대댓글 토글 등) — 은은한 텍스트 버튼 */
+  /* 버튼 기본(대댓글 "댓글" 토글 등) — 테두리 있는 pill 버튼 */
   button {
-    background: transparent !important; border: 0 !important; color: #b46508 !important;
-    font-weight: 700 !important; font-size: 0.9rem !important;
-    padding: .25rem .5rem !important; border-radius: 8px !important;
-    cursor: pointer; transition: background .15s, color .15s;
+    background: #fff !important; border: 1px solid #e7d9c4 !important; color: #b46508 !important;
+    font-weight: 700 !important; font-size: 0.85rem !important;
+    padding: .3rem .85rem !important; border-radius: 999px !important;
+    cursor: pointer; transition: background .15s, color .15s, border-color .15s;
   }
-  button:hover { background: rgba(242,146,29,.1) !important; }
+  button:hover { background: #f2921d !important; color: #fff !important; border-color: #f2921d !important; }
 
   /* 주요 제출 버튼(등록/대댓글 등록) — 주황 라운드 */
   button.bg-gray-200 {
@@ -64,6 +64,8 @@ const BRAND_CSS = `
   }
   button.bg-gray-200:hover { background: #e7820a !important; }
 
+  /* 최신 댓글이 아래로 오도록 최상위 목록을 역순 표시 (답글은 카드 내부라 영향 없음) */
+  .mt-4 { display: flex !important; flex-direction: column-reverse !important; }
   /* 댓글 카드 */
   .mt-4 > .my-4 {
     background: #fbf7f0 !important; border: 1px solid #f1e9dc !important;
@@ -76,7 +78,7 @@ const BRAND_CSS = `
   .my-4 > .text-sm { color: #a99e8d !important; font-size: 0.9rem !important; margin: .1rem 0 0 !important; }
   /* 관리자 배지 — 별 아이콘, 이름 바로 옆 */
   .flex.items-center .bg-gray-200 {
-    background: transparent !important; color: inherit !important;
+    background: transparent !important; color: inherit !important; border: 0 !important;
     width: auto !important; height: auto !important; padding: 0 !important; margin: 0 !important;
     border-radius: 0 !important; display: inline-flex !important; align-items: center !important;
     font-size: .9rem !important; line-height: 1 !important;
@@ -134,6 +136,7 @@ function CusdisThread() {
     let iv: ReturnType<typeof setInterval> | undefined;
     let poll: ReturnType<typeof setInterval> | undefined;
     let giveUp: ReturnType<typeof setTimeout> | undefined;
+    let secTimer: ReturnType<typeof setTimeout> | undefined;
     let submitTimer: ReturnType<typeof setTimeout> | undefined;
     let submitHandled = false;
     let boundIframe: HTMLIFrameElement | undefined;
@@ -193,6 +196,74 @@ function CusdisThread() {
         const n = doc ? doc.querySelectorAll('.my-4 > .flex.items-center').length : 0;
         const heading = document.getElementById('cusdis-heading');
         if (heading) heading.textContent = n > 0 ? `댓글 ${n}` : '댓글';
+      } catch (_) {}
+    };
+
+    // 날짜를 초단위까지 표시 — 위젯은 분까지만 렌더하므로 API의 createdAt 으로 다시 쓴다.
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const fmtDate = (iso: string, withSec: boolean) => {
+      const dt = new Date(iso);
+      if (isNaN(dt.getTime())) return null;
+      const base = `${dt.getFullYear()}-${pad(dt.getMonth() + 1)}-${pad(dt.getDate())} ${pad(dt.getHours())}:${pad(dt.getMinutes())}`;
+      return withSec ? `${base}:${pad(dt.getSeconds())}` : base;
+    };
+    const showSeconds = async (iframe: HTMLIFrameElement) => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) return;
+        const dateEls = [...doc.querySelectorAll('.my-4 > .text-sm')].filter(
+          (el) => !/:\d\d:\d\d$/.test((el.textContent || '').trim()),
+        );
+        if (!dateEls.length) return; // 모두 이미 초 표시됨
+        const res = await fetch(
+          `${CUSDIS_HOST}/api/open/comments?appId=${encodeURIComponent(CUSDIS_APP_ID)}&pageId=${encodeURIComponent(pageId)}&page=1`,
+        );
+        const j = await res.json();
+        const flat: any[] = [];
+        const walk = (arr: any[]) => (arr || []).forEach((c) => {(flat.push(c), walk((c.replies && c.replies.data) || []));});
+        walk((j && j.data && j.data.data) || []);
+        // (작성자|분단위) → 초단위 문자열
+        const map: Record<string, string> = {};
+        flat.forEach((c) => {
+          const name = ((c.moderator && c.moderator.displayName) || c.by_nickname || '').trim();
+          const min = fmtDate(c.createdAt, false);
+          const sec = fmtDate(c.createdAt, true);
+          if (min && sec) map[`${name}|${min}`] = sec;
+        });
+        dateEls.forEach((el) => {
+          const card = (el as HTMLElement).closest('.my-4');
+          const nameEl = card && card.querySelector('.font-medium');
+          const name = nameEl ? (nameEl.textContent || '').trim() : '';
+          const cur = (el.textContent || '').trim();
+          const sec = map[`${name}|${cur}`];
+          if (sec) el.textContent = sec;
+        });
+      } catch (_) {}
+    };
+
+    // 답글(대댓글)도 오래된→최신(최신이 아래)으로 표시. 위젯은 최신을 위로 렌더하므로 재정렬한다.
+    // 답글은 부모 카드 내부에 섞여 있어 CSS 역순이 불가 → 시간순으로 DOM 재배치(이미 정렬돼 있으면 아무것도 안 함).
+    const orderReplies = (iframe: HTMLIFrameElement) => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) return;
+        const tsOf = (el: Element) => {
+          const dEl = [...el.children].find((c) => c.classList && c.classList.contains('text-sm'));
+          const t = dEl ? Date.parse((dEl.textContent || '').trim().replace(' ', 'T')) : NaN;
+          return isNaN(t) ? 0 : t;
+        };
+        doc.querySelectorAll('.mt-4 > .my-4').forEach((card) => {
+          const replies = [...card.children].filter(
+            (el) => el.classList && el.classList.contains('my-4') && el.classList.contains('pl-4'),
+          );
+          if (replies.length < 2) return;
+          if (tsOf(replies[0]) <= tsOf(replies[replies.length - 1])) return; // 이미 오래된→최신
+          const anchor = replies[replies.length - 1].nextSibling; // 보통 "댓글" 토글 div
+          replies
+            .slice()
+            .reverse()
+            .forEach((r) => card.insertBefore(r, anchor));
+        });
       } catch (_) {}
     };
 
@@ -340,6 +411,8 @@ function CusdisThread() {
       replaceLoading(boundIframe);
       syncHeight(boundIframe);
       updateHeading(boundIframe);
+      showSeconds(boundIframe);
+      orderReplies(boundIframe);
       try {
         const doc = boundIframe.contentDocument;
         if (doc && doc.body) {
@@ -358,8 +431,12 @@ function CusdisThread() {
             injectContactField(boundIframe); // 대댓글 폼 등 새로 생긴 폼에도 연락처칸 주입
             replaceLoading(boundIframe);
             maybeReloadAfterSubmit();
+            orderReplies(boundIframe);
             syncHeight(boundIframe);
             updateHeading(boundIframe);
+            // 초단위 날짜 갱신(잦은 변경이므로 디바운스)
+            if (secTimer) clearTimeout(secTimer);
+            secTimer = setTimeout(() => boundIframe && showSeconds(boundIframe), 400);
           });
           mo.observe(doc.body, {subtree: true, childList: true, attributes: true, characterData: true});
         }
@@ -395,6 +472,7 @@ function CusdisThread() {
       giveUp && clearTimeout(giveUp);
       iv && clearInterval(iv);
       submitTimer && clearTimeout(submitTimer);
+      secTimer && clearTimeout(secTimer);
       ro?.disconnect();
       mo?.disconnect();
       boundIframe?.removeEventListener('load', onReady);
