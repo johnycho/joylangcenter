@@ -266,15 +266,25 @@ function CusdisThread() {
             const method = (init && init.method) || (input && input.method) || 'GET';
             if (/\/api\/open\/comments/.test(url) && String(method).toUpperCase() === 'POST' && init && typeof init.body === 'string') {
               const data = JSON.parse(init.body);
-              // 최상위 새 댓글에만 연락처 합침(대댓글 제외)
-              if (data && 'content' in data && !data.parentId) {
-                const phoneEl = doc.querySelector('input[name="__phone"]') as HTMLInputElement | null;
-                const phone = phoneEl ? phoneEl.value.trim() : '';
-                if (phone) {
-                  const em = String(data.email || '').split('|tel:')[0].trim();
-                  data.email = em ? `${em}|tel:${phone}` : `|tel:${phone}`;
-                  init = {...init, body: JSON.stringify(data)};
+              if (data && typeof data.content === 'string') {
+                let changed = false;
+                // 개행 보존: 마크다운은 단일 줄바꿈을 무시하므로 하드 브레이크(공백 2칸+개행)로 변환
+                const md = data.content.replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
+                if (md !== data.content) {
+                  data.content = md;
+                  changed = true;
                 }
+                // 최상위 새 댓글에만 연락처 합침(대댓글 제외)
+                if (!data.parentId) {
+                  const phoneEl = doc.querySelector('input[name="__phone"]') as HTMLInputElement | null;
+                  const phone = phoneEl ? phoneEl.value.trim() : '';
+                  if (phone) {
+                    const em = String(data.email || '').split('|tel:')[0].trim();
+                    data.email = em ? `${em}|tel:${phone}` : `|tel:${phone}`;
+                    changed = true;
+                  }
+                }
+                if (changed) init = {...init, body: JSON.stringify(data)};
               }
             }
           } catch (_) {}
