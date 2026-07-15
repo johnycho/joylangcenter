@@ -142,6 +142,8 @@ async function postReply(token, content) {
 // ── 블록 구성 ──
 const sectionOf = (text) => ({type: 'section', text: {type: 'mrkdwn', text}});
 const contextOf = (text) => ({type: 'context', elements: [{type: 'mrkdwn', text}]});
+// 여러 줄을 인용블록으로 (Slack 의 > 는 한 줄만 인용하므로 각 줄에 붙인다)
+const blockquote = (s) => '> ' + String(s || '').replace(/\n/g, '\n> ');
 function summarySection(payload) {
   const blocks = (payload.message && payload.message.blocks) || [];
   const s = blocks.find((b) => b.type === 'section' && b.text && b.text.text);
@@ -322,7 +324,7 @@ export default async function handler(req, res) {
       if (r.limited) return modalError(res, '⚠️ 무료 플랜 답글 한도를 초과했어요.');
       let replyId = null;
       if (appId) replyId = latestModReplyId(findTop(await fetchTopComments(appId, meta.p), commentIdFromToken(meta.t)));
-      const text = `↩︎ 답글을 등록했어요:\n> ${content}`;
+      const text = `↩︎ 답글을 등록했어요:\n${blockquote(content)}`;
       await postThread(botToken, meta.ch, meta.root, text, replyResultBlocks(text, {token: meta.t, pageId: meta.p, replyId, content}));
       return res.status(200).json({response_action: 'clear'});
     }
@@ -339,7 +341,7 @@ export default async function handler(req, res) {
       } catch (_) {}
       let replyId = null;
       if (appId) replyId = latestModReplyId(findTop(await fetchTopComments(appId, meta.p), commentIdFromToken(meta.t)));
-      const text = `✏️ 답글을 수정했어요\n*수정 전:* ${meta.prev || '(없음)'}\n*수정 후:* ${content}`;
+      const text = `✏️ 답글을 수정했어요\n*수정 전*\n${blockquote(meta.prev || '(없음)')}\n*수정 후*\n${blockquote(content)}`;
       await chatUpdate(botToken, meta.ch, meta.ts, text, replyResultBlocks(text, {token: meta.t, pageId: meta.p, replyId, content}));
       return res.status(200).json({response_action: 'clear'});
     }

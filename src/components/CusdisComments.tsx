@@ -205,36 +205,38 @@ function CusdisThread() {
       } catch (_) {}
     };
 
-    // "연락처(전화)" 입력칸을 폼(닉네임/이메일 줄 다음)에 주입. 이메일칸은 type=text 로 바꿔
-    // 제출 시 이메일과 전화를 한 필드(by_email)에 합쳐 보낼 수 있게 한다.
+    // "연락처(전화)" 입력칸을 각 댓글/대댓글 폼에 주입(닉네임 옆, 이메일은 아래 전체폭으로 이동).
+    // 폼마다 한 번씩만 주입한다.
     const injectContactField = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument;
-        if (!doc || doc.querySelector('input[name="__phone"]')) return;
-        const emailInput = doc.querySelector('input[name="email"]') as HTMLInputElement | null;
-        if (!emailInput) return;
-        emailInput.type = 'text'; // 이메일|tel:전화 결합값 허용(형식검증 회피)
-        const emailCell = emailInput.closest('.px-1');
-        const row = emailCell && emailCell.parentElement; // grid-cols-2 (닉네임/이메일)
-        const form = row && row.parentElement; // grid-cols-1
-        if (!form || !row || !emailCell) return;
-        // 연락처 칸을 이메일 자리(닉네임 옆)에 넣고, 이메일 칸은 아래 전체폭으로 이동
-        // → 순서: 닉네임·연락처 / 이메일 / 내용
-        const cell = doc.createElement('div');
-        cell.className = 'px-1';
-        cell.innerHTML =
-          '<label class="mb-2 block" for="__phone">연락처 (선택)</label>' +
-          '<input name="__phone" id="__phone" type="tel" class="w-full p-2 border border-gray-200 bg-transparent" placeholder="010-0000-0000">';
-        row.insertBefore(cell, emailCell); // [닉네임, 연락처, 이메일]
-        form.insertBefore(emailCell, row.nextSibling); // 이메일 → 행 밖(아래) 전체폭
+        if (!doc) return;
+        doc.querySelectorAll('input[name="email"]').forEach((el) => {
+          const emailInput = el as HTMLInputElement;
+          const emailCell = emailInput.closest('.px-1');
+          const row = emailCell && emailCell.parentElement; // grid-cols-2 (닉네임/이메일)
+          const form = row && row.parentElement;
+          if (!form || !row || !emailCell) return;
+          if (form.querySelector('input[name="__phone"]')) return; // 이 폼은 이미 주입됨
+          emailInput.type = 'text'; // 이메일|tel:전화 결합값 허용(형식검증 회피)
+          const cell = doc.createElement('div');
+          cell.className = 'px-1';
+          cell.innerHTML =
+            '<label class="mb-2 block">연락처 (선택)</label>' +
+            '<input name="__phone" type="tel" class="w-full p-2 border border-gray-200 bg-transparent" placeholder="010-0000-0000">';
+          row.insertBefore(cell, emailCell); // [닉네임, 연락처, 이메일]
+          form.insertBefore(emailCell, row.nextSibling); // 이메일 → 행 밖(아래) 전체폭
+        });
       } catch (_) {}
     };
 
-    // 전송 중(제출 버튼 "전송중...") 재클릭 차단으로 중복 등록 방지.
+    // 전송 중(제출 버튼 "전송중...") 재클릭 차단 + 제출하는 폼의 연락처를 pending 에 기록.
+    // (fetch 인터셉트가 어느 폼인지 알 수 없으므로, 클릭 시점에 해당 폼의 전화번호를 넘겨둔다)
     const guardSubmit = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument as (Document & {__submitGuarded?: boolean}) | null;
-        if (!doc || doc.__submitGuarded) return;
+        const w = iframe.contentWindow as (Window & {__pendingPhone?: string}) | null;
+        if (!doc || !w || doc.__submitGuarded) return;
         doc.__submitGuarded = true;
         doc.addEventListener(
           'click',
@@ -244,20 +246,23 @@ function CusdisThread() {
             if ((btn.textContent || '').includes('전송중')) {
               e.preventDefault();
               e.stopImmediatePropagation();
+              return;
             }
+            const scope = btn.closest('.grid'); // 이 버튼이 속한 폼
+            const phoneEl = scope?.querySelector('input[name="__phone"]') as HTMLInputElement | null;
+            w.__pendingPhone = phoneEl ? phoneEl.value.trim() : '';
           },
           true,
         );
       } catch (_) {}
     };
 
-    // 위젯의 fetch 를 가로채, 새 댓글 전송 시 연락처(전화)를 by_email 에 합친다.
-    // (입력칸 값을 건드리지 않아 "email|tel:전화" 가 화면에 노출되지 않음)
+    // 위젯의 fetch 를 가로채, 새 댓글/대댓글 전송 시 본문 개행 보존 + 연락처(pending)를 by_email 에 합침.
+    // (입력칸 값을 건드리지 않아 결합값이 화면에 노출되지 않음)
     const interceptSubmit = (iframe: HTMLIFrameElement) => {
       try {
-        const w = iframe.contentWindow as (Window & {fetch: typeof fetch; __submitIntercepted?: boolean}) | null;
-        const doc = iframe.contentDocument;
-        if (!w || !doc || w.__submitIntercepted) return;
+        const w = iframe.contentWindow as (Window & {fetch: typeof fetch; __submitIntercepted?: boolean; __pendingPhone?: string}) | null;
+        if (!w || w.__submitIntercepted) return;
         w.__submitIntercepted = true;
         const orig = w.fetch.bind(w);
         w.fetch = async (input: any, init?: any) => {
@@ -268,22 +273,20 @@ function CusdisThread() {
               const data = JSON.parse(init.body);
               if (data && typeof data.content === 'string') {
                 let changed = false;
-                // 개행 보존: 마크다운은 단일 줄바꿈을 무시하므로 하드 브레이크(공백 2칸+개행)로 변환
+                // 개행 보존: 마크다운 하드 브레이크(공백 2칸 + 개행)
                 const md = data.content.replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
                 if (md !== data.content) {
                   data.content = md;
                   changed = true;
                 }
-                // 최상위 새 댓글에만 연락처 합침(대댓글 제외)
-                if (!data.parentId) {
-                  const phoneEl = doc.querySelector('input[name="__phone"]') as HTMLInputElement | null;
-                  const phone = phoneEl ? phoneEl.value.trim() : '';
-                  if (phone) {
-                    const em = String(data.email || '').split('|tel:')[0].trim();
-                    data.email = em ? `${em}|tel:${phone}` : `|tel:${phone}`;
-                    changed = true;
-                  }
+                // 제출한 폼의 연락처(전화) 합침 (댓글·대댓글 공통)
+                const phone = (w.__pendingPhone || '').trim();
+                if (phone) {
+                  const em = String(data.email || '').split('|tel:')[0].trim();
+                  data.email = em ? `${em}|tel:${phone}` : `|tel:${phone}`;
+                  changed = true;
                 }
+                w.__pendingPhone = '';
                 if (changed) init = {...init, body: JSON.stringify(data)};
               }
             }
@@ -317,6 +320,7 @@ function CusdisThread() {
           mo = new MutationObserver(() => {
             if (!boundIframe) return;
             injectStyle(boundIframe);
+            injectContactField(boundIframe); // 대댓글 폼 등 새로 생긴 폼에도 연락처칸 주입
             replaceLoading(boundIframe);
             maybeReloadAfterSubmit();
             syncHeight(boundIframe);
