@@ -313,6 +313,19 @@ function CusdisThread() {
       } catch (_) {}
     };
 
+    // 관리자 뱃지(⭐) 흉내 방지: 작성자 이름에 들어간 뱃지 문자를 렌더 시 제거.
+    // (진짜 뱃지는 .flex.items-center > .bg-gray-200 별도 요소라 .font-medium 에는 절대 없음)
+    const stripFakeBadge = (iframe: HTMLIFrameElement) => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) return;
+        doc.querySelectorAll('.flex.items-center .font-medium').forEach((el) => {
+          const t = el.textContent || '';
+          if (t.includes(KO_LOCALE.mod_badge)) el.textContent = t.split(KO_LOCALE.mod_badge).join('').trim();
+        });
+      } catch (_) {}
+    };
+
     const injectStyle = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument;
@@ -432,6 +445,13 @@ function CusdisThread() {
               const data = JSON.parse(init.body);
               if (data && typeof data.content === 'string') {
                 let changed = false;
+                // 관리자 뱃지(⭐) 흉내 방지: 이름에서 뱃지 문자 제거
+                ['nickname', 'by_nickname'].forEach((k) => {
+                  if (typeof data[k] === 'string' && data[k].includes(KO_LOCALE.mod_badge)) {
+                    data[k] = data[k].split(KO_LOCALE.mod_badge).join('').trim();
+                    changed = true;
+                  }
+                });
                 // 개행 보존: 마크다운 하드 브레이크(공백 2칸 + 개행)
                 const md = data.content.replace(/\r\n/g, '\n').replace(/\n/g, '  \n');
                 if (md !== data.content) {
@@ -487,6 +507,7 @@ function CusdisThread() {
       showSeconds(boundIframe);
       orderReplies(boundIframe);
       styleMentions(boundIframe);
+      stripFakeBadge(boundIframe);
       try {
         const doc = boundIframe.contentDocument;
         if (doc && doc.body) {
@@ -507,6 +528,7 @@ function CusdisThread() {
             maybeReloadAfterSubmit();
             orderReplies(boundIframe);
             styleMentions(boundIframe);
+            stripFakeBadge(boundIframe);
             syncHeight(boundIframe);
             updateHeading(boundIframe);
             // 초단위 날짜 갱신(잦은 변경이므로 디바운스)
