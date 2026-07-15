@@ -92,14 +92,20 @@ export function Section({
   icon,
   title,
   children,
+  id,
 }: {
   icon?: React.ReactNode;
   title: string;
   children: React.ReactNode;
+  id?: string;
 }) {
   const {ref, visible} = useReveal<HTMLElement>();
   return (
-    <section ref={ref} className={clsx(styles.section, 'joy-reveal', visible && 'is-visible')}>
+    <section
+      ref={ref}
+      id={id}
+      style={id ? {scrollMarginTop: '80px'} : undefined}
+      className={clsx(styles.section, 'joy-reveal', visible && 'is-visible')}>
       <div className={styles.sectionHead}>
         {icon && (
           <span className={styles.sectionIcon} aria-hidden="true">

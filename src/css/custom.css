@@ -762,13 +762,14 @@ mark {
   animation: cusdis-spin 0.8s linear infinite;
 }
 
-/* 댓글 새로고침 버튼 (댓글 카운트 옆) */
+/* 댓글 새로고침 버튼 (댓글 카운트 옆, 원형 화살표 아이콘) */
 .cusdis-refresh-btn {
-  display: inline-flex; align-items: center; gap: 0.25rem;
-  background: transparent; border: 1px solid #eadfce; color: #9a8f7d;
-  font-size: 0.78rem; font-weight: 600; line-height: 1;
-  padding: 0.3rem 0.65rem; border-radius: 999px; cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  background: transparent; border: 0; color: #b0a48f;
+  line-height: 1; padding: 0; cursor: pointer;
+  transition: color 0.15s, background 0.15s, transform 0.3s ease;
 }
-.cusdis-refresh-btn:hover { background: #f2921d; color: #fff; border-color: #f2921d; }
-.cusdis-refresh-btn span { font-size: 0.9rem; line-height: 1; }
+.cusdis-refresh-btn svg { width: 1.05rem; height: 1.05rem; display: block; }
+.cusdis-refresh-btn:hover { color: #f2921d; background: #faf3e8; }
+.cusdis-refresh-btn:active { transform: rotate(-180deg); }

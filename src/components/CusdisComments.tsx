@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import {useLocation} from '@docusaurus/router';
 import {CUSDIS_HOST, CUSDIS_APP_ID} from '@site/src/cusdis';
@@ -83,24 +83,27 @@ const BRAND_CSS = `
     border-radius: 0 !important; padding: .95rem .15rem !important; margin: 0 !important;
   }
   .mt-4 > .my-4:first-child { border-bottom: 0 !important; } /* column-reverse 라 시각상 맨 아래 */
-  /* 답글(대댓글) 카드 — 들여쓰기 + 옅은 배경 + 액센트 라인으로 depth 명확히(네이버식) */
+  /* 답글(대댓글) 카드 — 들여쓰기 + 부드러운 라운드 박스(세로선 없이 depth 표현) */
   .my-4 .my-4.pl-4 {
-    background: #f6f4ef !important; border: 0 !important; border-left: 3px solid #e6cfa4 !important;
-    border-radius: 0 8px 8px 0 !important;
-    padding: .55rem .7rem .45rem .75rem !important; margin: .4rem 0 .15rem 1.8rem !important;
+    background: #f7f5f0 !important; border: 0 !important;
+    border-radius: 12px !important;
+    padding: .6rem .85rem .5rem .85rem !important; margin: .4rem 0 .15rem 1.1rem !important;
   }
   /* 작성자 이름 + 관리자 별 배지 (한 줄) */
   .my-4 > .flex.items-center { align-items: center !important; }
-  .flex.items-center .font-medium { color: #b46508 !important; font-weight: 800 !important; font-size: 0.84rem !important; margin-right: .15rem !important; }
+  .flex.items-center .font-medium { color: #b46508 !important; font-weight: 800 !important; font-size: 0.8rem !important; margin-right: .15rem !important; }
   /* 하단 메타 줄(날짜 · 답글) — 내용 아래로 이동, subtle */
-  .my-4 > .text-sm { color: #b8ad9b !important; font-size: 0.75rem !important; margin: .1rem 0 0 !important; }
+  .my-4 > .text-sm { color: #b8ad9b !important; font-size: 0.72rem !important; margin: .1rem 0 0 !important; }
   .cusdis-meta { display: flex !important; align-items: center !important; gap: .8rem !important; margin-top: .05rem !important; }
-  .cusdis-meta > .text-sm { margin: 0 !important; color: #b8ad9b !important; font-size: 0.75rem !important; }
+  .cusdis-meta > .text-sm { margin: 0 !important; color: #b8ad9b !important; font-size: 0.72rem !important; }
   .cusdis-meta button:not(.bg-gray-200) {
     background: transparent !important; border: 0 !important; color: #b8ad9b !important;
-    font-weight: 500 !important; font-size: 0.75rem !important; padding: 0 !important; border-radius: 0 !important;
+    font-weight: 500 !important; font-size: 0.7rem !important; padding: 0 !important; border-radius: 0 !important;
   }
   .cusdis-meta button:not(.bg-gray-200):hover { background: transparent !important; color: #f2921d !important; }
+  .cusdis-fold { display: inline-flex !important; align-items: center !important; gap: .2rem !important; white-space: nowrap !important; }
+  .cusdis-fold-ic { width: .95rem !important; height: .95rem !important; transition: transform .2s ease !important; }
+  .cusdis-fold.cusdis-fold-open .cusdis-fold-ic { transform: rotate(180deg) !important; }
   /* 관리자 배지 — "Admin" 라벨(연한 배경+진한 글씨+각진 모서리, 버튼과 구분) */
   .flex.items-center .bg-gray-200 {
     background: #fbe7c8 !important; color: #b46508 !important; border: 1px solid #f0d3a3 !important;
@@ -118,8 +121,8 @@ const BRAND_CSS = `
     padding: .15rem .6rem !important; border-radius: 999px !important; margin: 0 0 .5rem !important;
   }
   /* 본문 */
-  .my-4 > .my-2 { color: #4a4a4a !important; font-size: 0.84rem !important; line-height: 1.62 !important; margin: .4rem 0 .15rem !important; }
-  .my-4 > .my-2 p { margin: 0 !important; font-size: 0.84rem !important; line-height: 1.62 !important; }
+  .my-4 > .my-2 { color: #4a4a4a !important; font-size: 0.8rem !important; line-height: 1.6 !important; margin: .4rem 0 .15rem !important; }
+  .my-4 > .my-2 p { margin: 0 !important; font-size: 0.8rem !important; line-height: 1.6 !important; }
 
   /* 구분 여백 축소 */
   .my-8 { margin: 1.2rem 0 !important; }
@@ -143,6 +146,8 @@ function CusdisThread() {
   const pageId = location.pathname;
   // 댓글 제출 후 위젯을 깨끗이 재마운트해 새 댓글이 바로 보이게 하는 키
   const [reloadKey, setReloadKey] = useState(0);
+  const [reloading, setReloading] = useState(false); // 새로고침 리마운트 중(스타일 적용 전 원본 노출 방지)
+  const formDraftRef = useRef<{nick: string; content: string} | null>(null); // 새로고침 시 작성 중이던 폼 내용 보존
 
   useEffect(() => {
     const w = window as any;
@@ -353,6 +358,56 @@ function CusdisThread() {
       } catch (_) {}
     };
 
+    // 대댓글 접기/펼치기 — 최상위 댓글 메타 줄에 "답글 접기/펼치기" 토글을 넣고 답글 카드를 숨기거나 보인다.
+    const repliesOfCard = (card: Element) =>
+      [...card.children].filter(
+        (c) => c.classList && c.classList.contains('my-4') && c.classList.contains('pl-4'),
+      ) as HTMLElement[];
+    const applyFold = (card: Element) => {
+      const folded = card.getAttribute('data-folded') === '1';
+      const replies = repliesOfCard(card);
+      replies.forEach((r) => {
+        const disp = folded ? 'none' : '';
+        if (r.style.display !== disp) r.style.display = disp;
+      });
+      const btn = card.querySelector(':scope > .cusdis-meta > .cusdis-fold') as HTMLElement | null;
+      if (btn) {
+        const labelEl = btn.querySelector('.cusdis-fold-label');
+        const label = folded ? `답글 ${replies.length}개` : '답글 접기';
+        if (labelEl && labelEl.textContent !== label) labelEl.textContent = label;
+        btn.classList.toggle('cusdis-fold-open', !folded); // 펼침 상태면 셰브론 위로
+      }
+    };
+    const setupReplyFold = (iframe: HTMLIFrameElement) => {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) return;
+        doc.querySelectorAll('.mt-4 > .my-4').forEach((card) => {
+          const meta = card.querySelector(':scope > .cusdis-meta');
+          const hasReplies = repliesOfCard(card).length > 0;
+          let btn = meta ? (meta.querySelector(':scope > .cusdis-fold') as HTMLButtonElement | null) : null;
+          if (!meta || !hasReplies) {
+            if (btn) btn.remove();
+            return;
+          }
+          if (!btn) {
+            btn = doc.createElement('button');
+            btn.type = 'button';
+            btn.className = 'cusdis-fold';
+            btn.innerHTML =
+              '<span class="cusdis-fold-label"></span>' +
+              '<svg class="cusdis-fold-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+            btn.addEventListener('click', () => {
+              card.setAttribute('data-folded', card.getAttribute('data-folded') === '1' ? '0' : '1');
+              applyFold(card);
+            });
+            meta.appendChild(btn);
+          }
+          applyFold(card);
+        });
+      } catch (_) {}
+    };
+
     // 제출 중(버튼 텍스트 "전송중...")이면 버튼을 감추고 스피너만 표시, 끝나면 원복.
     const spinnerOnSubmit = (iframe: HTMLIFrameElement) => {
       try {
@@ -513,12 +568,36 @@ function CusdisThread() {
       } catch (_) {}
     };
 
+    // 새로고침으로 보존해둔 폼 내용(이름·내용)을 새 iframe 폼에 복원(React 제어 input 대응 네이티브 setter)
+    const restoreDraft = (iframe: HTMLIFrameElement) => {
+      try {
+        const draft = formDraftRef.current;
+        if (!draft) return;
+        const doc = iframe.contentDocument;
+        if (!doc) return;
+        const setVal = (el: HTMLInputElement | HTMLTextAreaElement, v: string) => {
+          const proto = el.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
+          const setter = Object.getOwnPropertyDescriptor(proto, 'value')?.set;
+          if (setter) setter.call(el, v);
+          el.dispatchEvent(new Event('input', {bubbles: true}));
+        };
+        const ta = [...doc.querySelectorAll('textarea')].find((t) => !t.closest('.my-4')) as HTMLTextAreaElement | undefined;
+        const nk = [...doc.querySelectorAll('input[name="nickname"]')].find((n) => !n.closest('.my-4')) as HTMLInputElement | undefined;
+        if (ta && draft.content) setVal(ta, draft.content);
+        if (nk && draft.nick) setVal(nk, draft.nick);
+        formDraftRef.current = null; // 한 번만 복원
+      } catch (_) {}
+    };
+
     const onReady = () => {
       if (!boundIframe) return;
       injectStyle(boundIframe);
+      // 스타일이 실제로 주입되면 새로고침 오버레이 해제(원본 폼/"로딩중" 깜빡임 방지)
+      if (boundIframe.contentDocument?.getElementById(STYLE_ID)) setReloading(false);
       guardSubmit(boundIframe);
       interceptSubmit(boundIframe);
       setupForms(boundIframe);
+      restoreDraft(boundIframe);
       replaceLoading(boundIframe);
       syncHeight(boundIframe);
       updateHeading(boundIframe);
@@ -526,6 +605,7 @@ function CusdisThread() {
       orderReplies(boundIframe);
       styleMentions(boundIframe);
       restructureMeta(boundIframe);
+      setupReplyFold(boundIframe);
       stripFakeBadge(boundIframe);
       spinnerOnSubmit(boundIframe);
       try {
@@ -549,6 +629,7 @@ function CusdisThread() {
             orderReplies(boundIframe);
             styleMentions(boundIframe);
             restructureMeta(boundIframe);
+            setupReplyFold(boundIframe);
             stripFakeBadge(boundIframe);
             spinnerOnSubmit(boundIframe);
             syncHeight(boundIframe);
@@ -604,32 +685,61 @@ function CusdisThread() {
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          gap: '0.3rem',
           margin: '0 0 0.8rem',
           paddingBottom: '0.5rem',
           borderBottom: '2px solid #f1e9dc',
         }}>
-        <h3 id="cusdis-heading" style={{fontSize: '0.95rem', fontWeight: 800, color: '#3a3a3a', margin: 0}}>
+        <h3 id="cusdis-heading" style={{fontSize: '0.9rem', fontWeight: 800, color: '#3a3a3a', margin: 0}}>
           댓글
         </h3>
         <button
           type="button"
-          onClick={() => setReloadKey((k) => k + 1)}
+          onClick={() => {
+            // 새로고침 시 작성 중이던 폼 내용(이름·내용) 보존 → 리로드 후 복원
+            try {
+              const ifr = document.querySelector('#cusdis_thread iframe') as HTMLIFrameElement | null;
+              const d = ifr && ifr.contentDocument;
+              if (d) {
+                const ta = [...d.querySelectorAll('textarea')].find((t) => !t.closest('.my-4')) as HTMLTextAreaElement | undefined;
+                const nk = [...d.querySelectorAll('input[name="nickname"]')].find((n) => !n.closest('.my-4')) as HTMLInputElement | undefined;
+                const draft = {nick: nk ? nk.value : '', content: ta ? ta.value : ''};
+                formDraftRef.current = draft.nick || draft.content ? draft : null;
+              }
+            } catch (_) {}
+            setReloading(true);
+            setReloadKey((k) => k + 1);
+            setTimeout(() => setReloading(false), 3000); // 안전장치
+          }}
           title="댓글 새로고침"
           aria-label="댓글 새로고침"
           className="cusdis-refresh-btn">
-          <span aria-hidden="true">↻</span> 새로고침
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+            <path d="M21 3v6h-6" />
+          </svg>
         </button>
       </div>
-      <div
-        key={reloadKey}
-        id="cusdis_thread"
-        data-host={CUSDIS_HOST}
-        data-app-id={CUSDIS_APP_ID}
-        data-page-id={pageId}
-        data-page-url={typeof window !== 'undefined' ? window.location.href : ''}
-        data-page-title={typeof document !== 'undefined' ? document.title : ''}
-      />
+      <div style={{position: 'relative'}}>
+        {reloading && (
+          <div
+            className="cusdis-loading"
+            role="status"
+            aria-label="댓글 새로고침 중"
+            style={{position: 'absolute', inset: 0, background: '#fff', zIndex: 2}}
+          />
+        )}
+        <div
+          key={reloadKey}
+          id="cusdis_thread"
+          style={{opacity: reloading ? 0 : 1}}
+          data-host={CUSDIS_HOST}
+          data-app-id={CUSDIS_APP_ID}
+          data-page-id={pageId}
+          data-page-url={typeof window !== 'undefined' ? window.location.href : ''}
+          data-page-title={typeof document !== 'undefined' ? document.title : ''}
+        />
+      </div>
     </div>
   );
 }

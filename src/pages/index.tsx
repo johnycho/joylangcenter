@@ -21,12 +21,12 @@ const PILLARS = [
 ];
 
 const AREAS = [
-  {img: '/img/home/area-articulation.jpg', title: '조음·음운 (발음)', desc: '정확한 발음과 또렷한 소리내기를 도와요.'},
-  {img: '/img/home/area-language-delay.jpg', title: '언어발달지연', desc: '또래보다 느린 말·언어 발달을 지원해요.'},
-  {img: '/img/home/area-fluency.jpg', title: '유창성 (말더듬)', desc: '편안하고 자연스러운 말하기를 연습해요.'},
-  {img: '/img/home/area-autism.jpg', title: '자폐스펙트럼장애', desc: '상호작용과 의사소통 능력을 함께 키워요.'},
-  {img: '/img/home/area-intellectual.jpg', title: '지적장애', desc: '생활 속 기능적 의사소통을 도와요.'},
-  {img: '/img/home/area-social.jpg', title: '사회성', desc: '또래와 어울리며 상황에 맞는 상호작용을 연습해요.'},
+  {img: '/img/home/area-articulation.jpg', title: '조음·음운 (발음)', desc: '정확한 발음과 또렷한 소리내기를 도와요.', to: '/docs/therapy-areas#articulation'},
+  {img: '/img/home/area-language-delay.jpg', title: '언어발달지연', desc: '또래보다 느린 말·언어 발달을 지원해요.', to: '/docs/therapy-areas#language-delay'},
+  {img: '/img/home/area-fluency.jpg', title: '유창성 (말더듬)', desc: '편안하고 자연스러운 말하기를 연습해요.', to: '/docs/therapy-areas#fluency'},
+  {img: '/img/home/area-autism.jpg', title: '자폐스펙트럼장애', desc: '상호작용과 의사소통 능력을 함께 키워요.', to: '/docs/therapy-areas#autism'},
+  {img: '/img/home/area-intellectual.jpg', title: '지적장애', desc: '생활 속 기능적 의사소통을 도와요.', to: '/docs/therapy-areas#intellectual'},
+  {img: '/img/home/area-social.jpg', title: '사회성', desc: '또래와 어울리며 상황에 맞는 상호작용을 연습해요.', to: '/docs/therapy-areas#social'},
 ];
 
 function HomepageHero() {
@@ -147,13 +147,13 @@ export default function Home(): ReactNode {
             <SectionHead eyebrow="THERAPY" title="이런 어려움을 함께 도와요" sub="전문 평가를 바탕으로 아이에게 꼭 맞는 치료를 제안합니다." />
             <div className={styles.areaGrid}>
               {AREAS.map((a) => (
-                <div key={a.title} className={styles.areaCard}>
+                <Link key={a.title} to={a.to} className={styles.areaCard}>
                   <img src={a.img} alt={a.title} className={styles.areaImg} loading="lazy" />
                   <div className={styles.areaBody}>
                     <h3 className={styles.areaTitle}>{a.title}</h3>
                     <p className={styles.areaDesc}>{a.desc}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
