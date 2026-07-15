@@ -267,9 +267,8 @@ export default async function handler(req, res) {
 
     // 원본 댓글 삭제 → 자식 대댓글까지 연쇄 삭제, 버튼 제거 + "삭제됨"
     if (action.action_id === 'delete_comment') {
-      const n = await deleteCascade(appId, v.p, commentIdFromToken(v.t));
-      const extra = n > 1 ? ` (답글 포함 ${n}개)` : '';
-      await updateMessage(responseUrl, '🗑 삭제됨', [summarySection(payload), contextOf(`🗑 삭제됨${extra}`)]);
+      await deleteCascade(appId, v.p, commentIdFromToken(v.t));
+      await updateMessage(responseUrl, '🗑 삭제됨', [summarySection(payload), contextOf('🗑 삭제됨')]);
       // 스레드 루트(최상위 댓글) 삭제면, 그 스레드의 대댓글 알림들도 "삭제됨"으로 표시
       // (답글 달린 루트는 thread_ts 가 자기 ts 와 같음 → 이 경우도 루트로 취급)
       const mts = payload.message || {};
@@ -292,11 +291,10 @@ export default async function handler(req, res) {
       return res.status(200).end();
     }
 
-    // 답글 삭제 → 그 답글의 하위까지 연쇄 삭제, 버튼 제거 + "답글 삭제됨"
+    // 답글 삭제 → 그 답글의 하위까지 연쇄 삭제, 버튼 제거 + "삭제됨"
     if (action.action_id === 'delete_reply') {
-      const n = await deleteCascade(appId, v.p, v.r);
-      const extra = n > 1 ? ` (하위 포함 ${n}개)` : '';
-      await updateMessage(responseUrl, '🗑 답글 삭제됨', [summarySection(payload), contextOf(`🗑 답글 삭제됨${extra}`)]);
+      await deleteCascade(appId, v.p, v.r);
+      await updateMessage(responseUrl, '🗑 삭제됨', [summarySection(payload), contextOf('🗑 삭제됨')]);
       return res.status(200).end();
     }
 
