@@ -16,7 +16,7 @@ const KO_LOCALE = {
   reply_placeholder: '내용',
   reply_btn: '댓글',
   sending: '전송중...',
-  mod_badge: 'MOD',
+  mod_badge: '⭐',
   content_is_required: '내용이 필요합니다',
   nickname_is_required: '닉네임이 필요합니다',
   comment_has_been_sent: '댓글이 등록되었습니다.',
@@ -43,7 +43,7 @@ const BRAND_CSS = `
     outline: none !important; border-color: #f2921d !important;
     box-shadow: 0 0 0 3px rgba(242,146,29,.15) !important;
   }
-  label { font-size: .8rem !important; color: #8a7f70 !important; font-weight: 700 !important; margin-bottom: .4rem !important; }
+  label { font-size: 0.9rem !important; color: #8a7f70 !important; font-weight: 700 !important; margin-bottom: .4rem !important; }
 
   /* 모바일: 닉네임/이메일을 한 줄(세로)로 */
   @media (max-width: 480px) { .grid-cols-2 { grid-template-columns: 1fr !important; } }
@@ -51,7 +51,7 @@ const BRAND_CSS = `
   /* 버튼 기본(대댓글 토글 등) — 은은한 텍스트 버튼 */
   button {
     background: transparent !important; border: 0 !important; color: #b46508 !important;
-    font-weight: 700 !important; font-size: .8rem !important;
+    font-weight: 700 !important; font-size: 0.9rem !important;
     padding: .25rem .5rem !important; border-radius: 8px !important;
     cursor: pointer; transition: background .15s, color .15s;
   }
@@ -60,23 +60,26 @@ const BRAND_CSS = `
   /* 주요 제출 버튼(등록/대댓글 등록) — 주황 라운드 */
   button.bg-gray-200 {
     background: #f2921d !important; color: #fff !important;
-    padding: .55rem 1.5rem !important; border-radius: 999px !important; font-size: .88rem !important;
+    padding: .55rem 1.5rem !important; border-radius: 999px !important; font-size: 0.9rem !important;
   }
   button.bg-gray-200:hover { background: #e7820a !important; }
 
   /* 댓글 카드 */
   .mt-4 > .my-4 {
-    position: relative !important;
     background: #fbf7f0 !important; border: 1px solid #f1e9dc !important;
     border-radius: 12px !important; padding: .85rem 1rem !important; margin: .6rem 0 !important;
   }
-  /* 작성자 이름 (날짜 공간 확보) */
-  .my-4 > .flex.items-center { padding-right: 7.5rem !important; }
-  .flex.items-center .font-medium { color: #b46508 !important; font-weight: 800 !important; font-size: .92rem !important; }
-  /* 날짜 — 작성자와 같은 행, 오른쪽 끝 정렬 */
-  .my-4 > .text-sm {
-    position: absolute !important; top: .9rem !important; right: 1rem !important;
-    margin: 0 !important; color: #a99e8d !important; font-size: .84rem !important;
+  /* 작성자 이름 + 관리자 별 배지 (한 줄) */
+  .my-4 > .flex.items-center { align-items: center !important; }
+  .flex.items-center .font-medium { color: #b46508 !important; font-weight: 800 !important; font-size: 0.9rem !important; margin-right: .15rem !important; }
+  /* 날짜 — 작성자 이름 아래 줄 */
+  .my-4 > .text-sm { color: #a99e8d !important; font-size: 0.9rem !important; margin: .1rem 0 0 !important; }
+  /* 관리자 배지 — 별 아이콘, 이름 바로 옆 */
+  .flex.items-center .bg-gray-200 {
+    background: transparent !important; color: inherit !important;
+    width: auto !important; height: auto !important; padding: 0 !important; margin: 0 !important;
+    border-radius: 0 !important; display: inline-flex !important; align-items: center !important;
+    font-size: .9rem !important; line-height: 1 !important;
   }
   /* 본문 — 게시글 본문(.blog-post-page .markdown)과 동일한 크기/행간 */
   .my-4 > .my-2 { color: #4a4a4a !important; font-size: 0.9rem !important; line-height: 1.72 !important; margin: .5rem 0 !important; }
@@ -183,11 +186,11 @@ function CusdisThread() {
       } catch (_) {}
     };
 
-    // 위젯 내부(동일 출처)에서 최상위 댓글 개수를 읽어 헤딩에 표시
+    // 위젯 내부(동일 출처)에서 댓글 개수(대댓글 포함)를 읽어 헤딩에 표시
     const updateHeading = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument;
-        const n = doc ? doc.querySelectorAll('.mt-4 > .my-4').length : 0;
+        const n = doc ? doc.querySelectorAll('.my-4 > .flex.items-center').length : 0;
         const heading = document.getElementById('cusdis-heading');
         if (heading) heading.textContent = n > 0 ? `댓글 ${n}` : '댓글';
       } catch (_) {}
