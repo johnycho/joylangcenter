@@ -53,10 +53,10 @@ Slack 버튼 클릭 → api/slack-action → 삭제 / 답글(모달) 처리 → 
 
 ## 2. 이 함수 Vercel 에 배포
 
-이 `tools/cusdis-slack-relay` 폴더만 별도로 배포합니다.
+이 `tools/joy-cusdis-slack-relay` 폴더만 별도로 배포합니다.
 
 ```bash
-cd tools/cusdis-slack-relay
+cd tools/joy-cusdis-slack-relay
 npx vercel                              # 최초 배포 (Vercel 로그인 필요)
 npx vercel env add SLACK_WEBHOOK_URL    # (Production 선택)
 npx vercel env add SLACK_SIGNING_SECRET # (Production)

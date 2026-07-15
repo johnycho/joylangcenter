@@ -13,8 +13,8 @@
 - 커밋/푸시와 마찬가지로 사용자 확인을 거친다(→ [git-account.md](git-account.md) 커밋·푸시 정책과 동일한 취지).
 
 ## 대상 프로젝트
-- `tools/cusdis-slack-relay` — Cusdis 댓글 → Slack 알림/관리 중계 함수 (Vercel 서버리스)
-  - 프로덕션 별칭: `https://cusdis-slack-relay.vercel.app`
+- `tools/joy-cusdis-slack-relay` — Cusdis 댓글 → Slack 알림/관리 중계 함수 (Vercel 서버리스)
+  - 프로덕션 별칭: `https://joy-cusdis-slack-relay.vercel.app`
   - 엔드포인트: `/api/webhook`(Cusdis 웹훅), `/api/slack-action`(Slack 인터랙션)
 
 ## 참고

@@ -11,7 +11,7 @@
 - **Git 계정 정책** → [`.claude/wiki/git-account.md`](.claude/wiki/git-account.md)
   - 이 저장소는 **johnycho** 계정으로 커밋·푸시 (머신 기본은 johny-cho). 커밋/푸시 시 hook이 자동 검증.
 - **Vercel 배포 정책** → [`.claude/wiki/vercel-deploy.md`](.claude/wiki/vercel-deploy.md)
-  - `vercel`/`vercel --prod` 등 배포는 **실행 전 사용자에게 물어보고 승인 후** 진행 (대상: `tools/cusdis-slack-relay`).
+  - `vercel`/`vercel --prod` 등 배포는 **실행 전 사용자에게 물어보고 승인 후** 진행 (대상: `tools/joy-cusdis-slack-relay`).
 
 ## 참고
 - 로컬에서 네이버 지도는 도메인 인증 제한으로 "API 인증 실패"가 뜬다(운영 사이트에선 정상).
