@@ -396,6 +396,7 @@ function CusdisThread() {
             const scope = btn.closest('.grid'); // 이 버튼이 속한 폼
             const phoneEl = scope?.querySelector('input[name="__phone"]') as HTMLInputElement | null;
             w.__pendingPhone = phoneEl ? phoneEl.value.trim() : '';
+            if (phoneEl) phoneEl.value = ''; // 캡처 후 즉시 비워 화면에 남지 않게
           },
           true,
         );

@@ -186,8 +186,12 @@ export default async function handler(req, res) {
   const lines = [];
   // 게시글 제목을 맨 위에(라벨 없이). 대댓글은 루트 스레드에 이미 있으므로 생략.
   if (!isReply) lines.push(`📄 ${pageLine}`);
-  lines.push(`↪︎ *${nickname}* 님이 댓글을 달았습니다`); // 작성자 볼드(닫는 * 뒤 공백이라야 렌더됨)
-  if (mention) lines.push(`*${mention}* 님에게`); // 답글의 답글이면 태그 표시
+  // 답글의 답글이면 태그를 헤더 줄에 통합("A 님이 @B 님에게 댓글을 달았습니다")
+  lines.push(
+    mention
+      ? `↪︎ *${nickname}* 님이 ${mention} 님에게 댓글을 달았습니다`
+      : `↪︎ *${nickname}* 님이 댓글을 달았습니다`,
+  );
   lines.push(quoted);
   if (phone) lines.push(`> 📞 ${phone}`);
   if (email) lines.push(`> ✉️ ${email}`);
