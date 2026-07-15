@@ -5,8 +5,6 @@ import DocItemMetadata from '@theme/DocItem/Metadata';
 import DocItemLayout from '@theme/DocItem/Layout';
 import type {Props} from '@theme/DocItem';
 
-import DisqusComments from '@site/src/components/DisqusComments';
-
 export default function DocItem(props: Props): ReactNode {
   const docHtmlClassName = `docs-doc-id-${props.content.metadata.id}`;
   const MDXComponent = props.content;
@@ -17,7 +15,6 @@ export default function DocItem(props: Props): ReactNode {
           <DocItemMetadata />
           <DocItemLayout>
             <MDXComponent />
-            {/*<DisqusComments /> /!* Disqus 댓글 위젯 *!/*/}
           </DocItemLayout>
         </HtmlClassNameProvider>
       </DocProvider>

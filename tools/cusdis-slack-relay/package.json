@@ -1,0 +1,7 @@
+{
+  "name": "cusdis-slack-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cusdis Webhook을 Slack Incoming Webhook으로 중계하는 Vercel 서버리스 함수"
+}

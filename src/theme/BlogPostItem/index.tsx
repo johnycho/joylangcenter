@@ -14,7 +14,7 @@ import BlogPostItemContent from '@theme/BlogPostItem/Content';
 import BlogPostItemFooter from '@theme/BlogPostItem/Footer';
 import type {Props} from '@theme/BlogPostItem';
 
-import DisqusComments from '@site/src/components/DisqusComments';
+import CusdisComments from '@site/src/components/CusdisComments';
 
 // apply a bottom margin in list view
 function useContainerClassName() {
@@ -31,7 +31,7 @@ export default function BlogPostItem({children, className}: Props): ReactNode {
         <BlogPostItemHeader />
         <BlogPostItemContent>{children}</BlogPostItemContent>
         <BlogPostItemFooter />
-        {isBlogPostPage && <DisqusComments />}
+        {isBlogPostPage && <CusdisComments />}
       </BlogPostItemContainer>
   );
 }
