@@ -384,7 +384,7 @@ export default async function handler(req, res) {
         rb = rb.slice(mm[0].length).replace(/^[ \t]*\n/, '');
       }
       let text = mention
-        ? `↪︎ *관리자* 권한으로 ${mention} 님에게 댓글을 달았습니다`
+        ? `↪︎ *관리자* 권한으로 *${mention}* 님에게 댓글을 달았습니다`
         : '↪︎ *관리자* 권한으로 댓글을 달았습니다';
       text += `\n${blockquote(rb.trim())}`;
       await postThread(botToken, meta.ch, meta.root, text, replyResultBlocks(text, {token: f.token, pageId: meta.p, replyId, content: f.content}));

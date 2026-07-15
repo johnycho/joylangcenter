@@ -189,7 +189,7 @@ export default async function handler(req, res) {
   // 답글의 답글이면 태그를 헤더 줄에 통합("A 님이 @B 님에게 댓글을 달았습니다")
   lines.push(
     mention
-      ? `↪︎ *${nickname}* 님이 ${mention} 님에게 댓글을 달았습니다`
+      ? `↪︎ *${nickname}* 님이 *${mention}* 님에게 댓글을 달았습니다`
       : `↪︎ *${nickname}* 님이 댓글을 달았습니다`,
   );
   lines.push(quoted);
