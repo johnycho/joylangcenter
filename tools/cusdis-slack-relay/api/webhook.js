@@ -52,6 +52,7 @@ export default async function handler(req, res) {
   const d = body.data || body;
   const nickname = d.by_nickname || '익명';
   const content = String(d.content || '').trim();
+  const email = String(d.by_email || d.email || '').trim();
   const pageId = d.page_id || d.pageId || '';
   const pageTitle = d.page_title || d.project_title || pageId || '게시글';
   const token = extractToken(d.approve_link || '');
@@ -70,7 +71,8 @@ export default async function handler(req, res) {
 
   const quoted = content ? content.replace(/\n/g, '\n> ') : '(내용 없음)';
 
-  const summary = `💬 *새 댓글이 달렸어요*\n> ${quoted}\n*작성자:* ${nickname}\n*글:* ${pageLine}`;
+  const authorLine = email ? `*작성자:* ${nickname} (${email})` : `*작성자:* ${nickname}`;
+  const summary = `💬 *새 댓글이 달렸어요*\n> ${quoted}\n${authorLine}\n*글:* ${pageLine}`;
 
   // Block Kit: 요약 + [답글][삭제] 버튼. 버튼 value 에 승인 토큰을 실어 인터랙션에서 사용.
   const blocks = [
