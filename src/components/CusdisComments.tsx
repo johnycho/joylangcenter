@@ -13,7 +13,7 @@ const KO_LOCALE = {
   loading: '로딩중...',
   email: '이메일 (선택)',
   nickname: '닉네임',
-  reply_placeholder: '댓글...',
+  reply_placeholder: '내용',
   reply_btn: '댓글',
   sending: '전송중...',
   mod_badge: 'MOD',
@@ -217,18 +217,20 @@ function CusdisThread() {
         const emailCell = emailInput.closest('.px-1');
         const row = emailCell && emailCell.parentElement; // grid-cols-2 (닉네임/이메일)
         const form = row && row.parentElement; // grid-cols-1
-        if (!form || !row) return;
+        if (!form || !row || !emailCell) return;
+        // 연락처 칸을 이메일 자리(닉네임 옆)에 넣고, 이메일 칸은 아래 전체폭으로 이동
+        // → 순서: 닉네임·연락처 / 이메일 / 내용
         const cell = doc.createElement('div');
         cell.className = 'px-1';
         cell.innerHTML =
-          '<label class="mb-2 block" for="__phone">연락처 (전화, 선택)</label>' +
+          '<label class="mb-2 block" for="__phone">연락처 (선택)</label>' +
           '<input name="__phone" id="__phone" type="tel" class="w-full p-2 border border-gray-200 bg-transparent" placeholder="010-0000-0000">';
-        form.insertBefore(cell, row.nextSibling);
+        row.insertBefore(cell, emailCell); // [닉네임, 연락처, 이메일]
+        form.insertBefore(emailCell, row.nextSibling); // 이메일 → 행 밖(아래) 전체폭
       } catch (_) {}
     };
 
-    // 전송 중 재클릭 차단(중복 등록 방지) + 제출 직전 연락처를 이메일 필드에 합치기.
-    // 캡처 단계에서 위젯 핸들러보다 먼저 실행된다.
+    // 전송 중(제출 버튼 "전송중...") 재클릭 차단으로 중복 등록 방지.
     const guardSubmit = (iframe: HTMLIFrameElement) => {
       try {
         const doc = iframe.contentDocument as (Document & {__submitGuarded?: boolean}) | null;
@@ -238,24 +240,10 @@ function CusdisThread() {
           'click',
           (e) => {
             const btn = (e.target as HTMLElement)?.closest?.('button');
-            // 주요 제출 버튼(등록/전송중)만 대상 — Tailwind bg-gray-200 보유
             if (!btn || !btn.classList.contains('bg-gray-200')) return;
             if ((btn.textContent || '').includes('전송중')) {
               e.preventDefault();
               e.stopImmediatePropagation();
-              return;
-            }
-            // 제출 직전: 같은 폼의 연락처(전화)를 이메일 필드에 합쳐 전송
-            const scope = btn.closest('.grid');
-            const phoneInput = scope?.querySelector('input[name="__phone"]') as HTMLInputElement | null;
-            const emailInput = scope?.querySelector('input[name="email"]') as HTMLInputElement | null;
-            if (phoneInput && emailInput) {
-              const phone = phoneInput.value.trim();
-              if (phone) {
-                const em = emailInput.value.trim().split('|tel:')[0].trim();
-                emailInput.value = em ? `${em}|tel:${phone}` : `|tel:${phone}`;
-                emailInput.dispatchEvent(new Event('input', {bubbles: true})); // Svelte 상태 반영
-              }
             }
           },
           true,
@@ -263,10 +251,43 @@ function CusdisThread() {
       } catch (_) {}
     };
 
+    // 위젯의 fetch 를 가로채, 새 댓글 전송 시 연락처(전화)를 by_email 에 합친다.
+    // (입력칸 값을 건드리지 않아 "email|tel:전화" 가 화면에 노출되지 않음)
+    const interceptSubmit = (iframe: HTMLIFrameElement) => {
+      try {
+        const w = iframe.contentWindow as (Window & {fetch: typeof fetch; __submitIntercepted?: boolean}) | null;
+        const doc = iframe.contentDocument;
+        if (!w || !doc || w.__submitIntercepted) return;
+        w.__submitIntercepted = true;
+        const orig = w.fetch.bind(w);
+        w.fetch = async (input: any, init?: any) => {
+          try {
+            const url = typeof input === 'string' ? input : (input && input.url) || '';
+            const method = (init && init.method) || (input && input.method) || 'GET';
+            if (/\/api\/open\/comments/.test(url) && String(method).toUpperCase() === 'POST' && init && typeof init.body === 'string') {
+              const data = JSON.parse(init.body);
+              // 최상위 새 댓글에만 연락처 합침(대댓글 제외)
+              if (data && 'content' in data && !data.parentId) {
+                const phoneEl = doc.querySelector('input[name="__phone"]') as HTMLInputElement | null;
+                const phone = phoneEl ? phoneEl.value.trim() : '';
+                if (phone) {
+                  const em = String(data.email || '').split('|tel:')[0].trim();
+                  data.email = em ? `${em}|tel:${phone}` : `|tel:${phone}`;
+                  init = {...init, body: JSON.stringify(data)};
+                }
+              }
+            }
+          } catch (_) {}
+          return orig(input, init);
+        };
+      } catch (_) {}
+    };
+
     const onReady = () => {
       if (!boundIframe) return;
       injectStyle(boundIframe);
       guardSubmit(boundIframe);
+      interceptSubmit(boundIframe);
       injectContactField(boundIframe);
       replaceLoading(boundIframe);
       syncHeight(boundIframe);

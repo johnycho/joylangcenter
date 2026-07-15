@@ -82,7 +82,7 @@ export default async function handler(req, res) {
   const lines = ['💬 *새 댓글이 달렸어요*', `> ${quoted}`, `👤 *작성자:* ${nickname}`];
   if (phone) lines.push(`📞 *연락처:* ${phone}`);
   if (email) lines.push(`✉️ *이메일:* ${email}`);
-  lines.push(`📄 *글:* ${pageLine}`);
+  lines.push(`📄 *게시글:* ${pageLine}`);
   const summary = lines.join('\n');
 
   // Block Kit: 요약 + [답글][삭제] 버튼. 버튼 value 에 승인 토큰을 실어 인터랙션에서 사용.
