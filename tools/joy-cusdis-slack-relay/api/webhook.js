@@ -102,7 +102,7 @@ async function postSlack({text, blocks, threadTs}) {
       const r = await fetch('https://slack.com/api/chat.postMessage', {
         method: 'POST',
         headers: {'Content-Type': 'application/json', Authorization: `Bearer ${botToken}`},
-        body: JSON.stringify({channel, text, blocks, ...(threadTs ? {thread_ts: threadTs} : {})}),
+        body: JSON.stringify({channel, text, blocks, unfurl_links: false, unfurl_media: false, ...(threadTs ? {thread_ts: threadTs} : {})}),
       });
       const j = await r.json();
       if (j.ok) return {ts: j.ts, channel: j.channel};
@@ -112,7 +112,7 @@ async function postSlack({text, blocks, threadTs}) {
   const url = process.env.SLACK_WEBHOOK_URL;
   if (url) {
     try {
-      await fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text, blocks})});
+      await fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text, blocks, unfurl_links: false, unfurl_media: false})});
     } catch (_) {}
   }
   return null;

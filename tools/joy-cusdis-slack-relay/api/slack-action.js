@@ -72,7 +72,7 @@ async function postThread(botToken, channel, threadTs, text, blocks) {
     await fetch('https://slack.com/api/chat.postMessage', {
       method: 'POST',
       headers: {'Content-Type': 'application/json', Authorization: `Bearer ${botToken}`},
-      body: JSON.stringify({channel, thread_ts: threadTs, text, ...(blocks ? {blocks} : {})}),
+      body: JSON.stringify({channel, thread_ts: threadTs, text, unfurl_links: false, unfurl_media: false, ...(blocks ? {blocks} : {})}),
     });
   } catch (_) {}
 }
@@ -148,6 +148,22 @@ async function postReply(token, content) {
   } catch (_) {
     return {ok: false};
   }
+}
+// 부모(스레드 루트) 삭제 시, 그 스레드의 대댓글 알림들도 "삭제됨"으로 갱신
+// (conversations.replies 조회에 channels:history[공개]/groups:history[비공개] 스코프 필요)
+async function markThreadRepliesDeleted(botToken, channel, rootTs) {
+  try {
+    const r = await fetch(
+      `https://slack.com/api/conversations.replies?channel=${encodeURIComponent(channel)}&ts=${encodeURIComponent(rootTs)}&limit=200`,
+      {headers: {Authorization: `Bearer ${botToken}`}},
+    );
+    const j = await r.json();
+    if (!j.ok) return;
+    for (const m of j.messages || []) {
+      if (m.ts === rootTs) continue; // 루트(부모)는 이미 갱신됨
+      await chatUpdate(botToken, channel, m.ts, '🗑 삭제됨', [contextOf('🗑 상위 댓글 삭제로 함께 삭제됨')]);
+    }
+  } catch (_) {}
 }
 
 // ── 블록 구성 ──
@@ -254,6 +270,11 @@ export default async function handler(req, res) {
       const n = await deleteCascade(appId, v.p, commentIdFromToken(v.t));
       const extra = n > 1 ? ` (답글 포함 ${n}개)` : '';
       await updateMessage(responseUrl, '🗑 삭제됨', [summarySection(payload), contextOf(`🗑 삭제됨${extra}`)]);
+      // 스레드 루트(최상위 댓글) 삭제면, 그 스레드의 대댓글 알림들도 "삭제됨"으로 표시
+      const isRoot = !(payload.message && payload.message.thread_ts);
+      if (botToken && channel && msgTs && isRoot) {
+        await markThreadRepliesDeleted(botToken, channel, msgTs);
+      }
       return res.status(200).end();
     }
 
