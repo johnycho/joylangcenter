@@ -3,9 +3,7 @@
 //   [🗑 삭제]     원본 댓글 삭제 → 원본 메시지의 버튼을 없애고 "🗑 삭제됨" 표시
 //   [↩︎ 답글]     모달 입력 → 관리자 답글 등록 → 스레드에 결과 메시지([✏️수정][🗑답글삭제] 버튼)
 //   [✏️ 수정]     모달(기존 내용 prefill) → 삭제 후 재등록 → 기존 결과 메시지를 "수정 전/후"로 덮어씀
-//   [🗑 답글삭제] 관리자 답글 삭제 → 결과 메시지의 버튼을 없애고 "🗑 답글 삭제됨" 표시
-//
-//   이미 삭제된 항목에 다시 시도하면, 버튼 근처에 "당신에게만 표시됨" 인라인 안내(ephemeral).
+//   [🗑 삭제]/[🗑 답글삭제] 는 하위 대댓글까지 연쇄 삭제한다.
 //
 // 환경변수: SLACK_SIGNING_SECRET(필수), SLACK_BOT_TOKEN(필수), CUSDIS_APP_ID(답글 수정/삭제용)
 
@@ -59,17 +57,6 @@ function commentIdFromToken(token) {
 // 모달 제출 오류: 모달 안 입력창 아래에 빨간 안내 텍스트(입력 내용 유지, 모달 유지)
 const modalError = (res, msg) =>
   res.status(200).json({response_action: 'errors', errors: {reply_block: msg}});
-// 버튼 근처에 "당신에게만 표시됨" 인라인 안내(ephemeral). 새로고침하면 사라진다.
-// (Slack 이 서버 통신 실패 시 버튼 옆에 안내를 띄우는 것과 같은 방식)
-async function ephemeral(responseUrl, text) {
-  try {
-    await fetch(responseUrl, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({response_type: 'ephemeral', replace_original: false, text}),
-    });
-  } catch (_) {}
-}
 // 버튼이 있던 원본/결과 메시지를 갱신(덮어쓰기)
 async function updateMessage(responseUrl, text, blocks) {
   try {
@@ -111,17 +98,41 @@ async function fetchTopComments(appId, pageId) {
     return [];
   }
 }
-const findTop = (list, id) => list.find((c) => c.id === id) || null;
+// 트리 전체(대댓글 포함)에서 id 로 댓글 찾기 — 중첩 댓글도 삭제/수정 가능하게
+function findDeep(list, id) {
+  for (const c of list || []) {
+    if (c.id === id) return c;
+    const found = findDeep(repliesOf(c), id);
+    if (found) return found;
+  }
+  return null;
+}
 const repliesOf = (parent) => (parent && parent.replies && parent.replies.data) || [];
 function latestModReplyId(parent) {
   const mods = repliesOf(parent).filter((x) => x.moderatorId);
   mods.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   return mods[0] ? mods[0].id : null;
 }
-async function replyExists(appId, pageId, parentToken, replyId) {
-  if (!appId) return true; // 조회 불가하면 존재한다고 가정
-  const parent = findTop(await fetchTopComments(appId, pageId), commentIdFromToken(parentToken));
-  return repliesOf(parent).some((x) => x.id === replyId);
+// 댓글 + 모든 하위 대댓글 id 수집
+function collectIds(comment) {
+  let ids = [comment.id];
+  for (const r of repliesOf(comment)) ids = ids.concat(collectIds(r));
+  return ids;
+}
+// 대상 댓글과 모든 자식(대댓글)까지 연쇄 삭제. 트리에서 못 찾으면 id 로 단건 삭제(멱등).
+async function deleteCascade(appId, pageId, id) {
+  if (!id) return 0;
+  let ids = [id];
+  if (appId) {
+    const target = findDeep(await fetchTopComments(appId, pageId), id);
+    if (target) ids = collectIds(target);
+  }
+  for (const cid of ids) {
+    try {
+      await fetch(`${CUSDIS_HOST}/api/comment/${cid}`, {method: 'DELETE'});
+    } catch (_) {}
+  }
+  return ids.length;
 }
 async function postReply(token, content) {
   try {
@@ -238,31 +249,16 @@ export default async function handler(req, res) {
     const user = payload.user && payload.user.id;
     const msgTs = payload.message && payload.message.ts; // 클릭된 메시지 ts
 
-    // 원본 댓글 삭제 → 버튼 제거 + "삭제됨"
+    // 원본 댓글 삭제 → 자식 대댓글까지 연쇄 삭제, 버튼 제거 + "삭제됨"
     if (action.action_id === 'delete_comment') {
-      const commentId = commentIdFromToken(v.t);
-      if (appId && commentId && !findTop(await fetchTopComments(appId, v.p), commentId)) {
-        await ephemeral(responseUrl, '⚠️ 이미 삭제된 댓글이에요.');
-        return res.status(200).end();
-      }
-      let ok = false;
-      if (commentId) {
-        try {
-          ok = (await fetch(`${CUSDIS_HOST}/api/comment/${commentId}`, {method: 'DELETE'})).ok;
-        } catch (_) {}
-      }
-      if (ok) await updateMessage(responseUrl, '🗑 삭제됨', [summarySection(payload), contextOf('🗑 삭제됨')]);
-      else await ephemeral(responseUrl, '⚠️ 삭제에 실패했어요.');
+      const n = await deleteCascade(appId, v.p, commentIdFromToken(v.t));
+      const extra = n > 1 ? ` (답글 포함 ${n}개)` : '';
+      await updateMessage(responseUrl, '🗑 삭제됨', [summarySection(payload), contextOf(`🗑 삭제됨${extra}`)]);
       return res.status(200).end();
     }
 
-    // 답글 달기 (모달) — 삭제된 댓글엔 답글 불가
+    // 답글 달기 (모달)
     if (action.action_id === 'reply_comment') {
-      const commentId = commentIdFromToken(v.t);
-      if (appId && commentId && !findTop(await fetchTopComments(appId, v.p), commentId)) {
-        await ephemeral(responseUrl, '⚠️ 이미 삭제된 댓글이라 답글을 달 수 없어요.');
-        return res.status(200).end();
-      }
       if (botToken) {
         await openReplyModal(botToken, payload.trigger_id, {
           callback: 'reply_modal',
@@ -273,27 +269,16 @@ export default async function handler(req, res) {
       return res.status(200).end();
     }
 
-    // 답글 삭제 → 결과 메시지 버튼 제거 + "답글 삭제됨"
+    // 답글 삭제 → 그 답글의 하위까지 연쇄 삭제, 버튼 제거 + "답글 삭제됨"
     if (action.action_id === 'delete_reply') {
-      if (!(await replyExists(appId, v.p, v.t, v.r))) {
-        await ephemeral(responseUrl, '⚠️ 이미 삭제된 답글이에요.');
-        return res.status(200).end();
-      }
-      let ok = false;
-      try {
-        ok = (await fetch(`${CUSDIS_HOST}/api/comment/${v.r}`, {method: 'DELETE'})).ok;
-      } catch (_) {}
-      if (ok) await updateMessage(responseUrl, '🗑 답글 삭제됨', [summarySection(payload), contextOf('🗑 답글 삭제됨')]);
-      else await ephemeral(responseUrl, '⚠️ 답글 삭제에 실패했어요.');
+      const n = await deleteCascade(appId, v.p, v.r);
+      const extra = n > 1 ? ` (하위 포함 ${n}개)` : '';
+      await updateMessage(responseUrl, '🗑 답글 삭제됨', [summarySection(payload), contextOf(`🗑 답글 삭제됨${extra}`)]);
       return res.status(200).end();
     }
 
     // 답글 수정 (모달, 기존 내용 prefill)
     if (action.action_id === 'edit_reply') {
-      if (!(await replyExists(appId, v.p, v.t, v.r))) {
-        await ephemeral(responseUrl, '⚠️ 이미 삭제되어 수정할 수 없어요.');
-        return res.status(200).end();
-      }
       if (botToken) {
         await openReplyModal(botToken, payload.trigger_id, {
           callback: 'edit_modal',
@@ -323,7 +308,7 @@ export default async function handler(req, res) {
       const r = await postReply(meta.t, content);
       if (r.limited) return modalError(res, '⚠️ 무료 플랜 답글 한도를 초과했어요.');
       let replyId = null;
-      if (appId) replyId = latestModReplyId(findTop(await fetchTopComments(appId, meta.p), commentIdFromToken(meta.t)));
+      if (appId) replyId = latestModReplyId(findDeep(await fetchTopComments(appId, meta.p), commentIdFromToken(meta.t)));
       const text = `↩︎ 답글을 등록했어요:\n${blockquote(content)}`;
       await postThread(botToken, meta.ch, meta.root, text, replyResultBlocks(text, {token: meta.t, pageId: meta.p, replyId, content}));
       return res.status(200).json({response_action: 'clear'});
@@ -340,7 +325,7 @@ export default async function handler(req, res) {
         await fetch(`${CUSDIS_HOST}/api/comment/${meta.r}`, {method: 'DELETE'});
       } catch (_) {}
       let replyId = null;
-      if (appId) replyId = latestModReplyId(findTop(await fetchTopComments(appId, meta.p), commentIdFromToken(meta.t)));
+      if (appId) replyId = latestModReplyId(findDeep(await fetchTopComments(appId, meta.p), commentIdFromToken(meta.t)));
       const text = `✏️ 답글을 수정했어요\n*수정 전*\n${blockquote(meta.prev || '(없음)')}\n*수정 후*\n${blockquote(content)}`;
       await chatUpdate(botToken, meta.ch, meta.ts, text, replyResultBlocks(text, {token: meta.t, pageId: meta.p, replyId, content}));
       return res.status(200).json({response_action: 'clear'});

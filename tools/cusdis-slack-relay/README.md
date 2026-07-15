@@ -14,11 +14,15 @@ Slack 버튼 클릭 → api/slack-action → 삭제 / 답글(모달) 처리 → 
 
 | 이름 | 용도 | 필수 |
 |---|---|---|
-| `SLACK_WEBHOOK_URL` | 알림 보낼 Incoming Webhook URL | ✅ |
-| `SLACK_SIGNING_SECRET` | Slack 인터랙션 서명 검증(버튼/모달) | 답글·삭제 사용 시 ✅ |
-| `SLACK_BOT_TOKEN` | 답글 모달(views.open) + 결과 스레드 전송(chat.postMessage)용 봇 토큰 `xoxb-...` | 답글·삭제 사용 시 ✅ |
-| `CUSDIS_APP_ID` | 답글 id 조회·존재 확인용 Cusdis App ID | 답글 수정/삭제 사용 시 ✅ |
+| `SLACK_BOT_TOKEN` | chat.postMessage(알림·스레드) + 모달(views.open)용 봇 토큰 `xoxb-...` | ✅ |
+| `SLACK_CHANNEL_ID` | 알림 보낼 채널 ID (스레드 중첩에 필요) | ✅ |
+| `SLACK_SIGNING_SECRET` | Slack 인터랙션 서명 검증(버튼/모달) | ✅ |
+| `CUSDIS_APP_ID` | 루트 댓글 조회·연쇄 삭제·답글 id 조회용 App ID | ✅ |
+| `KV_REST_API_URL` / `KV_REST_API_TOKEN` (또는 `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`) | Upstash Redis — 댓글ID→슬랙 메시지 매핑(스레드 중첩) | 스레드 중첩 시 |
+| `SLACK_WEBHOOK_URL` | 위 봇 토큰·채널이 없을 때 폴백(Incoming Webhook, 스레드 불가) | 선택 |
 | `SITE_URL` | 게시글 링크 도메인(기본 `https://joylangcenter.com`) | 선택 |
+
+> **스레드 중첩**: `SLACK_BOT_TOKEN` + `SLACK_CHANNEL_ID` + **Upstash Redis(KV)** 가 있으면, 최상위 댓글 알림의 ts 를 KV 에 저장해두고 대댓글이 올 때 루트 댓글의 ts 를 조회해 **그 스레드에 이어서** 표시합니다. (Slack 스레드는 1단계라 깊은 중첩도 루트 스레드에 나열되고 `↳ 대댓글`로 표시). Upstash 는 Vercel Marketplace → Storage 에서 프로비저닝하면 환경변수가 자동 주입됩니다.
 
 ## 동작
 
@@ -28,12 +32,11 @@ Slack 버튼 클릭 → api/slack-action → 삭제 / 답글(모달) 처리 → 
 - **[✏️ 수정]** → 모달(기존 내용 자동 채움) → *기존 답글 삭제 후 재등록*(Cusdis 에 수정 API 없음)
   → 결과 메시지를 **"수정 전 / 수정 후"** 로 덮어씀(새 메시지 추가 안 함)
 - **[🗑 답글 삭제]** → 결과 메시지의 버튼을 없애고 "🗑 답글 삭제됨"으로 표시
-- 삭제된 댓글엔 답글을 달 수 없습니다(버튼을 눌러도 안내).
-- 이미 삭제된 항목에 삭제/수정을 다시 누르면, 버튼 근처에 **"당신에게만 표시됨" 인라인 안내**(ephemeral)로 알려줍니다. 새로고침하면 사라집니다.
+- **[🗑 삭제]/[🗑 답글 삭제]** 는 **하위 대댓글까지 연쇄 삭제**합니다.
+- 홈페이지에서 단 대댓글은 (KV 설정 시) **부모 댓글의 슬랙 스레드에 이어서** 표시됩니다.
 
-> ⚠️ 한계: 답글 id 조회는 댓글목록 API(1페이지)를 훑어 최신 관리자 답글을 찾는 방식이라,
-> 같은 글에 댓글/답글이 매우 많아 대상이 1페이지 밖으로 밀리면 정확도가 떨어질 수 있습니다.
-> 저트래픽 환경에선 충분하며, 확실한 관리가 필요하면 Cusdis 대시보드를 함께 사용하세요.
+> ⚠️ 한계: 루트 조회·연쇄 삭제·답글 id 조회는 댓글목록 API(1페이지) 기준이라,
+> 한 글에 댓글/답글이 매우 많아 대상이 1페이지 밖으로 밀리면 정확도가 떨어질 수 있습니다(저트래픽이면 충분).
 
 ## 1. Slack 앱 만들기 (Incoming Webhook + 인터랙티브)
 
