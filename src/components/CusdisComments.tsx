@@ -146,7 +146,7 @@ function CusdisThread() {
   const pageId = location.pathname;
   // 댓글 제출 후 위젯을 깨끗이 재마운트해 새 댓글이 바로 보이게 하는 키
   const [reloadKey, setReloadKey] = useState(0);
-  const [reloading, setReloading] = useState(false); // 새로고침 리마운트 중(스타일 적용 전 원본 노출 방지)
+  const [reloading, setReloading] = useState(true); // 로딩/새로고침 중(정렬 끝나기 전 원본·재정렬 노출 방지)
   const formDraftRef = useRef<{nick: string; content: string} | null>(null); // 새로고침 시 작성 중이던 폼 내용 보존
 
   useEffect(() => {
@@ -179,6 +179,11 @@ function CusdisThread() {
     let submitTimer: ReturnType<typeof setTimeout> | undefined;
     let submitHandled = false;
     let boundIframe: HTMLIFrameElement | undefined;
+    // 정렬이 끝나기 전 오버레이 유지 → 댓글 렌더되면 해제. 안전장치로 일정 시간 후 강제 해제.
+    const revealFallback = setTimeout(() => setReloading(false), 2500);
+    const maybeReveal = () => {
+      if (boundIframe?.contentDocument?.querySelector('.mt-4 > .my-4')) setReloading(false);
+    };
 
     // 댓글 제출 완료를 감지하면, 자동승인(웹훅) 반영 시간을 준 뒤 위젯을 재마운트한다.
     // (라이브 위젯의 srcdoc 을 직접 리로드하지 않고 React 로 통째 재마운트 → 블랭크 방지)
@@ -602,8 +607,6 @@ function CusdisThread() {
     const onReady = () => {
       if (!boundIframe) return;
       injectStyle(boundIframe);
-      // 스타일이 실제로 주입되면 새로고침 오버레이 해제(원본 폼/"로딩중" 깜빡임 방지)
-      if (boundIframe.contentDocument?.getElementById(STYLE_ID)) setReloading(false);
       guardSubmit(boundIframe);
       interceptSubmit(boundIframe);
       setupForms(boundIframe);
@@ -618,6 +621,7 @@ function CusdisThread() {
       setupReplyFold(boundIframe);
       stripFakeBadge(boundIframe);
       spinnerOnSubmit(boundIframe);
+      maybeReveal(); // 댓글 렌더+정렬 완료 시 오버레이 해제
       try {
         const doc = boundIframe.contentDocument;
         if (doc && doc.body) {
@@ -642,6 +646,7 @@ function CusdisThread() {
             setupReplyFold(boundIframe);
             stripFakeBadge(boundIframe);
             spinnerOnSubmit(boundIframe);
+            maybeReveal(); // 댓글 렌더+정렬 완료 시 오버레이 해제
             syncHeight(boundIframe);
             updateHeading(boundIframe);
             // 초단위 날짜 갱신(잦은 변경이므로 디바운스)
@@ -683,6 +688,7 @@ function CusdisThread() {
       iv && clearInterval(iv);
       submitTimer && clearTimeout(submitTimer);
       secTimer && clearTimeout(secTimer);
+      clearTimeout(revealFallback);
       ro?.disconnect();
       mo?.disconnect();
       boundIframe?.removeEventListener('load', onReady);
@@ -718,8 +724,7 @@ function CusdisThread() {
               }
             } catch (_) {}
             setReloading(true);
-            setReloadKey((k) => k + 1);
-            setTimeout(() => setReloading(false), 3000); // 안전장치
+            setReloadKey((k) => k + 1); // 리마운트 → effect 가 정렬 후 오버레이 해제(+안전장치 타임아웃)
           }}
           title="댓글 새로고침"
           aria-label="댓글 새로고침"
