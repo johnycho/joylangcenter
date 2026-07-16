@@ -179,10 +179,18 @@ function CusdisThread() {
     let submitTimer: ReturnType<typeof setTimeout> | undefined;
     let submitHandled = false;
     let boundIframe: HTMLIFrameElement | undefined;
-    // 정렬이 끝나기 전 오버레이 유지 → 댓글 렌더되면 해제. 안전장치로 일정 시간 후 강제 해제.
+    // 이 로드 한정: open/comments 결과 캐시(showSeconds 재fetch 방지) + 동시 실행 가드 + 초 적용 완료 플래그
+    let secCache: any[] | null = null;
+    let secBusy = false;
+    let secDone = false;
+    // 정렬·초 적용이 끝나기 전 오버레이 유지 → 완료되면 해제. 안전장치로 일정 시간 후 강제 해제.
     const revealFallback = setTimeout(() => setReloading(false), 2500);
     const maybeReveal = () => {
-      if (boundIframe?.contentDocument?.querySelector('.mt-4 > .my-4')) setReloading(false);
+      const doc = boundIframe?.contentDocument;
+      if (!doc) return;
+      if (!doc.querySelector('.mt-4 > .my-4')) return; // 아직 댓글 렌더 전
+      if (!secDone) return; // 초 적용 패스 완료 전(정렬·초까지 확정된 뒤 노출)
+      setReloading(false);
     };
 
     // 댓글 제출 완료를 감지하면, 자동승인(웹훅) 반영 시간을 준 뒤 위젯을 재마운트한다.
@@ -260,13 +268,23 @@ function CusdisThread() {
           /^\d{4}-\d\d-\d\d \d\d:\d\d$/.test((el.textContent || '').trim()),
         );
         if (!dateEls.length) return; // 모두 이미 초 표시됨
-        const res = await fetch(
-          `${CUSDIS_HOST}/api/open/comments?appId=${encodeURIComponent(CUSDIS_APP_ID)}&pageId=${encodeURIComponent(pageId)}&page=1`,
-        );
-        const j = await res.json();
-        const flat: any[] = [];
-        const walk = (arr: any[]) => (arr || []).forEach((c) => {(flat.push(c), walk((c.replies && c.replies.data) || []));});
-        walk((j && j.data && j.data.data) || []);
+        if (secBusy) return; // 동시 실행 방지
+        secBusy = true;
+        try {
+          if (!secCache) {
+            const res = await fetch(
+              `${CUSDIS_HOST}/api/open/comments?appId=${encodeURIComponent(CUSDIS_APP_ID)}&pageId=${encodeURIComponent(pageId)}&page=1`,
+            );
+            const j = await res.json();
+            const acc: any[] = [];
+            const walk = (arr: any[]) => (arr || []).forEach((c) => {(acc.push(c), walk((c.replies && c.replies.data) || []));});
+            walk((j && j.data && j.data.data) || []);
+            secCache = acc;
+          }
+        } finally {
+          secBusy = false;
+        }
+        const flat = secCache || [];
         // (작성자|분) → 정렬된 초단위 목록(오래된→최신). 같은 이름·분 충돌 대비.
         const groups: Record<string, string[]> = {};
         flat.forEach((c) => {
@@ -293,6 +311,7 @@ function CusdisThread() {
             const sec = arr[Math.min(i, arr.length - 1)];
             if (sec) el.textContent = sec;
           });
+        secDone = true; // 초 적용 패스 완료 → 노출 게이트 통과 가능
       } catch (_) {}
     };
 
@@ -646,12 +665,10 @@ function CusdisThread() {
             setupReplyFold(boundIframe);
             stripFakeBadge(boundIframe);
             spinnerOnSubmit(boundIframe);
-            maybeReveal(); // 댓글 렌더+정렬 완료 시 오버레이 해제
+            showSeconds(boundIframe); // 초 적용(캐시로 재fetch 없음) — 적용되면 다음 사이클에 게이트 통과
+            maybeReveal(); // 댓글 렌더+정렬+초 적용 완료 시 오버레이 해제
             syncHeight(boundIframe);
             updateHeading(boundIframe);
-            // 초단위 날짜 갱신(잦은 변경이므로 디바운스)
-            if (secTimer) clearTimeout(secTimer);
-            secTimer = setTimeout(() => boundIframe && showSeconds(boundIframe), 400);
           });
           mo.observe(doc.body, {subtree: true, childList: true, attributes: true, characterData: true});
         }
