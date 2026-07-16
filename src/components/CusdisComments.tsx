@@ -262,22 +262,32 @@ function CusdisThread() {
         const flat: any[] = [];
         const walk = (arr: any[]) => (arr || []).forEach((c) => {(flat.push(c), walk((c.replies && c.replies.data) || []));});
         walk((j && j.data && j.data.data) || []);
-        // (작성자|분단위) → 초단위 문자열
-        const map: Record<string, string> = {};
+        // (작성자|분) → 정렬된 초단위 목록(오래된→최신). 같은 이름·분 충돌 대비.
+        const groups: Record<string, string[]> = {};
         flat.forEach((c) => {
           const name = ((c.moderator && c.moderator.displayName) || c.by_nickname || '').trim();
           const min = fmtDate(c.createdAt, false);
           const sec = fmtDate(c.createdAt, true);
-          if (min && sec) map[`${name}|${min}`] = sec;
+          if (!min || !sec) return;
+          (groups[`${name}|${min}`] = groups[`${name}|${min}`] || []).push(sec);
         });
-        dateEls.forEach((el) => {
-          const card = (el as HTMLElement).closest('.my-4');
-          const nameEl = card && card.querySelector('.font-medium');
-          const name = nameEl ? (nameEl.textContent || '').trim() : '';
-          const cur = (el.textContent || '').trim();
-          const sec = map[`${name}|${cur}`];
-          if (sec) el.textContent = sec;
-        });
+        Object.values(groups).forEach((a) => a.sort()); // "YYYY-MM-DD HH:MM:SS" 문자열 정렬 = 시간순
+        // 화면상 위→아래(오래된→최신) 순서로 그룹의 초를 하나씩 배정 (충돌해도 각자 자기 초)
+        const used: Record<string, number> = {};
+        [...dateEls]
+          .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)
+          .forEach((el) => {
+            const card = (el as HTMLElement).closest('.my-4');
+            const nameEl = card && card.querySelector('.font-medium');
+            const name = nameEl ? (nameEl.textContent || '').trim() : '';
+            const key = `${name}|${(el.textContent || '').trim()}`;
+            const arr = groups[key];
+            if (!arr || !arr.length) return;
+            const i = used[key] || 0;
+            used[key] = i + 1;
+            const sec = arr[Math.min(i, arr.length - 1)];
+            if (sec) el.textContent = sec;
+          });
       } catch (_) {}
     };
 
