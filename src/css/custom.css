@@ -429,6 +429,16 @@ article > header h2 {
 .blog-post-page aside.col.col--3 {
   display: none;
 }
+/* 데스크톱: 좌측 사이드바를 목차(col--2)와 같은 폭의 '빈 공간'으로 남겨,
+   본문 카드가 좌우 대칭 = 화면 정중앙에 오도록 한다(목차는 우측 유지). */
+@media (min-width: 997px) {
+  .blog-post-page aside.col.col--3 {
+    display: block !important;
+    visibility: hidden;
+    flex: 0 0 16.6667% !important;
+    max-width: 16.6667% !important;
+  }
+}
 .blog-post-page main.col.col--7 {
   flex: 1 1 720px;
   max-width: 760px;

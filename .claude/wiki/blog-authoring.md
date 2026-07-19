@@ -21,7 +21,7 @@
 - frontmatter: `slug`, `title`(따옴표), `authors`, `tags: [ notice | news | library ]`, `description`, `keywords`(표준 그룹형 4개 — `원주 언어치료` / `원주 기업도시·지정면 언어치료` / `원주 언어발달센터` / `원주 기업도시·지정면 언어발달센터`. 언어치료 계열을 앞에 두고, 원주 반복은 그룹으로 묶는다).
 - **`description`은 전역설정과 동일한 키워드 프리픽스로 시작**: `[원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터] ` 뒤에 글 요약 한 문장(따옴표로 감쌈). `title`에는 이 프리픽스를 넣지 않는다(제목 원문 유지).
 - **`authors`는 작성 전 반드시 사용자에게 물어본다** — 선택지는 `blog/authors.yml`에 등록된 저자(현재 `dayealee`=다예쌤, `minjeong`=민정쌤). 사용자가 지정한 저자로 `authors: [ <id> ]` 설정(공동 저자면 `[ dayealee, minjeong ]`). 답을 얻기 전에는 임의로 정하지 않는다.
-- 본문 시작: `import NaverMap from '@site/src/components/NaverMap';` → `<!-- truncate -->` → `<br /><br />` → 표준 인사말(`<mark>언어치료 전문기관</mark>`, `**조이 언어발달센터**입니다.`).
+- 본문 시작: `import NaverMap from '@site/src/components/NaverMap';` → (빈 줄) → 표준 인사말(`<mark>언어치료 전문기관</mark>`, `**조이 언어발달센터**입니다.`). ※ `<!-- truncate -->`·상단 `<br /><br />` 는 넣지 않는다(목록은 커스텀 BlogCards 라 발췌 미사용).
 
 ## 4) 푸터와 겹치는 내용 제거
 표준 푸터에 있는 내용은 본문에서 삭제 + 네이버 잔여물 제거:
