@@ -126,6 +126,18 @@
   transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
 }
 
+/* 클릭/hover 시 전역 링크 밑줄 방지 */
+.heroBtnPrimary,
+.heroBtnPrimary:hover,
+.heroBtnPrimary:focus,
+.heroBtnPrimary:active,
+.heroBtnGhost,
+.heroBtnGhost:hover,
+.heroBtnGhost:focus,
+.heroBtnGhost:active {
+  text-decoration: none !important;
+}
+
 .heroBtnPrimary {
   color: #fff;
   background: linear-gradient(135deg, #f7a32e, #f2911b);

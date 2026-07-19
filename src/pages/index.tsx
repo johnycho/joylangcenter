@@ -35,13 +35,8 @@ function HomepageHero() {
       <BannerSlider />
       <div className={styles.heroOverlay}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            즐거운 의사소통이<br />있는 곳
-            <span className={styles.srOnly}> — 원주 언어치료 · 언어재활 · 언어발달센터 (조이언어발달센터)</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            아이 한 명 한 명의 속도에 맞춘<br />기능적이고 즐거운 언어치료를 만들어갑니다.
-          </p>
+          {/* 화면엔 표시하지 않되 SEO/접근성용 h1 은 유지 */}
+          <h1 className={styles.srOnly}>원주 언어치료 · 언어재활 · 언어발달센터 — 조이 언어발달센터</h1>
           <div className={styles.heroActions}>
             <Link className={styles.heroBtnPrimary} to="/docs/intro">센터 소개</Link>
             <a className={styles.heroBtnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오 상담</a>

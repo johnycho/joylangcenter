@@ -24,6 +24,9 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  // 홈 CTA(#contact)·치료분야 Section(#articulation 등)은 컴포넌트 렌더 id를 스크롤 타깃으로 쓴다.
+  // Docusaurus 정적 검사기는 heading 앵커만 추적해 이들을 broken 으로 오탐 → 런타임엔 정상이라 무시.
+  onBrokenAnchors: 'ignore',
 
   // 전 페이지 공통 스크롤 진입 애니메이션
   clientModules: [require.resolve('./src/clientModules/scrollReveal.ts')],
