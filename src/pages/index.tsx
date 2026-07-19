@@ -39,7 +39,10 @@ function HomepageHero() {
           <h1 className={styles.srOnly}>원주 언어치료 · 언어재활 · 언어발달센터 — 조이 언어발달센터</h1>
           <div className={styles.heroActions}>
             <Link className={styles.heroBtnPrimary} to="/docs/intro">센터 소개</Link>
-            <a className={styles.heroBtnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오 상담</a>
+            <a className={styles.heroBtnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
+              <img className={`${styles.ctaBtnIcon} ${styles.ctaKakaoIcon}`} src="/img/kakao-channel.svg" alt="" aria-hidden="true" />
+              카카오톡 상담
+            </a>
             <Link className={styles.heroBtnGhost} to="/docs/location">오시는 길</Link>
           </div>
         </div>
@@ -189,8 +192,14 @@ export default function Home(): ReactNode {
             <h2 className={styles.ctaTitle}>궁금한 점이 있으신가요?</h2>
             <p className={styles.ctaSub}>상담 시간·수업 안내 등 무엇이든 전화나 카카오톡으로 편하게 문의해 주세요.</p>
             <div className={styles.ctaActions}>
-              <a className={styles.ctaBtn} href={`tel:${PHONE}`}>전화 상담</a>
-              <a className={styles.ctaBtnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
+              <a className={styles.ctaBtn} href={`tel:${PHONE}`}>
+                <svg className={styles.ctaBtnIcon} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                전화 상담
+              </a>
+              <a className={styles.ctaBtnGhost} href={KAKAO_URL} target="_blank" rel="noopener noreferrer">
+                <img className={`${styles.ctaBtnIcon} ${styles.ctaKakaoIcon}`} src="/img/kakao-channel.svg" alt="" aria-hidden="true" />
+                카카오톡 상담
+              </a>
             </div>
           </div>
         </section>

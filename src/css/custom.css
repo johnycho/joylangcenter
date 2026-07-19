@@ -458,11 +458,23 @@ article > header h2 {
   padding: clamp(1.4rem, 3.2vw, 2.6rem);
   box-shadow: 0 16px 40px -26px rgba(120, 80, 0, 0.4);
 }
-/* 모바일: 카드는 유지하되 화면 좌우 패딩(컨테이너)을 줄여 본문 폭 확보 */
+/* 모바일: 카드는 유지하되 화면 좌우 패딩을 줄여 본문 폭 확보.
+   컨테이너 패딩·row 음수마진·col 패딩을 모두 0.5rem 로 맞춰 가로 오버플로(스크롤) 방지. */
 @media (max-width: 768px) {
   .blog-post-page .container {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+  }
+  .blog-post-page .container .row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+  .blog-post-page .container .row > .col {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .blog-post-page main.col.col--7 {
+    min-width: 0; /* 코드블록·긴 콘텐츠 오버플로 방지 */
   }
   .blog-post-page main.col.col--7 > article {
     padding: 1.2rem 1.1rem;

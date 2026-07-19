@@ -109,7 +109,7 @@ export default function NewsBoard({
           <input
             type="search"
             className={styles.searchInput}
-            placeholder="제목·분류·작성자 검색…"
+            placeholder="분류·제목·작성자 검색…"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);

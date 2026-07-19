@@ -61,6 +61,7 @@ export default function BlogTagsPostsPage(props: Props): ReactNode {
               showAllLink={false}
               wide
               paginate
+              showSearch
             />
           </div>
         </main>

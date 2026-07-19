@@ -101,6 +101,10 @@
   align-items: center;
   padding: 1.1rem 1.3rem 0;
 }
+/* 검색창 바로 뒤에 헤더가 오는 경우(tags 페이지, 필터바 없음)에만 간격 — 커뮤니티(필터바 있음)엔 영향 없음 */
+.searchRow + .listHead {
+  margin-top: 0.9rem;
+}
 .searchIcon {
   position: absolute;
   left: 2rem;
