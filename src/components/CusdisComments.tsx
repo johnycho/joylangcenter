@@ -148,8 +148,15 @@ function CusdisThread() {
   const [reloadKey, setReloadKey] = useState(0);
   const [reloading, setReloading] = useState(true); // 로딩/새로고침 중(정렬 끝나기 전 원본·재정렬 노출 방지)
   const formDraftRef = useRef<{nick: string; content: string} | null>(null); // 새로고침 시 작성 중이던 폼 내용 보존
+  const lastCountRef = useRef(0); // 마지막으로 확인한 댓글 수(새로고침 중 카운트 사라짐/화살표 이동 방지)
+  const pageIdRef = useRef(pageId); // 글 이동 감지용(다른 글로 가면 카운트 초기화)
 
   useEffect(() => {
+    // 다른 글로 이동한 경우에만 카운트 초기화(같은 글 새로고침 시엔 유지)
+    if (pageIdRef.current !== pageId) {
+      pageIdRef.current = pageId;
+      lastCountRef.current = 0;
+    }
     const w = window as any;
     if (!document.getElementById(SCRIPT_ID)) {
       // 최초 1회: 한국어 로케일 지정 후 Cusdis 임베드 스크립트 주입
@@ -247,7 +254,17 @@ function CusdisThread() {
         const doc = iframe.contentDocument;
         const n = doc ? doc.querySelectorAll('.my-4 > .flex.items-center').length : 0;
         const heading = document.getElementById('cusdis-heading');
-        if (heading) heading.textContent = n > 0 ? `댓글 ${n}` : '댓글';
+        if (!heading) return;
+        if (n > 0) {
+          lastCountRef.current = n;
+          heading.textContent = `댓글 ${n}`;
+        } else if (lastCountRef.current > 0) {
+          // 새로고침 중 일시적으로 0개가 되어도 이전 카운트 유지
+          // → 숫자가 사라지지 않아 옆의 새로고침 화살표가 왼쪽으로 밀리지 않음
+          heading.textContent = `댓글 ${lastCountRef.current}`;
+        } else {
+          heading.textContent = '댓글';
+        }
       } catch (_) {}
     };
 
