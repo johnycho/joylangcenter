@@ -147,6 +147,7 @@ function CusdisThread() {
   // 댓글 제출 후 위젯을 깨끗이 재마운트해 새 댓글이 바로 보이게 하는 키
   const [reloadKey, setReloadKey] = useState(0);
   const [reloading, setReloading] = useState(true); // 로딩/새로고침 중(정렬 끝나기 전 원본·재정렬 노출 방지)
+  const [frozenHeight, setFrozenHeight] = useState<number | null>(null); // 새로고침 중 높이 튐 방지용 고정 높이
   const formDraftRef = useRef<{nick: string; content: string} | null>(null); // 새로고침 시 작성 중이던 폼 내용 보존
   const lastCountRef = useRef(0); // 마지막으로 확인한 댓글 수(새로고침 중 카운트 사라짐/화살표 이동 방지)
   const pageIdRef = useRef(pageId); // 글 이동 감지용(다른 글로 가면 카운트 초기화)
@@ -191,13 +192,17 @@ function CusdisThread() {
     let secBusy = false;
     let secDone = false;
     // 정렬·초 적용이 끝나기 전 오버레이 유지 → 완료되면 해제. 안전장치로 일정 시간 후 강제 해제.
-    const revealFallback = setTimeout(() => setReloading(false), 2500);
+    const reveal = () => {
+      setReloading(false);
+      setFrozenHeight(null); // 고정 해제 → 실제 콘텐츠 높이로 자연스럽게 안착
+    };
+    const revealFallback = setTimeout(reveal, 2500);
     const maybeReveal = () => {
       const doc = boundIframe?.contentDocument;
       if (!doc) return;
       if (!doc.querySelector('.mt-4 > .my-4')) return; // 아직 댓글 렌더 전
       if (!secDone) return; // 초 적용 패스 완료 전(정렬·초까지 확정된 뒤 노출)
-      setReloading(false);
+      reveal();
     };
 
     // 댓글 제출 완료를 감지하면, 자동승인(웹훅) 반영 시간을 준 뒤 위젯을 재마운트한다.
@@ -757,6 +762,10 @@ function CusdisThread() {
                 formDraftRef.current = draft.nick || draft.content ? draft : null;
               }
             } catch (_) {}
+            // 리마운트 중 컨테이너가 0으로 줄었다 새 iframe 기본높이로 커졌다 하며
+            // 페이지 높이가 튀는 것을 막기 위해, 현재 높이를 고정해 둔다(오버레이가 가림).
+            const cur = document.getElementById('cusdis_thread')?.offsetHeight || 0;
+            if (cur) setFrozenHeight(cur);
             setReloading(true);
             setReloadKey((k) => k + 1); // 리마운트 → effect 가 정렬 후 오버레이 해제(+안전장치 타임아웃)
           }}
@@ -769,7 +778,12 @@ function CusdisThread() {
           </svg>
         </button>
       </div>
-      <div style={{position: 'relative'}}>
+      <div
+        style={{
+          position: 'relative',
+          // 새로고침 중에는 직전 높이로 고정 + 넘침 숨김 → 리마운트로 인한 높이 튐 방지
+          ...(reloading && frozenHeight ? {height: frozenHeight, overflow: 'hidden'} : {}),
+        }}>
         {reloading && (
           <div
             className="cusdis-loading"
