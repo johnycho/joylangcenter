@@ -971,14 +971,14 @@ mark {
     padding: 0.55rem 0.65rem 0.65rem;
   }
   .assess-card__name {
-    font-size: 0.76rem;
+    font-size: 0.88rem;
   }
   .assess-card__abbr {
-    font-size: 0.52rem;
-    margin-left: 0.28rem;
+    font-size: 0.6rem;
+    margin-left: 0.35rem;
   }
   .assess-card__desc {
-    font-size: 0.7rem;
-    line-height: 1.45;
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 }
