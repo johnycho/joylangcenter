@@ -922,7 +922,7 @@ mark {
 .assess-card__img {
   display: block;
   width: 100%;
-  height: 135px;
+  height: 175px;
   object-fit: contain;
   background: #fff;
   border-bottom: 1px solid #f4ecdd;
@@ -965,7 +965,7 @@ mark {
     gap: 0.6rem;
   }
   .assess-card__img {
-    height: 130px;
+    height: 225px;
   }
   .assess-card__body {
     padding: 0.55rem 0.65rem 0.65rem;
