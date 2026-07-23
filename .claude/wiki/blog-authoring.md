@@ -16,6 +16,21 @@
 - 다운로드 시 Referer(`https://m.blog.naver.com/joylangcenter`) 헤더 필요.
 - 원본에 **지도 이미지가 추가로 있으면 제거**(푸터 `<NaverMap />` 임베드로 대체, 임베드는 유지).
 
+## 2') 첨부 파일(다운로드 자료) 처리
+글에 **다운로드용 첨부 파일**(자료 나눔 PDF/HWP/PPT/ZIP 등)이 있으면, 네이버 대신 **우리 저장소에서 받을 수 있게** 한다.
+- 첨부 링크 추출: `.se-module-fileList a` / `[data-linkdata]`(JSON의 `link` 값) / "파일 다운로드" 링크(`download.blog.naver.com/...`).
+- **`static/downloads/<slug>.<ext>` 로 저장**(ASCII 안전 파일명, ext는 실제 확장자). 다운로드 시 Referer(`https://m.blog.naver.com/`) 헤더 필요. `file`로 형식 검증(예: `PDF document`).
+- 본문 적절한 위치(보통 "## 자료 다운로드" 섹션)에 **다운로드 카드**를 넣는다 — 공용 클래스 `.blog-download-card`(파일 아이콘 + 파일명·형식·용량 + 다운로드 화살표, 스타일은 `src/css/custom.css`에 정의됨). 인라인 style 금지:
+```jsx
+<a className="blog-download-card" href="/downloads/<slug>.pdf" download>
+  <span className="blog-download-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M9 13h6" /><path d="M9 17h4" /></svg></span>
+  <span className="blog-download-card__meta"><span className="blog-download-card__name"><자료명></span><span className="blog-download-card__sub">PDF · <용량> · 내려받기</span></span>
+  <span className="blog-download-card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" /></svg></span>
+</a>
+```
+※ 파일 용량은 `ls -la`로 확인해 표기(예: 7.3 MB). 텍스트는 반드시 `<span>` 안에 두어 MDX가 `<p>`로 감싸지 않게 한다(방어용 `.blog-download-card p{margin:0}` 존재).
+- 네이버의 "첨부파일 / 파일 다운로드" **UI 텍스트 잔여물은 제거**하고, 실제 파일은 위 버튼으로 대체한다(§4 참고).
+
 ## 3) 파일 / 프론트매터
 - 파일명 `blog/YYYY-MM-DD-joy-<type>-YYYYMMDD.mdx`, `slug: joy-<type>-YYYYMMDD`. 같은 날 같은 type 겹치면 slug 뒤 구분어(예: `-lecture`).
 - frontmatter: `slug`, `title`(따옴표), `authors`, `tags: [ notice | news | library ]`, `description`, `keywords`(표준 그룹형 4개 — `원주 언어치료` / `원주 기업도시·지정면 언어치료` / `원주 언어발달센터` / `원주 기업도시·지정면 언어발달센터`. 언어치료 계열을 앞에 두고, 원주 반복은 그룹으로 묶는다).
@@ -28,7 +43,7 @@
 - 맺음말("Let's enJOY in JOY" 등), 센터 연락처·주소
 - 인스타/카카오/블로그 링크카드(팔로워 수 포함)
 - 지도 place 위젯 텍스트("저장 / 전화 / 이 블로그의 체크인 / 이 장소의 다른 글")
-- 영상 플레이어 잔여물("재생 / 좋아요 / 접기·펴기 / 00:23 / 100%"), 첨부·PDF 잔여물, `#해시태그`, 상단 반복 인사말
+- 영상 플레이어 잔여물("재생 / 좋아요 / 접기·펴기 / 00:23 / 100%"), 첨부·"파일 다운로드" **UI 텍스트** 잔여물(단, **실제 첨부 파일은 §2' 규칙대로 저장·버튼화**), `#해시태그`, 상단 반복 인사말
 - 단 **외부 기관 연락처**(두루바른·난청협회·강릉센터 등)는 정보로 유지.
 
 ## 5) 마크다운 포맷
