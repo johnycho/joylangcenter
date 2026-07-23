@@ -302,7 +302,15 @@
     justify-content: center;
   }
   .sectionTitle {
-    font-size: 1.1rem;
+    font-size: 0.98rem;
+  }
+  .sectionIcon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+  .sectionBody {
+    font-size: 0.82rem;
   }
   .credDetail {
     font-size: 0.82rem;
@@ -559,4 +567,9 @@
   .cardName {
     font-size: 1.02rem;
   }
+}
+
+/* 평가·검사 페이지: 도구 카드 박스 폭을 4개 카드 폭까지만(오른쪽 빈 공간 제거) */
+:global(html.docs-doc-id-assessment) .sectionBody {
+  max-width: 1150px;
 }
