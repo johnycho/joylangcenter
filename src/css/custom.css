@@ -4,6 +4,9 @@
  * work well for content-centric websites.
  */
 
+/* 본문 글씨체 — NanumSquareRound 전 굵기(300/400/700/800). 저자(innks) 공식 배포 CSS 사용 */
+@import url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/nanumsquareround.css');
+
 /* You can override the default Infima variables here. */
 :root {
   /* 조이 브랜드 컬러 (로고의 따뜻한 주황) */
@@ -178,7 +181,7 @@ pre.editor-line-text span.cursor {
   margin: 0 0.5rem;
   padding: 0.5rem 1.15rem !important;
   border-radius: 999px;
-  font-weight: 800;
+  font-weight: 700;
   background: linear-gradient(135deg, #f7a32e, #f2911b);
   box-shadow: 0 10px 22px -12px rgba(242, 145, 27, 0.9);
   transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
@@ -295,31 +298,6 @@ pre.editor-line-text span.cursor {
   font-style: normal;
 }
 
-/* NanumSquareRound: 굵기별 실제 폰트 로드(볼드/일반 구분을 위해 faux-bold 대신 진짜 Bold/ExtraBold 사용) */
-@font-face {
-  font-family: 'NanumSquareRound';
-  src: url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundR.woff2') format('woff2'),
-    url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundR.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NanumSquareRound';
-  src: url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundB.woff2') format('woff2'),
-    url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundB.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NanumSquareRound';
-  src: url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundEB.woff2') format('woff2'),
-    url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundEB.woff') format('woff');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* 블로그 리스트 타이틀 폰트 조정 */
 article > header h2 {
@@ -658,7 +636,7 @@ mark {
   gap: 0.25rem;
   margin-bottom: 0.35rem;
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.03em;
   color: var(--ifm-color-primary);
   text-transform: uppercase;
@@ -783,7 +761,7 @@ mark {
 .theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist) {
   background: rgba(242, 146, 29, 0.14);
   color: #a85e08;
-  font-weight: 800;
+  font-weight: 700;
   box-shadow: inset 3px 0 0 0 var(--ifm-color-primary);
 }
 [data-theme='dark'] .theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist) {
@@ -880,7 +858,7 @@ mark {
   flex: 1;
 }
 .blog-download-card__name {
-  font-weight: 800;
+  font-weight: 700;
   color: #3a3a3a;
   font-size: 0.92rem;
   line-height: 1.35;
@@ -955,7 +933,7 @@ mark {
 }
 .assess-card__name {
   margin: 0 0 0.3rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #3a3a3a;
   font-size: 0.76rem;
   line-height: 1.35;
@@ -966,7 +944,7 @@ mark {
   background: #fdeede;
   color: #b46508;
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.02em;
   padding: 0.03rem 0.3rem;
   border-radius: 6px;

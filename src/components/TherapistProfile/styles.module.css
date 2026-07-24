@@ -31,7 +31,7 @@
 .heroName {
   margin: 0 0 0.6rem;
   font-size: clamp(1.4rem, 3.8vw, 1.85rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: #3d2c1c;
@@ -93,7 +93,7 @@
 .sectionTitle {
   margin: 0;
   font-size: 1.08rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.01em;
   color: #3d2c1c;
 }
@@ -145,7 +145,7 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.05rem;
 }
 .credIcon {
@@ -174,7 +174,7 @@
   padding: 0.22rem 0.62rem;
   border-radius: 999px;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   white-space: nowrap;
 }
 .stCurrent {
@@ -215,7 +215,7 @@
 }
 .sectionBody :where(ol) > li:last-child { margin-bottom: 0; }
 .sectionBody :where(ol) > li::before { content: none; }
-.sectionBody :where(ol) > li::marker { color: var(--ifm-color-primary); font-weight: 800; }
+.sectionBody :where(ol) > li::marker { color: var(--ifm-color-primary); font-weight: 700; }
 .sectionBody :where(ol) > li strong { color: var(--ifm-color-primary-darkest); }
 .sectionBody :where(p) { margin: 0 0 0.6rem; }
 .sectionBody :where(p) strong { color: var(--ifm-color-primary-darkest); }
@@ -360,14 +360,14 @@
 .pageEyebrow {
   margin: 0 0 0.5rem;
   font-size: 0.8rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--ifm-color-primary);
 }
 .pageTitle {
   margin: 0;
   font-size: clamp(1.7rem, 4.4vw, 2.3rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   color: #3d2c1c;
 }
@@ -394,7 +394,7 @@
   margin-bottom: 0.5rem;
   padding: 0.2rem 0.66rem;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
   color: #fff;
   background: var(--ifm-color-primary);
@@ -413,7 +413,7 @@
 }
 .fieldName {
   font-size: 1.05rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.02em;
   color: #a85e08;
   white-space: nowrap;
@@ -463,7 +463,7 @@
 }
 .cardName {
   font-size: 1.15rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #3d2c1c;
 }
 .cardRole {
@@ -523,7 +523,7 @@
   padding: 0.24rem 0.72rem;
   border-radius: 999px;
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.1em;
   color: #a85e08;
   background: rgba(242, 146, 29, 0.13);
