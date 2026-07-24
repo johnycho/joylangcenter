@@ -908,7 +908,6 @@ mark {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  aspect-ratio: 1 / 1; /* 폭에 상관없이 카드를 정사각형으로 */
   border-radius: 14px;
   background: #fff;
   border: 1px solid #f0e6d6;
@@ -920,11 +919,11 @@ mark {
   border-color: #f7c98a;
   box-shadow: 0 14px 28px -18px rgba(120, 80, 0, 0.5);
 }
+/* 이미지 영역: 고정 비율(16:10)로 모든 카드의 경계선 위치를 통일. contain 이라 원본 비율 유지(늘어짐 없음) */
 .assess-card__img {
   display: block;
   width: 100%;
-  flex: 1; /* 카드 정사각형 안에서 남는 세로 공간을 이미지가 채움 */
-  min-height: 0;
+  aspect-ratio: 16 / 10;
   object-fit: contain;
   background: #fff;
   border-bottom: 1px solid #f4ecdd;
@@ -942,14 +941,17 @@ mark {
   line-height: 1.35;
 }
 .assess-card__abbr {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   margin-left: 0.32rem;
   background: #fdeede;
   color: #b46508;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  padding: 0.03rem 0.3rem;
+  line-height: 1;
+  /* 대문자 라틴 글립이 라인박스 위쪽에 앉아 아래 여백이 커 보임 → 상단 패딩을 조금 더 줘 시각적 중앙 정렬 */
+  padding: 0.2rem 0.34rem 0.12rem;
   border-radius: 6px;
   vertical-align: middle;
   white-space: nowrap;
