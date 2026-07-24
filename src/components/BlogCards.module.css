@@ -227,6 +227,7 @@
 .t_notice { background: #fff0db; color: #c0560a; }
 .t_news { background: #e2f5ec; color: #1f8f5f; }
 .t_library { background: #efe7ff; color: #7a4fd0; }
+.t_info { background: #e3eefc; color: #2f6fd6; }
 
 .rowTitle {
   flex: 1;

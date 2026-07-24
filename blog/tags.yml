@@ -6,6 +6,10 @@ news:
   label: 센터소식
   permalink: /news
 
+info:
+  label: 정보공유
+  permalink: /info
+
 library:
   label: 교육자료
   permalink: /library

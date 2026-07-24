@@ -45,7 +45,7 @@ export default function BlogListPage(props: Props): ReactNode {
             <div className={styles.head}>
               <p className={styles.eyebrow}>COMMUNITY</p>
               <h1 className={styles.heading}>커뮤니티</h1>
-              <p className={styles.sub}>공지사항·센터소식·교육자료를 한곳에서 확인하세요.</p>
+              <p className={styles.sub}>공지사항·센터소식·정보공유·교육자료를 한곳에서 확인하세요.</p>
             </div>
             <BlogCards showAllLink={false} wide paginate showSearch />
           </div>

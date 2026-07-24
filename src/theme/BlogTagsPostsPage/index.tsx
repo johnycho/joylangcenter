@@ -19,6 +19,7 @@ const SUBTITLES: Record<string, string> = {
   notice: '센터의 새로운 안내와 공지를 확인해 보세요.',
   news: '조이 언어발달센터의 따뜻한 소식을 전해드려요.',
   library: '집에서도 활용할 수 있는 언어발달 교육자료예요.',
+  info: '언어·청각·발달과 관련해 알아두면 좋은 정보를 나눠요.',
 };
 
 function BlogTagsPostsPageMetadata({tag}: Props): ReactNode {
