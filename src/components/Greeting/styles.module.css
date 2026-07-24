@@ -40,7 +40,7 @@
   font-size: 0.88rem;
   color: #6f5b46;
 }
-.floatCaption strong { color: #b46508; font-weight: 800; }
+.floatCaption strong { color: #b46508; font-weight: 700; }
 [data-theme='dark'] .floatCaption { color: #b8a892; }
 [data-theme='dark'] .floatPhoto img { border-color: #33291d; }
 
@@ -66,7 +66,7 @@
 .leadText {
   margin: 0;
   font-size: clamp(1.1rem, 2.3vw, 1.35rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.5;
   letter-spacing: -0.02em;
   color: #b46508;
@@ -116,7 +116,7 @@
   display: block;
   margin-bottom: 0.8rem;
   font-size: 0.76rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.18em;
   color: var(--ifm-color-primary);
 }
@@ -124,7 +124,7 @@
   position: relative;
   margin: 0;
   font-size: clamp(1.1rem, 2.3vw, 1.35rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.5;
   letter-spacing: -0.01em;
   color: #b46508;

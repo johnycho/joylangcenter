@@ -27,6 +27,18 @@ const SENT_MARKER = '등록되었습니다';
 
 // iframe 내부(동일 출처 srcdoc)에 주입할 브랜드 스타일
 const BRAND_CSS = `
+  /* iframe 내부에도 NanumSquareRound 로드 (부모 @font-face 는 상속되지 않음).
+     실제 굵기(400/700)를 로드해 이름·뱃지 등의 볼드를 또렷하게(폴백 폰트의 과한 볼드 방지) */
+  @font-face {
+    font-family: 'NanumSquareRound'; font-style: normal; font-weight: 400; font-display: swap;
+    src: url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/NanumSquareRoundR.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/NanumSquareRoundR.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'NanumSquareRound'; font-style: normal; font-weight: 700; font-display: swap;
+    src: url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/NanumSquareRoundB.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/NanumSquareRoundB.woff') format('woff');
+  }
   /* display: flow-root 로 BFC 를 만들어 자식의 상/하 여백이 body 밖으로 새는 것을 막는다.
      (그래야 body.scrollHeight 로 측정한 높이가 실제 콘텐츠와 정확히 일치해 내부 스크롤이 안 생김) */
   html, body { overflow: hidden !important; }
@@ -91,7 +103,7 @@ const BRAND_CSS = `
   }
   /* 작성자 이름 + 관리자 별 배지 (한 줄) */
   .my-4 > .flex.items-center { align-items: center !important; }
-  .flex.items-center .font-medium { color: #b46508 !important; font-weight: 800 !important; font-size: 0.8rem !important; margin-right: .15rem !important; }
+  .flex.items-center .font-medium { color: #b46508 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin-right: .15rem !important; }
   /* 하단 메타 줄(날짜 · 답글) — 내용 아래로 이동, subtle */
   .my-4 > .text-sm { color: #b8ad9b !important; font-size: 0.72rem !important; margin: .1rem 0 0 !important; }
   .cusdis-meta { display: flex !important; align-items: center !important; gap: .8rem !important; margin-top: .05rem !important; }
@@ -110,7 +122,7 @@ const BRAND_CSS = `
     width: auto !important; height: auto !important;
     padding: .02rem .34rem !important; margin: 0 0 0 .2rem !important;
     border-radius: 4px !important; display: inline-flex !important; align-items: center !important;
-    font-size: .62rem !important; font-weight: 800 !important; line-height: 1.6 !important; letter-spacing: .02em !important;
+    font-size: .62rem !important; font-weight: 700 !important; line-height: 1.6 !important; letter-spacing: .02em !important;
   }
   /* 답글 @작성자 태그 — 내용 맨 앞 인라인 컬러 태그(네이버식) */
   .cusdis-mention { color: #2f6fd6 !important; font-weight: 700 !important; }
@@ -745,7 +757,7 @@ function CusdisThread() {
           paddingBottom: '0.5rem',
           borderBottom: '2px solid #f1e9dc',
         }}>
-        <h3 id="cusdis-heading" style={{fontSize: '0.9rem', fontWeight: 800, color: '#3a3a3a', margin: 0}}>
+        <h3 id="cusdis-heading" style={{fontSize: '0.9rem', fontWeight: 700, color: '#3a3a3a', margin: 0}}>
           댓글
         </h3>
         <button
