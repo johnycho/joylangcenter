@@ -295,11 +295,30 @@ pre.editor-line-text span.cursor {
   font-style: normal;
 }
 
+/* NanumSquareRound: 굵기별 실제 폰트 로드(볼드/일반 구분을 위해 faux-bold 대신 진짜 Bold/ExtraBold 사용) */
 @font-face {
   font-family: 'NanumSquareRound';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
-  font-weight: normal;
+  src: url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundR.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundR.woff') format('woff');
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundB.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundB.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundEB.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/NanumSquareRoundEB.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* 블로그 리스트 타이틀 폰트 조정 */
@@ -946,10 +965,10 @@ mark {
   margin-left: 0.32rem;
   background: #fdeede;
   color: #b46508;
-  font-size: 0.58rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.02em;
-  padding: 0.07rem 0.38rem;
+  padding: 0.03rem 0.3rem;
   border-radius: 6px;
   vertical-align: middle;
   white-space: nowrap;
@@ -974,7 +993,7 @@ mark {
     font-size: 0.88rem;
   }
   .assess-card__abbr {
-    font-size: 0.6rem;
+    font-size: 0.76rem;
     margin-left: 0.35rem;
   }
   .assess-card__desc {
