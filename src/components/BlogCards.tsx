@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import blogPosts from '@generated/docusaurus-plugin-content-blog/default/p/blog-archive-f05.json';
+import {fetchViews} from '@site/src/views';
 import styles from './BlogCards.module.css';
 
 const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
@@ -57,7 +58,14 @@ export default function NewsBoard({
   const [filter, setFilter] = useState<string>(initialFilter);
   const [page, setPage] = useState<number>(1);
   const [query, setQuery] = useState<string>('');
+  const [views, setViews] = useState<Record<string, number>>({});
   const {siteConfig} = useDocusaurusContext();
+
+  // 게시판 노출 글들의 조회수를 한 번에 조회 (백엔드 미가동/실패 시 빈 값 → 조용히 미표시)
+  useEffect(() => {
+    const ids = blogPosts.archive.blogPosts.map((p) => p.metadata.permalink).filter(Boolean);
+    fetchViews(ids).then(setViews);
+  }, []);
 
   // 같은 사이트의 절대 URL이면 상대경로로 변환해 클라이언트 라우팅되게 함
   const toProfileLink = (url?: string) =>
@@ -134,6 +142,7 @@ export default function NewsBoard({
         <span className={styles.colTag}>분류</span>
         <span className={styles.colTitle}>제목</span>
         <span className={styles.colDate}>날짜</span>
+        <span className={styles.colViews}>조회</span>
         <span className={styles.colAuthor}>작성자</span>
       </div>
 
@@ -173,6 +182,7 @@ export default function NewsBoard({
                     </span>
                   </span>
                   <span className={styles.rowDate}>{date}</span>
+                  <span className={styles.rowViews}>{(views[post.metadata.permalink] ?? 0).toLocaleString('ko-KR')}</span>
                 </Link>
                 {author && (
                   author.url ? (
