@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import blogPosts from '@generated/docusaurus-plugin-content-blog/default/p/blog-archive-f05.json';
-import {fetchViews} from '@site/src/views';
+import {fetchViews} from '@site/src/viewCount';
 import styles from './BlogCards.module.css';
 
 const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;

@@ -1,0 +1,7 @@
+{
+  "name": "joyutils",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "조이 홈페이지 유틸 서버리스 함수 모음 (Vercel) — 댓글→Slack 중계 + 게시글 조회수 카운터"
+}

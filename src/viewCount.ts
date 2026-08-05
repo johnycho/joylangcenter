@@ -1,9 +1,9 @@
 // 게시글 조회수 설정 + 클라이언트 헬퍼
 //
-// 백엔드: tools/joy-cusdis-slack-relay 의 api/views.js (Upstash Redis 카운터).
-// VIEWS_API 가 비어 있으면 조회수 UI 는 조용히 렌더링되지 않습니다.
+// 백엔드: tools/joyutils 의 api/view-count.js (Upstash Redis 카운터).
+// VIEW_COUNT_API 가 비어 있으면 조회수 UI 는 조용히 렌더링되지 않습니다.
 
-export const VIEWS_API = 'https://joy-cusdis-slack-relay.vercel.app/api/views';
+export const VIEW_COUNT_API = 'https://joyutils.vercel.app/api/view-count';
 
 // 끝 슬래시 제거(서버 정규화와 일치) — permalink 와 location.pathname 을 같은 키로 맞춘다.
 const norm = (id: string) => id.replace(/\/+$/, '');
@@ -15,10 +15,10 @@ const yyyymmdd = () => {
 
 /** 여러 글의 조회수를 한 번에 조회 (게시판 목록용) */
 export async function fetchViews(ids: string[]): Promise<Record<string, number>> {
-  if (!VIEWS_API || !ids.length) return {};
+  if (!VIEW_COUNT_API || !ids.length) return {};
   try {
     const q = ids.map(norm).map(encodeURIComponent).join(',');
-    const res = await fetch(`${VIEWS_API}?ids=${q}`);
+    const res = await fetch(`${VIEW_COUNT_API}?ids=${q}`);
     const j = await res.json();
     return (j && j.counts) || {};
   } catch (_) {
@@ -31,7 +31,7 @@ export async function fetchViews(ids: string[]): Promise<Record<string, number>>
  * 기기당 하루 1회만 +1(localStorage). 오늘 이미 봤으면 GET 으로 현재값만 읽는다.
  */
 export async function recordView(id: string): Promise<number | null> {
-  if (!VIEWS_API) return null;
+  if (!VIEW_COUNT_API) return null;
   const key = norm(id);
   let alreadyToday = false;
   try {
@@ -44,7 +44,7 @@ export async function recordView(id: string): Promise<number | null> {
   }
 
   try {
-    const res = await fetch(VIEWS_API, {
+    const res = await fetch(VIEW_COUNT_API, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({id: key}),
