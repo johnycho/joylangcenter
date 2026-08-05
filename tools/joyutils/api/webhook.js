@@ -232,9 +232,9 @@ export default async function handler(req, res) {
 
   const sent = await postSlack({text: summary, blocks, threadTs});
 
-  // 최상위 댓글은 슬랙 메시지 ts + 승인 토큰을 KV 에 저장(대댓글 스레드 연결 + 슬랙 답글 평탄화용, 90일)
+  // 최상위 댓글은 슬랙 메시지 ts + 승인 토큰을 KV 에 영구 저장(대댓글 스레드 연결 + 슬랙 답글 평탄화용, TTL 없음)
   if (!isReply && commentId && sent && sent.ts) {
-    await kvSet(`cusdis:ts:${commentId}`, {channel: sent.channel, ts: sent.ts, token}, 60 * 60 * 24 * 90);
+    await kvSet(`cusdis:ts:${commentId}`, {channel: sent.channel, ts: sent.ts, token});
   }
 
   return res.status(200).json({ok: true, threaded: !!threadTs});
