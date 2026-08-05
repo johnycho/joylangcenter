@@ -5,7 +5,7 @@
   --col-tag: 64px;
   --col-author: 96px;
   --col-date: 68px;
-  --col-views: 48px;
+  --col-views: 56px;
   --col-gap: 0.7rem;
 
   max-width: 820px;
@@ -554,7 +554,7 @@
     font-size: 0.7rem;
   }
   .rowViews::before {
-    content: '조회 ';
+    content: '조회수 ';
     color: #b6a890;
   }
 
