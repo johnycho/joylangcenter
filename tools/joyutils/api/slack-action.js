@@ -89,7 +89,7 @@ async function chatUpdate(botToken, channel, ts, text, blocks) {
 // ── Cusdis 조회 ──
 async function fetchTopComments(appId, pageId) {
   // 최상위 댓글은 페이지네이션 된다(답글은 각 댓글 안 replies.data 로 인라인).
-  // 대상/루트가 1페이지 밖으로 밀려도 찾을 수 있게 pageCount 까지 순회(안전 상한 20).
+  // 대상/루트가 몇 페이지 뒤에 있어도 찾을 수 있게 pageCount 까지 전부 순회(종료는 pageCount 가 보장).
   const all = [];
   try {
     let page = 1;
@@ -103,7 +103,7 @@ async function fetchTopComments(appId, pageId) {
       if (Array.isArray(data.data)) all.push(...data.data);
       pageCount = Number(data.pageCount) || 1;
       page++;
-    } while (page <= pageCount && page <= 20);
+    } while (page <= pageCount);
   } catch (_) {}
   return all;
 }

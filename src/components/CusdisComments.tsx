@@ -612,7 +612,7 @@ function CusdisThread() {
                   try {
                     const appId = data.appId || CUSDIS_APP_ID;
                     const pageId = data.pageId || data.page_id || '';
-                    // 최상위 댓글은 페이지네이션 됨 → 부모를 찾을 때까지 페이지 순회(안전 상한 20).
+                    // 최상위 댓글은 페이지네이션 됨 → 부모를 찾을 때까지 페이지 순회(못 찾으면 pageCount 끝까지).
                     // 답글은 각 댓글의 replies.data 에 인라인이라 최상위만 넘기면 된다.
                     let loc: any = null;
                     let page = 1;
@@ -626,7 +626,7 @@ function CusdisThread() {
                       loc = locate((d.data as any[]) || [], data.parentId);
                       pageCount = Number(d.pageCount) || 1;
                       page++;
-                    } while (!loc && page <= pageCount && page <= 20);
+                    } while (!loc && page <= pageCount);
                     if (loc && loc.node && loc.root && loc.node.id !== loc.root.id) {
                       const author = (loc.node.moderator && loc.node.moderator.displayName) || loc.node.by_nickname || '';
                       data.parentId = loc.root.id;
