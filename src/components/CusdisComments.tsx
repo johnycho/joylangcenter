@@ -612,12 +612,21 @@ function CusdisThread() {
                   try {
                     const appId = data.appId || CUSDIS_APP_ID;
                     const pageId = data.pageId || data.page_id || '';
-                    const r = await orig(
-                      `${CUSDIS_HOST}/api/open/comments?appId=${encodeURIComponent(appId)}&pageId=${encodeURIComponent(pageId)}&page=1`,
-                    );
-                    const j = await r.json();
-                    const list = (j && j.data && j.data.data) || [];
-                    const loc = locate(list, data.parentId);
+                    // 최상위 댓글은 페이지네이션 됨 → 부모를 찾을 때까지 페이지 순회(안전 상한 20).
+                    // 답글은 각 댓글의 replies.data 에 인라인이라 최상위만 넘기면 된다.
+                    let loc: any = null;
+                    let page = 1;
+                    let pageCount = 1;
+                    do {
+                      const r = await orig(
+                        `${CUSDIS_HOST}/api/open/comments?appId=${encodeURIComponent(appId)}&pageId=${encodeURIComponent(pageId)}&page=${page}`,
+                      );
+                      const j = await r.json();
+                      const d = (j && j.data) || {};
+                      loc = locate((d.data as any[]) || [], data.parentId);
+                      pageCount = Number(d.pageCount) || 1;
+                      page++;
+                    } while (!loc && page <= pageCount && page <= 20);
                     if (loc && loc.node && loc.root && loc.node.id !== loc.root.id) {
                       const author = (loc.node.moderator && loc.node.moderator.displayName) || loc.node.by_nickname || '';
                       data.parentId = loc.root.id;

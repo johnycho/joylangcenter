@@ -88,15 +88,24 @@ async function chatUpdate(botToken, channel, ts, text, blocks) {
 
 // ── Cusdis 조회 ──
 async function fetchTopComments(appId, pageId) {
+  // 최상위 댓글은 페이지네이션 된다(답글은 각 댓글 안 replies.data 로 인라인).
+  // 대상/루트가 1페이지 밖으로 밀려도 찾을 수 있게 pageCount 까지 순회(안전 상한 20).
+  const all = [];
   try {
-    const r = await fetch(
-      `${CUSDIS_HOST}/api/open/comments?appId=${encodeURIComponent(appId)}&pageId=${encodeURIComponent(pageId)}&page=1`,
-    );
-    const j = await r.json();
-    return (j && j.data && j.data.data) || [];
-  } catch (_) {
-    return [];
-  }
+    let page = 1;
+    let pageCount = 1;
+    do {
+      const r = await fetch(
+        `${CUSDIS_HOST}/api/open/comments?appId=${encodeURIComponent(appId)}&pageId=${encodeURIComponent(pageId)}&page=${page}`,
+      );
+      const j = await r.json();
+      const data = (j && j.data) || {};
+      if (Array.isArray(data.data)) all.push(...data.data);
+      pageCount = Number(data.pageCount) || 1;
+      page++;
+    } while (page <= pageCount && page <= 20);
+  } catch (_) {}
+  return all;
 }
 // 트리 전체(대댓글 포함)에서 id 로 댓글 찾기 — 중첩 댓글도 삭제/수정 가능하게
 function findDeep(list, id) {
