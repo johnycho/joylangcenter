@@ -59,12 +59,16 @@ export default function NewsBoard({
   const [page, setPage] = useState<number>(1);
   const [query, setQuery] = useState<string>('');
   const [views, setViews] = useState<Record<string, number>>({});
+  const [viewsLoaded, setViewsLoaded] = useState<boolean>(false);
   const {siteConfig} = useDocusaurusContext();
 
-  // 게시판 노출 글들의 조회수를 한 번에 조회 (백엔드 미가동/실패 시 빈 값 → 조용히 미표시)
+  // 게시판 노출 글들의 조회수를 한 번에 조회.
+  // 로드 완료 전엔 빈 칸으로 두고(0→실제값 깜빡임 방지), 값이 오면 채운다.
   useEffect(() => {
     const ids = blogPosts.archive.blogPosts.map((p) => p.metadata.permalink).filter(Boolean);
-    fetchViews(ids).then(setViews);
+    fetchViews(ids)
+      .then(setViews)
+      .finally(() => setViewsLoaded(true));
   }, []);
 
   // 같은 사이트의 절대 URL이면 상대경로로 변환해 클라이언트 라우팅되게 함
@@ -182,7 +186,7 @@ export default function NewsBoard({
                     </span>
                   </span>
                   <span className={styles.rowDate}>{date}</span>
-                  <span className={styles.rowViews}>{(views[post.metadata.permalink] ?? 0).toLocaleString('ko-KR')}</span>
+                  <span className={styles.rowViews}>{viewsLoaded ? (views[post.metadata.permalink] ?? 0).toLocaleString('ko-KR') : ''}</span>
                 </Link>
                 {author && (
                   author.url ? (
