@@ -1,19 +1,19 @@
-dayea.lee:
+dayea-lee:
   name: 다예쌤
   title: 1급 언어재활사 @ 조이 언어발달센터
-  url: https://joylangcenter.com/docs/therapist/slp-dayealee
-  image_url: /img/therapist/dayea.png
+  url: https://joylangcenter.com/docs/therapist/slp-dayea-lee
+  image_url: /img/therapist/dayea-lee.png
   page: false # true면 저자 페이지가 생성되고 url은 무시됨
   socials:
     website: https://blog.naver.com/joylangcenter
     instagram: joylangcenter
     linkedin: dayea-lee-1aa002181
 
-minjung.hwang:
+minjung-hwang:
   name: 민정쌤
   title: 2급 언어재활사 @ 조이 언어발달센터
-  url: https://joylangcenter.com/docs/therapist/slp-minjeong
-  image_url: /img/therapist/minjeong.png
+  url: https://joylangcenter.com/docs/therapist/slp-minjung-hwang
+  image_url: /img/therapist/minjung-hwang.png
   page: false # true면 저자 페이지가 생성되고 url은 무시됨
   socials:
     website: https://blog.naver.com/joylangcenter
