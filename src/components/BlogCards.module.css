@@ -405,6 +405,9 @@
   white-space: nowrap;
 }
 
+/* 조회수(메타 복제본): 데스크톱에선 숨기고 모바일 메타줄에서만 노출 */
+.rowViewsMeta { display: none; }
+
 .empty {
   padding: 1.6rem;
   text-align: center;
@@ -546,14 +549,19 @@
     text-align: left;
     font-size: 0.7rem;
   }
-  /* 헤더가 숨겨지므로 조회수 앞에 라벨을 붙여 의미를 살린다 */
-  .rowViews {
+  /* 데스크톱 전용 조회수 컬럼(작성자 오른쪽)은 모바일에서 숨김 */
+  .rowViews { display: none; }
+  /* 모바일은 메타줄 복제본을 노출 — 헤더가 없으므로 '조회수' 라벨을 붙인다 */
+  .rowViewsMeta {
+    display: inline;
     order: 3;
     width: auto;
     text-align: left;
     font-size: 0.7rem;
+    color: #9a8b78;
+    font-variant-numeric: tabular-nums;
   }
-  .rowViews::before {
+  .rowViewsMeta::before {
     content: '조회수 ';
     color: #b6a890;
   }

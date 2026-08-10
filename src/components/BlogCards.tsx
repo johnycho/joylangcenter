@@ -146,8 +146,8 @@ export default function NewsBoard({
         <span className={styles.colTag}>분류</span>
         <span className={styles.colTitle}>제목</span>
         <span className={styles.colDate}>날짜</span>
-        <span className={styles.colViews}>조회수</span>
         <span className={styles.colAuthor}>작성자</span>
+        <span className={styles.colViews}>조회수</span>
       </div>
 
       <ul className={styles.list}>
@@ -159,6 +159,7 @@ export default function NewsBoard({
           const chipKey = keys[0] || '';
           const chipLabel = primary?.label ?? lockTag?.label ?? '소식';
           const author = post.metadata.authors?.[0];
+          const viewCell = viewsLoaded ? (views[post.metadata.permalink] ?? 0).toLocaleString('ko-KR') : '';
           const authorInner = author && (
             <>
               <span className={styles.authorName}>{highlight(author.name, q)}</span>
@@ -186,7 +187,7 @@ export default function NewsBoard({
                     </span>
                   </span>
                   <span className={styles.rowDate}>{date}</span>
-                  <span className={styles.rowViews}>{viewsLoaded ? (views[post.metadata.permalink] ?? 0).toLocaleString('ko-KR') : ''}</span>
+                  <span className={styles.rowViewsMeta}>{viewCell}</span>
                 </Link>
                 {author && (
                   author.url ? (
@@ -195,6 +196,7 @@ export default function NewsBoard({
                     <span className={styles.rowAuthor}>{authorInner}</span>
                   )
                 )}
+                <span className={styles.rowViews}>{viewCell}</span>
               </div>
             </li>
           );
