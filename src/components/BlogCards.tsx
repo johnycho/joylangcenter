@@ -187,6 +187,7 @@ export default function NewsBoard({
                     </span>
                   </span>
                   <span className={styles.rowDate}>{date}</span>
+                  <span className={styles.rowAuthorMeta}>{author?.name}</span>
                   <span className={styles.rowViewsMeta}>{viewCell}</span>
                 </Link>
                 {author && (

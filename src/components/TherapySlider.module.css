@@ -1,0 +1,158 @@
+/* THERAPY 전문영역 — 세련된 좌우 카드 슬라이더 (Swiper) */
+.wrap {
+  position: relative;
+  padding: 0 clamp(0px, 3vw, 52px);
+}
+
+/* 점(pagination) 공간을 아래에 확보 */
+.swiper {
+  padding: 0.6rem 0.3rem 3rem;
+}
+
+.slide {
+  height: auto; /* 카드 높이 균일화 */
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #f0e6d6;
+  box-shadow: 0 12px 28px -20px rgba(120, 80, 0, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  text-decoration: none !important;
+  color: inherit;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #f7c98a;
+  box-shadow: 0 24px 44px -22px rgba(120, 80, 0, 0.55);
+  color: inherit;
+}
+
+.imgWrap {
+  overflow: hidden;
+}
+.img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.card:hover .img {
+  transform: scale(1.06);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.3rem 1.4rem 1.5rem;
+}
+.title {
+  margin: 0 0 0.4rem;
+  font-size: 1.14rem;
+  font-weight: 700;
+}
+.desc {
+  margin: 0;
+  color: #6f6256;
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+.more {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f2921d;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.card:hover .more {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Swiper 크롬(화살표·점) 커스텀 ───────────────────────── */
+.wrap :global(.swiper-button-next),
+.wrap :global(.swiper-button-prev) {
+  width: 44px;
+  height: 44px;
+  margin-top: -1.5rem; /* 점 영역 padding 보정해 카드 세로 중앙 */
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #f0e6d6;
+  color: #f2921d;
+  box-shadow: 0 8px 20px -8px rgba(120, 80, 0, 0.5);
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.wrap :global(.swiper-button-next) { right: 0; }
+.wrap :global(.swiper-button-prev) { left: 0; }
+.wrap :global(.swiper-button-next:hover),
+.wrap :global(.swiper-button-prev:hover) {
+  background: #f2921d;
+  color: #fff;
+  transform: scale(1.06);
+}
+.wrap :global(.swiper-button-next::after),
+.wrap :global(.swiper-button-prev::after) {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+.wrap :global(.swiper-button-disabled) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wrap :global(.swiper-pagination) {
+  bottom: 0.4rem;
+}
+.wrap :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  background: #e7d9c4;
+  opacity: 1;
+  transition: width 0.2s ease, background 0.2s ease;
+}
+.wrap :global(.swiper-pagination-bullet-active) {
+  width: 22px;
+  border-radius: 5px;
+  background: #f2921d;
+}
+
+/* 모바일: 화살표 숨기고 스와이프+점으로 */
+@media (max-width: 768px) {
+  .wrap {
+    padding: 0;
+  }
+  .wrap :global(.swiper-button-next),
+  .wrap :global(.swiper-button-prev) {
+    display: none;
+  }
+  .title {
+    font-size: 1.05rem;
+  }
+  .desc {
+    font-size: 0.88rem;
+  }
+  /* 모바일은 호버가 없으니 '자세히 보기'를 항상 노출 */
+  .more {
+    opacity: 1;
+    transform: none;
+    padding-top: 0.7rem;
+  }
+}
+
+[data-theme='dark'] .card {
+  background: #2a2219;
+  border-color: #3a2f22;
+}
+[data-theme='dark'] .desc {
+  color: #b8ab9b;
+}

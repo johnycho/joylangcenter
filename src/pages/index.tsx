@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link';
 import styles from './index.module.css';
 import BlogCards from '@site/src/components/BlogCards';
 import BannerSlider from '@site/src/components/BannerSlider';
+import TherapySlider from '@site/src/components/TherapySlider';
 import NaverMap from '@site/src/components/NaverMap';
 
 const KAKAO_URL = 'https://pf.kakao.com/_sxjPXn';
@@ -143,17 +144,7 @@ export default function Home(): ReactNode {
         <section id="therapy" className={styles.section}>
           <div className={styles.container}>
             <SectionHead eyebrow="THERAPY" title="이런 어려움을 함께 도와요" sub="전문 평가를 바탕으로 아이에게 꼭 맞는 치료를 제안합니다." />
-            <div className={styles.areaGrid}>
-              {AREAS.map((a) => (
-                <Link key={a.title} to={a.to} className={styles.areaCard}>
-                  <img src={a.img} alt={a.title} className={styles.areaImg} loading="lazy" />
-                  <div className={styles.areaBody}>
-                    <h3 className={styles.areaTitle}>{a.title}</h3>
-                    <p className={styles.areaDesc}>{a.desc}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <TherapySlider areas={AREAS} />
           </div>
         </section>
 
