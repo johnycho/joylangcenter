@@ -1,12 +1,13 @@
 /* THERAPY 전문영역 — 세련된 좌우 카드 슬라이더 (Swiper) */
 .wrap {
   position: relative;
-  padding: 0 clamp(0px, 3vw, 52px);
+  /* 화살표가 카드 바깥에 놓일 좌우 여백 확보 */
+  padding: 0 3.5rem;
 }
 
-/* 점(pagination) 공간을 아래에 확보 */
+/* 좌우 padding 없음 → 인접 카드 미리보기(peek) 없이 정확히 3장. 하단은 점 공간 */
 .swiper {
-  padding: 0.6rem 0.3rem 3rem;
+  padding: 0.6rem 0 3rem;
 }
 
 .slide {
@@ -80,36 +81,37 @@
   transform: translateX(0);
 }
 
-/* ── Swiper 크롬(화살표·점) 커스텀 ───────────────────────── */
-.wrap :global(.swiper-button-next),
-.wrap :global(.swiper-button-prev) {
+/* ── 커스텀 화살표 (.swiper 바깥 → overflow 클리핑 회피) ──────── */
+.navBtn {
+  position: absolute;
+  top: 45%; /* 카드 세로 중앙(측정 보정) */
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 44px;
   height: 44px;
-  margin-top: -1.5rem; /* 점 영역 padding 보정해 카드 세로 중앙 */
+  padding: 0;
   border-radius: 999px;
   background: #fff;
   border: 1px solid #f0e6d6;
   color: #f2921d;
   box-shadow: 0 8px 20px -8px rgba(120, 80, 0, 0.5);
+  cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
-.wrap :global(.swiper-button-next) { right: 0; }
-.wrap :global(.swiper-button-prev) { left: 0; }
-.wrap :global(.swiper-button-next:hover),
-.wrap :global(.swiper-button-prev:hover) {
+.navBtn svg {
+  width: 22px;
+  height: 22px;
+}
+.navBtn:hover {
   background: #f2921d;
   color: #fff;
-  transform: scale(1.06);
+  transform: translateY(-50%) scale(1.06);
 }
-.wrap :global(.swiper-button-next::after),
-.wrap :global(.swiper-button-prev::after) {
-  font-size: 1.05rem;
-  font-weight: 800;
-}
-.wrap :global(.swiper-button-disabled) {
-  opacity: 0;
-  pointer-events: none;
-}
+.navPrev { left: 0; }
+.navNext { right: 0; }
 
 .wrap :global(.swiper-pagination) {
   bottom: 0.4rem;
@@ -132,8 +134,7 @@
   .wrap {
     padding: 0;
   }
-  .wrap :global(.swiper-button-next),
-  .wrap :global(.swiper-button-prev) {
+  .navBtn {
     display: none;
   }
   .title {

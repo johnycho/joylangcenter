@@ -11,12 +11,16 @@ import styles from './TherapySlider.module.css';
 
 type Area = {img: string; title: string; desc: string; to: string; pos?: string};
 
+// Swiper 가 querySelector 로 찾을 수 있게 전역(비-CSS모듈) 클래스로 화살표를 연결한다.
+const PREV = 'js-therapy-prev';
+const NEXT = 'js-therapy-next';
+
 export default function TherapySlider({areas}: {areas: Area[]}) {
   return (
     <div className={styles.wrap}>
       <Swiper
         modules={[Navigation, Pagination, A11y]}
-        navigation
+        navigation={{prevEl: `.${PREV}`, nextEl: `.${NEXT}`}}
         pagination={{clickable: true}}
         grabCursor
         loop
@@ -43,6 +47,13 @@ export default function TherapySlider({areas}: {areas: Area[]}) {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <button type="button" className={`${styles.navBtn} ${styles.navPrev} ${PREV}`} aria-label="이전">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
+      </button>
+      <button type="button" className={`${styles.navBtn} ${styles.navNext} ${NEXT}`} aria-label="다음">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+      </button>
     </div>
   );
 }
