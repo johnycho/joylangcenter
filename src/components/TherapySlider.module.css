@@ -39,12 +39,13 @@
 .img {
   display: block;
   width: 100%;
+  /* 컴팩트한 16:10. 크롭 위치는 이미지별 object-position(인라인)으로 중요한 부분 보존 */
   aspect-ratio: 16 / 10;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 .card:hover .img {
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 
 .body {

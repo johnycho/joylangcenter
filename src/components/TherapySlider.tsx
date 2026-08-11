@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 
 import styles from './TherapySlider.module.css';
 
-type Area = {img: string; title: string; desc: string; to: string};
+type Area = {img: string; title: string; desc: string; to: string; pos?: string};
 
 export default function TherapySlider({areas}: {areas: Area[]}) {
   return (
@@ -32,7 +32,7 @@ export default function TherapySlider({areas}: {areas: Area[]}) {
           <SwiperSlide key={a.title} className={styles.slide}>
             <Link to={a.to} className={styles.card}>
               <div className={styles.imgWrap}>
-                <img src={a.img} alt={a.title} className={styles.img} loading="lazy" />
+                <img src={a.img} alt={a.title} className={styles.img} style={{objectPosition: a.pos || 'center'}} loading="lazy" />
               </div>
               <div className={styles.body}>
                 <h3 className={styles.title}>{a.title}</h3>

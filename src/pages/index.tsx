@@ -21,13 +21,16 @@ const PILLARS = [
   {img: '/img/home/why-joyful.jpg', title: '즐거운 배움', desc: '놀이처럼 즐거운 의사소통을 경험해요.'},
 ];
 
+// pos: 카드(16:10) 크롭 시 중요한 부분을 보존하는 object-position.
+//   - language-delay: 아이 얼굴이 상단 → 위쪽 노출
+//   - social: 집(텐트) 구조가 상단 → 위쪽 노출
 const AREAS = [
-  {img: '/img/home/area-articulation.jpg', title: '조음·음운 (발음)', desc: '정확한 발음과 또렷한 소리내기를 도와요.', to: '/docs/therapy-areas#articulation'},
-  {img: '/img/home/area-language-delay.jpg', title: '언어발달 지연', desc: '또래보다 느린 말·언어 발달을 지원해요.', to: '/docs/therapy-areas#language-delay'},
-  {img: '/img/home/area-fluency.jpg', title: '유창성 (말더듬)', desc: '편안하고 자연스러운 말하기를 연습해요.', to: '/docs/therapy-areas#fluency'},
-  {img: '/img/home/area-autism.jpg', title: '자폐 스펙트럼 장애', desc: '상호작용과 의사소통 능력을 함께 키워요.', to: '/docs/therapy-areas#autism'},
-  {img: '/img/home/area-intellectual.jpg', title: '지적 장애', desc: '생활 속 기능적 의사소통을 도와요.', to: '/docs/therapy-areas#intellectual'},
-  {img: '/img/home/area-social.jpg', title: '사회성', desc: '또래와 어울리며 상황에 맞는 상호작용을 연습해요.', to: '/docs/therapy-areas#social'},
+  {img: '/img/home/area-articulation.jpg', title: '조음·음운 (발음)', desc: '정확한 발음과 또렷한 소리내기를 도와요.', to: '/docs/therapy-areas#articulation', pos: 'center'},
+  {img: '/img/home/area-language-delay.jpg', title: '언어발달 지연', desc: '또래보다 느린 말·언어 발달을 지원해요.', to: '/docs/therapy-areas#language-delay', pos: '50% 18%'},
+  {img: '/img/home/area-fluency.jpg', title: '유창성 (말더듬)', desc: '편안하고 자연스러운 말하기를 연습해요.', to: '/docs/therapy-areas#fluency', pos: 'center'},
+  {img: '/img/home/area-autism.jpg', title: '자폐 스펙트럼 장애', desc: '상호작용과 의사소통 능력을 함께 키워요.', to: '/docs/therapy-areas#autism', pos: 'center'},
+  {img: '/img/home/area-intellectual.jpg', title: '지적 장애', desc: '생활 속 기능적 의사소통을 도와요.', to: '/docs/therapy-areas#intellectual', pos: 'center'},
+  {img: '/img/home/area-social.jpg', title: '사회성', desc: '또래와 어울리며 상황에 맞는 상호작용을 연습해요.', to: '/docs/therapy-areas#social', pos: '50% 12%'},
 ];
 
 function HomepageHero() {
