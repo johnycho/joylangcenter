@@ -11,7 +11,7 @@ description: 네이버 블로그(blog.naver.com/joylangcenter) 글을 홈페이�
 
 1. **대상 선정**: 어떤 글을 반영할지 확인(최신 N개 / 특정 글 / 특정 날짜 이후). 홈페이지에 이미 있는 최신 글 날짜 이후만 새로 만든다.
 
-   - **작성자 확인**: 새 글을 만들기 전 반드시 사용자에게 **작성자(authors)를 물어본다**. 선택지는 `blog/authors.yml`에 등록된 저자(현재 다예쌤 `dayealee`, 민정쌤 `minjeong`). 답을 받기 전에는 임의로 정하지 않는다(wiki 3절).
+   - **작성자 확인**: 새 글을 만들기 전 반드시 사용자에게 **작성자(authors)를 물어본다**. 선택지는 `blog/authors.yml`에 등록된 저자(현재 다예쌤 `dayea-lee`, 민정쌤 `minjung-hwang`). 답을 받기 전에는 임의로 정하지 않는다(wiki 3절).
 
 2. **크롤링** (헤드리스 Chrome, 모바일 UA):
    - 목록/날짜: `m.blog.naver.com/PostList.naver?blogId=joylangcenter` 또는 각 글의 게시일 확인.
@@ -29,6 +29,7 @@ description: 네이버 블로그(blog.naver.com/joylangcenter) 글을 홈페이�
    - 가독성 개행: 문장·쉼표·의미 단위 하드 개행하되 너무 짧은 줄 금지(최소 ~20자, 이모지·숫자마침표 처리).
 
 5. **프론트매터 + 인사말 + 표준 푸터** 부착 (wiki 3·8절). tags 매핑(wiki 7절).
+   - **대표이미지(`image`, og:image)는 네이버 원글과 동일하게** — 원글 og:image는 첫 이미지가 아닐 수 있으니(흔히 두 번째) `curl -sL "https://m.blog.naver.com/joylangcenter/<logNo>" | grep og:image` 로 확인해 해당 순번 이미지로 지정 (wiki 3절).
 
 6. **검증**: `npm run build` 로 MDX 컴파일 확인. 필요 시 로컬 서버로 렌더 확인. 블로그 아카이브 JSON이 비대하지 않은지(이미지가 파일로 빠졌는지) 확인.
 

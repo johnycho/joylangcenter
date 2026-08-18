@@ -33,9 +33,11 @@
 
 ## 3) 파일 / 프론트매터
 - 파일명 `blog/YYYY-MM-DD-joy-<type>-YYYYMMDD.mdx`, `slug: joy-<type>-YYYYMMDD`. 같은 날 같은 type 겹치면 slug 뒤 구분어(예: `-lecture`).
-- frontmatter: `slug`, `title`(따옴표), `authors`, `tags: [ notice | news | library ]`, `description`, `keywords`(표준 그룹형 4개 — `원주 언어치료` / `원주 기업도시·지정면 언어치료` / `원주 언어발달센터` / `원주 기업도시·지정면 언어발달센터`. 언어치료 계열을 앞에 두고, 원주 반복은 그룹으로 묶는다).
+- frontmatter: `slug`, `image`(대표/og:image), `title`(따옴표), `authors`, `tags: [ notice | news | info | library ]`, `description`, `keywords`(표준 그룹형 4개 — `원주 언어치료` / `원주 기업도시·지정면 언어치료` / `원주 언어발달센터` / `원주 기업도시·지정면 언어발달센터`. 언어치료 계열을 앞에 두고, 원주 반복은 그룹으로 묶는다).
+- **`image`(공유 썸네일·og:image)는 네이버 원글의 대표 이미지와 동일하게 맞춘다.** 네이버 대표 이미지는 본문 **첫 번째가 아닐 수 있으니(흔히 두 번째)** 반드시 원글 og:image를 확인해, 그에 대응하는 우리 파일 `/img/blog/<slug>-<n>.<ext>` 로 지정한다.
+  - 확인: `curl -sL -A "Mozilla/5.0" "https://m.blog.naver.com/joylangcenter/<logNo>" | grep -o 'property="og:image" content="[^"]*"'` → 반환된 이미지 파일명(예: `2.png`)에 해당하는 순번의 우리 이미지로 설정.
 - **`description`은 전역설정과 동일한 키워드 프리픽스로 시작**: `[원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터] ` 뒤에 글 요약 한 문장(따옴표로 감쌈). `title`에는 이 프리픽스를 넣지 않는다(제목 원문 유지).
-- **`authors`는 작성 전 반드시 사용자에게 물어본다** — 선택지는 `blog/authors.yml`에 등록된 저자(현재 `dayealee`=다예쌤, `minjeong`=민정쌤). 사용자가 지정한 저자로 `authors: [ <id> ]` 설정(공동 저자면 `[ dayealee, minjeong ]`). 답을 얻기 전에는 임의로 정하지 않는다.
+- **`authors`는 작성 전 반드시 사용자에게 물어본다** — 선택지는 `blog/authors.yml`에 등록된 저자(현재 `dayea-lee`=다예쌤, `minjung-hwang`=민정쌤). 사용자가 지정한 저자로 `authors: [ <id> ]` 설정(공동 저자면 `[ dayea-lee, minjung-hwang ]`). 답을 얻기 전에는 임의로 정하지 않는다.
 - 본문 시작: `import NaverMap from '@site/src/components/NaverMap';` → (빈 줄) → 표준 인사말(`<mark>언어치료 전문기관</mark>`, `**조이 언어발달센터**입니다.`). ※ `<!-- truncate -->`·상단 `<br /><br />` 는 넣지 않는다(목록은 커스텀 BlogCards 라 발췌 미사용).
 
 ## 4) 푸터와 겹치는 내용 제거
