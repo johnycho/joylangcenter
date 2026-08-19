@@ -264,17 +264,19 @@
   align-items: center;
   justify-content: center;
   margin-right: 0.4rem;
-  /* 대문자 NEW는 폰트 메트릭상 위로 떠 보여, 위 패딩을 살짝 더 줘 시각적 중앙 정렬 */
-  padding: 0.2rem 0.4rem 0.16rem;
-  font-size: 0.6rem;
+  padding: 0.15rem 0.12rem;
+  /* 기본 폰트(NanumSquareRound)는 디센트가 커 대문자가 위로 떠 보임 → 메트릭 균형 잡힌 시스템 산세리프로 */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 0.51rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  text-indent: 0.05em; /* letter-spacing 탓 오른쪽 여백 보정(가로 중앙) */
   color: #fff;
-  background: linear-gradient(135deg, #ff8a4b, #ff4d5e);
+  background: linear-gradient(135deg, #ff8a4b, #ff3d5e);
   border-radius: 999px;
-  vertical-align: 0.09em;
-  box-shadow: 0 2px 6px -2px rgba(255, 77, 94, 0.6);
+  vertical-align: middle;
+  box-shadow: 0 2px 6px -2px rgba(255, 61, 94, 0.6);
 }
 
 /* 작성자 컬럼 */
@@ -585,7 +587,7 @@
     color: #b6a890;
   }
 
-  .newTag { font-size: 0.55rem; padding: 0.18rem 0.32rem 0.14rem; margin-right: 0.3rem; }
+  .newTag { font-size: 0.46rem; padding: 0.1rem 0.1rem; margin-right: 0.28rem; }
   .boardFoot { padding: 0.7rem 0.8rem 0.9rem; }
   .allLink { font-size: 0.78rem; }
   .pager { padding: 0.8rem 0.4rem 1rem; }
