@@ -15,7 +15,6 @@ import BlogPostItemFooter from '@theme/BlogPostItem/Footer';
 import type {Props} from '@theme/BlogPostItem';
 
 import CusdisComments from '@site/src/components/CusdisComments';
-import ViewCount from '@site/src/components/ViewCount';
 
 // apply a bottom margin in list view
 function useContainerClassName() {
@@ -30,7 +29,6 @@ export default function BlogPostItem({children, className}: Props): ReactNode {
   return (
       <BlogPostItemContainer className={clsx(containerClassName, className)}>
         <BlogPostItemHeader />
-        {isBlogPostPage && <ViewCount />}
         <BlogPostItemContent>{children}</BlogPostItemContent>
         <BlogPostItemFooter />
         {isBlogPostPage && <CusdisComments />}

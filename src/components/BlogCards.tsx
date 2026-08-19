@@ -145,7 +145,7 @@ export default function NewsBoard({
         <span className={styles.colIndex}>번호</span>
         <span className={styles.colTag}>분류</span>
         <span className={styles.colTitle}>제목</span>
-        <span className={styles.colDate}>날짜</span>
+        <span className={styles.colDate}>작성일</span>
         <span className={styles.colAuthor}>작성자</span>
         <span className={styles.colViews}>조회수</span>
       </div>

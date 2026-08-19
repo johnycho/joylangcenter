@@ -459,12 +459,14 @@ article > header h2 {
   box-shadow: 0 16px 40px -26px rgba(120, 80, 0, 0.4);
 }
 
-/* 게시글 상세 조회수 (제목/작성자 헤더 아래) */
+/* 게시글 상세 조회수 (헤더 날짜 옆 인라인) */
 .blog-view-count {
   display: inline-flex;
   align-items: center;
   gap: 0.32rem;
-  margin: -0.4rem 0 1.2rem;
+  margin-left: 0.9rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid #ece3d6;
   font-size: 0.8rem;
   font-weight: 600;
   color: #9a8b78;
