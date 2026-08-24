@@ -4,10 +4,261 @@
         <title>조이 언어발달센터 Blog</title>
         <link>https://joylangcenter.com/blog</link>
         <description>조이 언어발달센터 Blog</description>
-        <lastBuildDate>Tue, 18 Aug 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 23 Aug 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ko</language>
+        <item>
+            <title><![CDATA[[말지각 검사] CAP(Categories of Auditory Performance)란?]]></title>
+            <link>https://joylangcenter.com/blog/joy-info-20260823</link>
+            <guid>https://joylangcenter.com/blog/joy-info-20260823</guid>
+            <pubDate>Sun, 23 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[[원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터] 난청 아동의 청각적 수행력을 평가하는 척도검사 CAP(Categories of Auditory Performance)를 정리했습니다. 검사 방법, 0~7 범주표, 결과지 해석, 고려사항까지 원주 청능구어재활 조이 언어발달센터가 설명합니다.]]></description>
+            <content:encoded><![CDATA[<p>안녕하세요! 😊<br>
+<!-- -->원주 기업도시에 위치한 <mark>언어치료 전문기관</mark><br>
+<strong>조이 언어발달센터</strong>입니다.</p>
+<p>언어치료 관련 용어 지식을<br>
+<!-- -->레벨 UP 하는 시간입니다! ✏️<br>
+<!-- -->(부모님뿐만 아니라 언어재활사 선생님들께도<br>
+<!-- -->도움이 되었으면 좋겠습니다. 😁)</p>
+<p><img decoding="async" loading="lazy" alt="말지각검사 종류 알아보기 — 척도검사 CAP란?" src="https://joylangcenter.com/assets/images/joy-info-20260823-1-28e1f1c8b4303d033a3fd5143a302509.png" width="800" height="800" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-척도scale로-이루어진-검사-2가지">🔍 척도(scale)로 이루어진 검사 2가지<a href="https://joylangcenter.com/blog/joy-info-20260823#-%EC%B2%99%EB%8F%84scale%EB%A1%9C-%EC%9D%B4%EB%A3%A8%EC%96%B4%EC%A7%84-%EA%B2%80%EC%82%AC-2%EA%B0%80%EC%A7%80" class="hash-link" aria-label="🔍 척도(scale)로 이루어진 검사 2가지에 대한 직접 링크" title="🔍 척도(scale)로 이루어진 검사 2가지에 대한 직접 링크">​</a></h2>
+<p>난청 환자의 수행력을 평가하는 검사 도구 중,<br>
+<!-- -->**척도(scale)**로 이루어진 검사는 두 종류가 있습니다.</p>
+<table><thead><tr><th style="text-align:center">검사</th><th style="text-align:left">무엇을 평가하나요?</th></tr></thead><tbody><tr><td style="text-align:center"><strong>CAP</strong><br>(Categories of Auditory Performance)</td><td style="text-align:left">난청 아동의 말지각을 포함한 <strong>청각적 수행력</strong>을 평가</td></tr><tr><td style="text-align:center"><strong>SIR</strong><br>(Speech Intelligibility Rating)</td><td style="text-align:left">난청 아동의 말소리를 다른 사람이 알아들을 수 있는 <strong>말명료도</strong>를 평가</td></tr></tbody></table>
+<p><img decoding="async" loading="lazy" alt="CAP vs SIR — 척도로 이루어진 두 가지 검사 비교" src="https://joylangcenter.com/assets/images/joy-info-20260823-2-aacd8a0820841dff946742f815cba17d.png" width="800" height="800" class="img_ev3q"></p>
+<p>오늘은 이 중에서 난청 아동의 청각적 수행력을 평가하는<br>
+<!-- -->**CAP(Categories of Auditory Performance)**를 정리해 보겠습니다.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-cap의-개발-배경">📖 CAP의 개발 배경<a href="https://joylangcenter.com/blog/joy-info-20260823#-cap%EC%9D%98-%EA%B0%9C%EB%B0%9C-%EB%B0%B0%EA%B2%BD" class="hash-link" aria-label="📖 CAP의 개발 배경에 대한 직접 링크" title="📖 CAP의 개발 배경에 대한 직접 링크">​</a></h2>
+<p>CAP은 난청 아동의 청각적 수행력을 평가하는 검사 도구 중 하나로,<br>
+<mark>영국의 Sue Archbold</mark>가 개발했습니다.</p>
+<p>난청 아동의 부모, 학교 선생님 등 <strong>비전문가도</strong><br>
+<!-- -->쉽게 접근할 수 있는 평가 도구의 필요성,<br>
+<!-- -->그리고 구조화된 검사실이 아닌<br>
+<mark>가정이나 학교 같은 실제 생활환경에서의 청각적 수행력</mark>을<br>
+<!-- -->평가할 수 있는 도구의 필요성에서 개발되었습니다.</p>
+<p><img decoding="async" loading="lazy" alt="CAP의 개발 배경 — 실제 생활환경에서의 청각적 수행력 평가" src="https://joylangcenter.com/assets/images/joy-info-20260823-3-e9aa9c3dfb6cb6d2cf679956ef89d9e1.png" width="800" height="800" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="️-cap-검사-방법">✏️ CAP 검사 방법<a href="https://joylangcenter.com/blog/joy-info-20260823#%EF%B8%8F-cap-%EA%B2%80%EC%82%AC-%EB%B0%A9%EB%B2%95" class="hash-link" aria-label="✏️ CAP 검사 방법에 대한 직접 링크" title="✏️ CAP 검사 방법에 대한 직접 링크">​</a></h2>
+<p>CAP은 전문가는 물론<br>
+<!-- -->난청 아동의 부모나 학교 선생님 등 <strong>비전문가도 사용</strong>할 수 있습니다.</p>
+<p>가정과 학교 등 실제 생활 상황에서 아동의 청각적 수행을 관찰하고,<br>
+<!-- -->각 범주별로 제시된 작업적 정의에 맞추어<br>
+<!-- -->부합하는 항목을 선택하면 됩니다.</p>
+<p>CAP은 <strong>category 0부터 7까지, 총 여덟 개의 범주</strong>로 구성되어 있습니다.</p>
+<table><thead><tr><th style="text-align:center">범주</th><th style="text-align:left">청각적 수행력 기준</th></tr></thead><tbody><tr><td style="text-align:center">0</td><td style="text-align:left">환경음 탐지 불가</td></tr><tr><td style="text-align:center">1</td><td style="text-align:left">환경음 탐지</td></tr><tr><td style="text-align:center">2</td><td style="text-align:left">말소리에 반응</td></tr><tr><td style="text-align:center">3</td><td style="text-align:left">환경음 지각</td></tr><tr><td style="text-align:center">4</td><td style="text-align:left">말소리 변별</td></tr><tr><td style="text-align:center">5</td><td style="text-align:left">일상생활 문장 이해</td></tr><tr><td style="text-align:center">6</td><td style="text-align:left">친숙한 사람과 대화</td></tr><tr><td style="text-align:center">7</td><td style="text-align:left">친숙한 사람과 전화 통화</td></tr></tbody></table>
+<p><img decoding="async" loading="lazy" alt="CAP 한글 번역본 — 0~7 범주별 청각적 수행력 기준표" src="https://joylangcenter.com/assets/images/joy-info-20260823-4-5358d8cec211d305015ec1da4456a6f0.png" width="800" height="800" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-결과지에는-이렇게-나와요">📄 결과지에는 이렇게 나와요<a href="https://joylangcenter.com/blog/joy-info-20260823#-%EA%B2%B0%EA%B3%BC%EC%A7%80%EC%97%90%EB%8A%94-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%82%98%EC%99%80%EC%9A%94" class="hash-link" aria-label="📄 결과지에는 이렇게 나와요에 대한 직접 링크" title="📄 결과지에는 이렇게 나와요에 대한 직접 링크">​</a></h2>
+<p>만약 우리 아이의 청능 및 언어평가 결과지에<br>
+<!-- -->아래와 같이 적혀 있다면?</p>
+<blockquote>
+<p>SCALE<br>
+<!-- -->Category Auditory Performance (CAP score) : <strong>(5)</strong></p>
+</blockquote>
+<p>당황하지 마시고,<br>
+<!-- -->CAP 5점에 해당하는 <mark>"일상생활 문장 이해"</mark> 정도라고<br>
+<!-- -->판단하시면 됩니다!</p>
+<p><img decoding="async" loading="lazy" alt="CAP score 결과지 해석 예시 — CAP 5점은 일상생활 문장 이해" src="https://joylangcenter.com/assets/images/joy-info-20260823-5-02a262d6f175a632fcda8b716f03692a.png" width="800" height="800" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="️-cap-해석-시-고려할-3가지">⚠️ CAP 해석 시 고려할 3가지<a href="https://joylangcenter.com/blog/joy-info-20260823#%EF%B8%8F-cap-%ED%95%B4%EC%84%9D-%EC%8B%9C-%EA%B3%A0%EB%A0%A4%ED%95%A0-3%EA%B0%80%EC%A7%80" class="hash-link" aria-label="⚠️ CAP 해석 시 고려할 3가지에 대한 직접 링크" title="⚠️ CAP 해석 시 고려할 3가지에 대한 직접 링크">​</a></h2>
+<p><strong>➡️ 1) 평가자에 따라 결과가 달라질 수 있습니다</strong><br>
+<!-- -->CAP은 평가자의 주관적 판단에 근거한 평가이므로,<br>
+<!-- -->동일한 아동이라도 평가자에 따라 다르게 평가될 수 있습니다.<br>
+<!-- -->필요한 경우 다른 검사도구를 함께 활용하는 것이 좋습니다.</p>
+<p><strong>➡️ 2) 짧은 기간의 진전 평가에는 한계가 있습니다</strong><br>
+<!-- -->CAP은 인공와우이식 후 <strong>장기간</strong>의 청각적 수행력을 평가하기 위해 개발되어,<br>
+<!-- -->영유아기의 짧은 기간의 진전을 민감하게 평가하는 데는 한계가 있습니다.<br>
+<!-- -->또한 비교적 적은 수(여덟 개)의 범주로 구성되어 있어<br>
+<!-- -->청각적 수행력을 세밀하게 측정하기는 어렵습니다.</p>
+<p><strong>➡️ 3) 범주 간 난이도 차이가 동일하지 않습니다</strong><br>
+<!-- -->여덟 개 범주는 난이도에 따라 위계적으로 구성되어 있지만,<br>
+<!-- -->각 범주 간 난이도 차이가 동일하지는 않습니다.<br>
+<!-- -->그래서 인공와우이식 후 초기에는 발달 속도가 빠르게 관찰되지만,<br>
+<!-- -->후기에는 언어적 능력이 요구되어 느리게 관찰될 수도 있습니다.</p>
+<blockquote>
+<p>참고: 학지사 《말지각검사의 실제》 / 대한청각학회 편</p>
+</blockquote>
+<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260823-6-967ab712f204724f4f13cb54be092eef.png" width="800" height="800" class="img_ev3q"></p>
+<blockquote>
+<p>📌 각 범주별 구체적인 정의가 포함된<br>
+<strong>CAP 한글 번역본</strong>이 필요하신 경우,<br>
+<!-- -->네이버 블로그 원글 댓글에 이메일을 남겨 주시면<br>
+<!-- -->정리한 PDF 파일을 전달드리겠습니다. 😊</p>
+</blockquote>
+<p>우리 아이들은 모두 잘하고 자라고 있습니다.<br>
+<!-- -->그 속도에 맞춰 잘 성장할 수 있도록<br>
+<!-- -->조이 언어발달센터가 함께하겠습니다. 💛</p>
+<br>
+<hr>
+<p>아이들의 언어발달에 즐거움을 더하는 공간<br>
+<strong>조이 언어발달센터</strong>입니다.</p>
+<p><em>Let's enJOY in JOY ! 🎉✨</em></p>
+<p>📞 문의: <a href="tel:033-745-1030" target="_blank" rel="noopener noreferrer">033-745-1030</a><br>
+<!-- -->💬 카카오채널: <a href="https://pf.kakao.com/_sxjPXn" target="_blank" rel="noopener noreferrer">joylangcenter</a><br>
+<!-- -->⭐️ 인스타그램: <a href="https://instagram.com/joylangcenter" target="_blank" rel="noopener noreferrer">@joylangcenter</a><br>
+<!-- -->🏠 홈페이지: <a href="https://joylangcenter.com/" target="_blank" rel="noopener noreferrer">joylangcenter.com</a></p>
+<br>
+<div style="position:relative;width:100%;height:500px"><div id="map" style="width:100%;height:100%;border-radius:12px"></div></div>]]></content:encoded>
+            <category>정보공유</category>
+        </item>
+        <item>
+            <title><![CDATA[조이 센터가 새롭게 단장했어요 — 미술심리치료실 & 인지학습치료실 증설]]></title>
+            <link>https://joylangcenter.com/blog/joy-news-20260822</link>
+            <guid>https://joylangcenter.com/blog/joy-news-20260822</guid>
+            <pubDate>Sat, 22 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[[원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터] 조이 언어발달센터가 8월 여름휴가 기간 동안 새롭게 단장했습니다. 입구·대기실 리뉴얼과 함께 미술심리치료실·인지학습치료실을 증설했습니다(2027년 상반기 오픈 예정).]]></description>
+            <content:encoded><![CDATA[<p>안녕하세요! 😊<br>
+<!-- -->원주 기업도시에 위치한 <mark>언어치료 전문기관</mark><br>
+<strong>조이 언어발달센터</strong>입니다.</p>
+<p><img decoding="async" loading="lazy" alt="NEW JOY — 조이 언어발달센터가 새롭게 단장했어요" src="https://joylangcenter.com/assets/images/joy-news-20260822-1-775b0198bd25d2d6ac6477a11d2fd869.png" width="800" height="800" class="img_ev3q"></p>
+<p>저희 센터를 믿고 찾아주시는 부모님들과 아이들에게<br>
+<!-- -->더욱 쾌적하고 전문적인 치료 환경을 제공해 드리기 위해,<br>
+<strong>8월 여름휴가 기간 중 센터가 새롭게 단장을 마쳤습니다!</strong></p>
+<p>긴 휴가 기간을 너그럽게 이해해 주신<br>
+<!-- -->조이 언어발달센터 가족 여러분,<br>
+<!-- -->진심으로 감사드립니다. 🙇‍♀️</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-언어치료를-넘어-통합-발달-지원으로">🌱 언어치료를 넘어, 통합 발달 지원으로<a href="https://joylangcenter.com/blog/joy-news-20260822#-%EC%96%B8%EC%96%B4%EC%B9%98%EB%A3%8C%EB%A5%BC-%EB%84%98%EC%96%B4-%ED%86%B5%ED%95%A9-%EB%B0%9C%EB%8B%AC-%EC%A7%80%EC%9B%90%EC%9C%BC%EB%A1%9C" class="hash-link" aria-label="🌱 언어치료를 넘어, 통합 발달 지원으로에 대한 직접 링크" title="🌱 언어치료를 넘어, 통합 발달 지원으로에 대한 직접 링크">​</a></h2>
+<p>처음 조이 언어발달센터를 시작했을 때는<br>
+<strong>언어치료 전문기관</strong>으로 출발했습니다.</p>
+<p><img decoding="async" loading="lazy" alt="언어치료 전문기관으로 시작한 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-news-20260822-2-9a44a3bcd68f8a1b6f556bf142be2462.png" width="800" height="600" class="img_ev3q"></p>
+<p>그런데 현장에서 아이들을 만나며 늘 아쉬웠던 점은,<br>
+<!-- -->언어발달 영역 외에 <mark>다른 발달 영역도 개입이 필요한 아이들</mark>에게<br>
+<!-- -->저희 센터에서 도움을 드릴 수 없다는 부분이었습니다. 😢</p>
+<p><img decoding="async" loading="lazy" alt="언어 외 다른 발달 영역도 함께 지원하고자 하는 고민" src="https://joylangcenter.com/assets/images/joy-news-20260822-3-2230682de9aeda9c486d2c63c242377e.png" width="800" height="600" class="img_ev3q"></p>
+<p>그래서 이번에 센터 공간을 일부 변경하여<br>
+<!-- -->**[미술심리치료실]과 [인지학습치료실]**을 새롭게 증설하고,<br>
+<!-- -->입구와 대기실 공간도 새롭게 바꾸었습니다!</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-새롭게-단장한-센터를-소개합니다">🏠 새롭게 단장한 센터를 소개합니다<a href="https://joylangcenter.com/blog/joy-news-20260822#-%EC%83%88%EB%A1%AD%EA%B2%8C-%EB%8B%A8%EC%9E%A5%ED%95%9C-%EC%84%BC%ED%84%B0%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4" class="hash-link" aria-label="🏠 새롭게 단장한 센터를 소개합니다에 대한 직접 링크" title="🏠 새롭게 단장한 센터를 소개합니다에 대한 직접 링크">​</a></h2>
+<p><strong>➡️ 입구 &amp; 인포데스크</strong></p>
+<p><img decoding="async" loading="lazy" alt="새롭게 단장한 조이 언어발달센터 입구와 인포데스크" src="https://joylangcenter.com/assets/images/joy-news-20260822-4-0d5e462b63a2e3df08b8ec88114e770d.jpg" width="800" height="1067" class="img_ev3q"></p>
+<p><strong>➡️ 대기실 세면대 &amp; 음료 zone</strong><br>
+<!-- -->아이들 높이에 맞춰 설계된 세면대도 준비되어 있어요! 🚰</p>
+<p><img decoding="async" loading="lazy" alt="대기실 세면대와 음료 공간" src="https://joylangcenter.com/assets/images/joy-news-20260822-5-b9d78430009f7adc70e321b905cf2c30.jpg" width="800" height="1067" class="img_ev3q"></p>
+<p><strong>➡️ 대기실 전경</strong><br>
+<!-- -->원주 기업도시의 탁 트인 전망과 함께,<br>
+<!-- -->편안하게 기다릴 수 있는 공간으로 꾸몄습니다.</p>
+<p><img decoding="async" loading="lazy" alt="창밖 전망이 보이는 대기실 전경" src="https://joylangcenter.com/assets/images/joy-news-20260822-6-9b8cf8de31bc9db7038fa5e84123cf2b.jpg" width="800" height="1067" class="img_ev3q"></p>
+<p><strong>➡️ 인지학습치료실 &amp; 미술심리치료실 (2027년 예정)</strong><br>
+<!-- -->분홍색 문이 새롭게 증설한 치료실입니다.</p>
+<p><img decoding="async" loading="lazy" alt="새롭게 증설한 인지학습치료실·미술심리치료실 문" src="https://joylangcenter.com/assets/images/joy-news-20260822-7-dd9d783e7d9de64aab33ae5eca5f028f.jpg" width="800" height="884" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="밝은 전망을 담은 치료실 공간" src="https://joylangcenter.com/assets/images/joy-news-20260822-8-e66db46b6c380acc001a57379e5574bd.jpg" width="800" height="1067" class="img_ev3q"></p>
+<blockquote>
+<p>📌 <strong>채용 안내</strong><br>
+<!-- -->2027년 1월 입사를 기준으로 <strong>미술심리 재활사·인지학습 재활사</strong>를 모집할 예정입니다.<br>
+<!-- -->치료사 처우 등 관련 문의는 이메일(<a href="mailto:info@joylangcenter.com" target="_blank" rel="noopener noreferrer">info@joylangcenter.com</a>)로 주세요.</p>
+<p>※ 현재 미술심리치료·인지학습치료 영역은 아직 제공하지 않으며,<br>
+<strong>2027년 상반기 오픈</strong>을 목표로 준비하고 있습니다.</p>
+</blockquote>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-한-걸음-더-성장하는-조이-언어발달센터">💛 한 걸음 더 성장하는 조이 언어발달센터<a href="https://joylangcenter.com/blog/joy-news-20260822#-%ED%95%9C-%EA%B1%B8%EC%9D%8C-%EB%8D%94-%EC%84%B1%EC%9E%A5%ED%95%98%EB%8A%94-%EC%A1%B0%EC%9D%B4-%EC%96%B8%EC%96%B4%EB%B0%9C%EB%8B%AC%EC%84%BC%ED%84%B0" class="hash-link" aria-label="💛 한 걸음 더 성장하는 조이 언어발달센터에 대한 직접 링크" title="💛 한 걸음 더 성장하는 조이 언어발달센터에 대한 직접 링크">​</a></h2>
+<p>이번 리뉴얼과 치료실 증설을 통해<br>
+<!-- -->기존의 언어치료뿐만 아니라<br>
+<strong>미술심리·인지학습 분야까지</strong><br>
+<!-- -->더욱 유기적이고 다각적인 통합 중재를 계획하고 있습니다.</p>
+<p>아이들의 밝은 웃음과 건강한 성장을 위해<br>
+<!-- -->늘 고민하고 발전하는 조이 언어발달센터가 되겠습니다.</p>
+<p>언어치료 상담 문의는 언제든 편하게 센터로 주세요! 😊</p>
+<p>우리 아이들은 모두 잘하고 자라고 있습니다.<br>
+<!-- -->그 속도에 맞춰 잘 성장할 수 있도록<br>
+<!-- -->조이 언어발달센터가 함께하겠습니다. 💛</p>
+<br>
+<hr>
+<p>아이들의 언어발달에 즐거움을 더하는 공간<br>
+<strong>조이 언어발달센터</strong>입니다.</p>
+<p><em>Let's enJOY in JOY ! 🎉✨</em></p>
+<p>📞 문의: <a href="tel:033-745-1030" target="_blank" rel="noopener noreferrer">033-745-1030</a><br>
+<!-- -->💬 카카오채널: <a href="https://pf.kakao.com/_sxjPXn" target="_blank" rel="noopener noreferrer">joylangcenter</a><br>
+<!-- -->⭐️ 인스타그램: <a href="https://instagram.com/joylangcenter" target="_blank" rel="noopener noreferrer">@joylangcenter</a><br>
+<!-- -->🏠 홈페이지: <a href="https://joylangcenter.com/" target="_blank" rel="noopener noreferrer">joylangcenter.com</a></p>
+<br>
+<div style="position:relative;width:100%;height:500px"><div id="map" style="width:100%;height:100%;border-radius:12px"></div></div>]]></content:encoded>
+            <category>센터소식</category>
+        </item>
+        <item>
+            <title><![CDATA[[원주언어치료] 아이 발음이 부정확해요, 왜 그런 걸까요?]]></title>
+            <link>https://joylangcenter.com/blog/joy-info-20260821</link>
+            <guid>https://joylangcenter.com/blog/joy-info-20260821</guid>
+            <pubDate>Fri, 21 Aug 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[[원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터] 아이 발음이 부정확한 이유를 의사소통의 세 가지 과정(청각·언어·말) 관점에서 정리했습니다. 원주 조음치료 조이 언어발달센터가 발음이 안 좋은 원인을 쉽게 설명합니다.]]></description>
+            <content:encoded><![CDATA[<p>안녕하세요! 😊<br>
+<!-- -->원주 기업도시에 위치한 <mark>언어치료 전문기관</mark><br>
+<strong>조이 언어발달센터</strong>입니다.</p>
+<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260821-1-41376f9b5d2aae5d979a37cc62d51552.png" width="370" height="144" class="img_ev3q"></p>
+<p>아이들이 4~5살 정도 되면,<br>
+<!-- -->제법 성인처럼 능숙한 문장으로<br>
+<!-- -->자신의 의사를 표현하게 됩니다.</p>
+<p>이 시기부터 언어발달과는 또 다른 고민이 생기곤 하는데요.</p>
+<blockquote>
+<p>아이의 발음이 안 좋아요.<br>
+<!-- -->무슨 말을 하는지 모르겠어요.</p>
+</blockquote>
+<p>이처럼 아이의 발음이 부정확해서<br>
+<!-- -->의사소통이 원활하지 않은 경우,<br>
+<!-- -->부모님 입장에서는 또 다른 고민거리가 됩니다.</p>
+<p><img decoding="async" loading="lazy" alt="원주 조음치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260821-2-cad8b625c70bf4a101a754df45199ada.png" width="800" height="565" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-그렇다면-왜-발음이-안-좋을까요">🤔 그렇다면 왜 발음이 안 좋을까요?<a href="https://joylangcenter.com/blog/joy-info-20260821#-%EA%B7%B8%EB%A0%87%EB%8B%A4%EB%A9%B4-%EC%99%9C-%EB%B0%9C%EC%9D%8C%EC%9D%B4-%EC%95%88-%EC%A2%8B%EC%9D%84%EA%B9%8C%EC%9A%94" class="hash-link" aria-label="🤔 그렇다면 왜 발음이 안 좋을까요?에 대한 직접 링크" title="🤔 그렇다면 왜 발음이 안 좋을까요?에 대한 직접 링크">​</a></h2>
+<p>발음이 부정확한 이유는 매우 다양합니다.<br>
+<!-- -->그 이유를 이해하려면 먼저,<br>
+<strong>말로 의사소통을 하는 세 가지 과정</strong>을 알아야 합니다.</p>
+<table><thead><tr><th style="text-align:center">과정</th><th style="text-align:left">하는 일</th></tr></thead><tbody><tr><td style="text-align:center"><strong>① 청각 과정</strong><br>(hearing)</td><td style="text-align:left">아이는 엄마의 말소리를 <strong>들을 수 있어야</strong> 합니다.</td></tr><tr><td style="text-align:center"><strong>② 언어 과정</strong><br>(language)</td><td style="text-align:left"><strong>[이해]</strong> '조이'라는 말소리가 들리면 그것이 자기 이름이고, 엄마가 자신을 부른다는 것을 이해해야 합니다.<br><strong>[표현]</strong> 부름에 대답할 적절한 표현(예: 왜?, 어~, 네~)을 떠올릴 수 있어야 합니다.</td></tr><tr><td style="text-align:center"><strong>③ 말 과정</strong><br>(speech)</td><td style="text-align:left">발성 및 입술·혀·턱(조음기관)을 움직여 <strong>말로 산출</strong>할 수 있어야 합니다.</td></tr></tbody></table>
+<p>즉, 엄마가 "조이야~"라고 부르면<br>
+<!-- -->아이의 머릿속에서는 이런 과정이 순식간에 일어납니다.</p>
+<p><img decoding="async" loading="lazy" alt="엄마가 아이를 부르고 아이가 그 소리를 듣는 청각 과정" src="https://joylangcenter.com/assets/images/joy-info-20260821-3-39c45c3236084dd5af67b7ce1b2ac690.png" width="672" height="264" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="들은 말소리가 자기 이름임을 이해하는 언어 이해 과정" src="https://joylangcenter.com/assets/images/joy-info-20260821-4-a1d203601dbf774c756f56985b360cbf.png" width="670" height="298" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="대답할 표현을 떠올리는 언어 표현 과정" src="https://joylangcenter.com/assets/images/joy-info-20260821-5-06213a27dda159910145b8496b9a5306.png" width="672" height="238" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="&amp;quot;네!&amp;quot;라고 말로 산출하는 말 과정" src="https://joylangcenter.com/assets/images/joy-info-20260821-6-c955a634d905f3f0177f165f6c9b4bda.png" width="672" height="202" class="img_ev3q"></p>
+<p>따라서 이 <strong>세 가지 과정 중 한 가지에만 문제가 있어도</strong><br>
+<!-- -->말소리가 부정확해질 수 있습니다.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="--청각-과정의-문제">👂🏻 ① 청각 과정의 문제<a href="https://joylangcenter.com/blog/joy-info-20260821#--%EC%B2%AD%EA%B0%81-%EA%B3%BC%EC%A0%95%EC%9D%98-%EB%AC%B8%EC%A0%9C" class="hash-link" aria-label="👂🏻 ① 청각 과정의 문제에 대한 직접 링크" title="👂🏻 ① 청각 과정의 문제에 대한 직접 링크">​</a></h2>
+<p>청각 과정에 문제가 있어 소리를 잘 들을 수 없다면<br>
+<!-- -->정확한 발음을 습득하기 어렵습니다.</p>
+<p>예를 들어 고주파 대역의 음파를 잘 감지하지 못하는<br>
+<!-- -->청각장애 아동이 /ㅅ/을 /ㄷ/으로 대치해 말한다면,<br>
+<!-- -->그것은 /ㅅ/가 <mark>[ㄷ]으로 들리기 때문</mark>입니다.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="️--언어-과정의-문제">🗣️ ② 언어 과정의 문제<a href="https://joylangcenter.com/blog/joy-info-20260821#%EF%B8%8F--%EC%96%B8%EC%96%B4-%EA%B3%BC%EC%A0%95%EC%9D%98-%EB%AC%B8%EC%A0%9C" class="hash-link" aria-label="🗣️ ② 언어 과정의 문제에 대한 직접 링크" title="🗣️ ② 언어 과정의 문제에 대한 직접 링크">​</a></h2>
+<p>언어 과정에 문제가 있어<br>
+<!-- -->단어나 문장을 구성하는 음운(자음과 모음의 말소리)을<br>
+<!-- -->정확하게 습득하지 못해도 발음이 부정확할 수 있습니다.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="--말-과정의-문제">👄 ③ 말 과정의 문제<a href="https://joylangcenter.com/blog/joy-info-20260821#--%EB%A7%90-%EA%B3%BC%EC%A0%95%EC%9D%98-%EB%AC%B8%EC%A0%9C" class="hash-link" aria-label="👄 ③ 말 과정의 문제에 대한 직접 링크" title="👄 ③ 말 과정의 문제에 대한 직접 링크">​</a></h2>
+<p>선천적 또는 후천적인 구강 구조의 문제는<br>
+<!-- -->말소리장애를 일으킬 수 있습니다.</p>
+<p><strong>➡️ 구개열(입천장이 갈라진 경우)</strong><br>
+<!-- -->말할 때 기류가 코로 새기 때문에<br>
+<!-- -->'포도'를 [모노]처럼 비음이 강한 소리로 대치해 발음하게 됩니다.</p>
+<p><strong>➡️ 후천적인 구강 구조의 변화</strong><br>
+<!-- -->구강암·설암 등으로 입천장이나 혀의 일부를 절제한 경우,<br>
+<!-- -->구강 구조의 문제로 발음이 부정확해질 수 있습니다.</p>
+<p><strong>➡️ 신경 조절의 문제</strong><br>
+<!-- -->구강 구조에 문제가 없더라도,<br>
+<!-- -->말 산출과 관련된 신경이 손상된 채 태어난 뇌성마비 아동이거나<br>
+<!-- -->후천적인 뇌손상으로 발성·구강 근육의 움직임에 관여하는<br>
+<!-- -->신경 조절에 문제가 생기면 정확한 발음이 어렵습니다.</p>
+<p><img decoding="async" loading="lazy" alt="원주 조음치료 · 조이 언어발달센터의 조음치료 장면" src="https://joylangcenter.com/assets/images/joy-info-20260821-7-b711f224197f5a0d153372bfd0e36bde.png" width="800" height="600" class="img_ev3q"></p>
+<blockquote>
+<p>참고: 김민정 저 / 학지사 《임상중심 말소리장애》</p>
+</blockquote>
+<p>오늘은 의사소통의 세 가지 과정<br>
+<!-- -->(<strong>① 청각 · ② 언어 · ③ 말 과정</strong>)에서<br>
+<!-- -->선천적 혹은 후천적 원인으로 발음이 부정확해질 수 있는<br>
+<!-- -->이유를 살펴보았습니다.</p>
+<blockquote>
+<p>📌 만약 우리 아이의 발음이 너무 부정확해서 알아듣기 힘들다면,<br>
+<!-- -->가까운 아동발달센터에서 <strong>객관적인 발음(조음) 평가</strong>를 통해<br>
+<!-- -->정확한 발달 수준을 체크해 보세요.</p>
+</blockquote>
+<p>우리 아이들은 모두 잘하고 자라고 있습니다. 😊<br>
+<!-- -->그 속도에 맞춰 잘 성장할 수 있도록<br>
+<!-- -->조이 언어발달센터가 함께하겠습니다. 💛</p>
+<br>
+<hr>
+<p>아이들의 언어발달에 즐거움을 더하는 공간<br>
+<strong>조이 언어발달센터</strong>입니다.</p>
+<p><em>Let's enJOY in JOY ! 🎉✨</em></p>
+<p>📞 문의: <a href="tel:033-745-1030" target="_blank" rel="noopener noreferrer">033-745-1030</a><br>
+<!-- -->💬 카카오채널: <a href="https://pf.kakao.com/_sxjPXn" target="_blank" rel="noopener noreferrer">joylangcenter</a><br>
+<!-- -->⭐️ 인스타그램: <a href="https://instagram.com/joylangcenter" target="_blank" rel="noopener noreferrer">@joylangcenter</a><br>
+<!-- -->🏠 홈페이지: <a href="https://joylangcenter.com/" target="_blank" rel="noopener noreferrer">joylangcenter.com</a></p>
+<br>
+<div style="position:relative;width:100%;height:500px"><div id="map" style="width:100%;height:100%;border-radius:12px"></div></div>]]></content:encoded>
+            <category>정보공유</category>
+        </item>
         <item>
             <title><![CDATA[[원주언어치료] 청각장애의 원인, 청각기관별로 살펴보기 — 외이 편]]></title>
             <link>https://joylangcenter.com/blog/joy-info-20260818</link>
@@ -1253,180 +1504,6 @@
 <br>
 <div style="position:relative;width:100%;height:500px"><div id="map" style="width:100%;height:100%;border-radius:12px"></div></div>]]></content:encoded>
             <category>교육자료</category>
-        </item>
-        <item>
-            <title><![CDATA[[교육자료] 소아 인공와우이식 재활의 필수 단계 (메델 코리아 자료 공유)]]></title>
-            <link>https://joylangcenter.com/blog/joy-info-20260429</link>
-            <guid>https://joylangcenter.com/blog/joy-info-20260429</guid>
-            <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[[원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터] 소아 인공와우이식 재활의 필수 단계에 관한 메델 코리아 자료를 공유합니다.]]></description>
-            <content:encoded><![CDATA[<p>안녕하세요! 😊<br>
-<!-- -->원주 기업도시에 위치한 <mark>언어치료 전문기관</mark><br>
-<strong>조이 언어발달센터</strong>입니다.</p>
-<p>이번에 전해드리는 소식은 <strong>메델 코리아</strong>에서 작성한,<br>
-<!-- -->소아 인공와우이식 아동의 청능언어재활을 위한 자료입니다.<br>
-<em>(출처 : 메델 코리아 'The essential steps' 일부 발췌)</em></p>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="data:image/png;base64,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" width="532" height="204" class="img_ev3q"></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="무슨-내용을-담고-있나요">무슨 내용을 담고 있나요?<a href="https://joylangcenter.com/blog/joy-info-20260429#%EB%AC%B4%EC%8A%A8-%EB%82%B4%EC%9A%A9%EC%9D%84-%EB%8B%B4%EA%B3%A0-%EC%9E%88%EB%82%98%EC%9A%94" class="hash-link" aria-label="무슨 내용을 담고 있나요?에 대한 직접 링크" title="무슨 내용을 담고 있나요?에 대한 직접 링크">​</a></h2>
-<p>'The essential steps'는 <strong>내용 1 → 내용 2 → 부록 1 → 부록 2</strong> 순으로 구성되어 있습니다.</p>
-<p><strong>내용 1.</strong> 인공와우이식 전, 아동의 듣기 반응 체크를 위한 링식스 테스트(감지·확인 반응),<br>
-<!-- -->청각장애 전반의 이해 및 설문지, 현재 구어·인지 체크리스트</p>
-<p><strong>내용 2.</strong> 인공와우이식 후, 아이의 듣기·구어·인지 능력에 관한 전반적 가이드와 재활 1~3단계 가정 지원 체크리스트</p>
-<p><strong>부록 1.</strong> 기대치 설문지 — 이식 후 수행력에 영향을 주는 요인 이해를 돕고,<br>
-<!-- -->주양육자와 전문가의 논의를 돕는 설문지</p>
-<p><strong>부록 2.</strong> 듣기 기술 발달을 위한 핵심 전략 — 듣기·구어 능력 향상에 도움이 되는 여러 전략 안내</p>
-<blockquote>
-<p>언어자극을 제공할 때 늘 생각해야 할 부분이 구체적으로 적혀 있으니,<br>
-<!-- -->꼭 다운로드해 읽어보시길 추천드립니다!</p>
-</blockquote>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="오늘도-기억해-주세요">오늘도 기억해 주세요<a href="https://joylangcenter.com/blog/joy-info-20260429#%EC%98%A4%EB%8A%98%EB%8F%84-%EA%B8%B0%EC%96%B5%ED%95%B4-%EC%A3%BC%EC%84%B8%EC%9A%94" class="hash-link" aria-label="오늘도 기억해 주세요에 대한 직접 링크" title="오늘도 기억해 주세요에 대한 직접 링크">​</a></h2>
-<blockquote>
-<p>아이에게 <strong>가장 좋은 선생님은 부모</strong>입니다.
-가장 가까운 곳에서 가장 많은 시간을 함께해 주시는 모든 부모님·양육자분들께 진심으로 응원을 전합니다 😊</p>
-</blockquote>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260429-2-c21e6191e82c112a40eda7a858db2338.png" width="800" height="798" class="img_ev3q"></p>
-<br>
-<hr>
-<p>아이들의 언어발달에 즐거움을 더하는 공간<br>
-<strong>조이 언어발달센터</strong>입니다.</p>
-<p><em>Let's enJOY in JOY ! 🎉✨</em></p>
-<p>📞 문의: <a href="tel:033-745-1030" target="_blank" rel="noopener noreferrer">033-745-1030</a><br>
-<!-- -->💬 카카오채널: <a href="https://pf.kakao.com/_sxjPXn" target="_blank" rel="noopener noreferrer">joylangcenter</a><br>
-<!-- -->⭐️ 인스타그램: <a href="https://instagram.com/joylangcenter" target="_blank" rel="noopener noreferrer">@joylangcenter</a><br>
-<!-- -->🏠 홈페이지: <a href="https://joylangcenter.com/" target="_blank" rel="noopener noreferrer">joylangcenter.com</a></p>
-<br>
-<div style="position:relative;width:100%;height:500px"><div id="map" style="width:100%;height:100%;border-radius:12px"></div></div>]]></content:encoded>
-            <category>정보공유</category>
-        </item>
-        <item>
-            <title><![CDATA[[소식] 조이 언어발달센터 실제 언어치료 수업 이야기 (4세~초1)]]></title>
-            <link>https://joylangcenter.com/blog/joy-news-20260429</link>
-            <guid>https://joylangcenter.com/blog/joy-news-20260429</guid>
-            <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[[원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터] 4세부터 초등 1학년까지, 조이 언어발달센터의 실제 언어치료 수업 현장을 사진으로 소개합니다.]]></description>
-            <content:encoded><![CDATA[<p>안녕하세요! 😊<br>
-<!-- -->원주 기업도시에 위치한 <mark>언어치료 전문기관</mark><br>
-<strong>조이 언어발달센터</strong>입니다.</p>
-<p>아이들과 함께했던<br>
-<!-- -->조이 언어발달센터의 <mark>기관 방문 언어치료 수업</mark>,<br>
-<!-- -->그 생생한 현장을 이번 소식지에 담아보았습니다. 😊</p>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-news-20260429-1-9005fe28ba208ab724c52a98cc7bb834.png" width="800" height="800" class="img_ev3q"></p>
-<p>조이 언어발달센터는<br>
-<!-- -->아이들이 즐겁고 자연스러운 상황에서<br>
-<mark>'의사소통 성공'</mark>을 경험하도록 돕고 있습니다.</p>
-<p>특히 아이가 좋아하는 놀이나 활동에<br>
-<!-- -->치료사가 함께 참여하는 과정에서<br>
-<!-- -->자연스럽게 다양한 어휘와 문장을 익힐 수 있도록,<br>
-<mark>'우연적 학습'</mark>이 이루어지는 수업을<br>
-<!-- -->구성하고자 노력합니다. 💗</p>
-<p>백문이 불여일견!<br>
-<!-- -->최근에 진행한 수업의 사진과 함께<br>
-<!-- -->그 과정을 직접 보여드릴게요. 😊</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="컵-쌓기-놀이로-배우는-일상-어휘">컵 쌓기 놀이로 배우는 일상 어휘<a href="https://joylangcenter.com/blog/joy-news-20260429#%EC%BB%B5-%EC%8C%93%EA%B8%B0-%EB%86%80%EC%9D%B4%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EC%9D%BC%EC%83%81-%EC%96%B4%ED%9C%98" class="hash-link" aria-label="컵 쌓기 놀이로 배우는 일상 어휘에 대한 직접 링크" title="컵 쌓기 놀이로 배우는 일상 어휘에 대한 직접 링크">​</a></h2>
-<p>이 아동은 컵을 쌓았다가 무너뜨리는 놀이를<br>
-<!-- -->특히 좋아했어요.<br>
-<!-- -->(저도 함께하며 정말 즐거웠답니다!)</p>
-<p>그래서 아이의 흥미를 중심으로<br>
-<!-- -->수업을 구성했습니다.</p>
-<p>반복이 자연스럽게 이루어지는<br>
-<!-- -->놀이의 특성을 활용해<br>
-<mark>'쌓다', '무너지다', '더 주세요', '또 해요'</mark>와 같은<br>
-<!-- -->일상 어휘를 반복적으로 들려주며<br>
-<!-- -->익힐 수 있도록 지도했어요.</p>
-<p>또한 처음부터 '강아지, 닭, 돼지'와 같은<br>
-<!-- -->명사를 제시하기보다는,<br>
-<mark>'멍멍, 꼬꼬, 꿀꿀'</mark>과 같은 의성어를 활용해<br>
-<!-- -->더 쉽고 재미있게 동물 어휘를 듣고<br>
-<!-- -->표현할 수 있도록 했습니다. 😊</p>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-news-20260429-2-62932c0f0c4a8ab623cf71eeef1bafce.png" width="800" height="800" class="img_ev3q"></p>
-<blockquote>
-<p>우리 아이가 한 단어로 말하는 수준이라면,<br>
-<!-- -->따라 하기 쉬운 <strong>의성어부터</strong> 시작해 보세요!</p>
-</blockquote>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="초1-형님과-우리-동네-지도-그리기">초1 형님과 '우리 동네 지도 그리기'<a href="https://joylangcenter.com/blog/joy-news-20260429#%EC%B4%881-%ED%98%95%EB%8B%98%EA%B3%BC-%EC%9A%B0%EB%A6%AC-%EB%8F%99%EB%84%A4-%EC%A7%80%EB%8F%84-%EA%B7%B8%EB%A6%AC%EA%B8%B0" class="hash-link" aria-label="초1 형님과 '우리 동네 지도 그리기'에 대한 직접 링크" title="초1 형님과 '우리 동네 지도 그리기'에 대한 직접 링크">​</a></h2>
-<p>초등학교 1학년 형님은<br>
-<!-- -->포크레인, 덤프트럭과 같은<br>
-<!-- -->중장비에 높은 흥미를 보였어요!</p>
-<p>이 관심을 반영해<br>
-<mark>"덤프트럭으로 우리 동네를 만들어 볼까?"</mark>라고 유도하며<br>
-<!-- -->'우리 동네 지도 그리기' 활동을 진행했습니다.</p>
-<p>활동 속에서<br>
-<!-- -->학교–'공부하다', 병원–'치료하다',<br>
-<!-- -->경찰서–'잡다·찾다'와 같이<br>
-<!-- -->장소와 관련된 <mark>동사 어휘</mark>를<br>
-<!-- -->자연스럽게 반복해 제시했습니다.</p>
-<p>아이는 놀이를 통해 즐겁게 참여하며,<br>
-<!-- -->어휘를 듣고 이해하고 모방하는<br>
-<!-- -->경험을 쌓을 수 있었습니다. 😊</p>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-news-20260429-3-55ad290c4aef3b9dbe384e64b97b3118.png" width="800" height="800" class="img_ev3q"></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="마치며">마치며<a href="https://joylangcenter.com/blog/joy-news-20260429#%EB%A7%88%EC%B9%98%EB%A9%B0" class="hash-link" aria-label="마치며에 대한 직접 링크" title="마치며에 대한 직접 링크">​</a></h2>
-<p>수업 소개는 여기까지입니다.<br>
-<!-- -->아이들이 즐겁게 참여할 수 있는 수업을<br>
-<!-- -->만들기 위해 항상 노력하겠습니다. 💗</p>
-<p>긴 글 읽어주셔서 감사합니다! 😊🍀</p>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-news-20260429-4-1a8c2c4897676c626ba51c97a8594815.png" width="800" height="800" class="img_ev3q"></p>
-<br>
-<hr>
-<p>아이들의 언어발달에 즐거움을 더하는 공간<br>
-<strong>조이 언어발달센터</strong>입니다.</p>
-<p><em>Let's enJOY in JOY ! 🎉✨</em></p>
-<p>📞 문의: <a href="tel:033-745-1030" target="_blank" rel="noopener noreferrer">033-745-1030</a><br>
-<!-- -->💬 카카오채널: <a href="https://pf.kakao.com/_sxjPXn" target="_blank" rel="noopener noreferrer">joylangcenter</a><br>
-<!-- -->⭐️ 인스타그램: <a href="https://instagram.com/joylangcenter" target="_blank" rel="noopener noreferrer">@joylangcenter</a><br>
-<!-- -->🏠 홈페이지: <a href="https://joylangcenter.com/" target="_blank" rel="noopener noreferrer">joylangcenter.com</a></p>
-<br>
-<div style="position:relative;width:100%;height:500px"><div id="map" style="width:100%;height:100%;border-radius:12px"></div></div>]]></content:encoded>
-            <category>센터소식</category>
-        </item>
-        <item>
-            <title><![CDATA[[교육자료] 청능·언어재활 공부, 어디서 하세요? 무료 강의 사이트 추천]]></title>
-            <link>https://joylangcenter.com/blog/joy-info-20260426-lecture</link>
-            <guid>https://joylangcenter.com/blog/joy-info-20260426-lecture</guid>
-            <pubDate>Sun, 26 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[[원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터] 청능·언어재활 공부에 도움이 되는 무료 강의 사이트를 추천합니다.]]></description>
-            <content:encoded><![CDATA[<p>안녕하세요! 😊<br>
-<!-- -->원주 기업도시에 위치한 <mark>언어치료 전문기관</mark><br>
-<strong>조이 언어발달센터</strong>입니다.</p>
-<p>저희 기관에 방문하는 아동들 중에는 청각장애 진단 이후 양이 인공와우 이식을 받고 <strong>청능·언어재활</strong>을 진행하는 친구들도 있습니다.<br>
-<!-- -->그 아이들을 위해 더 효과적인 재활 방법을 고민하던 중,<br>
-<!-- -->좋은 강의를 무료로 들을 수 있는 사이트를 발견해 공유합니다 :)</p>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260426-lecture-1-ceb977bf125af9d1a8d8dd3206f34217.png" width="800" height="555" class="img_ev3q"></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-무료-강의-사이트-hearing-first">🔎 무료 강의 사이트 'Hearing First'<a href="https://joylangcenter.com/blog/joy-info-20260426-lecture#-%EB%AC%B4%EB%A3%8C-%EA%B0%95%EC%9D%98-%EC%82%AC%EC%9D%B4%ED%8A%B8-hearing-first" class="hash-link" aria-label="🔎 무료 강의 사이트 'Hearing First'에 대한 직접 링크" title="🔎 무료 강의 사이트 'Hearing First'에 대한 직접 링크">​</a></h2>
-<p>바로 <mark>Hearing First</mark>라는 사이트입니다!</p>
-<blockquote>
-<p>▶ <a href="https://www.hearingfirst.org/" target="_blank" rel="noopener noreferrer">https://www.hearingfirst.org/</a></p>
-</blockquote>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260426-lecture-2-99596f42c426493ecbd060579dd6b978.png" width="800" height="552" class="img_ev3q"></p>
-<p>난청 아동의 듣기와 언어 발달을 이해하는 데 유익한 정보가 잘 정리되어 있어요.<br>
-<!-- -->언어치료사·특수교사·청능사 선생님은 물론,<br>
-<!-- -->양육자분들께도 도움이 됩니다.</p>
-<p><em>(영어로 되어 있지만, 우리에겐 AI가 있으니까요! 😊)</em></p>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260426-lecture-3-1632f1a28a0aa2681c92b614d442741a.png" width="800" height="545" class="img_ev3q"></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="이렇게-활용해요">이렇게 활용해요<a href="https://joylangcenter.com/blog/joy-info-20260426-lecture#%EC%9D%B4%EB%A0%87%EA%B2%8C-%ED%99%9C%EC%9A%A9%ED%95%B4%EC%9A%94" class="hash-link" aria-label="이렇게 활용해요에 대한 직접 링크" title="이렇게 활용해요에 대한 직접 링크">​</a></h2>
-<ul>
-<li>청각학 분야 강의가 서른 개가 넘으니, <strong>관심 있는 분야를 선택</strong>해 들으시면 됩니다.</li>
-<li>언어치료사를 위한 '듣기–구어' 영역 강의도 있어요.</li>
-<li>저는 듣기–구어 중재를 받는 36~60개월 아이들의 언어 발달이 궁금해 해당 강의를 신청했습니다.</li>
-</ul>
-<p>강의를 듣고 중요한 부분은 블로그에 정리해 볼게요! :)</p>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260426-lecture-4-95ba3c353914f2708344fce197b961e2.png" width="800" height="512" class="img_ev3q"></p>
-<blockquote>
-<p>난청 아이들이 소리를 듣는 것을 넘어,<br>
-<!-- -->이해하고 의미로 연결해 자신의 언어로 표현하는 순간까지 — 오늘도 함께 고민하고 성장하는 조이언어발달센터가 되겠습니다.</p>
-</blockquote>
-<p><img decoding="async" loading="lazy" alt="원주 언어치료 · 기업도시·지정면 언어치료 · 원주 언어발달센터 · 조이 언어발달센터" src="https://joylangcenter.com/assets/images/joy-info-20260426-lecture-5-bbc192ad5dbb3e209a98fedf46a776d5.png" width="800" height="537" class="img_ev3q"></p>
-<br>
-<hr>
-<p>아이들의 언어발달에 즐거움을 더하는 공간<br>
-<strong>조이 언어발달센터</strong>입니다.</p>
-<p><em>Let's enJOY in JOY ! 🎉✨</em></p>
-<p>📞 문의: <a href="tel:033-745-1030" target="_blank" rel="noopener noreferrer">033-745-1030</a><br>
-<!-- -->💬 카카오채널: <a href="https://pf.kakao.com/_sxjPXn" target="_blank" rel="noopener noreferrer">joylangcenter</a><br>
-<!-- -->⭐️ 인스타그램: <a href="https://instagram.com/joylangcenter" target="_blank" rel="noopener noreferrer">@joylangcenter</a><br>
-<!-- -->🏠 홈페이지: <a href="https://joylangcenter.com/" target="_blank" rel="noopener noreferrer">joylangcenter.com</a></p>
-<br>
-<div style="position:relative;width:100%;height:500px"><div id="map" style="width:100%;height:100%;border-radius:12px"></div></div>]]></content:encoded>
-            <category>정보공유</category>
         </item>
     </channel>
 </rss>
