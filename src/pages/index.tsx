@@ -83,6 +83,24 @@ export default function Home(): ReactNode {
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: '조이 언어발달센터',
+            alternateName: '원주 조이언어발달센터',
+            url: 'https://joylangcenter.com/',
+            inLanguage: 'ko',
+            publisher: {
+              '@type': 'Organization',
+              name: '조이 언어발달센터',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://joylangcenter.com/img/logo-joy.png',
+              },
+            },
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
             '@type': ['LocalBusiness', 'MedicalBusiness'],
             name: '조이 언어발달센터',
             alternateName: [
