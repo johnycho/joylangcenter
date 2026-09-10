@@ -15,6 +15,44 @@ const TAGS = [
   {key: 'library', label: '교육자료'},
 ];
 
+// 인기글(BEST) 번호칸에 표시할 금메달 아이콘 — 리본 + 골드 메달리온 + 별 (직접 그린 SVG)
+function BestCrown() {
+  return (
+    <svg className={styles.bestCrown} viewBox="0 0 24 24" role="img" aria-label="인기글">
+      <defs>
+        <linearGradient id="joyBestMedal" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffe07a" />
+          <stop offset="1" stopColor="#f5a300" />
+        </linearGradient>
+      </defs>
+      {/* 리본 */}
+      <path d="M7.5 2h3.2l1.3 8-3.2.6L5.6 3.2z" fill="#e2584f" />
+      <path d="M16.5 2h-3.2l-1.3 8 3.2.6 2.4-7.4z" fill="#4a7fd0" />
+      {/* 메달리온 */}
+      <circle cx="12" cy="16" r="6.2" fill="url(#joyBestMedal)" stroke="#e08c00" strokeWidth="0.9" />
+      <circle cx="12" cy="16" r="4.4" fill="none" stroke="#ffe694" strokeWidth="0.9" />
+      {/* 가운데 별 */}
+      <path
+        d="M12 13l0.8 1.9 2.1 0.2-1.6 1.3 0.5 2-1.8-1-1.8 1 0.5-2-1.6-1.3 2.1-0.2z"
+        fill="#fff4cf"
+        stroke="#f0a91e"
+        strokeWidth="0.4"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// 게시판 컬럼. sortable=true인 컬럼만 헤더 클릭으로 정렬(오름→내림→원래순 3단계). 번호는 정렬 제외.
+const COLS = [
+  {key: 'index', label: '번호', cls: 'colIndex', sortable: false},
+  {key: 'tag', label: '분류', cls: 'colTag', sortable: true},
+  {key: 'title', label: '제목', cls: 'colTitle', sortable: true},
+  {key: 'date', label: '작성일', cls: 'colDate', sortable: true},
+  {key: 'author', label: '작성자', cls: 'colAuthor', sortable: true},
+  {key: 'views', label: '조회수', cls: 'colViews', sortable: true},
+];
+
 type Props = {
   /** 처음 선택될 분류 (notice/news/library/all). 기본 'all' */
   initialFilter?: string;
@@ -30,6 +68,8 @@ type Props = {
   paginate?: boolean;
   /** 검색창 표시 (게시판 페이지용). 기본 false */
   showSearch?: boolean;
+  /** 조회수 1위 글을 상단에 '인기글'로 강조 노출. 기본 true */
+  highlightBest?: boolean;
 };
 
 /** 텍스트에서 검색어와 일치하는 부분을 하이라이트 (제목·분류칩·작성자 공통) */
@@ -54,12 +94,16 @@ export default function NewsBoard({
   hideFilters = false,
   paginate = false,
   showSearch = false,
+  highlightBest = true,
 }: Props = {}) {
   const [filter, setFilter] = useState<string>(initialFilter);
   const [page, setPage] = useState<number>(1);
   const [query, setQuery] = useState<string>('');
   const [views, setViews] = useState<Record<string, number>>({});
   const [viewsLoaded, setViewsLoaded] = useState<boolean>(false);
+  // sortKey null = 원래순(작성일 최신순, 기본). 컬럼 클릭 시 오름→내림→원래순으로 순환.
+  const [sortKey, setSortKey] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
   const {siteConfig} = useDocusaurusContext();
 
   // 게시판 노출 글들의 조회수를 한 번에 조회.
@@ -108,11 +152,61 @@ export default function NewsBoard({
           (post.metadata.authors?.[0]?.name || '').toLowerCase().includes(q),
       )
     : matched;
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE));
+  // 컬럼 정렬 — 기본은 작성일 내림차순(최신순)
+  const viewOf = (x: (typeof filtered)[number]) => views[x.post.metadata.permalink] ?? 0;
+  const cmp = (a: (typeof filtered)[number], b: (typeof filtered)[number]) => {
+    const A = a.post.metadata;
+    const B = b.post.metadata;
+    switch (sortKey) {
+      case 'title':
+        return A.title.localeCompare(B.title, 'ko');
+      case 'author':
+        return (A.authors?.[0]?.name || '').localeCompare(B.authors?.[0]?.name || '', 'ko');
+      case 'tag':
+        return (a.keys[0] || '').localeCompare(b.keys[0] || '');
+      case 'views':
+        return viewOf(a) - viewOf(b);
+      default: // date · index
+        return new Date(A.date).getTime() - new Date(B.date).getTime();
+    }
+  };
+  const dir = sortDir === 'asc' ? 1 : -1;
+  // 원래순(sortKey null)이면 재정렬 없이 기본 순서(작성일 최신순)를 그대로 사용
+  const sorted =
+    sortKey === null
+      ? filtered
+      : [...filtered].sort((a, b) => {
+          const c = cmp(a, b);
+          // 동점이면 항상 최신순으로 안정 정렬
+          return c !== 0 ? dir * c : new Date(b.post.metadata.date).getTime() - new Date(a.post.metadata.date).getTime();
+        });
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE));
   const curPage = Math.min(page, totalPages);
   const startIdx = paginate ? (curPage - 1) * PAGE : 0;
-  const shown = paginate ? filtered.slice(startIdx, startIdx + PAGE) : filtered.slice(0, PAGE);
+  const shown = paginate ? sorted.slice(startIdx, startIdx + PAGE) : sorted.slice(0, PAGE);
   const moreUrl = filter === 'all' ? '/blog' : `/blog/tags/${filter}`;
+
+  // 인기글(조회수 1위) — 현재 분류 기준, 검색 중이 아닐 때만. 조회수 0이면 숨김.
+  const bestReduce = matched.reduce(
+    (acc, x) => (viewOf(x) > acc.v ? {x, v: viewOf(x)} : acc),
+    {x: null as (typeof matched)[number] | null, v: 0},
+  );
+  const best = highlightBest && viewsLoaded && !q && bestReduce.x && bestReduce.v > 0 ? bestReduce : null;
+
+  // 헤더 클릭 → 오름차순 → 내림차순 → 원래순(null) 3단계 순환. 다른 컬럼이면 오름차순부터.
+  const changeSort = (key: string) => {
+    if (sortKey !== key) {
+      setSortKey(key);
+      setSortDir('asc');
+    } else if (sortDir === 'asc') {
+      setSortDir('desc');
+    } else {
+      setSortKey(null); // 내림차순 → 원래순
+      setSortDir('asc');
+    }
+    setPage(1);
+  };
 
   return (
     <div className={`${styles.board} ${wide ? styles.boardWide : ''}`}>
@@ -141,67 +235,56 @@ export default function NewsBoard({
         </div>
       )}
 
-      <div className={styles.listHead} aria-hidden="true">
-        <span className={styles.colIndex}>번호</span>
-        <span className={styles.colTag}>분류</span>
-        <span className={styles.colTitle}>제목</span>
-        <span className={styles.colDate}>작성일</span>
-        <span className={styles.colAuthor}>작성자</span>
-        <span className={styles.colViews}>조회수</span>
+      <div className={styles.mobileSort}>
+        <span className={styles.mobileSortLabel}>정렬</span>
+        <select
+          className={styles.mobileSortSelect}
+          value={sortKey === null ? 'default' : `${sortKey}:${sortDir}`}
+          onChange={(e) => {
+            const v = e.target.value;
+            if (v === 'default') {
+              setSortKey(null);
+              setSortDir('asc');
+            } else {
+              const [k, d] = v.split(':');
+              setSortKey(k);
+              setSortDir(d as 'asc' | 'desc');
+            }
+            setPage(1);
+          }}
+          aria-label="정렬 기준">
+          <option value="default">원래순(최신순)</option>
+          <option value="date:asc">오래된순</option>
+          <option value="views:desc">조회수 많은순</option>
+          <option value="views:asc">조회수 적은순</option>
+          <option value="title:asc">제목 ㄱ→ㅎ</option>
+          <option value="title:desc">제목 ㅎ→ㄱ</option>
+          <option value="author:asc">작성자순</option>
+          <option value="tag:asc">분류순</option>
+        </select>
+      </div>
+
+      <div className={styles.listHead}>
+        {COLS.map((c) =>
+          c.sortable ? (
+            <button
+              key={c.key}
+              type="button"
+              className={`${styles[c.cls]} ${styles.sortBtn} ${sortKey === c.key ? styles.sortBtnOn : ''}`}
+              onClick={() => changeSort(c.key)}
+              aria-label={`${c.label}(으)로 정렬`}>
+              {c.label}
+              <span className={styles.sortArrow}>{sortKey === c.key ? (sortDir === 'asc' ? '▲' : '▼') : '⇅'}</span>
+            </button>
+          ) : (
+            <span key={c.key} className={styles[c.cls]}>{c.label}</span>
+          ),
+        )}
       </div>
 
       <ul className={styles.list}>
-        {shown.map(({post, keys}, idx) => {
-          const published = new Date(post.metadata.date);
-          const isNew = Date.now() - published.getTime() <= TWO_WEEKS_MS;
-          const date = published.toLocaleDateString('ko-KR', {year: '2-digit', month: '2-digit', day: '2-digit'});
-          const primary = TAGS.find((t) => t.key === keys[0]);
-          const chipKey = keys[0] || '';
-          const chipLabel = primary?.label ?? lockTag?.label ?? '소식';
-          const author = post.metadata.authors?.[0];
-          const viewCell = viewsLoaded ? (views[post.metadata.permalink] ?? 0).toLocaleString('ko-KR') : '';
-          const authorInner = author && (
-            <>
-              <span className={styles.authorName}>{highlight(author.name, q)}</span>
-              <span className={styles.authorCard} role="tooltip">
-                {author.imageURL && (
-                  <img src={author.imageURL} alt="" className={styles.authorCardImg} loading="lazy" decoding="async" />
-                )}
-                <span className={styles.authorCardInfo}>
-                  <span className={styles.authorCardName}>{author.name}</span>
-                  {author.title && <span className={styles.authorCardTitle}>{author.title}</span>}
-                </span>
-              </span>
-            </>
-          );
-          return (
-            <li key={idx}>
-              <div className={styles.row}>
-                <Link to={post.metadata.permalink} className={styles.rowMain}>
-                  <span className={styles.rowIndex}>{startIdx + idx + 1}</span>
-                  <span className={`${styles.tagChip} ${styles['t_' + chipKey] || ''}`}>{highlight(chipLabel, q)}</span>
-                  <span className={styles.rowTitle}>
-                    <span className={styles.rowText}>
-                      {isNew && <span className={styles.newTag}>NEW</span>}
-                      {highlight(post.metadata.title, q)}
-                    </span>
-                  </span>
-                  <span className={styles.rowDate}>{date}</span>
-                  <span className={styles.rowAuthorMeta}>{author?.name}</span>
-                  <span className={styles.rowViewsMeta}>{viewCell}</span>
-                </Link>
-                {author && (
-                  author.url ? (
-                    <Link to={toProfileLink(author.url)} className={styles.rowAuthor}>{authorInner}</Link>
-                  ) : (
-                    <span className={styles.rowAuthor}>{authorInner}</span>
-                  )
-                )}
-                <span className={styles.rowViews}>{viewCell}</span>
-              </div>
-            </li>
-          );
-        })}
+        {best && renderRow(best.x, <BestCrown />, true, 'best')}
+        {shown.map((item, idx) => renderRow(item, startIdx + idx + 1, false, idx))}
         {shown.length === 0 && (
           <li className={styles.empty}>
             {q ? `'${query.trim()}' 검색 결과가 없어요.` : '해당 분류의 글이 없어요.'}
@@ -212,6 +295,64 @@ export default function NewsBoard({
       {renderFooter()}
     </div>
   );
+
+  // 게시판 한 행 렌더 (일반 행 + 인기글 행 공용). isBest면 테두리·배경 강조 + 제목앞 'BEST' 뱃지.
+  function renderRow(
+    {post, keys}: (typeof shown)[number],
+    numLabel: React.ReactNode,
+    isBest: boolean,
+    keyId: React.Key,
+  ) {
+    const published = new Date(post.metadata.date);
+    const isNew = Date.now() - published.getTime() <= TWO_WEEKS_MS;
+    const date = published.toLocaleDateString('ko-KR', {year: '2-digit', month: '2-digit', day: '2-digit'});
+    const primary = TAGS.find((t) => t.key === keys[0]);
+    const chipKey = keys[0] || '';
+    const chipLabel = primary?.label ?? lockTag?.label ?? '소식';
+    const author = post.metadata.authors?.[0];
+    const viewCell = viewsLoaded ? (views[post.metadata.permalink] ?? 0).toLocaleString('ko-KR') : '';
+    const authorInner = author && (
+      <>
+        <span className={styles.authorName}>{highlight(author.name, q)}</span>
+        <span className={styles.authorCard} role="tooltip">
+          {author.imageURL && (
+            <img src={author.imageURL} alt="" className={styles.authorCardImg} loading="lazy" decoding="async" />
+          )}
+          <span className={styles.authorCardInfo}>
+            <span className={styles.authorCardName}>{author.name}</span>
+            {author.title && <span className={styles.authorCardTitle}>{author.title}</span>}
+          </span>
+        </span>
+      </>
+    );
+    return (
+      <li key={keyId} className={isBest ? styles.bestLi : undefined}>
+        <div className={`${styles.row} ${isBest ? styles.rowBest : ''}`}>
+          <Link to={post.metadata.permalink} className={styles.rowMain}>
+            <span className={styles.rowIndex}>{numLabel}</span>
+            <span className={`${styles.tagChip} ${styles['t_' + chipKey] || ''}`}>{highlight(chipLabel, q)}</span>
+            <span className={styles.rowTitle}>
+              <span className={styles.rowText}>
+                {isNew && <span className={styles.newTag}>NEW</span>}
+                {highlight(post.metadata.title, q)}
+              </span>
+            </span>
+            <span className={styles.rowDate}>{date}</span>
+            <span className={styles.rowAuthorMeta}>{author?.name}</span>
+            <span className={styles.rowViewsMeta}>{viewCell}</span>
+          </Link>
+          {author && (
+            author.url ? (
+              <Link to={toProfileLink(author.url)} className={styles.rowAuthor}>{authorInner}</Link>
+            ) : (
+              <span className={styles.rowAuthor}>{authorInner}</span>
+            )
+          )}
+          <span className={styles.rowViews}>{viewCell}</span>
+        </div>
+      </li>
+    );
+  }
 
   function renderFooter() {
     // 표시할 번호 윈도우 (최대 5개) — 페이지가 많아도 번호가 넘치지 않게

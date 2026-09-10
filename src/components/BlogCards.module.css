@@ -1,7 +1,7 @@
 /* 통합 소식 게시판 */
 .board {
   /* 컬럼 너비/간격 (헤더·행 공통) */
-  --col-index: 34px;
+  --col-index: 36px;
   --col-tag: 64px;
   --col-author: 78px;
   --col-date: 66px;
@@ -39,6 +39,56 @@
 .colDate { width: var(--col-date); text-align: center; flex-shrink: 0; }
 .colViews { width: var(--col-views); text-align: center; flex-shrink: 0; }
 .colAuthor { width: var(--col-author); text-align: center; flex-shrink: 0; }
+
+/* 정렬 헤더 버튼 (컬럼명 클릭 → 오름/내림 토글) */
+.sortBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.16rem;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+.sortBtn:hover { color: var(--ifm-color-primary); }
+.sortArrow { font-size: 0.6rem; line-height: 1; opacity: 0.32; }
+.sortBtnOn { color: var(--ifm-color-primary); }
+.sortBtnOn .sortArrow { opacity: 1; }
+
+/* 인기글(조회수 1위) — 일반 행과 동일 크기, 테두리·배경 강조 + 번호칸 BEST 뱃지 */
+.bestLi { list-style: none; margin: 0.2rem 0 0.6rem; }
+.bestLi + li { border-top: none; } /* 갭 뒤 구분선 제거 */
+.rowBest {
+  background: #efedf6;
+  border: 1.5px solid #8f86b0;
+  border-radius: 10px;
+  box-shadow: 0 5px 16px -9px rgba(143, 134, 176, 0.6);
+}
+.rowBest:hover {
+  background: #e6e2f1 !important;
+  box-shadow: 0 7px 18px -9px rgba(143, 134, 176, 0.72) !important;
+}
+/* 인기글 행의 조회수 숫자 강조 */
+.rowBest .rowViews,
+.rowBest .rowViewsMeta {
+  color: #6a5f92;
+  font-weight: 800;
+}
+/* 번호칸 인기글 표시 — 골드 왕관 아이콘 */
+.bestCrown {
+  display: block;
+  width: 21px;
+  height: 21px;
+  margin: 0 auto;
+  filter: drop-shadow(0 1px 1px rgba(200, 130, 0, 0.3));
+}
+
+/* 모바일 정렬 셀렉트 (데스크톱에선 헤더 버튼을 쓰므로 숨김) */
+.mobileSort { display: none; }
 
 /* 넓은 게시판 (홈 커뮤니티 섹션 · 커뮤니티 페이지) */
 .boardWide {
@@ -103,8 +153,9 @@
   align-items: center;
   padding: 1.1rem 1.3rem 0;
 }
-/* 검색창 바로 뒤에 헤더가 오는 경우(tags 페이지, 필터바 없음)에만 간격 — 커뮤니티(필터바 있음)엔 영향 없음 */
-.searchRow + .listHead {
+/* 검색창 바로 뒤에 헤더가 오는 경우(tags 페이지, 필터바 없음)에만 간격 — 커뮤니티(필터바 있음)엔 영향 없음.
+   검색창과 헤더 사이엔 항상 .mobileSort(데스크톱 display:none)가 있으므로 이를 포함해 인접 선택 */
+.searchRow + .mobileSort + .listHead {
   margin-top: 0.9rem;
 }
 .searchIcon {
@@ -512,8 +563,27 @@
   .filters { padding: 0.7rem 0.7rem; gap: 0.3rem; }
   .fbtn { font-size: 0.74rem; padding: 0.28rem 0.66rem; }
 
-  /* 표 헤더는 카드형에서 의미가 없으므로 숨김 */
+  /* 표 헤더는 카드형에서 의미가 없으므로 숨김 → 대신 정렬 셀렉트 노출 */
   .listHead { display: none; }
+  .mobileSort {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.75rem 0.15rem;
+  }
+  .mobileSortLabel { font-size: 0.74rem; font-weight: 700; color: #8a5a44; flex-shrink: 0; }
+  .mobileSortSelect {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ecdfc9;
+    border-radius: 8px;
+    background: #fffdf9;
+    font-size: 0.78rem;
+    color: #4a3f33;
+  }
+  /* 모바일 카드에선 번호칸이 숨겨지므로, 인기글 왕관은 메타줄 앞에 노출 */
+  .rowBest .rowIndex { display: inline-flex; width: auto; margin-right: 0.2rem; }
+  .bestCrown { width: 19px; height: 19px; }
 
   .list { padding: 0.3rem 0.45rem; }
   .row {
@@ -613,3 +683,7 @@
 [data-theme='dark'] .authorCardTitle { color: #b8ab9b; }
 [data-theme='dark'] .rowTitle { color: #ece3d6; }
 [data-theme='dark'] .row:hover { background: #46352233; box-shadow: inset 3px 0 0 0 var(--ifm-color-primary); }
+[data-theme='dark'] .rowBest { background: #2b2740; border-color: #9a90c0; }
+[data-theme='dark'] .rowBest:hover { background: #33304d !important; }
+[data-theme='dark'] .mobileSortSelect { background: #2a2219; border-color: #3a2f22; color: #ddd3c5; }
+[data-theme='dark'] .mobileSortLabel { color: #d3a98e; }
