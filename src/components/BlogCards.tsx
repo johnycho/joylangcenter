@@ -307,18 +307,8 @@ export default function NewsBoard({
               aria-label={`${c.label}(으)로 정렬`}>
               {c.label}
               <span className={styles.sortStack} aria-hidden="true">
-                <span
-                  className={`${styles.sortUp} ${
-                    sortKey === c.key ? (sortDir === 'asc' ? styles.sortOn : styles.sortHide) : ''
-                  }`}>
-                  ⌃
-                </span>
-                <span
-                  className={`${styles.sortDown} ${
-                    sortKey === c.key ? (sortDir === 'desc' ? styles.sortOn : styles.sortHide) : ''
-                  }`}>
-                  ⌃
-                </span>
+                <span className={`${styles.sortUp} ${sortKey === c.key && sortDir === 'asc' ? styles.sortOn : ''}`}>⌃</span>
+                <span className={`${styles.sortDown} ${sortKey === c.key && sortDir === 'desc' ? styles.sortOn : ''}`}>⌃</span>
               </span>
             </button>
           ) : (

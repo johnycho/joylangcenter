@@ -71,7 +71,6 @@
 }
 .sortDown { transform: rotate(180deg); }
 .sortOn { opacity: 1; color: var(--ifm-color-primary); }
-.sortHide { visibility: hidden; } /* 반대 방향 캐럿 숨김(자리 유지 → 위치 고정) */
 .sortBtnOn { color: var(--ifm-color-primary); }
 
 /* 인기글(조회수 1위) — 일반 행과 동일 크기, 테두리·배경 강조 + 번호칸 BEST 뱃지 */
