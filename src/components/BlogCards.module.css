@@ -55,9 +55,24 @@
   padding: 0;
 }
 .sortBtn:hover { color: var(--ifm-color-primary); }
-.sortArrow { font-size: 0.6rem; line-height: 1; opacity: 0.32; }
+/* 정렬 표시: ⌃(위) + 회전 ⌃(아래)를 항상 세로 스택으로 렌더 →
+   활성/비활성 전환 시 캐럿 위치가 고정되고, 활성 방향만 진하게 표시 */
+.sortStack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.78rem;
+}
+.sortUp,
+.sortDown {
+  display: block;
+  line-height: 0.18;
+  opacity: 0.3;
+}
+.sortDown { transform: rotate(180deg); }
+.sortOn { opacity: 1; color: var(--ifm-color-primary); }
+.sortHide { visibility: hidden; } /* 반대 방향 캐럿 숨김(자리 유지 → 위치 고정) */
 .sortBtnOn { color: var(--ifm-color-primary); }
-.sortBtnOn .sortArrow { opacity: 1; }
 
 /* 인기글(조회수 1위) — 일반 행과 동일 크기, 테두리·배경 강조 + 번호칸 BEST 뱃지 */
 .bestLi { list-style: none; margin: 0.2rem 0 0.6rem; }
@@ -563,24 +578,101 @@
   .filters { padding: 0.7rem 0.7rem; gap: 0.3rem; }
   .fbtn { font-size: 0.74rem; padding: 0.28rem 0.66rem; }
 
-  /* 표 헤더는 카드형에서 의미가 없으므로 숨김 → 대신 정렬 셀렉트 노출 */
+  /* 표 헤더는 카드형에서 의미가 없으므로 숨김 → 대신 세련된 pill 정렬 컨트롤 */
   .listHead { display: none; }
   .mobileSort {
     display: flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.55rem 0.75rem 0.15rem;
+    padding: 0.55rem 0.8rem 0.15rem;
   }
   .mobileSortLabel { font-size: 0.74rem; font-weight: 700; color: #8a5a44; flex-shrink: 0; }
-  .mobileSortSelect {
-    flex: 1;
-    padding: 0.4rem 0.6rem;
-    border: 1px solid #ecdfc9;
-    border-radius: 8px;
-    background: #fffdf9;
-    font-size: 0.78rem;
-    color: #4a3f33;
+
+  /* 컬럼명 + 방향을 하나의 pill로 통합(화면 좌우폭에 꽉 차게), 가운데 구분선 */
+  .msControl {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    border: 1.5px solid #f1d9bd;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #fffdf9, #fdf2e4);
+    box-shadow: 0 1px 3px rgba(150, 100, 30, 0.12);
   }
+  .msDropdown { position: relative; display: flex; flex: 1; min-width: 0; }
+  .msColBtn {
+    flex: 1;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem 0.7rem 0.5rem 1.15rem;
+    border: none;
+    background: none;
+    border-radius: 999px 0 0 999px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #6a4a38;
+    cursor: pointer;
+  }
+  .msDivider { width: 1px; align-self: stretch; margin: 0.3rem 0; background: #ecd8bd; }
+
+  .msBackdrop { position: fixed; inset: 0; z-index: 40; }
+  .msMenu {
+    position: absolute;
+    z-index: 41;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 132px;
+    margin: 0;
+    padding: 0.3rem;
+    list-style: none;
+    background: #fff;
+    border: 1px solid #efe0d0;
+    border-radius: 13px;
+    box-shadow: 0 14px 30px -10px rgba(120, 80, 0, 0.42);
+  }
+  .msOption {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.54rem 0.8rem;
+    border: none;
+    background: none;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #5a4a3a;
+    border-radius: 9px;
+    cursor: pointer;
+  }
+  .msOption:active { background: #fbf1e2; }
+  .msOptionOn { color: var(--ifm-color-primary); background: #fff2e0; }
+  .msCheck {
+    flex-shrink: 0;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--ifm-color-primary);
+    text-shadow: 0 0 1px rgba(242, 146, 29, 0.5);
+  }
+
+  .msDir {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.95rem;
+    border: none;
+    background: none;
+    border-radius: 0 999px 999px 0;
+    color: var(--ifm-color-primary);
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .msColBtn:active,
+  .msDir:active { background: #fff1de; }
   /* 모바일 카드에선 번호칸이 숨겨지므로, 인기글 왕관은 메타줄 앞에 노출 */
   .rowBest .rowIndex { display: inline-flex; width: auto; margin-right: 0.2rem; }
   .bestCrown { width: 19px; height: 19px; }
@@ -685,5 +777,10 @@
 [data-theme='dark'] .row:hover { background: #46352233; box-shadow: inset 3px 0 0 0 var(--ifm-color-primary); }
 [data-theme='dark'] .rowBest { background: #2b2740; border-color: #9a90c0; }
 [data-theme='dark'] .rowBest:hover { background: #33304d !important; }
-[data-theme='dark'] .mobileSortSelect { background: #2a2219; border-color: #3a2f22; color: #ddd3c5; }
+[data-theme='dark'] .msControl { background: #322820; border-color: #4a3a2a; }
+[data-theme='dark'] .msColBtn { color: #ddd3c5; }
+[data-theme='dark'] .msDivider { background: #4a3a2a; }
+[data-theme='dark'] .msMenu { background: #2f261c; border-color: #46392a; }
+[data-theme='dark'] .msOption { color: #cdbdad; }
+[data-theme='dark'] .msOptionOn { background: #40322a; }
 [data-theme='dark'] .mobileSortLabel { color: #d3a98e; }

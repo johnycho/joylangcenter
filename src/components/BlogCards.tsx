@@ -101,9 +101,10 @@ export default function NewsBoard({
   const [query, setQuery] = useState<string>('');
   const [views, setViews] = useState<Record<string, number>>({});
   const [viewsLoaded, setViewsLoaded] = useState<boolean>(false);
-  // sortKey null = 원래순(작성일 최신순, 기본). 컬럼 클릭 시 오름→내림→원래순으로 순환.
-  const [sortKey, setSortKey] = useState<string | null>(null);
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
+  // 기본은 작성일 내림차순(역순) 활성. PC 헤더 클릭 시 오름→내림→원래순(null) 순환.
+  const [sortKey, setSortKey] = useState<string | null>('date');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+  const [sortMenuOpen, setSortMenuOpen] = useState<boolean>(false); // 모바일 정렬 기준 드롭다운
   const {siteConfig} = useDocusaurusContext();
 
   // 게시판 노출 글들의 조회수를 한 번에 조회.
@@ -208,6 +209,10 @@ export default function NewsBoard({
     setPage(1);
   };
 
+  // 모바일 단일 정렬 컨트롤용 유효 상태 (원래순 null → 작성일 내림차순으로 표시)
+  const effSortKey = sortKey ?? 'date';
+  const effSortDir: 'asc' | 'desc' = sortKey === null ? 'desc' : sortDir;
+
   return (
     <div className={`${styles.board} ${wide ? styles.boardWide : ''}`}>
       {showSearch && (
@@ -236,32 +241,59 @@ export default function NewsBoard({
       )}
 
       <div className={styles.mobileSort}>
-        <span className={styles.mobileSortLabel}>정렬</span>
-        <select
-          className={styles.mobileSortSelect}
-          value={sortKey === null ? 'default' : `${sortKey}:${sortDir}`}
-          onChange={(e) => {
-            const v = e.target.value;
-            if (v === 'default') {
-              setSortKey(null);
-              setSortDir('asc');
-            } else {
-              const [k, d] = v.split(':');
-              setSortKey(k);
-              setSortDir(d as 'asc' | 'desc');
-            }
+        <div className={styles.msControl}>
+        <div className={styles.msDropdown}>
+          <button
+            type="button"
+            className={styles.msColBtn}
+            onClick={() => setSortMenuOpen((o) => !o)}
+            aria-haspopup="listbox"
+            aria-expanded={sortMenuOpen}>
+            {COLS.find((c) => c.key === effSortKey)?.label}
+          </button>
+          {sortMenuOpen && (
+            <>
+              <div className={styles.msBackdrop} onClick={() => setSortMenuOpen(false)} />
+              <ul className={styles.msMenu} role="listbox">
+                {COLS.filter((c) => c.sortable).map((c) => (
+                  <li key={c.key}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={effSortKey === c.key}
+                      className={`${styles.msOption} ${effSortKey === c.key ? styles.msOptionOn : ''}`}
+                      onClick={() => {
+                        setSortKey(c.key);
+                        setSortDir(effSortDir);
+                        setSortMenuOpen(false);
+                        setPage(1);
+                      }}>
+                      {c.label}
+                      {effSortKey === c.key && <span className={styles.msCheck}>✓</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+        <span className={styles.msDivider} aria-hidden="true" />
+        <button
+          type="button"
+          className={styles.msDir}
+          onClick={() => {
+            setSortKey(effSortKey);
+            setSortDir(effSortDir === 'asc' ? 'desc' : 'asc');
             setPage(1);
           }}
-          aria-label="정렬 기준">
-          <option value="default">원래순(최신순)</option>
-          <option value="date:asc">오래된순</option>
-          <option value="views:desc">조회수 많은순</option>
-          <option value="views:asc">조회수 적은순</option>
-          <option value="title:asc">제목 ㄱ→ㅎ</option>
-          <option value="title:desc">제목 ㅎ→ㄱ</option>
-          <option value="author:asc">작성자순</option>
-          <option value="tag:asc">분류순</option>
-        </select>
+          aria-label={effSortDir === 'asc' ? '오름차순 — 클릭 시 내림차순' : '내림차순 — 클릭 시 오름차순'}>
+          {/* 같은 캐럿(⌃)을 회전만 시켜 위/아래 모양을 정확히 일치 */}
+          <span
+            style={{display: 'inline-block', transform: effSortDir === 'desc' ? 'rotate(180deg)' : undefined}}>
+            ⌃
+          </span>
+        </button>
+        </div>
       </div>
 
       <div className={styles.listHead}>
@@ -274,7 +306,20 @@ export default function NewsBoard({
               onClick={() => changeSort(c.key)}
               aria-label={`${c.label}(으)로 정렬`}>
               {c.label}
-              <span className={styles.sortArrow}>{sortKey === c.key ? (sortDir === 'asc' ? '▲' : '▼') : '⇅'}</span>
+              <span className={styles.sortStack} aria-hidden="true">
+                <span
+                  className={`${styles.sortUp} ${
+                    sortKey === c.key ? (sortDir === 'asc' ? styles.sortOn : styles.sortHide) : ''
+                  }`}>
+                  ⌃
+                </span>
+                <span
+                  className={`${styles.sortDown} ${
+                    sortKey === c.key ? (sortDir === 'desc' ? styles.sortOn : styles.sortHide) : ''
+                  }`}>
+                  ⌃
+                </span>
+              </span>
             </button>
           ) : (
             <span key={c.key} className={styles[c.cls]}>{c.label}</span>
