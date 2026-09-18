@@ -70,7 +70,13 @@
   opacity: 0.3;
 }
 .sortDown { transform: rotate(180deg); }
-.sortOn { opacity: 1; color: #d9560a; }
+/* 복합 선택자(.sortUp.sortOn)로 specificity를 높여, 프로덕션 CSS 병합/재정렬과
+   무관하게 활성 캐럿이 항상 진하게(opacity 1 + 색) 우선 적용되도록 함 */
+.sortUp.sortOn,
+.sortDown.sortOn {
+  opacity: 1;
+  color: #d9560a;
+}
 .sortBtnOn { color: #d9560a; }
 
 /* 인기글(조회수 1위) — 일반 행과 동일 크기, 테두리·배경 강조 + 번호칸 BEST 뱃지 */
