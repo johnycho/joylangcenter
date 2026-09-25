@@ -32,6 +32,7 @@
 - 네이버의 "첨부파일 / 파일 다운로드" **UI 텍스트 잔여물은 제거**하고, 실제 파일은 위 버튼으로 대체한다(§4 참고).
 
 ## 3) 파일 / 프론트매터
+- **날짜는 네이버 원글 게시일과 동일하게 맞춘다**(크롤한 날/오늘 날짜 ❌). 파일명 접두 `YYYY-MM-DD`·slug 뒤 `YYYYMMDD` 둘 다 원글 게시일 기준. 게시일 확인: 크롤 시 `.se_publishDate`(예: `2026. 9. 23.`) 또는 `curl -sL "https://m.blog.naver.com/joylangcenter/<logNo>" | grep -o 'property="og:...:published_time"[^>]*'`.
 - 파일명 `blog/YYYY-MM-DD-joy-<type>-YYYYMMDD.mdx`, `slug: joy-<type>-YYYYMMDD`. 같은 날 같은 type 겹치면 slug 뒤 구분어(예: `-lecture`).
 - frontmatter: `slug`, `image`(대표/og:image), `title`(따옴표), `authors`, `tags: [ notice | news | info | library ]`, `description`, `keywords`(표준 그룹형 4개 — `원주 언어치료` / `원주 기업도시·지정면 언어치료` / `원주 언어발달센터` / `원주 기업도시·지정면 언어발달센터`. 언어치료 계열을 앞에 두고, 원주 반복은 그룹으로 묶는다).
 - **`image`(공유 썸네일·og:image)는 네이버 원글의 대표 이미지와 동일하게 맞춘다.** 네이버 대표 이미지는 본문 **첫 번째가 아닐 수 있으니(흔히 두 번째)** 반드시 원글 og:image를 확인해, 그에 대응하는 우리 파일 `/img/blog/<slug>-<n>.<ext>` 로 지정한다.
