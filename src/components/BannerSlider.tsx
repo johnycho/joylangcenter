@@ -15,13 +15,11 @@ import 'swiper/css/navigation';
 import styles from './BannerSlider.module.css';
 
 export default function BannerSlider() {
-  // 배너 이미지는 배경을 좌우로 확장(1.85:1)해 두어 사람이 잘리지 않게 함.
-  // object-position 은 이미지마다 crop 기준을 달리함:
-  //  - banner-2: 아이 몸통이 하단 → 하단 정렬(위쪽 배경만 크롭)
-  //  - banner-3: 손이 상단 → 중앙 정렬
+  // 센터 치료실 사진 3개 (언어·미술·인지)
   const [slides] = useState([
-    {src: '/img/index-banner-2.jpg', pos: 'center bottom'},
-    {src: '/img/index-banner-3.jpg', pos: 'center'},
+    {src: '/img/home/concept/room-eoneo.jpg', pos: 'center'},
+    {src: '/img/home/concept/room-misul.jpg', pos: 'center'},
+    {src: '/img/home/concept/room-inji.jpg', pos: 'center'},
   ]);
 
   return (

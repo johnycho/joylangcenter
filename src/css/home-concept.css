@@ -1,0 +1,750 @@
+/* 조이 홈페이지 리디자인 컨셉 — mockup2.html에서 이식, .joyHome 스코프 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap');
+.joyHome{font-family:'Noto Sans KR','NanumSquareRound',sans-serif;color:var(--ink);--orange:#f2921d;--orange2:#fbb13c;--cream:#fff4e2;--cream2:#fdeede;--ink:#3a2f22;--muted:#857561;--line:#f0e6d6;--card:#fff;--deep:#3a2b1d;--deep2:#4a3726;--terra:#c9661f;}
+.joyHome .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+.joyHome .sec{padding:94px 0;}
+.joyHome .eyebrow{font-size:15px;font-weight:800;letter-spacing:3px;color:var(--orange);}
+.joyHome h2.t{font-size:42px;font-weight:900;letter-spacing:-1.5px;margin-top:10px;}
+.joyHome .lead{font-size:19px;color:var(--muted);margin-top:14px;line-height:1.65;font-weight:500;}
+.joyHome .btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;border-radius:999px;}
+.joyHome .btn.pri{background:var(--orange);color:#fff;padding:13px 24px;font-size:16px;box-shadow:0 10px 22px -10px rgba(242,146,29,.7);}
+.joyHome .btn.ghost{background:#fff;color:var(--orange);border:2px solid #f7c98a;padding:13px 24px;font-size:16px;}
+.joyHome .btn.lg{padding:17px 30px;font-size:18px;}
+.joyHome .nav{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50;}
+.joyHome .nav .wrap{display:flex;align-items:center;height:76px;gap:30px;max-width:none;width:100%;padding:0 1.6rem;}
+.joyHome .brand img{height:40px;display:block;}
+.joyHome .navleft{display:flex;gap:26px;font-weight:700;font-size:16px;color:#3a3a3a;align-items:center;}
+.joyHome .navleft .item{cursor:pointer;}
+.joyHome .navright{margin-left:auto;display:flex;align-items:center;gap:11px;}
+.joyHome .ctabtn{background:linear-gradient(135deg,#f7a32e,#f2911b);color:#fff;font-weight:700;padding:.5rem 1.15rem;border-radius:999px;box-shadow:0 10px 22px -12px rgba(242,145,27,.9);font-size:15px;}
+.joyHome .soc{width:34px;height:34px;border-radius:50%;background:#f4ece0;display:flex;align-items:center;justify-content:center;font-size:15px;color:#f2921d;font-weight:800;}
+.joyHome .search{display:inline-flex;align-items:center;gap:7px;background:#f6efe3;border:1px solid var(--line);border-radius:10px;padding:7px 11px;color:#8a7a63;font-weight:700;font-size:14px;}
+.joyHome .search kbd{background:#fff;border:1px solid #e6d8bf;border-radius:5px;padding:1px 6px;font-size:12px;color:#9a8a72;}
+.joyHome .hero{position:relative;min-height:624px;display:flex;align-items:center;overflow:hidden;}
+.joyHome .hero .bg{position:absolute;inset:0;background-size:cover;background-position:center 40%;transform:scale(1.03);}
+.joyHome .hero .scrim{position:absolute;inset:0;background:linear-gradient(95deg,rgba(40,28,16,.8) 0%,rgba(48,35,22,.52) 40%,rgba(58,43,28,.14) 68%,rgba(58,43,28,0) 100%);}
+.joyHome .hero .wrap{position:relative;z-index:2;max-width:none;width:100%;padding:76px 6%;}
+.joyHome .hero .l{max-width:600px;text-align:left;}
+.joyHome .hero h1{font-size:52px;font-weight:900;line-height:1.22;letter-spacing:-1.8px;color:#fff;text-shadow:0 3px 20px rgba(0,0,0,.28);}
+.joyHome .hero h1 .hl{color:#ffd27a;}
+.joyHome .hero .sub{margin-top:20px;font-size:20px;color:#ffeccf;line-height:1.65;font-weight:500;text-shadow:0 1px 12px rgba(0,0,0,.3);}
+.joyHome .chips{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;}
+.joyHome .chip{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.45);border-radius:999px;padding:11px 18px;font-weight:700;font-size:15px;color:#fff;display:flex;align-items:center;gap:8px;}
+.joyHome .chip .c{width:10px;height:10px;border-radius:50%;background:var(--orange2);}
+.joyHome .cta{margin-top:30px;display:flex;gap:14px;}
+.joyHome .hero .ghostw{background:rgba(255,255,255,.14);color:#fff;border:2px solid rgba(255,255,255,.78);padding:17px 30px;font-size:18px;border-radius:999px;font-weight:800;}
+.joyHome .dots{position:absolute;bottom:24px;left:0;right:0;z-index:3;display:flex;gap:9px;justify-content:center;}
+.joyHome .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.55);}
+.joyHome .dot.on{background:#fff;width:30px;border-radius:5px;}
+.joyHome .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.5);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;}
+.joyHome .arrow.al{left:28px;}
+.joyHome .arrow.ar{right:28px;}
+.joyHome .worry{background:#fff;}
+.joyHome .wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px;}
+.joyHome .wc{background:linear-gradient(170deg,#fffaf1,#fff3e1);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 18px 40px -30px rgba(150,95,0,.5);}
+.joyHome .wc .q{font-size:19px;font-weight:800;color:#5a4a36;}
+.joyHome .wc .q .em{color:var(--orange);}
+.joyHome .wc p{margin-top:12px;font-size:15.5px;color:var(--muted);line-height:1.6;}
+.joyHome .wc .tagline{margin-top:16px;display:inline-block;background:var(--cream2);color:var(--terra);font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;}
+.joyHome .deep{background:linear-gradient(160deg,var(--deep),var(--deep2));color:#fff;}
+.joyHome .deep .eyebrow{color:var(--orange2);}
+.joyHome .deep h2.t{color:#fff;}
+.joyHome .deep .lead{color:#e7d7c2;}
+.joyHome .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:46px;}
+.joyHome .sc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:30px 24px;text-align:center;}
+.joyHome .sc .n{font-size:46px;font-weight:900;color:var(--orange2);letter-spacing:-1.5px;}
+.joyHome .sc .k{margin-top:8px;font-size:16px;color:#e4d4bf;font-weight:600;}
+.joyHome .assess{background:linear-gradient(160deg,#fff6e9,#fdeede);}
+.joyHome .assess .box{display:flex;gap:46px;align-items:center;}
+.joyHome .assess .l{flex:1.05;}
+.joyHome .assess .r{flex:.95;}
+.joyHome .assess .r img{width:100%;border-radius:24px;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);}
+.joyHome .pill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #f3dcb6;border-radius:999px;padding:10px 15px;font-weight:800;font-size:14px;color:#7a5a2a;margin:6px 8px 0 0;}
+.joyHome .pill .c{width:9px;height:9px;border-radius:50%;background:var(--orange);}
+.joyHome .proc{background:#fff;}
+.joyHome .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:46px;}
+.joyHome .step{background:linear-gradient(170deg,#fffaf1,#fff3e1);border:1px solid var(--line);border-radius:20px;padding:28px;}
+.joyHome .step .n{width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center;}
+.joyHome .step h3{margin-top:18px;font-size:20px;font-weight:800;}
+.joyHome .step p{margin-top:10px;font-size:15px;color:var(--muted);line-height:1.6;}
+.joyHome .space{background:linear-gradient(180deg,#fffaf1,#fff4e2);}
+.joyHome .sp{display:flex;gap:40px;align-items:center;}
+.joyHome .sp .l{flex:1;}
+.joyHome .sp .r{flex:1.1;}
+.joyHome .sp .r img{width:100%;border-radius:24px;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);}
+.joyHome .gal{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.joyHome .gal img{width:100%;border-radius:18px;border:1px solid #f0e6d6;box-shadow:0 22px 44px -30px rgba(150,90,0,.5);object-fit:cover;}
+.joyHome .gal .big{grid-column:1/3;height:250px;}
+.joyHome .gal .sm{height:200px;}
+.joyHome .acar{margin-top:40px;position:relative;padding:0 3.5rem;}
+.joyHome .atrack{display:flex;gap:22px;overflow:hidden;padding:0.6rem 0 0;}
+.joyHome .acard{flex:0 0 calc((100% - 44px)/3);display:flex;flex-direction:column;overflow:hidden;border-radius:20px;background:#fff;border:1px solid #f0e6d6;box-shadow:0 12px 28px -20px rgba(120,80,0,.45);}
+.joyHome .acard .img{height:188px;background:#fff;display:flex;align-items:center;justify-content:center;padding:16px;border-bottom:1px solid #f4ecdd;}
+.joyHome .acard .img img{max-width:100%;max-height:100%;object-fit:contain;}
+.joyHome .acard .bd{display:flex;flex-direction:column;flex:1;padding:1.3rem 1.4rem 1.5rem;}
+.joyHome .acard .ab{align-self:flex-start;background:#fdeede;color:#b46508;font-weight:800;font-size:12px;padding:4px 10px;border-radius:6px;letter-spacing:.02em;}
+.joyHome .acard h4{margin:0.6rem 0 0.4rem;font-size:1.14rem;font-weight:700;min-height:2.6em;display:flex;align-items:flex-start;}
+.joyHome .acard p{margin:0;color:#6f6256;font-size:0.93rem;line-height:1.55;min-height:2.9em;}
+.joyHome .acard .more{margin-top:auto;padding-top:0.9rem;font-size:0.85rem;font-weight:700;color:#f2921d;}
+.joyHome .navb{position:absolute;top:45%;transform:translateY(-50%);z-index:5;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;background:#fff;border:1px solid #f0e6d6;color:#f2921d;box-shadow:0 8px 20px -8px rgba(120,80,0,.5);}
+.joyHome .navb svg{width:22px;height:22px;}
+.joyHome .navb.l{left:0;}
+.joyHome .navb.r{right:0;}
+.joyHome .adots{margin-top:20px;display:flex;gap:8px;justify-content:center;}
+.joyHome .adots i{width:8px;height:8px;border-radius:50%;background:#e7d9c4;display:inline-block;}
+.joyHome .adots i.on{background:#f2921d;width:22px;border-radius:5px;}
+.joyHome .creds{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.joyHome .cred{display:flex;gap:13px;align-items:flex-start;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:18px 20px;}
+.joyHome .cred .ic{font-size:22px;line-height:1.2;}
+.joyHome .cred b{font-size:15.5px;color:#fff;font-weight:700;}
+.joyHome .cred span{display:block;color:#d9c8b2;font-size:13.5px;margin-top:4px;line-height:1.5;}
+.joyHome .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px;}
+.joyHome .fcard{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 18px 40px -30px rgba(150,95,0,.5);}
+.joyHome .fcard .thumb{width:118px;height:118px;border-radius:22px;overflow:hidden;background:var(--cream2);border:1px solid var(--line);}
+.joyHome .fcard .thumb img{width:100%;height:100%;object-fit:cover;}
+.joyHome .fcard h3{margin-top:20px;font-size:21px;font-weight:800;}
+.joyHome .fcard p{margin-top:10px;font-size:15.5px;color:var(--muted);line-height:1.6;}
+.joyHome .fcard .more{margin-top:16px;color:var(--orange);font-weight:800;font-size:15px;}
+.joyHome .rec{background:#fff;}
+.joyHome .rec2{display:flex;gap:40px;align-items:stretch;margin-top:40px;}
+.joyHome .reclist{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:14px;}
+.joyHome .recitem{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 14px 30px -26px rgba(150,95,0,.5);}
+.joyHome .recitem .ic{width:62px;height:62px;flex:none;border-radius:14px;background:var(--cream2);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.joyHome .recitem .ic img{width:100%;height:100%;object-fit:cover;}
+.joyHome .recitem b{font-size:15.5px;font-weight:800;}
+.joyHome .recitem span{display:block;color:var(--muted);font-size:13px;margin-top:4px;line-height:1.5;}
+.joyHome .recpic{flex:0 0 42%;}
+.joyHome .recpic .pslider{height:100%;position:relative;}
+.joyHome .recpic .frame{height:100%;position:relative;border-radius:22px;overflow:hidden;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);}
+.joyHome .recpic .frame img{width:100%;height:100%;object-fit:cover;}
+.joyHome .recpic .frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:96px;background:linear-gradient(transparent,rgba(0,0,0,.55));}
+.joyHome .recpic .pdots{position:absolute;bottom:44px;left:0;right:0;z-index:2;}
+.joyHome .recpic .pcap{position:absolute;bottom:14px;left:18px;right:18px;z-index:2;color:#fff;font-size:13px;text-shadow:0 1px 6px rgba(0,0,0,.7);}
+.joyHome .step .thumb{position:relative;width:98px;height:98px;border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--line);}
+.joyHome .step .thumb img{width:100%;height:100%;object-fit:cover;}
+.joyHome .step .thumb .n{position:absolute;top:-6px;left:-6px;width:34px;height:34px;border-radius:50%;background:var(--orange);color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;}
+.joyHome .cred .ic.ch{width:54px;height:54px;flex:none;border-radius:14px;overflow:hidden;background:#fff;padding:0;}
+.joyHome .cred .ic.ch img{width:100%;height:100%;object-fit:cover;}
+.joyHome .pslider{position:relative;}
+.joyHome .pslider .frame{border-radius:22px;overflow:hidden;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);}
+.joyHome .pslider .frame img{width:100%;height:372px;object-fit:cover;display:block;}
+.joyHome .pslider .pa{position:absolute;top:calc(50% - 16px);transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--line);color:var(--orange);font-size:22px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 20px -8px rgba(0,0,0,.3);}
+.joyHome .pslider .pa.l{left:16px;}
+.joyHome .pslider .pa.r{right:16px;}
+.joyHome .pdots{margin-top:14px;display:flex;gap:8px;justify-content:center;}
+.joyHome .pdots i{width:9px;height:9px;border-radius:50%;background:#efcf9a;display:inline-block;}
+.joyHome .pdots i.on{background:var(--orange);width:26px;border-radius:5px;}
+.joyHome .pcap{margin-top:10px;font-size:13.5px;color:var(--muted);text-align:center;}
+.joyHome .leadrow{display:flex;gap:44px;align-items:center;}
+.joyHome .leadrow .txt{flex:1;}
+.joyHome .leadrow .pic{flex:0 0 42%;}
+.joyHome .leadrow .pic img{width:100%;border-radius:22px;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);display:block;}
+.joyHome .story{background:linear-gradient(180deg,#fffaf1,#fff4e2);}
+.joyHome .story .shead{text-align:center;}
+.joyHome .storygrid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px;}
+.joyHome .storycard{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 18px 40px -30px rgba(150,95,0,.5);}
+.joyHome .storycard img{width:100%;height:300px;object-fit:cover;display:block;}
+.joyHome .storycard .cap{padding:22px 26px;}
+.joyHome .storycard .cap b{font-size:19px;font-weight:800;}
+.joyHome .storycard .cap p{margin-top:8px;color:var(--muted);font-size:15px;line-height:1.6;}
+.joyHome .proc2{display:flex;gap:48px;align-items:center;margin-top:40px;}
+.joyHome .proc2pic{flex:0 0 46%;}
+.joyHome .proc2pic img{width:100%;border-radius:22px;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);display:block;}
+.joyHome .vsteps{flex:1;display:flex;flex-direction:column;gap:14px;}
+.joyHome .vstep{display:flex;gap:16px;align-items:center;background:linear-gradient(170deg,#fffaf1,#fff3e1);border:1px solid var(--line);border-radius:16px;padding:15px 18px;box-shadow:0 12px 26px -24px rgba(150,95,0,.5);}
+.joyHome .vstep .thumb{position:relative;width:56px;height:56px;flex:none;border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line);}
+.joyHome .vstep .thumb img{width:100%;height:100%;object-fit:cover;}
+.joyHome .vstep .thumb .n{position:absolute;top:-6px;left:-6px;width:26px;height:26px;border-radius:50%;background:var(--orange);color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;}
+.joyHome .vstep b{font-size:17px;font-weight:800;}
+.joyHome .vstep span{display:block;color:var(--muted);font-size:14px;margin-top:3px;line-height:1.5;}
+.joyHome .ahead{display:flex;gap:48px;align-items:center;}
+.joyHome .atxt{flex:1;}
+.joyHome .apic{flex:0 0 40%;}
+.joyHome .apic img{width:100%;border-radius:22px;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);display:block;}
+.joyHome .assess2{display:flex;gap:40px;align-items:stretch;margin-top:40px;}
+.joyHome .apic2{flex:0 0 45%;}
+.joyHome .apic2 img{width:100%;height:384px;object-fit:cover;border-radius:22px;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);display:block;}
+.joyHome .aslider{flex:1;position:relative;padding-right:40px;}
+.joyHome .avp{height:384px;overflow:hidden;display:flex;flex-direction:column;gap:14px;}
+.joyHome .aitem{flex:0 0 calc((384px - 28px)/3);display:flex;align-items:stretch;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -24px rgba(150,95,0,.5);}
+.joyHome .athumb{width:150px;flex:none;background:#faf4ea;border-right:1px solid #f0e6d6;display:flex;align-items:center;justify-content:center;padding:14px;}
+.joyHome .athumb img{max-width:100%;max-height:100%;object-fit:contain;}
+.joyHome .atext{flex:1;display:flex;flex-direction:column;justify-content:center;padding:16px 20px;}
+.joyHome .atext b{font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.joyHome .abx{background:#fdeede;color:#b46508;font-weight:800;font-size:11px;padding:3px 8px;border-radius:5px;}
+.joyHome .atext .d{display:block;color:var(--muted);font-size:14px;margin-top:6px;line-height:1.5;}
+.joyHome .avnav{position:absolute;right:0;top:0;height:384px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;}
+.joyHome .avbtn{width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #f0e6d6;color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;box-shadow:0 8px 18px -8px rgba(120,80,0,.5);}
+.joyHome .avdots{display:flex;flex-direction:column;gap:7px;}
+.joyHome .avdots i{width:8px;height:8px;border-radius:50%;background:#e7d9c4;}
+.joyHome .avdots i.on{background:#f2921d;height:22px;border-radius:5px;}
+.joyHome .sp2{display:flex;gap:40px;align-items:stretch;margin-top:40px;}
+.joyHome .sp2pic{flex:0 0 54%;}
+.joyHome .sp2pic .pslider{height:456px;position:relative;}
+.joyHome .sp2pic .frame{height:100%;border-radius:22px;position:relative;}
+.joyHome .sp2pic .frame img{width:100%;height:100%;object-fit:cover;}
+.joyHome .sp2pic .frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;border-radius:0 0 22px 22px;background:linear-gradient(transparent,rgba(0,0,0,.45));}
+.joyHome .sp2pic .pdots{position:absolute;bottom:46px;left:0;right:0;z-index:2;}
+.joyHome .sp2pic .pcap{position:absolute;bottom:16px;left:0;right:0;z-index:2;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6);}
+.joyHome .sp2rooms{flex:1;display:flex;flex-direction:column;gap:16px;}
+.joyHome .sp2rooms .room{flex:1;align-items:center;padding:16px 20px;}
+.joyHome .sp2rooms .room .ic.ch{width:88px;height:88px;border-radius:16px;}
+.joyHome .sp2rooms .room b{font-size:18px;display:flex;align-items:center;gap:8px;}
+.joyHome .sp2rooms .room span{font-size:14.5px;line-height:1.55;margin-top:4px;}
+.joyHome .soon{background:#fdeede;color:var(--terra);font-weight:800;font-size:11.5px;padding:3px 8px;border-radius:6px;white-space:nowrap;}
+.joyHome .sp2rooms .room.on{border-color:var(--orange);background:linear-gradient(170deg,#fff3e0,#ffe7ca);box-shadow:0 16px 34px -18px rgba(242,145,27,.55);}
+.joyHome .sp2rooms .room.on .ic.ch{border-color:#f7c98a;}
+.joyHome .room .ic.ch{width:50px;height:50px;overflow:hidden;background:#fff;padding:0;}
+.joyHome .room .ic.ch img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.joyHome .locsec{background:#fff;padding:clamp(1.5rem,3vw,2.6rem) 0;}
+.joyHome .locsec .shead{text-align:center;margin-bottom:1.3rem;}
+.joyHome .locsec .eb{margin:0 0 .6rem;font-size:.82rem;font-weight:700;letter-spacing:.18em;color:var(--orange);}
+.joyHome .locsec .hd{margin:0;font-size:clamp(1.3rem,2.6vw,1.8rem);font-weight:700;letter-spacing:-.01em;}
+.joyHome .locsec .sub{margin:.9rem auto 0;max-width:46ch;color:#6f6256;font-size:1.08rem;line-height:1.6;}
+.joyHome .locationCard{background:#fff;border:1px solid #f0e6d6;border-radius:18px;padding:1.6rem 1.8rem;box-shadow:0 10px 24px -18px rgba(120,80,0,.4);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.2rem;}
+.joyHome .locationCard .address{margin:0;font-size:1.02rem;font-weight:600;line-height:1.5;}
+.joyHome .channelRow{display:flex;gap:.55rem;flex-wrap:wrap;}
+.joyHome .channelIcon{width:44px;height:44px;border-radius:50%;background:#f4ece0;display:grid;place-items:center;font-size:20px;}
+.joyHome .mapWrap2{margin-top:1.5rem;border-radius:18px;overflow:hidden;box-shadow:0 12px 30px -20px rgba(120,80,0,.45);min-height:340px;background:repeating-linear-gradient(45deg,#eef3ea,#eef3ea 16px,#e7eee2 16px,#e7eee2 32px);display:flex;align-items:center;justify-content:center;color:#8aa07e;font-weight:800;}
+.joyHome .ctaBand{text-align:center;color:#fff;background:linear-gradient(135deg,#f7a32e 0%,#f2911b 55%,#fbb13c 100%);padding:clamp(3rem,6vw,4.5rem) 0;}
+.joyHome .ctaBand h2{margin:0 0 .6rem;font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:700;}
+.joyHome .ctaBand p{margin:0 auto 1.8rem;max-width:44ch;font-size:1.08rem;line-height:1.6;opacity:.96;}
+.joyHome .ctaActions{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
+.joyHome .ctaBtn2{display:inline-flex;align-items:center;gap:.45rem;padding:.9rem 2rem;border-radius:999px;font-weight:700;font-size:1.05rem;color:#c0560a;background:#fff;box-shadow:0 14px 30px -12px rgba(0,0,0,.35);}
+.joyHome .ctaBtnGhost2{display:inline-flex;align-items:center;gap:.45rem;padding:.9rem 2rem;border-radius:999px;font-weight:700;font-size:1.05rem;color:#fff;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.85);}
+.joyHome .foot3{background:#303846;color:#ebedf0;text-align:center;padding:16px 0;font-size:.85rem;line-height:1.5;}
+.joyHome .mobar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;border-top:1px solid var(--line);padding:10px 14px;gap:10px;box-shadow:0 -6px 20px -10px rgba(0,0,0,.2);}
+.joyHome .mobar a{flex:1;text-align:center;padding:13px 0;border-radius:12px;font-weight:800;font-size:15px;}
+.joyHome .mobar .call{background:#fff;border:1.6px solid var(--orange);color:var(--orange);}
+.joyHome .mobar .kakao{background:var(--orange);color:#fff;}
+.joyHome .catrow{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;}
+.joyHome .cat{background:#fff;border:1.5px solid #f3dcb6;border-radius:999px;padding:9px 16px;font-weight:800;font-size:14px;color:#7a5a2a;}
+.joyHome .cat b{color:var(--orange);margin-left:6px;}
+.joyHome .colhead{display:flex;justify-content:space-between;align-items:flex-end;}
+.joyHome .allbtn{background:var(--orange);color:#fff;font-weight:800;border-radius:999px;padding:12px 22px;font-size:15px;white-space:nowrap;}
+.joyHome .morecard{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;border:2px dashed #f0cf9c;background:#fff8ec;color:var(--terra);border-radius:18px;font-weight:800;font-size:18px;min-height:210px;}
+.joyHome .morecard .n{font-size:34px;font-weight:900;color:var(--orange);}
+.joyHome .rooms{margin-top:22px;display:flex;flex-direction:column;gap:14px;}
+.joyHome .room{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 20px;box-shadow:0 12px 26px -24px rgba(150,95,0,.5);}
+.joyHome .room .ic{width:44px;height:44px;border-radius:12px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.joyHome .room b{font-size:17px;}
+.joyHome .room span{display:block;color:var(--muted);font-size:14px;margin-top:3px;}
+.joyHome .crew{background:#fff;}
+.joyHome .cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px;}
+.joyHome .person{background:linear-gradient(170deg,#fffaf1,#fff3e1);border:1px solid var(--line);border-radius:22px;padding:30px;text-align:center;box-shadow:0 18px 40px -30px rgba(150,95,0,.5);}
+.joyHome .person .av{width:112px;height:112px;border-radius:50%;margin:0 auto;overflow:hidden;border:1px solid #f0e6d6;box-shadow:0 14px 30px -16px rgba(150,90,0,.4);}
+.joyHome .person .av img{width:100%;height:100%;object-fit:cover;}
+.joyHome .person .badges{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+.joyHome .person .bdg{background:var(--cream2);color:var(--terra);font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:999px;}
+.joyHome .person h3{margin-top:18px;font-size:22px;font-weight:800;}
+.joyHome .person .role{margin-top:6px;color:var(--orange);font-weight:800;font-size:15px;}
+.joyHome .person p{margin-top:12px;color:var(--muted);font-size:15px;line-height:1.6;}
+.joyHome .faqs{background:linear-gradient(180deg,#fffaf1,#fff4e2);}
+.joyHome .faq{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px;}
+.joyHome .qa{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px 26px;box-shadow:0 14px 30px -26px rgba(150,95,0,.5);}
+.joyHome .qa .q{font-weight:800;font-size:17px;display:flex;gap:12px;}
+.joyHome .qa .q .mark{color:var(--orange);font-weight:900;}
+.joyHome .qa .a{margin-top:12px;color:var(--muted);font-size:15.5px;line-height:1.6;padding-left:28px;}
+.joyHome .col{background:#fff;}
+.joyHome .colg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px;}
+.joyHome .citem{border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 14px 30px -26px rgba(150,95,0,.5);}
+.joyHome .citem .ph{height:120px;background:linear-gradient(135deg,#ffe6c2,#fbb13c);}
+.joyHome .citem .bd{padding:22px;}
+.joyHome .tag{display:inline-block;background:var(--cream2);color:var(--terra);font-weight:800;font-size:13px;padding:5px 12px;border-radius:999px;}
+.joyHome .citem h4{margin-top:12px;font-size:17px;font-weight:800;line-height:1.4;}
+.joyHome .citem .meta{margin-top:12px;color:#a8977f;font-size:14px;}
+.joyHome .closing{background:linear-gradient(135deg,var(--orange),#e07d10);color:#fff;text-align:center;}
+.joyHome .closing h2{font-size:40px;font-weight:900;letter-spacing:-1.5px;}
+.joyHome .closing p{margin-top:14px;font-size:18px;opacity:.95;}
+.joyHome .closing .cta{justify-content:center;margin-top:28px;}
+.joyHome .closing .white{background:#fff;color:var(--orange);padding:17px 32px;font-size:18px;}
+.joyHome .closing .lineb{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7);padding:17px 32px;font-size:18px;}
+.joyHome .float{position:fixed;right:28px;bottom:28px;background:#fae100;color:#3a1d1d;font-weight:900;padding:15px 22px;border-radius:999px;box-shadow:0 16px 30px -12px rgba(0,0,0,.35);display:flex;gap:10px;z-index:60;}
+.joyHome .footn{background:#2a2016;color:#c9b79e;font-size:14px;text-align:center;padding:26px;}
+@media (max-width:820px){
+.joyHome img{max-width:100%;}
+.joyHome .wrap{padding:0 20px;}
+.joyHome .sec{padding:40px 0;}
+.joyHome h2.t{font-size:27px;}
+.joyHome .lead{font-size:15.5px;margin-top:11px;}
+.joyHome .eyebrow{font-size:13px;letter-spacing:2px;}
+.joyHome .fcard, .joyHome .sc, .joyHome .recitem, .joyHome .citem, .joyHome .aitem, .joyHome .atext, .joyHome .sp2rooms .room, .joyHome .acard, .joyHome .qa, .joyHome .cred{min-width:0;}
+.joyHome .nav .wrap{padding:0 16px;height:60px;}
+.joyHome .brand img{height:32px;}
+.joyHome .navleft, .joyHome .navright{display:none;}
+.joyHome .nav .wrap::after{content:"🔍\00a0\00a0\00a0☰";margin-left:auto;font-size:20px;color:#3a3a3a;font-weight:700;}
+.joyHome .hero{min-height:360px;}
+.joyHome .hero .wrap{padding:46px 22px;}
+.joyHome .hero h1{font-size:31px;line-height:1.26;}
+.joyHome .hero .sub{font-size:15.5px;margin-top:12px;}
+.joyHome .hero .cta{flex-wrap:wrap;gap:10px;}
+.joyHome .hero .btn.lg, .joyHome .hero .ghostw{padding:13px 20px;font-size:15px;white-space:nowrap;}
+.joyHome .arrow{display:none;}
+.joyHome .dots{bottom:16px;}
+.joyHome .swipe, .joyHome .fgrid{display:flex;overflow-x:auto;gap:14px;scroll-snap-type:x mandatory;scroll-padding-left:20px;padding-bottom:12px;-webkit-overflow-scrolling:touch;}
+.joyHome .fgrid::after{content:"";flex:0 0 1px;}
+.joyHome .fgrid{margin-top:26px;}
+.joyHome .fcard{flex:0 0 76%;scroll-snap-align:start;padding:0 0 18px;border-radius:20px;overflow:hidden;}
+.joyHome .fcard .thumb{width:100%;aspect-ratio:16/10;height:auto;border-radius:0;border:none;border-bottom:1px solid var(--line);background:var(--cream2);}
+.joyHome .fcard .thumb img{object-fit:contain;padding:12px;}
+.joyHome .fcard h3{margin-top:14px;font-size:17px;padding:0 18px;}
+.joyHome .fcard p{font-size:13.5px;margin-top:7px;padding:0 18px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.joyHome .fcard .more{font-size:13.5px;margin-top:12px;padding:0 18px;}
+.joyHome .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
+.joyHome .sc{padding:18px 14px;}
+.joyHome .sc .n{font-size:24px;letter-spacing:0;line-height:1.15;word-break:keep-all;}
+.joyHome .sc .k{font-size:12.5px;margin-top:6px;line-height:1.45;}
+.joyHome .creds{display:flex;flex-direction:column;gap:12px;margin-top:16px;}
+.joyHome .cred{width:100%;}
+.joyHome .rec2, .joyHome .assess2, .joyHome .sp2, .joyHome .proc2{flex-direction:column;align-items:stretch;gap:18px;margin-top:26px;}
+.joyHome .recpic, .joyHome .apic2, .joyHome .aslider, .joyHome .vsteps, .joyHome .proc2pic, .joyHome .sp2pic, .joyHome .sp2rooms{width:100%;flex:none;}
+.joyHome .recpic .pslider, .joyHome .sp2pic .pslider{aspect-ratio:16/10;height:auto;}
+.joyHome .pslider .frame, .joyHome .pslider .frame img{height:100%;}
+.joyHome .recpic .pdots, .joyHome .sp2pic .pdots{bottom:14px;}
+.joyHome .recpic .pcap, .joyHome .sp2pic .pcap{bottom:14px;}
+.joyHome .reclist{display:grid !important;grid-template-columns:1fr 1fr;grid-template-rows:none;gap:10px;}
+.joyHome .recitem{min-height:0;gap:6px;padding:14px;flex-direction:column;align-items:flex-start;}
+.joyHome .recitem .ic{width:46px;height:46px;}
+.joyHome .recitem b{font-size:13.5px;line-height:1.3;}
+.joyHome .recitem span{font-size:11.5px;margin-top:3px;}
+.joyHome .avnav{display:none;}
+.joyHome .aslider{padding-right:0;}
+.joyHome .avp{display:flex;height:auto;overflow-x:auto;overflow-y:visible;flex-direction:row;gap:12px;scroll-snap-type:x mandatory;padding-bottom:12px;-webkit-overflow-scrolling:touch;}
+.joyHome .aitem{flex:0 0 100%;width:auto;scroll-snap-align:start;}
+.joyHome .athumb{width:128px;}
+.joyHome .apic2 img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover;}
+.joyHome .vsteps{display:flex;flex-direction:column;gap:11px;}
+.joyHome .vstep{padding:14px 16px;align-items:center;}
+.joyHome .vstep .thumb{width:54px;height:54px;}
+.joyHome .vstep b{font-size:16px;}
+.joyHome .vstep span{font-size:13px;margin-top:3px;}
+.joyHome .proc2pic img{width:100%;aspect-ratio:16/10;max-height:none;object-fit:cover;}
+.joyHome .sp2rooms{display:flex;flex-direction:column;gap:12px;}
+.joyHome .sp2rooms .room{width:100%;flex:none;align-items:center;}
+.joyHome .sp2rooms .room .ic.ch{width:64px;height:64px;}
+.joyHome .sp2rooms .room b{font-size:16px;}
+.joyHome .sp2rooms .room span{font-size:13px;}
+.joyHome .cgrid, .joyHome .person .cgrid{grid-template-columns:1fr 1fr !important;}
+.joyHome .person{padding:20px 14px;}
+.joyHome .person .av{width:76px;height:76px;}
+.joyHome .person h3{font-size:17px;}
+.joyHome .person p{font-size:12.5px;}
+.joyHome .person .bdg{font-size:11px;padding:4px 9px;}
+.joyHome .faq{display:flex;flex-direction:column;gap:12px;margin-top:26px;}
+.joyHome .qa{width:100%;padding:20px 22px;}
+.joyHome .qa .q{font-size:16px;}
+.joyHome .qa .a{font-size:14px;}
+.joyHome .colhead{flex-direction:column;align-items:flex-start;gap:14px;}
+.joyHome .allbtn{align-self:stretch;text-align:center;}
+.joyHome .colg{display:grid !important;grid-template-columns:1fr;grid-template-rows:none;gap:14px;margin-top:16px !important;}
+.joyHome .citem .ph{aspect-ratio:16/9;height:auto;}
+.joyHome .citem .bd{padding:14px;}
+.joyHome .citem h4{font-size:14px;margin-top:10px;line-height:1.4;}
+.joyHome .citem .meta{font-size:12px;margin-top:8px;}
+.joyHome .morecard{min-height:0;padding:26px 10px;}
+.joyHome .morecard .n{font-size:28px;}
+.joyHome .locationCard{flex-direction:column;align-items:flex-start;}
+.joyHome .mapWrap2{min-height:210px;}
+.joyHome .ctaBand h2{font-size:26px;}
+.joyHome .sec{padding:14px 0;}
+.joyHome .hero{min-height:280px;}
+.joyHome .hero .wrap{padding:34px 22px;}
+.joyHome .hero h1{font-size:27px;}
+.joyHome .eyebrow{font-size:12px;letter-spacing:2px;}
+.joyHome h2.t{font-size:24px;margin-top:4px;}
+.joyHome .lead{font-size:14px;margin-top:7px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.joyHome .fgrid{margin-top:18px;}
+.joyHome .sgrid{margin-top:18px;}
+.joyHome .proc2{gap:18px;}
+.joyHome .proc2pic img{aspect-ratio:16/10;}
+.joyHome .proc2, .joyHome .assess2, .joyHome .rec2{gap:18px;margin-top:14px;}
+.joyHome .creds{display:none !important;}
+.joyHome .fcard .thumb{aspect-ratio:16/9;}
+.joyHome .recitem:nth-child(n+5){display:none;}
+.joyHome .vsteps{display:grid !important;grid-template-columns:1fr 1fr;gap:10px;}
+.joyHome .vstep{flex-direction:column;align-items:flex-start;padding:13px;}
+.joyHome .vstep .thumb{width:44px;height:44px;}
+.joyHome .vstep b{font-size:14.5px;}
+.joyHome .vstep span{font-size:12px;line-height:1.45;}
+.joyHome .sp2pic .pslider{aspect-ratio:4/3;}
+.joyHome .sp2rooms{display:flex !important;flex-direction:column;overflow-x:visible;gap:12px;padding-bottom:0;}
+.joyHome .sp2rooms .room{flex:none !important;width:100%;}
+.joyHome .faq{display:flex !important;flex-direction:row;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;padding-bottom:12px;margin-top:20px;}
+.joyHome .qa{flex:0 0 87% !important;scroll-snap-align:start;}
+.joyHome .colg + .colg{display:none !important;}
+.joyHome .colg .citem:nth-child(n+4){display:none;}
+.joyHome .morecard{display:flex !important;min-height:0;padding:24px 10px;}
+.joyHome .catrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.joyHome .allbtn{padding:10px 18px;font-size:14px;}
+.joyHome .person{padding:16px 12px;}
+.joyHome .person p{font-size:12px;margin-top:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.joyHome .person .badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+.joyHome .person h3{margin-top:12px;}
+.joyHome .mapWrap2{min-height:128px;margin-top:12px;}
+.joyHome .locationCard{padding:1rem 1.2rem;margin-top:16px !important;}
+.joyHome .locsec .sub, .joyHome section .lead{margin-top:7px;}
+.joyHome .float{display:none;}
+.joyHome .mobar{display:flex;}
+}
+
+/* 치료분야 카드가 링크(a)일 때 밑줄/색 제거, hover 살짝 상승 */
+.joyHome a.fcard{display:block;text-decoration:none;color:inherit;transition:transform .15s ease, box-shadow .15s ease;}
+.joyHome a.fcard:hover{text-decoration:none;transform:translateY(-3px);box-shadow:0 26px 50px -28px rgba(150,95,0,.6);}
+
+/* 칼럼 카드/칩/버튼이 링크(a)일 때 밑줄 제거 */
+.joyHome a.citem,.joyHome a.cat,.joyHome a.allbtn,.joyHome a.morecard{text-decoration:none;}
+.joyHome a.citem:hover,.joyHome a.cat:hover,.joyHome a.allbtn:hover,.joyHome a.morecard:hover{text-decoration:none;}
+.joyHome a.citem{color:inherit;display:block;transition:transform .15s ease, box-shadow .15s ease;}
+.joyHome a.citem:hover{transform:translateY(-3px);box-shadow:0 22px 44px -26px rgba(150,95,0,.6);}
+.joyHome a.allbtn:hover{filter:brightness(1.04);}
+
+/* ===== 실제 동작 슬라이더(Swiper) 스타일 ===== */
+/* flex 아이템이 Swiper 콘텐츠 때문에 폭이 터지지 않도록 */
+.joyHome .recpic,.joyHome .sp2pic{min-width:0;}
+/* 가로 사진 슬라이더 (기록/치료공간) */
+.joyHome .jhSlider{position:relative;width:100%;min-width:0;overflow:hidden;}
+.joyHome .jhSlider .swiper{width:100%;}
+.joyHome .jhSlider,
+.joyHome .jhSlider .swiper,
+.joyHome .jhSlider .swiper-wrapper,
+.joyHome .jhSlider .swiper-slide{height:100%;}
+/* 기록: 슬라이더를 recpic에 absolute로 채워 좌측 리스트 높이에 맞춤(순환참조 방지) */
+.joyHome .rec2{align-items:stretch;}
+.joyHome .recpic{position:relative;min-height:340px;}
+.joyHome .recpic .jhSlider{position:absolute;inset:0;width:100%;}
+.joyHome .jhSlider .frame{height:100%;border-radius:22px;overflow:hidden;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);position:relative;}
+.joyHome .jhSlider .frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.joyHome .jhSlider .frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,rgba(0,0,0,.5));pointer-events:none;}
+.joyHome .jhSlider .pcap{position:absolute;bottom:40px;left:18px;right:18px;z-index:3;color:#fff;font-size:13.5px;text-shadow:0 1px 6px rgba(0,0,0,.7);}
+/* 화살표 */
+.joyHome .jhSlider .swiper-button-prev,
+.joyHome .jhSlider .swiper-button-next{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--line);color:var(--orange);box-shadow:0 10px 20px -8px rgba(0,0,0,.3);top:50%;margin-top:0;transform:translateY(-50%);}
+.joyHome .jhSlider .swiper-button-prev{left:16px;}
+.joyHome .jhSlider .swiper-button-next{right:16px;}
+.joyHome .jhSlider .swiper-button-prev::after,
+.joyHome .jhSlider .swiper-button-next::after{font-size:18px;font-weight:900;}
+/* 점 */
+.joyHome .jhSlider .swiper-pagination{bottom:14px;}
+.joyHome .jhSlider .swiper-pagination-bullet{width:9px;height:9px;background:#fff;opacity:.6;}
+.joyHome .jhSlider .swiper-pagination-bullet-active{background:var(--orange);opacity:1;width:26px;border-radius:5px;}
+
+/* 세로 카드 슬라이더 (정확한 평가) */
+.joyHome .jhAssess .swiper{height:384px;}
+.joyHome .jhAssess .swiper-slide{height:auto;display:flex;}
+.joyHome .jhAssess .aitem{height:100%;width:100%;flex:none;}
+.joyHome .avdots .swiper-pagination-bullet{width:8px;height:8px;background:#e7d9c4;opacity:1;margin:0;display:block;}
+.joyHome .avdots .swiper-pagination-bullet-active{background:var(--orange);height:22px;border-radius:5px;}
+
+/* ===== 디자인 폴리싱 (laraclinic.kr 참고) ===== */
+/* 부드러운 앵커 스크롤 */
+html{scroll-behavior:smooth;}
+.joyHome #therapy{scroll-margin-top:90px;}
+
+/* 믿을이유: 좌측정렬 에디토리얼 통계 (액센트바 + 구분선) */
+.joyHome .deep .sgrid{gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.14);}
+.joyHome .deep .sc{background:transparent;border:none;border-left:1px solid rgba(255,255,255,.14);border-radius:0;padding:30px 34px;text-align:left;}
+.joyHome .deep .sc:first-child{border-left:none;padding-left:4px;}
+.joyHome .deep .sc::before{content:"";display:block;width:34px;height:4px;border-radius:2px;background:var(--orange2);margin-bottom:20px;}
+.joyHome .deep .sc .n{font-size:40px;line-height:1.1;}
+.joyHome .deep .sc .k{color:#cebfa8;margin-top:10px;}
+
+/* 카드 hover 상승 — 전체 카드 일관 폴리싱 */
+.joyHome .recitem,.joyHome .cred,.joyHome .person,.joyHome .sp2rooms .room,.joyHome .qa{transition:transform .16s ease, box-shadow .16s ease;}
+.joyHome .recitem:hover,.joyHome .person:hover,.joyHome .qa:hover{transform:translateY(-3px);box-shadow:0 24px 46px -26px rgba(150,95,0,.55);}
+.joyHome .cred:hover{transform:translateY(-2px);background:rgba(255,255,255,.1);}
+
+/* 모바일 여백·통계 폴리싱 */
+@media (max-width:820px){
+  .joyHome .sec{padding:24px 0;}
+  .joyHome .deep .sgrid{border-top:none;gap:10px;margin-top:20px;}
+  .joyHome .deep .sc{border-left:none;padding:16px 16px;}
+  .joyHome .deep .sc::before{width:26px;height:3px;margin-bottom:10px;}
+  .joyHome .deep .sc .n{font-size:24px;}
+  .joyHome .deep .sc .k{margin-top:5px;}
+}
+
+/* 치료분야: 모바일 컴팩트 2열 그리드 (큰 이미지-상단 스와이프 → 작은 카드, peek 제거) */
+@media (max-width:820px){
+  .joyHome .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;overflow:visible;scroll-snap-type:none;padding-bottom:0;margin-top:18px;scroll-padding-left:0;}
+  .joyHome .fgrid::after{display:none;}
+  .joyHome .fcard{flex:none;width:auto;padding:18px 12px 14px;border-radius:18px;text-align:center;overflow:visible;}
+  .joyHome .fcard .thumb{width:62px;height:62px;aspect-ratio:auto;margin:0 auto;border-radius:16px;border:1px solid var(--line);background:var(--cream2);overflow:hidden;}
+  .joyHome .fcard .thumb img{object-fit:contain;padding:6px;}
+  .joyHome .fcard h3{margin-top:11px;font-size:14.5px;padding:0;}
+  .joyHome .fcard p{font-size:12px;margin-top:6px;padding:0;line-height:1.45;-webkit-line-clamp:2;}
+  .joyHome .fcard .more{font-size:12px;margin-top:10px;padding:0;}
+}
+
+/* ===== 정확한 평가: 가로 카드 슬라이더로 개선 ===== */
+.joyHome .jhAssess2{margin-top:44px;}
+.joyHome .jhAssess2 .swiper{overflow:hidden;padding:4px 2px 2px;}
+.joyHome .jhAssess2 .swiper-slide{height:auto;display:flex;}
+.joyHome .jhAssess2 .acard{flex:1 1 auto;width:100%;height:100%;}
+.joyHome .jhAssess2 .navb{font-size:26px;font-weight:900;line-height:1;cursor:pointer;padding:0;}
+.joyHome .jhAssess2 .navb.swiper-button-disabled{opacity:.35;cursor:default;}
+.joyHome .jhAssess2 .adots{margin-top:22px;}
+.joyHome .jhAssess2 .adots .swiper-pagination-bullet{width:8px;height:8px;background:#e7d9c4;opacity:1;margin:0 4px;border-radius:50%;transition:width .2s ease, background .2s ease;}
+.joyHome .jhAssess2 .adots .swiper-pagination-bullet-active{background:var(--orange);width:22px;border-radius:5px;}
+@media (max-width:820px){
+  .joyHome .acar.jhAssess2{padding:0;}            /* 모바일은 측면 화살표 제거, peek+점으로 슬라이더 인지 */
+  .joyHome .jhAssess2 .navb{display:none;}
+  .joyHome .jhAssess2{margin-top:22px;}
+  .joyHome .jhAssess2 .acard .img{height:150px;}
+  .joyHome .jhAssess2 .acard h4{font-size:1rem;min-height:0;margin:.5rem 0 .3rem;}
+  .joyHome .jhAssess2 .acard p{font-size:.86rem;min-height:0;}
+  .joyHome .jhAssess2 .acard .bd{padding:1rem 1.1rem 1.2rem;}
+}
+
+/* ===== 정확한 평가: AI 이미지(좌) + 가로 슬라이더(우) 복원 ===== */
+.joyHome .assess2{display:flex;gap:40px;align-items:center;margin-top:44px;}
+.joyHome .assess2 .apic2{flex:0 0 42%;min-width:0;}
+.joyHome .assess2 .apic2 img{width:100%;height:380px;object-fit:cover;border-radius:22px;border:1px solid #f0e6d6;box-shadow:0 30px 60px -34px rgba(150,90,0,.5);display:block;}
+.joyHome .assess2 .jhAssess2{flex:1;min-width:0;margin-top:0;}
+@media (max-width:820px){
+  .joyHome .assess2{flex-direction:column;align-items:stretch;gap:16px;margin-top:22px;}
+  .joyHome .assess2 .apic2{flex:none;width:100%;}
+  .joyHome .assess2 .apic2 img{height:auto;aspect-ratio:4/3;}
+}
+
+/* ===== 치료진 슬라이더 ===== */
+.joyHome .jhCrew{max-width:820px;margin:46px auto 0;}
+.joyHome .jhCrew .swiper{overflow:hidden;padding:6px 4px;}
+.joyHome .jhCrew .swiper-slide{height:auto;display:flex;}
+.joyHome .jhCrew .person{width:100%;height:100%;margin:0;}
+.joyHome .jhCrew .adots{display:none;margin-top:20px;}
+.joyHome .jhCrew .adots .swiper-pagination-bullet{width:8px;height:8px;background:#e7d9c4;opacity:1;margin:0 4px;border-radius:50%;}
+.joyHome .jhCrew .adots .swiper-pagination-bullet-active{background:var(--orange);width:22px;border-radius:5px;}
+@media (max-width:820px){
+  .joyHome .jhCrew{margin-top:22px;}
+  .joyHome .jhCrew .adots{display:flex;justify-content:center;}
+}
+
+/* ===== 추가 폴리싱 (치료진 링크 / 치료공간 버튼 / 칼럼 썸네일 / 기록 모바일) ===== */
+/* 치료진 카드 → 링크 */
+.joyHome .jhCrew a.person{display:block;text-decoration:none;color:inherit;transition:transform .16s ease, box-shadow .16s ease;}
+.joyHome .jhCrew a.person:hover{text-decoration:none;transform:translateY(-3px);box-shadow:0 24px 46px -26px rgba(150,95,0,.55);}
+.joyHome .person .pmore{display:inline-block;margin-top:14px;color:var(--orange);font-weight:800;font-size:14px;}
+
+/* 치료공간 치료실 카드(버튼) 리셋 + 커서 */
+.joyHome .sp2rooms .room{font:inherit;color:inherit;text-align:left;width:100%;cursor:pointer;appearance:none;-webkit-appearance:none;}
+
+/* 칼럼 카드 썸네일 크게 */
+.joyHome .citem .ph{height:auto;aspect-ratio:16/10;}
+
+@media (max-width:820px){
+  /* 기록 사진: 모바일에서도 노출 + 크게(4:3로 단체사진 온전히), 카드와 간격 확보 */
+  .joyHome .rec2{gap:22px;}
+  .joyHome .recpic{position:static;min-height:0;margin-top:6px;}
+  .joyHome .recpic .jhSlider{position:static;aspect-ratio:4/3;}
+  .joyHome .recpic .jhSlider .swiper{height:100%;}
+  /* 칼럼 모바일 썸네일도 비율 유지 */
+  .joyHome .citem .ph{aspect-ratio:16/10;}
+}
+
+/* 칼럼 카테고리 칩(버튼) + 활성 상태 */
+.joyHome .catrow .cat{font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;appearance:none;-webkit-appearance:none;line-height:1;padding:7px 13px;}
+.joyHome .catrow .cat b{font-size:13px;margin-left:5px;}
+.joyHome .catrow .cat.on{background:var(--orange);border-color:var(--orange);color:#fff;}
+.joyHome .catrow .cat.on b{color:#fff;}
+/* 칼럼 썸네일 더 크게 */
+.joyHome .citem .ph{height:auto;aspect-ratio:4/3;}
+
+/* 칼럼 카드 내부 정렬 통일 + meta(작성자·날짜·조회수) 가독성 */
+.joyHome .citem{display:flex;flex-direction:column;}
+.joyHome .citem .bd{flex:1;display:flex;flex-direction:column;}
+.joyHome .citem .tag{align-self:flex-start;}
+.joyHome .citem h4{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em;}
+.joyHome .citem .meta{margin-top:auto;display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:13px;color:#a8977f;}
+.joyHome .citem .meta .cwho{font-weight:700;color:#7a6a55;}
+.joyHome .citem .meta .cdate::before,.joyHome .citem .meta .cviews::before{content:"·";margin-right:6px;color:#d8c7ad;}
+.joyHome .citem .meta .cviews{color:var(--orange);font-weight:800;}
+
+/* 칼럼 meta: 점 제거 + 조회수(눈아이콘) 우측 끝 정렬 */
+.joyHome .citem .meta{flex-wrap:nowrap;gap:8px;}
+.joyHome .citem .meta .cdate::before,.joyHome .citem .meta .cviews::before{content:none;}
+.joyHome .citem .meta .cviews{margin-left:auto;display:inline-flex;align-items:center;gap:4px;}
+.joyHome .citem .meta .cviews svg{flex:none;}
+
+/* ===== FAQ 슬라이더 (PC 2×2 / 모바일 peek + 점) ===== */
+.joyHome .jhFaq{margin-top:44px;}
+.joyHome .jhFaq .swiper{overflow:hidden;padding:4px;}
+.joyHome .jhFaq .swiper-slide{height:auto;}
+.joyHome .jhFaq .qa{height:100%;margin:0;}
+.joyHome .jhFaq .adots{display:none;margin-top:18px;}
+.joyHome .jhFaq .adots .swiper-pagination-bullet{width:8px;height:8px;background:#e7d9c4;opacity:1;margin:0 4px;border-radius:50%;}
+.joyHome .jhFaq .adots .swiper-pagination-bullet-active{background:var(--orange);width:22px;border-radius:5px;}
+@media (max-width:820px){
+  .joyHome .jhFaq{margin-top:24px;}
+  .joyHome .jhFaq .adots{display:flex;justify-content:center;}
+}
+
+/* 섹션 배경 흰색 ↔ 크림 뚜렷하게 구분 */
+.joyHome .assess, .joyHome .space, .joyHome .faqs{background:#fdeede;}
+
+/* 카테고리 칩 크기 축소 (PC/모바일) */
+.joyHome .cat{padding:6px 13px;font-size:12.5px;}
+.joyHome .cat b{margin-left:5px;}
+
+/* FAQ: 데스크톱은 2×2 그리드(스와이퍼 래퍼를 그리드로 고정), 모바일은 스와이퍼 1장+점 */
+@media (min-width:821px){
+  .joyHome .jhFaq .swiper-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:18px;transform:none !important;}
+  .joyHome .jhFaq .swiper-slide{width:auto !important;margin:0 !important;}
+}
+
+/* ===== 폴리싱 배치 2 ===== */
+/* 활성 태그 칩을 '전체보기' 버튼(주황)과 구분 — 브라운 */
+.joyHome .catrow .cat.on{background:var(--deep2);border-color:var(--deep2);color:#fff;}
+.joyHome .catrow .cat.on b{color:var(--orange2);}
+/* 칩 더 작게 */
+.joyHome .cat{padding:5px 11px;font-size:11.5px;}
+.joyHome .cat b{margin-left:5px;}
+/* 과정 카드: 캐릭터 안 잘림 + 단계 숫자 배지 안 잘림 */
+.joyHome .vstep .thumb{overflow:visible;}
+.joyHome .vstep .thumb img{object-fit:contain;border-radius:14px;}
+/* 치료공간 카드: 캐릭터·제목·내용 위치 통일(세로 중앙) */
+.joyHome .sp2rooms .room{align-items:center;}
+.joyHome .sp2rooms .room .ic.ch{flex:none;}
+.joyHome .sp2rooms .room > div:not(.ic){flex:1;}
+
+@media (max-width:820px){
+  /* 칼럼: 모바일 1열(한 행에 하나씩) */
+  .joyHome .colg{grid-template-columns:1fr !important;}
+  .joyHome .colg .citem:nth-child(n+4){display:flex !important;}
+  .joyHome .citem .bd{padding:12px;}
+  .joyHome .citem h4{font-size:13px;}
+  .joyHome .citem .meta{font-size:10px;gap:5px;}
+  .joyHome .citem .meta .cviews svg{width:12px;height:12px;}
+  /* 과정 사진 = 평가 사진과 동일 비율(4:3) */
+  .joyHome .proc2pic img{aspect-ratio:4/3;}
+}
+
+/* 평가 카드: 한국어 단어 단위 줄바꿈(어색한 개행 방지) */
+.joyHome .acard h4, .joyHome .acard p, .joyHome .acard .ab{word-break:keep-all;}
+
+/* 기록 모바일 카드: 치료분야처럼 가운데 정렬 + 캐릭터 크게 */
+@media (max-width:820px){
+  .joyHome .recitem{align-items:center;text-align:center;gap:8px;}
+  .joyHome .recitem .ic{width:60px;height:60px;}
+  .joyHome .recitem .ic img{object-fit:contain;padding:3px;}
+}
+
+/* 칼럼: 카테고리칩 + 정렬 바 */
+.joyHome .catbar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;}
+.joyHome .catbar .catrow{flex:1;margin-top:14px;}
+.joyHome .cat{padding:4px 10px;font-size:11px;}
+.joyHome .cat b{margin-left:4px;font-size:11px;}
+.joyHome .colsort{display:flex;gap:6px;margin-top:14px;flex:none;}
+.joyHome .colsort .sortbtn{font:inherit;cursor:pointer;appearance:none;background:#fff;border:1.5px solid #f3dcb6;border-radius:999px;padding:4px 12px;font-size:11.5px;font-weight:800;color:#7a5a2a;white-space:nowrap;}
+.joyHome .colsort .sortbtn.on{background:var(--orange);border-color:var(--orange);color:#fff;}
+@media (max-width:820px){
+  .joyHome .catbar{flex-direction:column;gap:6px;}
+  .joyHome .colsort{margin-top:4px;}
+}
+
+/* 칼럼 카테고리 칩: 모바일 가로 스크롤(개행 방지) */
+@media (max-width:820px){
+  .joyHome .catbar .catrow{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;}
+  .joyHome .catbar .catrow .cat{flex:0 0 auto;}
+}
+
+/* 치료진 카드: 핵심 이력(약력) 리스트 */
+.joyHome .person .plist{list-style:none;margin:16px 0 0;padding:0;text-align:left;display:flex;flex-direction:column;gap:8px;}
+.joyHome .person .plist li{position:relative;padding-left:20px;font-size:13.5px;line-height:1.45;color:#5a4a36;font-weight:600;word-break:keep-all;}
+.joyHome .person .plist li::before{content:"";position:absolute;left:4px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+
+/* 평가 카드 제목: 개행 최소화(폰트 축소 + 단어단위 줄바꿈) */
+.joyHome .acard h4{font-size:1rem;letter-spacing:-.3px;word-break:keep-all;}
+
+/* 치료진 카드 이력: 기관 로고 + 텍스트 */
+.joyHome .person .plist li{padding-left:0;display:flex;align-items:center;gap:9px;}
+.joyHome .person .plist li::before{content:none;}
+.joyHome .person .plist .plogo{width:26px;height:26px;flex:none;border-radius:7px;overflow:hidden;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;}
+.joyHome .person .plist .plogo img{width:100%;height:100%;object-fit:contain;padding:3px;}
+
+/* 과정 모바일: 치료분야처럼 가운데 정렬 + 캐릭터 크게 */
+@media (max-width:820px){
+  .joyHome .vstep{flex-direction:column;align-items:center;text-align:center;gap:8px;padding:16px 12px;}
+  .joyHome .vstep .thumb{width:58px;height:58px;}
+  .joyHome .vstep b{font-size:14.5px;}
+  .joyHome .vstep span{font-size:12px;}
+}
+
+/* 칼럼: 모바일 한 장씩 가로 슬라이더(peek) + 가독성 */
+@media (max-width:820px){
+  .joyHome .colg{display:flex !important;grid-template-columns:none !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:10px;-webkit-overflow-scrolling:touch;}
+  .joyHome .colg .citem{flex:0 0 86% !important;scroll-snap-align:start;}
+  .joyHome .colg .morecard{flex:0 0 60% !important;}
+  .joyHome .citem .bd{padding:16px;}
+  .joyHome .citem h4{font-size:15px;}
+  .joyHome .citem .meta{font-size:11.5px;gap:7px;}
+  .joyHome .citem .meta .cviews svg{width:13px;height:13px;}
+}
+
+/* 믿을이유 통계 2x2 정렬 + 칼럼 모바일 노peek + 칩 줄바꿈 균형 */
+@media (max-width:820px){
+  .joyHome .deep .sgrid{gap:16px;}
+  .joyHome .deep .sc{padding:0;}
+  .joyHome .colg .citem{flex:0 0 100% !important;}
+  .joyHome .colg .morecard{flex:0 0 100% !important;}
+  .joyHome .catbar .catrow{flex-wrap:wrap;overflow-x:visible;justify-content:center;}
+}
+
+/* 평가 카드 링크화 */
+.joyHome a.acard{text-decoration:none;color:inherit;transition:transform .15s ease, box-shadow .15s ease;}
+.joyHome a.acard:hover{text-decoration:none;transform:translateY(-3px);box-shadow:0 22px 44px -24px rgba(120,80,0,.5);}
+.joyHome .acard .more{margin-top:auto;padding-top:.8rem;font-size:.85rem;font-weight:700;color:var(--orange);}
+
+/* 평가 섹션 PC: 좌측 이미지 ↔ 우측 카드 높이 맞춤 + 화살표 수직 중앙 */
+.joyHome .assess2{align-items:stretch;}
+.joyHome .assess2 .apic2{display:flex;}
+.joyHome .assess2 .apic2 img{height:100%;}
+.joyHome .jhAssess2 .navb{top:50%;}
+@media (max-width:820px){
+  .joyHome .assess2{align-items:stretch;}
+  .joyHome .assess2 .apic2{display:block;}
+  .joyHome .assess2 .apic2 img{height:auto;}
+}
+
+/* 평가: 이미지가 '카드 높이'에만 맞도록 점을 absolute로 분리 */
+.joyHome .jhAssess2{position:relative;}
+.joyHome .jhAssess2 .adots{position:absolute;left:0;right:0;bottom:-26px;margin-top:0;}
+.joyHome .assess2{margin-bottom:30px;}
+
+/* 치료진 카드 레이아웃 폴리싱 */
+.joyHome .person{padding:32px 26px;}
+.joyHome .person .badges{margin-top:12px;}
+.joyHome .person .plist{border-top:1px solid var(--line);padding-top:18px;margin-top:20px;}
+.joyHome .person .plist li{font-size:13px;color:#6a5a44;font-weight:600;}
+.joyHome .person .pmore{margin-top:18px;}
+
+/* 칼럼 모바일 카드 UI 폴리싱 */
+@media (max-width:820px){
+  .joyHome .colg .citem{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 12px 28px -20px rgba(150,95,0,.5);background:#fff;}
+  .joyHome .citem .ph{aspect-ratio:16/10;}
+  .joyHome .citem .bd{padding:14px 16px 16px;}
+  .joyHome .citem .tag{font-size:12px;padding:4px 10px;}
+  .joyHome .citem h4{font-size:15px;line-height:1.4;margin-top:10px;}
+  .joyHome .citem .meta{font-size:11.5px;margin-top:12px;}
+}
+
+/* 칼럼 좌우 화살표 (모바일 슬라이더) */
+.joyHome .colgwrap{position:relative;}
+.joyHome .colnav{display:none;}
+@media (max-width:820px){
+  .joyHome .colnav{display:flex;align-items:center;justify-content:center;position:absolute;top:44%;transform:translateY(-50%);z-index:6;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.96);border:1px solid var(--line);color:var(--orange);font-size:21px;font-weight:900;line-height:1;padding:0;cursor:pointer;appearance:none;box-shadow:0 8px 20px -8px rgba(120,80,0,.5);}
+  .joyHome .colnav.l{left:-2px;}
+  .joyHome .colnav.r{right:-2px;}
+  /* 카테고리 칩: 한 줄 가로 스크롤 + 깔끔한 펄 */
+  .joyHome .catbar .catrow{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;padding-bottom:2px;}
+  .joyHome .catbar .catrow::-webkit-scrollbar{display:none;}
+  .joyHome .catrow .cat{flex:0 0 auto;}
+}
+.joyHome .catrow .cat b{margin-left:6px;}
+
+/* 모바일: 모든 섹션 타이틀(eyebrow·제목·리드) 가운데 정렬 */
+@media (max-width:820px){
+  .joyHome .eyebrow,
+  .joyHome h2.t,
+  .joyHome .lead{text-align:center;}
+  .joyHome .colhead > div{width:100%;}
+}

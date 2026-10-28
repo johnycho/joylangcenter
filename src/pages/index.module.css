@@ -47,15 +47,15 @@
   inset: 0;
   z-index: 5;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
   pointer-events: none;
   background: linear-gradient(
-    to top,
-    rgba(8, 5, 1, 0.76) 0%,
-    rgba(8, 5, 1, 0.42) 24%,
-    rgba(8, 5, 1, 0.08) 48%,
-    rgba(8, 5, 1, 0) 68%
+    95deg,
+    rgba(8, 5, 1, 0.8) 0%,
+    rgba(8, 5, 1, 0.52) 38%,
+    rgba(8, 5, 1, 0.14) 66%,
+    rgba(8, 5, 1, 0) 86%
   );
 }
 
@@ -63,11 +63,11 @@
   /* 텍스트 영역이 슬라이더 좌우 버튼 탭을 가로채지 않도록 통과시키고, 링크만 클릭 가능 */
   pointer-events: none;
   width: 100%;
-  max-width: 880px;
+  max-width: 1180px;
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
   color: #fff;
-  padding: 0 clamp(1.3rem, 4vw, 2rem) clamp(2.2rem, 5vw, 3.6rem);
+  padding: 0 clamp(1.3rem, 4vw, 2.4rem);
 }
 
 .heroContent a {
@@ -112,8 +112,17 @@
   margin-top: 1.6rem;
   display: flex;
   gap: 0.7rem;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
+}
+
+/* 히어로 헤드라인/부제 좌측 정렬 + 폭 제한 (컨셉안 매칭) */
+.heroTitle {
+  max-width: 17ch;
+}
+.heroSubtitle {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .heroBtnPrimary,
