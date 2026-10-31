@@ -84,22 +84,30 @@ const ROOMS = [
 
 // 조이 선생님들 (치료진)
 const CREW = [
-  {img: '/img/therapist/dayea-lee.png', name: '이다예 센터장', role: '언어재활 · SLP', badges: ['1급 언어재활사', '언어병리학 석사'],
+  {img: '/img/therapist/dayea-lee.png', name: '이다예 센터장', role: 'PECS / 청능구어재활 / ASD / 말더듬', badges: ['1급 언어재활사', '언어병리학 석사'],
    highlights: [
-     {logo: '/img/therapist/logo-pecs.svg', text: 'PECS Korea 강원도 지역장'},
-     {logo: '/img/therapist/logo-wonju.png', text: '원주교육지원청 순회 언어치료사'},
      {logo: '/img/therapist/logo-ewha.png', text: '이화여대 언어병리학 석사'},
+     {logo: '/img/therapist/logo-pecs.svg', text: 'PECS Korea 강원도 지역장'},
+     {logo: '/img/therapist/logo-wonju.png', text: '원주·평창교육지원청 순회 언어치료사'},
      {logo: '/img/therapist/logo-wonjumc.png', text: '원주의료원 부모교육 출강'},
    ],
    to: '/docs/therapist/slp-dayea-lee'},
-  {img: '/img/therapist/minjung-hwang.png', name: '황민정 선생님', role: '언어재활 · SLP', badges: ['2급 언어재활사', '언어청각학 전공'],
+  {img: '/img/therapist/minjung-hwang.png', name: '황민정 선생님', role: '표현·수용언어 / 조음·음운 / 사회성', badges: ['2급 언어재활사', '언어청각학 전공'],
    highlights: [
-     {logo: '/img/therapist/logo-wonju.png', text: '원주교육지원청 순회 언어치료사'},
-     {logo: '/img/therapist/logo-pyeongchang.png', text: '평창교육지원청 순회 언어치료사'},
-     {logo: '/img/therapist/logo-hallym.png', text: '한림대 언어청각학 전공'},
+     {logo: '/img/therapist/logo-hallym.png', text: '한림대 언어청각학 학사'},
+     {logo: '/img/therapist/logo-wonju.png', text: '원주·평창교육지원청 순회 언어치료사'},
      {logo: '/img/therapist/logo-kslp.png', text: '한국언어재활사협회 정회원'},
+     {logo: '/img/therapist/logo-mohw.png', text: '2급 언어재활사 (보건복지부)'},
    ],
    to: '/docs/therapist/slp-minjung-hwang'},
+  {img: '/img/therapist/jiyu-park.png', name: '박지유 선생님', role: '읽기·쓰기(난독) / 느린학습자 / 지적장애', badges: ['2급 언어재활사', '언어치료학 전공'],
+   highlights: [
+     {logo: '/img/therapist/logo-kwu.svg', text: '광주여자대학교 언어치료학 학사'},
+     {logo: '/img/therapist/logo-yonsei.png', text: '연세대 디지털치료 연구센터 연구 참여'},
+     {logo: '/img/therapist/logo-kslp.png', text: '한국언어재활사협회 정회원'},
+     {logo: '/img/therapist/logo-mohw.png', text: '2급 언어재활사 (보건복지부)'},
+   ],
+   to: '/docs/therapist/slp-jiyu-park'},
 ];
 
 // 자주 묻는 질문

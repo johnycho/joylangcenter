@@ -60,6 +60,12 @@ export function ColumnPreview({posts, tags, counts, total}: {posts: ColPost[]; t
   return (
     <>
       <div className="catbar">
+        <select className="catselect" value={cat} onChange={(e) => setCat(e.target.value)} aria-label="카테고리 선택">
+          <option value="all">전체 ({total})</option>
+          {tags.map((t) => (
+            <option key={t.key} value={t.key}>{t.label} ({counts[t.key]})</option>
+          ))}
+        </select>
         <div className="catrow">
           <button type="button" className={`cat${cat === 'all' ? ' on' : ''}`} onClick={() => setCat('all')}>전체<b>{total}</b></button>
           {tags.map((t) => (
@@ -163,13 +169,13 @@ export function CrewSlider({items}: {items: CrewItem[]}) {
         speed={450}
         spaceBetween={22}
         slidesPerView={1}
-        breakpoints={{768: {slidesPerView: 2, spaceBetween: 28}}}>
+        breakpoints={{768: {slidesPerView: 2, spaceBetween: 24}, 1024: {slidesPerView: 3, spaceBetween: 24}}}>
         {items.map((p) => (
           <SwiperSlide key={p.name}>
             <Link className="person" to={p.to}>
               <div className="av"><img src={p.img} alt={p.name} loading="lazy" /></div>
               <h3>{p.name}</h3>
-              <div className="role">{p.role}</div>
+              <div className="specs">{p.role.split(' / ').map((t) => <span key={t} className="spec">{t}</span>)}</div>
               <div className="badges">{p.badges.map((b) => <span key={b} className="bdg">{b}</span>)}</div>
               <ul className="plist">{p.highlights.map((h) => (
                 <li key={h.text}><span className="plogo"><img src={h.logo} alt="" loading="lazy" /></span>{h.text}</li>
@@ -225,7 +231,8 @@ export function AssessSlider({items}: {items: AssessItem[]}) {
         speed={500}
         spaceBetween={18}
         slidesPerView={1}
-        autoplay={{delay: 3600, disableOnInteraction: false, pauseOnMouseEnter: true}}>
+        breakpoints={{821: {slidesPerView: 2, spaceBetween: 18}}}
+        autoplay={{delay: 6000, disableOnInteraction: false, pauseOnMouseEnter: true}}>
         {items.map((a) => (
           <SwiperSlide key={a.badge}>
             <Link className="acard" to={a.to}>
