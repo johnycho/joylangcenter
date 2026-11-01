@@ -26,7 +26,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
   subtitle={<>아이의 현재 언어 수준을 정확히 파악해, <br className="subtitle-br-mobile" />꼭 맞는 치료 계획의 출발점이 됩니다.</>}
 />
 
-<Section icon="👶" title="언어발달 전반">
+<Section icon="👶" title="언어발달 전반" id="sec-language">
 
 아이가 말을 얼마나 이해하고 표현하는지, 전반적인 언어발달 수준을 확인합니다.
 
@@ -40,7 +40,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
   </div>
 </div>
 
-<div className="assess-card">
+<div className="assess-card" id="kmbcdi">
   <img className="assess-card__img" src="/img/assessment/kmbcdi.jpg" alt="맥아더-베이츠 의사소통 발달 평가 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">맥아더-베이츠 의사소통발달 평가 <span className="assess-card__abbr">K-MBCDI</span></div>
@@ -48,7 +48,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
   </div>
 </div>
 
-<div className="assess-card">
+<div className="assess-card" id="pres">
   <img className="assess-card__img" src="/img/assessment/pres.jpg" alt="취학 전 수용·표현 언어 발달 척도 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">취학 전 수용·표현 언어 발달 척도 <span className="assess-card__abbr">PRES</span></div>
@@ -56,7 +56,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
   </div>
 </div>
 
-<div className="assess-card">
+<div className="assess-card" id="lssc">
   <img className="assess-card__img" src="/img/assessment/lssc.jpg" alt="학령기 아동 언어 검사 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">학령기 아동 언어 검사 <span className="assess-card__abbr">LSSC</span></div>
@@ -68,7 +68,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
 
 </Section>
 
-<Section icon="💬" title="어휘 · 이해 · 표현">
+<Section icon="💬" title="어휘 · 이해 · 표현" id="sec-vocab">
 
 낱말과 문장을 이해하고 표현하는 힘, 생각을 언어로 풀어내는 능력을 자세히 살펴봅니다.
 
@@ -82,7 +82,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
   </div>
 </div>
 
-<div className="assess-card">
+<div className="assess-card" id="kosect">
   <img className="assess-card__img" src="/img/assessment/kosect.jpg" alt="구문의미 이해력 검사 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">구문의미 이해력 검사 <span className="assess-card__abbr">KOSECT</span></div>
@@ -90,7 +90,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
   </div>
 </div>
 
-<div className="assess-card">
+<div className="assess-card" id="tops">
   <img className="assess-card__img" src="/img/assessment/tops.jpg" alt="언어문제 해결력 검사 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">언어문제 해결력 검사 <span className="assess-card__abbr">TOPS</span></div>
@@ -98,7 +98,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
   </div>
 </div>
 
-<div className="assess-card">
+<div className="assess-card" id="uwset">
   <img className="assess-card__img" src="/img/assessment/uwset.jpg" alt="우리말 낱말 표현검사 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">우리말 낱말 표현검사 <span className="assess-card__abbr">UW-SET</span></div>
@@ -110,7 +110,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
 
 </Section>
 
-<Section icon="🗣️" title="발음 (조음 · 음운)">
+<Section icon="🗣️" title="발음 (조음 · 음운)" id="sec-articulation">
 
 말소리를 정확하게 내는지, 어떤 소리에서 오류가 나타나는지 살펴봅니다.
 
@@ -128,13 +128,13 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
 
 </Section>
 
-<Section icon="🧩" title="화용 · 이야기">
+<Section icon="🧩" title="화용 · 이야기" id="sec-pragmatics">
 
 상황에 맞게 말을 주고받고, 이야기를 조리 있게 전달하는 능력을 살펴봅니다.
 
 <div className="assess-grid">
 
-<div className="assess-card">
+<div className="assess-card" id="koplac">
   <img className="assess-card__img" src="/img/assessment/koplac.jpg" alt="아동용 한국어 화용언어 평가 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">아동용 한국어 화용언어 평가 <span className="assess-card__abbr">KOPLAC</span></div>
@@ -142,7 +142,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
   </div>
 </div>
 
-<div className="assess-card">
+<div className="assess-card" id="kona">
   <img className="assess-card__img" src="/img/assessment/kona.jpg" alt="한국어 이야기 평가 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">한국어 이야기 평가 <span className="assess-card__abbr">KONA</span></div>
@@ -154,7 +154,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
 
 </Section>
 
-<Section icon="📖" title="읽기 · 쓰기">
+<Section icon="📖" title="읽기 · 쓰기" id="sec-reading">
 
 글자를 읽고 이해하는 힘과 글로 표현하는 능력을 확인합니다.
 
@@ -180,13 +180,13 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
 
 </Section>
 
-<Section icon="🌀" title="유창성 (말더듬)">
+<Section icon="🌀" title="유창성 (말더듬)" id="sec-fluency">
 
 말의 흐름이 자연스러운지, 말더듬의 정도와 양상을 살펴봅니다.
 
 <div className="assess-grid">
 
-<div className="assess-card">
+<div className="assess-card" id="pfa2">
   <img className="assess-card__img" src="/img/assessment/pfa2.jpg" alt="파라다이스-유창성 검사 II 검사도구" loading="lazy" />
   <div className="assess-card__body">
     <div className="assess-card__name">파라다이스-유창성 검사 II <span className="assess-card__abbr">P-FA II</span></div>
@@ -198,7 +198,7 @@ import { PageHeader, Section } from '@site/src/components/TherapistProfile';
 
 </Section>
 
-<Section icon="🧠" title="발달 · 자폐 평정">
+<Section icon="🧠" title="발달 · 자폐 평정" id="sec-autism">
 
 사회적 상호작용과 의사소통 등 발달 전반을 살펴, 자폐스펙트럼의 가능성과 정도를 확인합니다.
 

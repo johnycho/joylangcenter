@@ -12,14 +12,30 @@ import 'swiper/css/pagination';
 type AssessItem = {img: string; badge: string; title: string; desc: string; to: string};
 type Faq = {q: string; a: string};
 
+/** 모바일(≤820px) 여부 — 모바일에서만 슬라이더 loop(마지막→첫번째 wrap)을 켜기 위해 사용 */
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width:820px)');
+    const update = () => setMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+  return mobile;
+}
+
 /** FAQ — PC는 2×2 그리드, 모바일은 1장 peek + 하단 점(슬라이더 인식) */
 export function FaqSlider({items}: {items: Faq[]}) {
+  const isMobile = useIsMobile();
   return (
     <div className="jhFaq">
       <Swiper
+        key={isMobile ? 'm' : 'd'}
         modules={[Pagination, A11y]}
         slidesPerView={1}
         spaceBetween={12}
+        loop={isMobile}
         pagination={{el: '.js-faq-dots', clickable: true}}
         breakpoints={{821: {slidesPerView: 2, spaceBetween: 18}}}>
         {items.map((f) => (
@@ -35,7 +51,7 @@ export function FaqSlider({items}: {items: Faq[]}) {
     </div>
   );
 }
-type ColPost = {permalink: string; title: string; image?: string; tag: string; author: string; date: string; cats: string[]};
+type ColPost = {permalink: string; title: string; image?: string; tag: string; author: string; date: string; cats: string[]; isNew?: boolean};
 
 /** 칼럼 미리보기 — 카테고리 클릭 시 홈에서 해당 글 카드로 필터(페이지 이동 없음) */
 export function ColumnPreview({posts, tags, counts, total}: {posts: ColPost[]; tags: {key: string; label: string}[]; counts: Record<string, number>; total: number}) {
@@ -84,7 +100,10 @@ export function ColumnPreview({posts, tags, counts, total}: {posts: ColPost[]; t
             <Link key={p.permalink} className="citem" to={p.permalink}>
               <div className="ph" style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: '#fff6ea'} : undefined}></div>
               <div className="bd">
-                <span className="tag">{p.tag}</span>
+                <div className="tagrow">
+                  <span className="tag">{p.tag}</span>
+                  {p.isNew && <span className="cnew">NEW</span>}
+                </div>
                 <h4>{p.title}</h4>
                 <div className="meta">
                   <span className="cwho">{p.author}</span>
@@ -125,7 +144,7 @@ export function SpaceSection({rooms}: {rooms: Room[]}) {
           onSlideChange={(s) => setActive(s.realIndex)}
           navigation
           pagination={{clickable: true}}
-          loop
+          rewind
           grabCursor
           speed={500}
           autoplay={{delay: 4200, disableOnInteraction: false, pauseOnMouseEnter: true}}>
@@ -160,15 +179,18 @@ export function SpaceSection({rooms}: {rooms: Room[]}) {
 
 /** 치료진 슬라이더 — PC는 전부 보이고, 모바일은 peek+점으로 슬라이더 */
 export function CrewSlider({items}: {items: CrewItem[]}) {
+  const isMobile = useIsMobile();
   return (
     <div className="jhCrew">
       <Swiper
+        key={isMobile ? 'm' : 'd'}
         modules={[Pagination, A11y]}
         pagination={{el: '.js-crew-dots', clickable: true}}
         grabCursor
         speed={450}
         spaceBetween={22}
         slidesPerView={1}
+        loop={isMobile}
         breakpoints={{768: {slidesPerView: 2, spaceBetween: 24}, 1024: {slidesPerView: 3, spaceBetween: 24}}}>
         {items.map((p) => (
           <SwiperSlide key={p.name}>
@@ -217,17 +239,31 @@ export function PhotoSlider({images}: {images: Photo[]}) {
   );
 }
 
-/** 가로 카드 슬라이더 — 정확한 평가 섹션 (이미지 상단 카드, ‹ › + 점, 모바일 peek) */
+/** 가로 카드 슬라이더 — 정확한 평가 섹션 (이미지 상단 카드, ‹ › + 점, 모바일 peek)
+ *  점은 슬라이드 수와 무관하게 '최대 5개'로 고정 표시(비례 매핑). 활성은 긴 알약. */
 export function AssessSlider({items}: {items: AssessItem[]}) {
+  const [idx, setIdx] = useState(0);
+  // 실제 스냅(페이지) 개수 — slidesPerView(반응형)를 반영. 데스크톱 2장이면 15장이라도 14페이지.
+  const [count, setCount] = useState(items.length);
+  const swiperRef = useRef<SwiperClass | null>(null);
+  const sync = (s: SwiperClass) => {setIdx(s.activeIndex); setCount(Math.max(1, s.snapGrid?.length || s.slides.length));};
+  const dots = Math.min(5, count);
+  // 최대 5칸 윈도우: 오른쪽으로 넘길 때마다 알약이 한 칸씩 이동하고, 5칸을 넘으면 다음 묶음으로.
+  // 마지막 페이지는 끝(dots-1)에 정렬되도록 winStart를 클램프.
+  const winStart = Math.min(Math.floor(idx / dots) * dots, Math.max(0, count - dots));
+  const activeDot = idx - winStart;
   return (
     <div className="acar jhAssess2">
       <button className="navb l js-assess-prev" aria-label="이전 검사">‹</button>
       <Swiper
-        modules={[Navigation, Pagination, Autoplay, A11y]}
+        modules={[Navigation, Autoplay, A11y]}
+        onSwiper={(s) => {swiperRef.current = s; sync(s);}}
+        onSlideChange={(s) => sync(s)}
+        onResize={(s) => sync(s)}
+        onBreakpoint={(s) => sync(s)}
         navigation={{prevEl: '.js-assess-prev', nextEl: '.js-assess-next'}}
-        pagination={{el: '.js-assess-dots2', clickable: true}}
         grabCursor
-        loop
+        rewind
         speed={500}
         spaceBetween={18}
         slidesPerView={1}
@@ -248,7 +284,18 @@ export function AssessSlider({items}: {items: AssessItem[]}) {
         ))}
       </Swiper>
       <button className="navb r js-assess-next" aria-label="다음 검사">›</button>
-      <div className="adots js-assess-dots2"></div>
+      <div className="adots jhFixedDots">
+        {Array.from({length: dots}).map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`fdot${i === activeDot ? ' on' : ''}`}
+            aria-label={`${winStart + i + 1}번째로 이동`}
+            aria-current={i === activeDot}
+            onClick={() => swiperRef.current?.slideTo(winStart + i)}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -52,12 +52,21 @@ const RECORDS = [
 
 // 정확한 평가에서 시작해요 (검사도구)
 const ASSESS = [
-  {img: '/img/assessment/selsi.jpg', badge: 'SELSI', title: '영유아 언어발달 검사', desc: '4~35개월 영유아가 말을 얼마나 이해하고(수용언어) 표현하는지(표현언어) 살펴, 전반적인 언어발달이 또래 수준인지 확인합니다.', to: '/docs/assessment#selsi'},
-  {img: '/img/assessment/revt.jpg', badge: 'REVT', title: '수용·표현 어휘력 검사', desc: '아이가 낱말을 얼마나 이해하고(수용) 말로 표현하는지(표현) 어휘력 수준을 확인합니다.', to: '/docs/assessment#revt'},
-  {img: '/img/assessment/utap2.jpg', badge: 'UTAP2', title: '우리말 조음·음운 검사 2', desc: '말소리를 정확하게 발음하는지, 어떤 소리에서 오류가 나타나는지 확인하는 발음 검사입니다.', to: '/docs/assessment#utap2'},
-  {img: '/img/assessment/qrw.jpg', badge: 'QRW', title: '아동 간편 읽기·쓰기 검사', desc: '음운인식·읽기·쓰기를 간편하게 선별해, 5세부터 초등 저학년 아동의 읽기·쓰기 발달 수준을 빠르게 확인합니다.', to: '/docs/assessment#qrw'},
-  {img: '/img/assessment/kcars2.jpg', badge: 'K-CARS 2', title: '아동기 자폐 평정 척도 2', desc: '사회적 상호작용·의사소통·행동 등 여러 영역을 관찰·평정해, 자폐스펙트럼의 가능성과 정도를 파악하는 데 활용합니다.', to: '/docs/assessment#kcars2'},
-  {img: '/img/assessment/kolra.jpg', badge: 'KOLRA', title: '한국어 읽기 검사', desc: '글자를 읽고 이해하는 읽기 능력과 받아쓰기 등 쓰기 능력을 함께 평가합니다.', to: '/docs/assessment#kolra'},
+  {img: '/img/assessment/selsi.jpg', badge: 'SELSI', title: '영유아 언어발달 검사', desc: '4~35개월 영유아가 말을 얼마나 이해하고(수용언어) 표현하는지(표현언어) 살펴, 전반적인 언어발달이 또래 수준인지 확인합니다.', to: '/docs/assessment#sec-language'},
+  {img: '/img/assessment/kmbcdi.jpg', badge: 'K-MBCDI', title: '맥아더-베이츠 의사소통발달 평가', desc: '아이가 아는 낱말(어휘)과 몸짓·초기 의사소통이 또래만큼 발달했는지 보호자 보고를 통해 알아봅니다.', to: '/docs/assessment#sec-language'},
+  {img: '/img/assessment/pres.jpg', badge: 'PRES', title: '취학 전 수용·표현 언어 발달 척도', desc: '취학 전 아동이 말을 이해하는 능력과 표현하는 능력이 각각 어느 정도 수준인지 확인합니다.', to: '/docs/assessment#sec-language'},
+  {img: '/img/assessment/lssc.jpg', badge: 'LSSC', title: '학령기 아동 언어 검사', desc: '초등학생 시기에 필요한 듣고 이해하기·말하기 등 학령기 언어능력을 종합적으로 평가합니다.', to: '/docs/assessment#sec-language'},
+  {img: '/img/assessment/revt.jpg', badge: 'REVT', title: '수용·표현 어휘력 검사', desc: '아이가 낱말을 얼마나 이해하고(수용) 말로 표현하는지(표현) 어휘력 수준을 확인합니다.', to: '/docs/assessment#sec-vocab'},
+  {img: '/img/assessment/kosect.jpg', badge: 'KOSECT', title: '구문의미 이해력 검사', desc: '문장을 듣고 그 뜻과 문법(구문)을 정확히 이해하는지 살펴봅니다.', to: '/docs/assessment#sec-vocab'},
+  {img: '/img/assessment/tops.jpg', badge: 'TOPS', title: '언어문제 해결력 검사', desc: '상황을 보고 원인을 추론하거나 해결 방법을 말하는 등, 생각을 언어로 풀어내는 상위 언어능력을 평가합니다.', to: '/docs/assessment#sec-vocab'},
+  {img: '/img/assessment/uwset.jpg', badge: 'UW-SET', title: '우리말 낱말 표현검사', desc: '낱말의 의미를 설명·연상하고 상황에 맞게 유연하게 사용하는 능력을 살펴, 학령기 아동의 표현어휘와 의미지식 수준을 평가합니다.', to: '/docs/assessment#sec-vocab'},
+  {img: '/img/assessment/utap2.jpg', badge: 'UTAP2', title: '우리말 조음·음운 검사 2', desc: '말소리를 정확하게 발음하는지, 어떤 소리에서 오류가 나타나는지 확인하는 발음 검사입니다.', to: '/docs/assessment#sec-articulation'},
+  {img: '/img/assessment/koplac.jpg', badge: 'KOPLAC', title: '아동용 한국어 화용언어 평가', desc: '상황과 맥락에 맞게 대화하는 능력(화용언어)을 평가합니다. 상대에 맞춰 부탁·거절하거나 대화를 이어가는 능력입니다.', to: '/docs/assessment#sec-pragmatics'},
+  {img: '/img/assessment/kona.jpg', badge: 'KONA', title: '한국어 이야기 평가', desc: '그림 등을 보고 이야기를 순서에 맞게 조리 있게 말하는 담화(이야기) 능력을 살펴봅니다.', to: '/docs/assessment#sec-pragmatics'},
+  {img: '/img/assessment/kolra.jpg', badge: 'KOLRA', title: '한국어 읽기 검사', desc: '글자를 읽고 이해하는 읽기 능력과 받아쓰기 등 쓰기 능력을 함께 평가합니다.', to: '/docs/assessment#sec-reading'},
+  {img: '/img/assessment/qrw.jpg', badge: 'QRW', title: '아동 간편 읽기·쓰기 검사', desc: '음운인식·읽기·쓰기를 간편하게 선별해, 5세부터 초등 저학년 아동의 읽기·쓰기 발달 수준을 빠르게 확인합니다.', to: '/docs/assessment#sec-reading'},
+  {img: '/img/assessment/pfa2.jpg', badge: 'P-FA II', title: '파라다이스-유창성 검사 II', desc: '말을 더듬는 정도와 나타나는 양상을 평가해 유창성 문제(말더듬)를 진단합니다.', to: '/docs/assessment#sec-fluency'},
+  {img: '/img/assessment/kcars2.jpg', badge: 'K-CARS 2', title: '아동기 자폐 평정 척도 2', desc: '사회적 상호작용·의사소통·행동 등 여러 영역을 관찰·평정해, 자폐스펙트럼의 가능성과 정도를 파악하는 데 활용합니다.', to: '/docs/assessment#sec-autism'},
 ];
 
 // 치료는 이렇게 진행돼요 (과정)
@@ -136,6 +145,7 @@ const COL_TOTAL = colPosts.length;
 const COL_COUNTS: Record<string, number> = Object.fromEntries(
   COL_TAGS.map((t) => [t.key, colPosts.filter((p) => p.metadata.tags?.some((pt) => pt.permalink.includes(t.key))).length]),
 );
+const colNewestDate = colPosts.length ? colFmt(colPosts[0].metadata.date) : '';
 const COL_ALL = colPosts.map((p) => ({
   permalink: p.metadata.permalink,
   title: p.metadata.title,
@@ -143,6 +153,7 @@ const COL_ALL = colPosts.map((p) => ({
   tag: p.metadata.tags?.[0]?.label || '',
   author: p.metadata.authors?.[0]?.name || '조이',
   date: colFmt(p.metadata.date),
+  isNew: colFmt(p.metadata.date) === colNewestDate,
   cats: COL_TAGS.filter((t) => p.metadata.tags?.some((pt) => pt.permalink.includes(t.key))).map((t) => t.key),
 }));
 
