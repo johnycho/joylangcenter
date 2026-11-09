@@ -197,8 +197,8 @@ export function CrewSlider({items}: {items: CrewItem[]}) {
             <Link className="person" to={p.to}>
               <div className="av"><img src={p.img} alt={p.name} loading="lazy" /></div>
               <h3>{p.name}</h3>
-              <div className="specs">{p.role.split(' / ').map((t) => <span key={t} className="spec">{t}</span>)}</div>
               <div className="badges">{p.badges.map((b) => <span key={b} className="bdg">{b}</span>)}</div>
+              <div className="specs">{p.role.split(' / ').map((t) => <span key={t} className="spec">{t}</span>)}</div>
               <ul className="plist">{p.highlights.map((h) => (
                 <li key={h.text}><span className="plogo"><img src={h.logo} alt="" loading="lazy" /></span>{h.text}</li>
               ))}</ul>

@@ -728,6 +728,7 @@
 
 /* 치료진 카드 레이아웃 폴리싱 */
 .joyHome .person{padding:32px 26px;}
+.joyHome .person h3{margin-bottom:0;}
 .joyHome .person .badges{margin-top:12px;}
 .joyHome .person .plist{border-top:1px solid var(--line);padding-top:18px;margin-top:20px;}
 .joyHome .person .plist li{font-size:13px;color:#6a5a44;font-weight:600;}

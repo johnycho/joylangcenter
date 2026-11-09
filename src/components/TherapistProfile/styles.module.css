@@ -28,29 +28,49 @@
 .heroBody {
   min-width: 0;
 }
-.heroName {
-  margin: 0 0 0.6rem;
-  font-size: clamp(1.4rem, 3.8vw, 1.85rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.hero .heroName {
+  margin: 0 0 0.6rem !important;
+  font-size: 22px;
+  font-weight: 800;
   line-height: 1.15;
   color: #3d2c1c;
 }
+/* 전문 분야 칩 (홈 선생님 카드와 동일 스타일) */
+.specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.spec {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  font-family: 'Noto Sans KR', 'NanumSquareRound', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #b8560c;
+  background: #fff1dd;
+  border: 1px solid #f4d6a8;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+/* 급수·학력 배지 (홈 선생님 카드 .bdg와 동일 스타일 — 크림, 테두리 없음) */
 .badges {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.7rem;
 }
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.26rem 0.68rem;
-  font-size: 0.78rem;
+  padding: 5px 11px;
+  font-family: 'Noto Sans KR', 'NanumSquareRound', sans-serif;
+  font-size: 12.5px;
   font-weight: 700;
-  color: #a85e08;
-  background: rgba(242, 146, 29, 0.14);
-  border: 1px solid rgba(242, 146, 29, 0.28);
+  color: #c9661f;
+  background: #fdeede;
   border-radius: 999px;
 }
 .tagline {

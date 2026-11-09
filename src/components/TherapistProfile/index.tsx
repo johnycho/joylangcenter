@@ -12,6 +12,7 @@ export function ProfileHero({
   photo,
   name,
   field,
+  specialties = [],
   badges = [],
   tagline,
   socials = [],
@@ -19,6 +20,7 @@ export function ProfileHero({
   photo: string;
   name: string;
   field?: string;
+  specialties?: string[];
   badges?: string[];
   tagline?: string;
   socials?: Social[];
@@ -38,6 +40,15 @@ export function ProfileHero({
             {badges.map((b, i) => (
               <span key={i} className={styles.badge}>
                 {b}
+              </span>
+            ))}
+          </div>
+        )}
+        {specialties.length > 0 && (
+          <div className={styles.specs}>
+            {specialties.map((t, i) => (
+              <span key={i} className={styles.spec}>
+                {t}
               </span>
             ))}
           </div>
