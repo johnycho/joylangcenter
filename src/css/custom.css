@@ -1067,3 +1067,29 @@ mark {
     line-height: 1.5;
   }
 }
+
+/* 치료분야 섹션 아이콘: 이모지 대신 조이 분야 캐릭터 이미지 */
+img.area-char {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  display: block;
+  border-radius: 9px;
+}
+@media (max-width: 600px) {
+  img.area-char { width: 30px; height: 30px; }
+}
+/* 캐릭터가 들어간 아이콘 박스는 배경 틴트·고정 크기 해제(캐릭터가 자체 배경을 가짐) */
+.theme-doc-markdown span:has(> img.area-char) {
+  background: transparent !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+}
+
+/* 앵커(해시)로 바로 이동한 섹션은 등장 애니메이션 없이 즉시 표시 — 제목부터 보이게 */
+.joy-reveal:target {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}

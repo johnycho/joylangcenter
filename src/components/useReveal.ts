@@ -13,6 +13,12 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(rootMarginBott
     const el = ref.current;
     if (!el || visible) return;
 
+    // 앵커(해시)로 바로 진입한 섹션은 등장 애니메이션 없이 즉시 표시 — 제목부터 보이게.
+    if (el.id && typeof window !== 'undefined' && window.location.hash === `#${el.id}`) {
+      setVisible(true);
+      return;
+    }
+
     if (
       typeof IntersectionObserver === 'undefined' ||
       window.matchMedia?.('(prefers-reduced-motion: reduce)').matches

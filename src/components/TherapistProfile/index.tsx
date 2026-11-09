@@ -105,7 +105,7 @@ export function Section({
       ref={ref}
       id={id}
       style={id ? {scrollMarginTop: '80px'} : undefined}
-      className={clsx(styles.section, 'joy-reveal', visible && 'is-visible')}>
+      className={clsx(styles.section, 'joy-reveal', (visible || Boolean(id)) && 'is-visible')}>
       <div className={styles.sectionHead}>
         {icon && (
           <span className={styles.sectionIcon} aria-hidden="true">

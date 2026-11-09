@@ -23,7 +23,7 @@ const FIELDS = [
   {img: `${C}/f_language.png`, title: '언어발달 지연', desc: '표현·수용 언어 수준을 평가해 발달 단계에 맞춰 도와요.', to: '/docs/therapy-areas#language-delay'},
   {img: `${C}/f_fluency.png`, title: '유창성 (말더듬)', desc: '말더듬 정도를 평가하고 편안한 말하기를 함께 만들어요.', to: '/docs/therapy-areas#fluency'},
   {img: `${C}/f_autism.png`, title: '자폐 스펙트럼', desc: '눈맞춤·주고받기부터 상호작용과 의사소통의 기초를 키워요.', to: '/docs/therapy-areas#autism'},
-  {img: `${C}/f_reading.png`, title: '읽기·쓰기 (난독)', desc: '음운인식부터 읽기·쓰기 기초까지 아이 속도로 다져요.', to: '/docs/therapy-areas'},
+  {img: `${C}/f_reading.png`, title: '읽기·쓰기 (난독)', desc: '음운인식부터 읽기·쓰기 기초까지 아이 속도로 다져요.', to: '/docs/therapy-areas#reading'},
   {img: `${C}/f_social.png`, title: '사회성', desc: '상황에 맞는 대화와 또래 상호작용을 자연스럽게 연습해요.', to: '/docs/therapy-areas#social'},
 ];
 
