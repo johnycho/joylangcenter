@@ -1093,3 +1093,23 @@ img.area-char {
   transform: none !important;
   transition: none !important;
 }
+
+/* 평가·검사 섹션 캐릭터는 장면형 일러스트라 더 크게(치료분야 버스트는 34px 유지) */
+img.area-char[src*="/assessment/"] {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+}
+@media (max-width: 600px) {
+  img.area-char[src*="/assessment/"] { width: 48px; height: 48px; }
+}
+
+/* 치료분야 섹션 캐릭터도 장면형이라 평가처럼 크게 */
+img.area-char[src*="/home/concept/"] {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+}
+@media (max-width: 600px) {
+  img.area-char[src*="/home/concept/"] { width: 48px; height: 48px; }
+}
