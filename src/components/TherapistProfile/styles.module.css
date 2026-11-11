@@ -7,7 +7,8 @@
   align-items: center;
   padding: clamp(1.4rem, 3.2vw, 2.3rem);
   border-radius: 24px;
-  background: linear-gradient(135deg, #fff7ec 0%, #fdeede 55%, #fce7d2 100%);
+  /* 홈 선생님 카드처럼 아주 옅은 크림 배경 — 크림 배지(#fdeede)가 배경에 묻히지 않도록 */
+  background: linear-gradient(170deg, #fffaf1 0%, #fff3e1 100%);
   border: 1px solid #f4e2cf;
   box-shadow: 0 18px 44px -26px rgba(180, 110, 30, 0.55);
   margin: 0 0 2.1rem;
@@ -317,6 +318,7 @@
     text-align: center;
     gap: 1rem;
   }
+  .specs,
   .badges,
   .socials {
     justify-content: center;

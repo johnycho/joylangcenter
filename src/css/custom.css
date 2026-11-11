@@ -1113,3 +1113,21 @@ img.area-char[src*="/home/concept/"] {
 @media (max-width: 600px) {
   img.area-char[src*="/home/concept/"] { width: 48px; height: 48px; }
 }
+
+/* 선생님 프로필 섹션 아이콘(약력·학력·수상 등) — 오브젝트 아이콘 */
+img.area-char[src*="/therapist/sec/"] {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+}
+@media (max-width: 600px) {
+  img.area-char[src*="/therapist/sec/"] { width: 40px; height: 40px; }
+}
+/* 준비 중(ComingSoon) 카드 캐릭터 아이콘 */
+.coming-char {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
