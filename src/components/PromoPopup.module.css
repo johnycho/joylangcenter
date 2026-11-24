@@ -1,0 +1,313 @@
+/* 홍보 팝업 (전 페이지 공통, src/theme/Root.tsx 에서 렌더) */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.55);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.popup {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  border-radius: 20px;
+  background: var(--ifm-background-surface-color, #fff);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  animation: popIn 0.25s ease-out;
+}
+
+.x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  cursor: pointer;
+}
+.x svg {
+  width: 18px;
+  height: 18px;
+}
+
+.imageLink {
+  display: block;
+}
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 20px 20px;
+  text-align: center;
+}
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.badge {
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.title {
+  font-size: 1.2rem;
+}
+.plan {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--ifm-color-emphasis-100);
+  text-align: left;
+}
+.planTitle {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ifm-color-primary-darker);
+}
+[data-theme='dark'] .planTitle {
+  color: var(--ifm-color-primary);
+}
+.planRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.planLabel {
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--ifm-background-surface-color, #fff);
+  font-size: 0.78rem;
+}
+/* 선착순 강조 */
+.highlight {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #e5484d;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(229, 72, 77, 0.35);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.time {
+  display: block;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+.timetable + .planTitle {
+  margin-top: 12px;
+}
+.timeBar {
+  display: flex;
+  height: 10px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+}
+.timeBar span + span {
+  border-left: 2px solid var(--ifm-color-emphasis-100);
+}
+.timetable {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.timetable th,
+.timetable td {
+  padding: 3px 4px;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  white-space: nowrap;
+}
+.timetable th {
+  color: var(--ifm-color-emphasis-700);
+  font-weight: 700;
+}
+/* Infima 기본 표 스타일(헤더 배경·줄무늬) 제거 */
+.timetable thead,
+.timetable tr,
+.timetable tr:nth-child(2n) {
+  border: 0;
+  background: transparent;
+}
+.timetable thead tr {
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+.timetable tbody tr:nth-child(n + 2) {
+  border-top: 1px dashed var(--ifm-color-emphasis-300);
+}
+.timetable td:first-child {
+  text-align: left;
+}
+.slot {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.cta {
+  display: block;
+  margin: 10px 16px;
+  padding: 10px 28px;
+  border-radius: 999px;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+.cta:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* 내용이 길어 팝업이 스크롤돼도 자세히 보기·하단 버튼은 항상 보이게 */
+.footer {
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-surface-color, #fff);
+}
+.footerButtons {
+  display: flex;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+.footer button {
+  flex: 1;
+  padding: 14px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.footer button + button {
+  border-left: 1px solid var(--ifm-color-emphasis-200);
+}
+.footer button:hover {
+  color: var(--ifm-color-emphasis-900);
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* 데스크톱: 포스터 왼쪽 · 내용 오른쪽 2단 (스크롤 없이 한눈에) */
+@media (min-width: 768px) {
+  .popup {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    max-width: 780px;
+  }
+  .imageLink {
+    display: flex;
+    align-items: center;
+    background: #f55352; /* 포스터 배경색 */
+  }
+  /* 노트북 화면(보이는 높이 ~650px)에서도 스크롤이 생기지 않도록 세로 여백을 줄인다 */
+  .body {
+    justify-content: center;
+    padding: 14px 18px;
+  }
+  .heading {
+    flex-direction: row;
+    gap: 8px;
+  }
+  .plan {
+    margin-top: 4px;
+    padding: 10px 14px;
+  }
+  .planTitle {
+    margin-bottom: 6px;
+  }
+  .planRow {
+    margin-bottom: 4px;
+  }
+  .timetable th,
+  .timetable td {
+    padding: 1px 4px;
+  }
+  .timeBar {
+    margin-bottom: 4px;
+  }
+  .timetable + .planTitle {
+    margin-top: 10px;
+  }
+  .footer {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+  }
+  .cta {
+    flex: 1;
+    margin: 8px 16px;
+    padding: 8px 28px;
+  }
+  .footer button {
+    padding: 10px 8px;
+  }
+  .footerButtons {
+    flex: 1;
+    align-self: stretch;
+    border-top: 0;
+    border-left: 1px solid var(--ifm-color-emphasis-200);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .popup,
+  .highlight {
+    animation: none;
+  }
+}

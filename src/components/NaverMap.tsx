@@ -125,10 +125,15 @@ const NaverMap = () => {
         // 남지 않도록 크기 변화 때마다 지도에 리사이즈를 알린다.
         try {
           if (typeof ResizeObserver !== 'undefined') {
+            let raf = 0;
             const ro = new ResizeObserver(() => {
-              if (el.offsetWidth > 0 && el.offsetHeight > 0) {
-                window.naver?.maps?.Event?.trigger(map, 'resize');
-              }
+              // 다음 프레임으로 미뤄 "ResizeObserver loop" 경고 방지 (지도 리사이즈가 다시 크기 변화를 유발)
+              cancelAnimationFrame(raf);
+              raf = requestAnimationFrame(() => {
+                if (el.offsetWidth > 0 && el.offsetHeight > 0) {
+                  window.naver?.maps?.Event?.trigger(map, 'resize');
+                }
+              });
             });
             ro.observe(el);
             roRef.current = ro;
